@@ -1,0 +1,24 @@
+<p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
+
+# Decisioni dell owner per la Manualistica e formazione
+
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
+
+## F001 · 15/11/2026 — domande di avvio (SPEC § 6, voce F2)
+Domande chiuse fatte una alla volta nella chat Formazione F001. La prima risposta è delle 14:15; le altre fra le 14:15 e le 15:33 (ora esatta non registrata dallo strumento delle domande).
+
+| n. | domanda | scelta dell owner | ora | effetti |
+|---|---|---|---|---|
+| D1 | Su quale piattaforma girano i corsi on line? | *«Prodotto della famiglia»* | 14:15 | voce F9 |
+| D1 bis | Quale prodotto? | *«Un prodotto RelDox nuovo»* (un plugin a sé, con repository e chat sua) | 14:15-15:33 | voce F9: proposta al capo famiglia, nuovo prodotto da istituire |
+| D2 | A chi è rivolto il primo corso? | *«Utenti dei clienti»* | 14:15-15:33 | voce F6 «primi passi» per l utente |
+| D3 | Come si pagano i corsi per i clienti? | *«Compresi nel canone»* | 14:15-15:33 | voce F10 a Legale (che cosa comprende il canone) |
+| D4 | Attestato a fine corso? | *«No»* | 14:15-15:33 | resta solo il registro di completamento; nessun testo d attestato a Legale |
+| D5 | Lingue | *«Italiano subito, traduzioni dopo»* | 14:15-15:33 | struttura con cartella di lingua `it/` in ogni materiale (`docs/STRUTTURA.md`) |
+
+⛔ D1 bis tocca la famiglia (un prodotto nuovo): per REGOLE-DIALOGO v5 § 5 e § 11.2 la valuta il capo famiglia; fino alla sua risposta per le altre chat è un informazione.
+
+## Istituzione · 15/11/2026 08:47
+*«A-010 - MANUALISTICA E FORMAZIONE … Ho creato questa nuova chat di progetto. Servirà per creare tutta la parte di formazione corsi on line Inizializza la chat come da procedere definite dal CF»* (owner, chat RelDox CRD S705).
+
+*⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

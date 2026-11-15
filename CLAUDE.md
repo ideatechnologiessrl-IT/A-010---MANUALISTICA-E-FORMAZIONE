@@ -12,8 +12,10 @@ Questo repository è della chat **Manualistica e formazione** della famiglia Rel
 ## Dove sta ogni cosa
 | cartella | contenuto |
 |---|---|
-| `docs/` | aperture delle sessioni, `ROADMAP.md`, registro delle versioni dei materiali |
-| (da creare in F1) | manuali, corsi, schede, glossario, fonti — la struttura la decide la sessione F001 (voce F1 della SPEC § 6) |
+| `docs/` | aperture delle sessioni, `ROADMAP.md`, `DECISIONI-OWNER.md`, `REGISTRO-VERSIONI-MATERIALI.md`, `STRUTTURA.md` |
+| `modelli/` | modello di lezione, di capitolo del manuale, di scheda rapida |
+| `fonti/`, `glossario/`, `manuali/`, `corsi/`, `guida-amministratore/`, `schede/`, `faq/` | si creano col primo materiale, come dice `docs/STRUTTURA.md` (F001); ogni materiale nella sottocartella di lingua `it/` |
+| `risorse/` | logo di famiglia (copia da `grafica/loghi/` del nodo), immagini con dati inventati |
 
 ## Regole di sempre
 - Solo **italiano**; ogni documento interno con il logo e «Documento riservato · non divulgabile».
