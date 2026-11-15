@@ -4,6 +4,12 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F001 · 15/11/2026 — dopo le domande di avvio
+| n. | scelta dell owner | ora | effetti |
+|---|---|---|---|
+| D6 | *«RelDoxAcademy è e sarà un tuo prodotto quindi non si crea nessun nnuovo repository. Lo gestirai tu dentro il tuo repository.»* | 16:09 | supera D1 bis per la parte «repository e chat sua»; voce F9; messaggio al capo famiglia aggiornato (registro, mappa, SPEC v2) |
+| D7 | *«ok approvo per ora poi in cao apportiamo delle modifiche in base alla reale operatività. Nulla deve essere definitivo, vige la regola che uno strumento deve essere utile, produttivo e facile da usare da parte del nostro cliente. procedi con inventario su tutti i prodotti e dividi per prodotto. In caso devi chiedere alle singole chat di progetto»* | 15:51 | struttura F1 approvata «per ora»; principio di ogni materiale; voce F3 |
+
 ## F001 · 15/11/2026 — domande di avvio (SPEC § 6, voce F2)
 Domande chiuse fatte una alla volta nella chat Formazione F001. La prima risposta è delle 14:15; le altre fra le 14:15 e le 15:33 (ora esatta non registrata dallo strumento delle domande).
 

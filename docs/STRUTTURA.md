@@ -17,6 +17,7 @@
 | `faq/<prodotto>/it/` | domande frequenti | dopo F5 |
 | `modelli/` | modello di lezione, di capitolo, di scheda rapida (intestazione uguale per tutti) | F1 |
 | `risorse/` | logo di famiglia (copia da `grafica/loghi/` del nodo), immagini con dati inventati | — |
+| `reldox-academy/` | il plugin RelDoxAcademy (SPEC v2 § 2 bis), da creare con la prima versione dopo SPEC e mockup approvati | F9 |
 
 Prodotti: `reldox-crd`, `reldoxchecks`, `reldoxfood`, `reldoxportal` (gli stessi nomi delle cartelle del nodo). Percorsi: `utente-primi-passi`, `amministratore`, `partner`, `personale-interno`, `igiene-di-sicurezza`.
 

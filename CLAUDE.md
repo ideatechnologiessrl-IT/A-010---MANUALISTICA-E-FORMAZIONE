@@ -2,7 +2,9 @@
 
 > ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
 
-Questo repository è della chat **Manualistica e formazione** della famiglia RelDox: manuali d uso dei prodotti, guida dell amministratore, corsi on line per ruolo, schede rapide, domande frequenti, glossario di famiglia. Compiti e metodo: `spec/SPEC-CHAT-MANUALISTICA-FORMAZIONE-FAMIGLIA-RELDOX-v1.md` del nodo (la tiene il capo famiglia, la chat RelDox CRD). Istituita dall owner il 15/11/2026 08:47 (chat RelDox CRD S705).
+Questo repository è della chat **Manualistica e formazione** della famiglia RelDox: manuali d uso dei prodotti, guida dell amministratore, corsi on line per ruolo, schede rapide, domande frequenti, glossario di famiglia. Compiti e metodo: `spec/SPEC-CHAT-MANUALISTICA-FORMAZIONE-FAMIGLIA-RELDOX-v2.md` del nodo (la tiene il capo famiglia, la chat RelDox CRD). Istituita dall owner il 15/11/2026 08:47 (chat RelDox CRD S705).
+
+**RelDoxAcademy** — il plugin dei corsi on line della famiglia è **nostro** e vive in questo repository (SPEC v2 § 2 bis; owner 15/11/2026 16:08, chat RelDox CRD S705, e 16:09, chat Formazione F001). Segue le regole dei prodotti: versioni con stadio, banco rosso → verde, mockup prima di ogni interfaccia, smoke dell owner, kit; all unione in `main` scheda in `novita/reldoxacademy.md`, riga in `prodotti.md`, riga di sicurezza nel `STATO.md`. Anagrafiche e stato del canone da RelDox CRD con le API di famiglia (`…-a-reldox-crd-academy-<tema>.md`). Il codice andrà in `reldox-academy/` (cartella da creare con la prima versione, dopo SPEC e mockup approvati).
 
 ## Prima di tutto, in ordine
 1. Leggi l **APERTURA più recente** in `docs/` (`APERTURA-F<nnn>.md`, il numero più alto): dice da dove si riparte e il prompt (§ 11).
@@ -21,6 +23,6 @@ Questo repository è della chat **Manualistica e formazione** della famiglia Rel
 - Solo **italiano**; ogni documento interno con il logo e «Documento riservato · non divulgabile».
 - Si scrive **solo di funzioni in produzione** (smoke verde, `novita/` del nodo); niente nomi di clienti né di persone del cliente, niente nomi interni (sigle, BUG, palchi, numeri di voce) nei materiali per l esterno; schermate solo da ambienti di prova o dati inventati.
 - Ogni materiale ha versione, data, **versione del prodotto a cui vale** e registro delle modifiche; le scelte dell owner citate con data, ora e chat.
-- Nel nodo si scrive **solo in `bacheca/formazione/`**; testi legali a Legale, pubblicazione al Marketing, codice ai prodotti.
+- Nel nodo si scrive **solo in `bacheca/formazione/`**; testi legali a Legale, pubblicazione al Marketing, il codice degli altri prodotti alle loro chat (il nostro solo codice è RelDoxAcademy).
 - Una cosa alla volta: si chiude un argomento prima di aprire il successivo; prima di un materiale nuovo, il suo indice o mockup all owner.
 - Commit col nome di sessione (`Formazione F001: …`).
