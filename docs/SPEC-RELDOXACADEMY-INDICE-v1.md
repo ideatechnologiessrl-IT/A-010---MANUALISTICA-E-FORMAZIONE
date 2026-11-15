@@ -4,7 +4,7 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 15/11/2026 · Formazione F001 (voce F9). Solo l indice, da approvare dall owner prima di scrivere il testo (D11, 17:02).
 
-**Scelte dell owner che la SPEC parte da** (chat Formazione F001, 15/11/2026): prodotto della famiglia (D1, 14:15); è della Formazione, nel repository A-010 (D6, 16:09); base RelDoxFood (D8, 16:57); **accesso sul nostro server** (D9, 17:02); primo corso per gli utenti dei clienti (D2); compreso nel canone (D3); nessun attestato (D4, modulo di igiene da definire con Sicurezza-Cyber, D10); italiano subito (D5); niente di definitivo, utile e facile per il cliente (D7).
+**Scelte dell owner che la SPEC parte da** (chat Formazione F001, 15/11/2026): prodotto della famiglia (D1, 14:15); è della Formazione, nel repository A-010 (D6, 16:09); base RelDoxFood (D8, 16:57); **accesso sul nostro server** (D9, 17:02); primo corso per gli utenti dei clienti (D2); compreso nel canone (D3); nessun attestato (D4, modulo di igiene da definire con Sicurezza-Cyber, D10); italiano subito (D5); niente di definitivo, utile e facile per il cliente (D7); **accesso solo con chiave valida del prodotto acquistato, e solo per i prodotti acquistati** (D12, 17:06).
 
 ## Indice
 | § | titolo | che cosa dirà, in breve |
@@ -12,8 +12,8 @@
 | 0 | Decisioni dell owner | la tabella delle scelte, con data, ora e chat |
 | 1 | Che cos è e per chi | il posto dove chi usa i prodotti RelDox impara a usarli; i ruoli: utente, amministratore, partner, personale interno; chi viene prima (utenti dei clienti) |
 | 2 | Come è fatta | **una sola installazione** su ideatechnologies.it; due plugin sulla base di RelDoxFood (`reldox-academy/` e `reldox-academy-diagnostica/`); database proprio; che cosa si riusa e che cosa si toglie di RelDoxFood |
-| 3 | Come si entra | il pulsante «Corsi» nel prodotto del cliente; l accesso firmato e a tempo (nome, ruolo, prodotto e versione, nessuna password); la **chiave annuale** che apre o chiude; che cosa vede chi ha il canone scaduto |
-| 4 | Il catalogo | percorsi per ruolo e per prodotto; ogni corso dice per quale versione del prodotto vale; si mostrano solo i corsi del prodotto e della versione del cliente |
+| 3 | Come si entra | ⛔ **l accesso c è solo con una chiave valida del prodotto acquistato** (D12, 17:06), emessa da RelDox Chiavi del capo famiglia; il pulsante «Corsi» nel prodotto del cliente; l accesso firmato e a tempo (nome, ruolo, prodotto e versione, nessuna password); che cosa vede chi ha la chiave scaduta |
+| 4 | Il catalogo | percorsi per ruolo e per prodotto; ogni corso dice per quale versione del prodotto vale; ⛔ **il cliente vede manuali e corsi solo dei prodotti acquistati, non degli altri** (D12), e della sua versione |
 | 5 | La lezione | obiettivi, passi, schermate con dati inventati, esercizio, verifica; scritta in Markdown con l intestazione di `modelli/` e letta così com è (una fonte, anche il PDF) |
 | 6 | Il registro di completamento | chi, quale lezione, quando, esito della verifica; che cosa vede e scarica l amministratore del cliente; nessun attestato (salvo il modulo di igiene) |
 | 7 | Le lingue | italiano subito; la struttura `it/`, `en/`, `de/` e le lingue già pronte nella base di RelDoxFood |
@@ -30,6 +30,6 @@
 | 18 | Registro delle modifiche | |
 
 ## Le chat che servono, quando il testo è scritto
-RelDox CRD (accesso firmato, API, chiavi) · Legale (L9, L15) · Sicurezza-Cyber (server, accesso, parere) · ogni prodotto (il pulsante «Corsi»).
+RelDox CRD — capo famiglia e RelDox Chiavi (chiave, accesso firmato, API; messaggio già scritto: `bacheca/formazione/messaggi/2026-11-15-a-reldox-crd-academy-chiavi.md`) · Legale (L9, L15) · Sicurezza-Cyber (server, accesso, parere) · ogni prodotto (il pulsante «Corsi»).
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

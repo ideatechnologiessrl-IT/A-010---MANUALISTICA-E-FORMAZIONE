@@ -19,5 +19,7 @@
 | F11 | **Presa in carico dei manuali esistenti** di RelDoxChecks (8 manuali, 1.3.02A) e RelDoxFood (3 manuali per ruolo in it/en/de, 1.24.11L): fonte unica nel mio repository, i prodotti rigenerano capitoli e PDF alla versione indicata | F3, passaggio del capo famiglia (owner 15/11/2026 14:07, chat RelDox CRD S705) | dopo le risposte di RelDoxChecks e RelDoxFood |
 | F12 | Intestazione unica dei materiali di famiglia sul formato già usato da RelDoxChecks (`title`, `slug`, `order`, `audience`, `versione`, `pdf`), da allineare in `modelli/` | F3 | da proporre all owner |
 | F13 | Skill per la chat: `accessibility` 🟢 di Sicurezza-Cyber (`docx`, `pdf`, `pptx` già presenti nell app) | `bacheca/sicurezza-cyber/messaggi/2026-11-15-a-formazione-skill-candidate.md`; D10 | da decidere con Sicurezza-Cyber (`…-a-sicurezza-cyber-attestato-e-skill.md`) |
+| F14 | Pagine dei manuali di RelDoxFood per la **1.25.0L** (gestione avanzata dei pasti: fasce, Colazione · Pranzo · Cena, cassa con le voci), da `novita/reldoxfood.md` dopo il collaudo; testo nelle fonti di RelDoxFood | risposta di RelDoxFood S114, 15/11/2026 | dopo il collaudo della 1.25.0L |
+| F15 | Testi dell aiuto della posta e dell Area tecnica di RelDox CRD, da tenere e da indicare alla versione | risposta di RelDox CRD S706, 15/11/2026 | dopo F5 (indice del manuale) |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

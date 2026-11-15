@@ -65,14 +65,15 @@
 ## 7 · Domande alle chat di prodotto (livello 2, in bacheca)
 | chat | messaggio | stato |
 |---|---|---|
-| RelDox CRD | `bacheca/formazione/messaggi/2026-11-15-a-reldox-crd-inventario-manuali.md` | aperto |
+| RelDox CRD | `bacheca/formazione/messaggi/2026-11-15-a-reldox-crd-inventario-manuali.md` | in carico: elenco delle funzioni di base = voce 156 di RelDox CRD; RelDox Chiavi nel ramo `sessione/S706` (1.0.04, la 1.0.05 in lavorazione); aiuto della posta e testi dell Area tecnica passano a noi |
 | RelDoxChecks | `…-a-reldoxchecks-inventario-manuali.md` | aperto |
-| RelDoxFood | `…-a-reldoxfood-inventario-manuali.md` | aperto |
+| RelDoxFood | `…-a-reldoxfood-inventario-manuali.md` | in carico: fonte unica `banco/S91-42-manuali-sorgenti-1_24_1L.zip` (una fonte Python per manuale e lingua), composizione con lo script del banco della versione; en e de allineati; Guida sviluppatore 1.13.0B ancora valida; ⚠ la 1.25.0L (gestione avanzata dei pasti) non ha pagine nei manuali: le scriviamo noi dopo il collaudo; passaggio completo = loro voce SV-60 |
 | RelDoxPortal | `…-a-reldoxportal-inventario-manuali.md` | aperto |
 
 ## Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.1 | 15/11/2026 | risposte di RelDox CRD e RelDoxFood (§ 7) | messaggi in bacheca del 15/11/2026 |
 | 1 | 15/11/2026 | prima stesura | voce F3; owner 15/11/2026 15:51, chat Formazione F001: *«procedi con inventario su tutti i prodotti e dividi per prodotto»* |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

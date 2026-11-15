@@ -7,6 +7,7 @@
 ## F001 · 15/11/2026 — dopo le domande di avvio
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D12 | *«devi fasarti anche con la chat capofamiglia che sta sviluppando il plugin delle chiavi. E' chiaro che l'accesso via web alla parte dei corsi è legata alla presenza della chiave valida sul prodotto che è stato acquistato. Il clinete ede i manuali solo sui prodotti acuistati e non sugli altri»* | 17:06 | indice SPEC § 3 e § 4; messaggio a RelDox CRD (`…-a-reldox-crd-academy-chiavi.md`) |
 | D9 | *«RelDoxAcademy: B (accesso sul nostro server)»* | 17:02 | una sola RelDoxAcademy su ideatechnologies.it, accesso con la chiave; voce F9 |
 | D10 | attestato del modulo di igiene e skill `accessibility`: *«Per questo devi confontrarti con la chat cyber»* | 17:02 | messaggio a Sicurezza-Cyber (`…-a-sicurezza-cyber-attestato-e-skill.md`) |
 | D11 | indice della SPEC di RelDoxAcademy prima del testo: *«0k il punto come hai detto»* | 17:02 | `docs/SPEC-RELDOXACADEMY-INDICE-v1.md` all owner |
