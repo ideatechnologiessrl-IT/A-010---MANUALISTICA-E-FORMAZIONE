@@ -19,7 +19,7 @@
 | Che cosa installa il cliente | core + manutenzione + RelDoxAcademy, e un database in più | core + manutenzione; nel core un pulsante «Corsi» che apre l Academy con la sua chiave |
 | Corsi aggiornati | a ogni pacchetto del plugin, cliente per cliente | **una volta, per tutti, subito** |
 | Allineamento corso ↔ versione del prodotto | dipende da quando il cliente aggiorna | l Academy sa dalla chiave quale prodotto e versione ha il cliente e mostra i corsi giusti |
-| Canone in corso (D3) | da verificare in ogni installazione | **la chiave annuale** (licenza v3 art. 9.5: una sola chiave, emessa alla fattura) apre o chiude l accesso |
+| Canone in corso (D3) | da verificare in ogni installazione | **la chiave del prodotto acquistato** (RelDox Chiavi) apre o chiude l accesso |
 | Facilità per il cliente | un plugin in più da installare, aggiornare, copiare | **niente da installare**; un clic |
 | Lavoro per Idea Technologies | assistenza su N installazioni | una installazione da tenere, indurita (SPEC-INDURIMENTO) |
 | Dati di chi studia (registro di completamento) | restano dal cliente, titolare il cliente | **li tiene Idea**: informativa e ruoli privacy da Legale (L15), misure da Sicurezza-Cyber |
@@ -39,6 +39,7 @@
 ## Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.1 | 15/11/2026 | tolto il richiamo sbagliato alla licenza v3 art. 9.5 (parla del ritardato pagamento, non della chiave) | correzione della Formazione |
 | 1 | 15/11/2026 | prima stesura | scelta dell owner 16:57, chat Formazione F001 |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

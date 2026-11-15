@@ -2,7 +2,7 @@
 
 # SPEC di RelDoxAcademy — indice proposto v1
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 15/11/2026 · Formazione F001 (voce F9). Solo l indice, da approvare dall owner prima di scrivere il testo (D11, 17:02).
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 15/11/2026 · Formazione F001 (voce F9). Indice **approvato** dall owner (D13, 18:56); il testo è in `docs/SPEC-RELDOXACADEMY-v1.md`.
 
 **Scelte dell owner che la SPEC parte da** (chat Formazione F001, 15/11/2026): prodotto della famiglia (D1, 14:15); è della Formazione, nel repository A-010 (D6, 16:09); base RelDoxFood (D8, 16:57); **accesso sul nostro server** (D9, 17:02); primo corso per gli utenti dei clienti (D2); compreso nel canone (D3); nessun attestato (D4, modulo di igiene da definire con Sicurezza-Cyber, D10); italiano subito (D5); niente di definitivo, utile e facile per il cliente (D7); **accesso solo con chiave valida del prodotto acquistato, e solo per i prodotti acquistati** (D12, 17:06).
 
