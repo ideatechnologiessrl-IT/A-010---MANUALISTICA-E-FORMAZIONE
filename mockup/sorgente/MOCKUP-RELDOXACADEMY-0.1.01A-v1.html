@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup RelDoxAcademy 0.1.01A — v1</title>
+<style>
+:root{--nav:#0F2A44;--nav-hi:#16365A;--nav-ico:#9FB3C8;--bg:#F4F6F9;--card:#fff;--line:#E3E7ED;--line-2:#EEF1F5;--txt:#111827;--txt-2:#374151;--dim:#5B6472;--brand:#0C6E86;--brand-2:#16A5C4;--brand-bg:#E8F6FA;--gold:#E8B23A;--gold-bg:rgba(232,178,58,.16);--tip:#0F172A;--ok:#15803D;--ok-bg:#E8F5EC;--warn:#9A5B00;--warn-bg:#FDF3E1;--bad:#B91C1C;--bad-bg:#FDECEC}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--txt);background:var(--bg)}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--brand-2);outline-offset:2px}
+.nota-mockup{background:var(--tip);color:#fff;padding:10px 20px;font-size:14px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.nota-mockup b{background:var(--gold);color:var(--tip);border-radius:999px;padding:2px 10px;font-size:13px}
+.schede{display:flex;flex-wrap:wrap;gap:8px;padding:12px 20px;background:#fff;border-bottom:1px solid var(--line)}
+.schede button{font:600 15px/1 inherit;font-family:inherit;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--txt-2);cursor:pointer}
+.schede button[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.app{display:flex;min-height:calc(100vh - 120px)}
+.rail{width:76px;background:var(--nav);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px;flex-shrink:0}
+.rail a{position:relative;width:60px;height:58px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--nav-ico);text-decoration:none}
+.rail a:hover{background:var(--nav-hi)}
+.rail a svg{width:34px;height:34px}
+.rail a[aria-current="page"]{background:var(--gold-bg);color:var(--gold)}
+.rail a[aria-current="page"]::before{content:"";position:absolute;left:-8px;top:9px;bottom:9px;width:5px;border-radius:0 4px 4px 0;background:var(--gold)}
+.rail .sep{width:44px;height:1px;background:#2D4556;margin:6px 0}
+.rail .nome{display:none}
+.rail a .tip{position:absolute;left:68px;white-space:nowrap;background:var(--tip);color:#fff;font-size:14px;font-weight:600;border-radius:8px;padding:6px 10px;box-shadow:0 4px 12px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .12s;z-index:5}
+.rail a:hover .tip,.rail a:focus-visible .tip{opacity:1}
+.colonna{flex:1;min-width:0;display:flex;flex-direction:column}
+.testata{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:12px}
+.testata img{height:30px}
+.testata .sepv{width:1px;height:28px;background:var(--line)}
+.testata .acad{font-weight:700;font-size:17px;color:var(--brand)}
+.testata .azienda{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.testata .utente{margin-left:auto;font-size:15px;color:var(--txt-2);white-space:nowrap}
+main{padding:22px 24px 40px}
+h1{font-size:28px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h1 svg{width:28px;height:28px;color:var(--brand)}
+.sotto{color:var(--dim);margin:0 0 20px}
+h2{font-size:18px;margin:0}
+.sezione{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:18px}
+.sezione .testa{padding:14px 20px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sezione .testa p{margin:0;color:var(--dim);font-size:14.5px;flex-basis:100%}
+.sezione .corpo{padding:18px 20px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;font:600 15px/1 inherit;font-family:inherit;border:1px solid var(--line);background:#fff;color:var(--txt-2);cursor:pointer;text-decoration:none}
+.btn.prim{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.prim:hover{background:#0A5E72}
+.btn svg{width:18px;height:18px}
+.pastiglia{display:inline-block;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:600}
+.p-ok{background:var(--ok-bg);color:var(--ok)}.p-warn{background:var(--warn-bg);color:var(--warn)}.p-info{background:var(--brand-bg);color:var(--brand)}.p-bad{background:var(--bad-bg);color:var(--bad)}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.corso{border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.corso h3{font-size:17px;margin:0}
+.corso .meta{font-size:14px;color:var(--dim)}
+.barra{height:10px;background:var(--line-2);border-radius:999px;overflow:hidden}
+.barra i{display:block;height:100%;background:var(--brand)}
+.corso .piede{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.avviso{border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.avviso svg{width:24px;height:24px;flex-shrink:0}
+.av-info{background:var(--brand-bg);color:#0B4F60}
+.av-warn{background:var(--warn-bg);color:#6B4000}
+.ingresso{max-width:560px;margin:40px auto;text-align:center}
+.ingresso .sezione .corpo{padding:32px 28px}
+.ingresso img{height:40px;margin-bottom:12px}
+.ruota{width:44px;height:44px;border-radius:50%;border:4px solid var(--brand-bg);border-top-color:var(--brand);margin:20px auto;animation:g 1s linear infinite}
+@keyframes g{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ruota{animation:none}}
+.lezione{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+.passi{list-style:none;margin:0;padding:8px}
+.passi li a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--txt-2);font-size:15px}
+.passi li a[aria-current="step"]{background:var(--brand-bg);color:var(--brand);font-weight:600}
+.passi .n{width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.passi .fatto{background:var(--ok);border-color:var(--ok);color:#fff}
+.obiettivi{margin:0;padding-left:22px}
+.schermata{border:1px dashed #CBD3DE;border-radius:12px;background:var(--line-2);min-height:190px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:14px;text-align:center;padding:16px;margin:12px 0}
+ol.fasi{padding-left:22px;margin:0}ol.fasi li{margin-bottom:10px}
+fieldset{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 14px}
+legend{font-weight:600;font-size:15px;padding:0 6px}
+label.scelta{display:flex;gap:10px;align-items:center;min-height:46px;padding:0 10px;border-radius:9px;cursor:pointer}
+label.scelta:hover{background:var(--line-2)}
+input[type=radio]{width:20px;height:20px;accent-color:var(--brand)}
+.navlez{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}
+.filtri{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:16px}
+.filtri label{display:flex;flex-direction:column;font-size:15px;font-weight:600;gap:4px}
+.filtri select,.filtri input{min-height:46px;font:16px inherit;font-family:inherit;border:1px solid #CBD3DE;border-radius:9px;padding:0 12px;background:#fff;min-width:180px}
+.tabella{width:100%;border-collapse:collapse;font-size:15px}
+.tabella th{text-align:left;font-size:14px;color:var(--dim);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tabella td{padding:12px;border-bottom:1px solid var(--line-2)}
+.scorre{overflow-x:auto}
+.numeri{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.numero{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff}
+.numero b{display:block;font-size:26px}
+.numero span{color:var(--dim);font-size:14px}
+.schermo{display:none}.schermo.attivo{display:block}
+@media (max-width:1100px){.lezione{grid-template-columns:1fr}}
+@media (max-width:700px){
+ .app{flex-direction:column}
+ .rail{position:fixed;bottom:0;left:0;right:0;width:auto;height:72px;flex-direction:row;justify-content:space-around;padding:0;z-index:10}
+ .rail .sep,.rail a .tip{display:none}
+ .rail a{flex-direction:column;height:64px;width:auto;flex:1;gap:2px}
+ .rail a svg{width:26px;height:26px}
+ .rail .nome{display:block;font-size:13px}
+ .rail a[aria-current="page"]::before{left:20%;right:20%;top:0;bottom:auto;width:auto;height:4px;border-radius:0 0 4px 4px}
+ .testata .azienda,.testata .sepv{display:none}
+ h1{font-size:24px}
+ main{padding:16px 14px 100px}
+}
+</style>
+</head>
+<body>
+
+<div class="nota-mockup" role="note"><b>Mockup</b> RelDoxAcademy 0.1.01A · v1 · 15/11/2026 · Formazione F001 · dati inventati, prodotto d esempio RelDoxFood · ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</div>
+
+<div class="schede" role="tablist" aria-label="Schermate del mockup">
+ <button role="tab" aria-selected="true" data-s="s1">S1 · Ingresso</button>
+ <button role="tab" aria-selected="false" data-s="s1b">S1 · Chiave scaduta</button>
+ <button role="tab" aria-selected="false" data-s="s2">S2 · Il mio catalogo</button>
+ <button role="tab" aria-selected="false" data-s="s3">S3 · La lezione</button>
+ <button role="tab" aria-selected="false" data-s="s6">S6 · Registro dell azienda</button>
+</div>
+
+<!-- S1 INGRESSO -->
+<section class="schermo attivo" id="s1" aria-label="S1 Ingresso">
+ <div class="ingresso">
+  <div class="sezione"><div class="corpo">
+   <img src="{{LOGO}}" alt="RelDox">
+   <h1 style="justify-content:center">RelDoxAcademy</h1>
+   <p class="sotto">Stiamo aprendo i corsi di <b>RelDoxFood</b> per te.</p>
+   <div class="ruota" role="status" aria-label="Controllo della chiave in corso"></div>
+   <p style="margin:0;font-size:15px;color:var(--txt-2)">Controlliamo la chiave del prodotto: ci vuole un attimo.</p>
+   <p style="margin:16px 0 0;font-size:14px;color:var(--dim)">Sei arrivato qui dal pulsante «Corsi» del tuo prodotto. Non serve nessuna password.</p>
+  </div></div>
+ </div>
+</section>
+
+<!-- S1 CHIAVE SCADUTA -->
+<section class="schermo" id="s1b" aria-label="S1 Chiave scaduta">
+ <div class="ingresso">
+  <div class="sezione"><div class="corpo">
+   <img src="{{LOGO}}" alt="RelDox">
+   <h1 style="justify-content:center">I corsi sono in pausa</h1>
+   <div class="avviso av-warn" style="text-align:left;margin:18px 0">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    <div>L accesso ai corsi è <b>compreso nella manutenzione annuale</b> del prodotto. La manutenzione di <b>RelDoxFood</b> risulta scaduta.</div>
+   </div>
+   <a class="btn prim" href="mailto:sales@ideatechnologies.com?subject=Riattivare%20la%20manutenzione%20RelDoxFood"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>Scrivi per riattivarla</a>
+   <p style="margin:14px 0 0;font-size:14px;color:var(--dim)">sales@ideatechnologies.com · il tuo prodotto continua a funzionare</p>
+  </div></div>
+ </div>
+</section>
+
+<!-- CORNICE PER S2 S3 S6 -->
+<template id="cornice">
+ <div class="app">
+  <nav class="rail" aria-label="Menu di RelDoxAcademy">
+   <a href="#" data-v="s2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 5h7v14H3zM14 5h7v6h-7zM14 15h7v4h-7z"/></svg><span class="nome">Catalogo</span><span class="tip">Il mio catalogo</span></a>
+   <a href="#" data-v="s3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6M9 12h6"/></svg><span class="nome">Lezione</span><span class="tip">Le mie lezioni</span></a>
+   <span class="sep" aria-hidden="true"></span>
+   <a href="#" data-v="s6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 4h8l1 2h3v15H4V6h3z"/><path d="m9 13 2 2 4-4"/></svg><span class="nome">Registro</span><span class="tip">Registro dell azienda (amministratore)</span></a>
+  </nav>
+  <div class="colonna">
+   <header class="testata">
+    <img src="{{LOGO}}" alt="RelDox"><span class="sepv"></span><span class="acad">Academy</span><span class="sepv"></span>
+    <span class="azienda" title="Azienda Esempio srl">Azienda Esempio srl</span>
+    <span class="utente">Laura B. · <span class="pastiglia p-info">{{RUOLO}}</span></span>
+   </header>
+   <main>{{CONTENUTO}}</main>
+  </div>
+ </div>
+</template>
+
+<!-- S2 CATALOGO -->
+<section class="schermo" id="s2" aria-label="S2 Il mio catalogo" data-ruolo="utente">
+<h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 5h7v14H3zM14 5h7v6h-7zM14 15h7v4h-7z"/></svg>Il mio catalogo</h1>
+<p class="sotto">I corsi dei prodotti che la tua azienda usa, alla tua versione.</p>
+<div class="sezione">
+ <div class="testa"><h2>RelDoxFood</h2><span class="pastiglia p-ok">Manutenzione attiva fino al 31/12/2026</span><span class="pastiglia p-info">la tua versione 1.24.11L</span><p>Prima i «primi passi»: in 30 minuti sai fare il lavoro di ogni giorno.</p></div>
+ <div class="corpo">
+  <div class="avviso av-info" style="margin-bottom:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><div><b>Riprendi da dove eri:</b> «Prenotare un pasto per un collega», passo 3 di 5. <a href="#" data-v="s3">Continua</a></div></div>
+  <div class="griglia">
+   <article class="corso"><span class="pastiglia p-ok" style="align-self:flex-start">Completato</span><h3>Primi passi · 1. Entrare e orientarsi</h3><div class="meta">4 lezioni · 20 minuti · per chi usa il prodotto</div><div class="barra" aria-label="Avanzamento 100%"><i style="width:100%"></i></div><div class="piede"><span class="meta">Verifica: 4 su 4</span><a class="btn" href="#">Rivedi</a></div></article>
+   <article class="corso"><span class="pastiglia p-warn" style="align-self:flex-start">In corso</span><h3>Primi passi · 2. Prenotare i pasti</h3><div class="meta">5 lezioni · 25 minuti · per chi usa il prodotto</div><div class="barra" aria-label="Avanzamento 40%"><i style="width:40%"></i></div><div class="piede"><span class="meta">2 di 5 lezioni</span><a class="btn prim" href="#" data-v="s3">Continua</a></div></article>
+   <article class="corso"><span class="pastiglia p-info" style="align-self:flex-start">Da fare</span><h3>Primi passi · 3. Il codice personale</h3><div class="meta">3 lezioni · 15 minuti · per chi usa il prodotto</div><div class="barra" aria-label="Avanzamento 0%"><i style="width:0"></i></div><div class="piede"><span class="meta">Mai aperto</span><a class="btn" href="#">Inizia</a></div></article>
+  </div>
+ </div>
+</div>
+<div class="sezione"><div class="testa"><h2>Manuali e schede</h2><span class="pastiglia p-info">in arrivo con la 0.1.02A</span><p>Manuale per ruolo e schede rapide di una pagina, sempre della tua versione.</p></div></div>
+<p style="font-size:14px;color:var(--dim)">Vedi solo i prodotti acquistati dalla tua azienda. Per gli altri prodotti RelDox: <a href="https://www.ideatechnologies.srl">ideatechnologies.srl</a>.</p>
+</section>
+
+<!-- S3 LEZIONE -->
+<section class="schermo" id="s3" aria-label="S3 La lezione" data-ruolo="utente">
+<p style="margin:0 0 6px;font-size:15px"><a href="#" data-v="s2">Il mio catalogo</a> › RelDoxFood › Primi passi · 2. Prenotare i pasti</p>
+<h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 8h6M9 12h6"/></svg>Prenotare un pasto per un collega</h1>
+<p class="sotto">Lezione 3 di 5 · 6 minuti · vale per RelDoxFood 1.24.11L</p>
+<div class="lezione">
+ <nav class="sezione" aria-label="Passi della lezione"><ul class="passi">
+  <li><a href="#"><span class="n fatto">✓</span>Che cosa impari</a></li>
+  <li><a href="#"><span class="n fatto">✓</span>Prima di cominciare</a></li>
+  <li><a href="#" aria-current="step"><span class="n">3</span>Passo per passo</a></li>
+  <li><a href="#"><span class="n">4</span>Esercizio</a></li>
+  <li><a href="#"><span class="n">5</span>Verifica</a></li>
+ </ul></nav>
+ <div>
+  <div class="sezione">
+   <div class="testa"><h2>Che cosa impari</h2></div>
+   <div class="corpo"><ul class="obiettivi"><li>prenotare il pasto di un collega che non ha il telefono con sé;</li><li>controllare che la prenotazione risulti a suo nome.</li></ul></div>
+  </div>
+  <div class="sezione">
+   <div class="testa"><h2>Passo per passo</h2></div>
+   <div class="corpo">
+    <ol class="fasi">
+     <li>Apri <b>Prenotazioni › Per un collega</b> → si apre l elenco dei colleghi del tuo reparto.</li>
+     <li>Scegli <b>Mario Esempio</b> e il giorno → compare il menu di quel giorno.</li>
+    </ol>
+    <div class="schermata" role="img" aria-label="Schermata d esempio: elenco dei colleghi con Mario Esempio selezionato e il menu di martedì">[ schermata da ambiente di prova, dati inventati ]<br>Elenco dei colleghi · Mario Esempio selezionato · menu di martedì</div>
+    <ol class="fasi" start="3"><li>Premi <b>Prenota per Mario</b> → il pasto compare nella sua giornata con la scritta «prenotato da Laura B.».</li></ol>
+    <div class="avviso av-warn" style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Che cosa non fa:</b> non puoi prenotare per un collega di un altro reparto.</div></div>
+   </div>
+  </div>
+  <div class="sezione">
+   <div class="testa"><h2>Verifica</h2><p>Due domande. Puoi rifarla quante volte vuoi.</p></div>
+   <div class="corpo">
+    <fieldset><legend>1. Dove trovi la prenotazione per un collega?</legend>
+     <label class="scelta"><input type="radio" name="d1">Prenotazioni › Per un collega</label>
+     <label class="scelta"><input type="radio" name="d1">Impostazioni › Utenti</label>
+     <label class="scelta"><input type="radio" name="d1">Cassa › Voci</label>
+    </fieldset>
+    <fieldset><legend>2. Puoi prenotare per un collega di un altro reparto?</legend>
+     <label class="scelta"><input type="radio" name="d2">Sì</label>
+     <label class="scelta"><input type="radio" name="d2">No</label>
+    </fieldset>
+    <button class="btn prim" type="button">Controlla le risposte</button>
+   </div>
+  </div>
+  <div class="navlez"><a class="btn" href="#">← Lezione precedente</a><a class="btn prim" href="#">Lezione successiva →</a></div>
+ </div>
+</div>
+</section>
+
+<!-- S6 REGISTRO -->
+<section class="schermo" id="s6" aria-label="S6 Registro dell azienda" data-ruolo="amministratore">
+<h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 4h8l1 2h3v15H4V6h3z"/><path d="m9 13 2 2 4-4"/></svg>Registro della formazione</h1>
+<p class="sotto">Chi della tua azienda ha seguito quali corsi. Lo vede solo l amministratore; puoi scaricarlo come prova della formazione fatta.</p>
+<div class="numeri">
+ <div class="numero"><b>12</b><span>persone che hanno aperto un corso</span></div>
+ <div class="numero"><b>7</b><span>hanno completato i «primi passi»</span></div>
+ <div class="numero"><b>86%</b><span>risposte giuste alle verifiche</span></div>
+</div>
+<div class="sezione">
+ <div class="testa"><h2>Per persona</h2><a class="btn" href="#" style="margin-left:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Scarica CSV</a><a class="btn prim" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Scarica PDF</a></div>
+ <div class="corpo">
+  <div class="filtri">
+   <label>Prodotto<select><option>RelDoxFood</option></select></label>
+   <label>Corso<select><option>Tutti i corsi</option><option>Primi passi · 1</option><option>Primi passi · 2</option></select></label>
+   <label>Dal<input type="date" value="2026-11-01"></label>
+   <label>Al<input type="date" value="2026-11-15"></label>
+  </div>
+  <div class="scorre"><table class="tabella">
+   <thead><tr><th scope="col">Persona</th><th scope="col">Ruolo</th><th scope="col">Corso</th><th scope="col">Lezioni</th><th scope="col">Verifica</th><th scope="col">Ultimo accesso</th><th scope="col">Stato</th></tr></thead>
+   <tbody>
+    <tr><td>Laura B.</td><td>utente</td><td>Primi passi · 2</td><td>2 di 5</td><td>—</td><td>15/11/2026</td><td><span class="pastiglia p-warn">In corso</span></td></tr>
+    <tr><td>Mario E.</td><td>utente</td><td>Primi passi · 1</td><td>4 di 4</td><td>4 su 4</td><td>12/11/2026</td><td><span class="pastiglia p-ok">Completato</span></td></tr>
+    <tr><td>Giulia R.</td><td>utente</td><td>Primi passi · 1</td><td>4 di 4</td><td>3 su 4</td><td>10/11/2026</td><td><span class="pastiglia p-ok">Completato</span></td></tr>
+    <tr><td>Paolo T.</td><td>utente</td><td>Primi passi · 1</td><td>1 di 4</td><td>—</td><td>03/11/2026</td><td><span class="pastiglia p-bad">Fermo da 12 giorni</span></td></tr>
+   </tbody>
+  </table></div>
+  <p style="font-size:14px;color:var(--dim);margin:14px 0 0">Nessun attestato: il registro scaricato è la prova della formazione. I nomi sono quelli che il prodotto passa all Academy; nessuna mail, nessuna password.</p>
+ </div>
+</div>
+</section>
+
+<script>
+(function(){
+ var t=document.getElementById('cornice').innerHTML;
+ ['s2','s3','s6'].forEach(function(id){
+  var s=document.getElementById(id),ruolo=s.getAttribute('data-ruolo');
+  s.innerHTML=t.replace('{{CONTENUTO}}',s.innerHTML).replace('{{RUOLO}}',ruolo);
+  var a=s.querySelector('.rail a[data-v="'+id+'"]'); if(a)a.setAttribute('aria-current','page');
+  if(ruolo==='utente'){var r=s.querySelector('.rail a[data-v="s6"]');if(r){r.previousElementSibling.remove();r.remove();}}
+ });
+ function apri(id){
+  document.querySelectorAll('.schermo').forEach(function(x){x.classList.toggle('attivo',x.id===id)});
+  document.querySelectorAll('.schede button').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-s')===id?'true':'false')});
+  window.scrollTo(0,0);
+ }
+ document.querySelectorAll('.schede button').forEach(function(b){b.addEventListener('click',function(){apri(b.getAttribute('data-s'))})});
+ document.addEventListener('click',function(e){var a=e.target.closest('[data-v]');if(a&&!a.matches('.schede button')){e.preventDefault();apri(a.getAttribute('data-v'))}});
+})();
+</script>
+</body>
+</html>

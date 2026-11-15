@@ -18,6 +18,7 @@
 | D9 | *«RelDoxAcademy: B (accesso sul nostro server)»* | 17:02 | § 2, § 3: una sola installazione su ideatechnologies.it |
 | D12 | *«l'accesso via web alla parte dei corsi è legata alla presenza della chiave valida sul prodotto che è stato acquistato. Il clinete ede i manuali solo sui prodotti acuistati e non sugli altri»* | 17:06 | § 3, § 4 |
 | D13 | *«ok approvo spec … faremo variazioni in corso»* | 18:56 | questa v1; le versioni dopo seguono l uso reale |
+| D14 | *«va bene il nome tecnico proposto, `rdacademy`»* · *«il pulsante «Corsi» diventa un pezzo comune, uguale per tutti i prodotti»* · *«parti dai mockup intanto che si definisce la forma della chiave»* | 19:21 | § 2.4, § 10.2, § 8 |
 
 Tutte del 15/11/2026, chat Formazione F001; registro intero in `docs/DECISIONI-OWNER.md`.
 
@@ -34,7 +35,7 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 1. **Una sola installazione** WordPress su ideatechnologies.it (D9), indurita secondo `SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`. Nessun plugin dal cliente.
 2. **Due plugin sulla base di RelDoxFood** (D8), come ogni prodotto della famiglia: `reldox-academy/` (il prodotto) e `reldox-academy-diagnostica/` (la manutenzione, `SPEC-MANUTENZIONE-E-DIAGNOSTICA-v2`). Codice nel repository A-010 (D6).
 3. **Database proprio** (regola «un prodotto, un database»): credenziali solo in `wp-config.php`.
-4. **Segno e indirizzo dell app** ⏳ (da dichiarare in `REGOLE-FAMIGLIA` col capo famiglia, unici nella famiglia): proposta segno `rdacademy` (`RDACADEMY_`, `rdacademy_`, `Rdacademy_`), indirizzo `/academy/`, diagnostica `reldox-academy-diagnostica`.
+4. **Segno e indirizzo dell app**: segno approvato dall owner (D14, 19:21), da scrivere in `REGOLE-FAMIGLIA` dal capo famiglia ⏳ (indirizzo e diagnostica da confermare): segno `rdacademy` (`RDACADEMY_`, `rdacademy_`, `Rdacademy_`), indirizzo `/academy/`, diagnostica `reldox-academy-diagnostica`.
 5. **Che cosa si prende da RelDoxFood**: ossatura e caricamento, configurazione del database, accessi e accesso d emergenza, lingue, motore dei manuali in linea (una fonte → capitoli nell app e PDF), diagnostica. **Che cosa si toglie**: tutto ciò che è dei pasti (menu, cassa, codice personale, prenotazioni), il contratto di licenza da firmare (qui non serve: § 13).
 
 ## § 3 · Come si entra
@@ -87,7 +88,7 @@ Italiano subito (D5). Struttura pronta: cartelle `it/`, `en/`, `de/` con gli ste
 
 ## § 10 · Che cosa cambia negli altri prodotti
 1. **Il pulsante «Corsi»** nel menu di ogni prodotto, visibile a chi ha un ruolo; apre RelDoxAcademy con l accesso firmato (§ 3.3).
-2. ⏳ **Chi lo scrive**: ogni prodotto, con un pezzo uguale per tutti (proposta: un pezzo di `comune/`, «Accesso ai corsi», che firma l accesso con la chiave del prodotto). Forma e firma da concordare con RelDox CRD (API di famiglia, RelDox Chiavi).
+2. **Un pezzo comune** (D14, 19:21: *«il pulsante «Corsi» diventa un pezzo comune, uguale per tutti i prodotti»*): «Accesso ai corsi» in `comune/`, copiato in ogni prodotto, che firma l accesso con la chiave del prodotto ⏳ (chi lo scrive: capo famiglia o proposta della Formazione). Forma e firma da concordare con RelDox CRD (API di famiglia, RelDox Chiavi).
 3. Nessun dato dei prodotti passa a RelDoxAcademy oltre l accesso firmato.
 
 ## § 11 · Dati e privacy
@@ -129,6 +130,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.1 | 15/11/2026 | segno `rdacademy`, pulsante «Corsi» pezzo comune, mockup subito | D14, owner 19:21, chat Formazione F001 |
 | 1 | 15/11/2026 | prima stesura sull indice approvato | D13, owner 18:56, chat Formazione F001 |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

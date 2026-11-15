@@ -7,6 +7,7 @@
 ## F001 · 15/11/2026 — dopo le domande di avvio
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D14 | *«va bene il nome tecnico proposto, `rdacademy` · il pulsante «Corsi» diventa un pezzo comune, uguale per tutti i prodotti · parti dai mockup intanto che si definisce la forma della chiave»* | 19:21 | SPEC § 2.4 e § 10.2; segno e pezzo comune li scrive il capo famiglia; mockup S1, S2, S3, S6 |
 | D13 | *«ok approvo spec .... In caso faremo variazioni in corso sulla base delleesigenze che si andranno a formare»* | 18:56 | indice approvato; testo `docs/SPEC-RELDOXACADEMY-v1.md`; messaggi a RelDox CRD, Sicurezza-Cyber, Legale |
 | D12 | *«devi fasarti anche con la chat capofamiglia che sta sviluppando il plugin delle chiavi. E' chiaro che l'accesso via web alla parte dei corsi è legata alla presenza della chiave valida sul prodotto che è stato acquistato. Il clinete ede i manuali solo sui prodotti acuistati e non sugli altri»* | 17:06 | indice SPEC § 3 e § 4; messaggio a RelDox CRD (`…-a-reldox-crd-academy-chiavi.md`) |
 | D9 | *«RelDoxAcademy: B (accesso sul nostro server)»* | 17:02 | una sola RelDoxAcademy su ideatechnologies.it, accesso con la chiave; voce F9 |
