@@ -7,6 +7,9 @@
 ## F001 · 15/11/2026 — dopo le domande di avvio
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D9 | *«RelDoxAcademy: B (accesso sul nostro server)»* | 17:02 | una sola RelDoxAcademy su ideatechnologies.it, accesso con la chiave; voce F9 |
+| D10 | attestato del modulo di igiene e skill `accessibility`: *«Per questo devi confontrarti con la chat cyber»* | 17:02 | messaggio a Sicurezza-Cyber (`…-a-sicurezza-cyber-attestato-e-skill.md`) |
+| D11 | indice della SPEC di RelDoxAcademy prima del testo: *«0k il punto come hai detto»* | 17:02 | `docs/SPEC-RELDOXACADEMY-INDICE-v1.md` all owner |
 | D8 | *«ok per il plugin direi di iniziare a usare RelDoxFood come punto di partenza. Di fatti chi compra il prodotto installerà 1) il core del prodotto (plugin) 2) manutenzione 3) reldoxAccadamy da valutare se si oppure fare solo accesso su nostro server ideatechnologie.it ma protetto con la gestioni delle chiavi»* | 16:57 | base del plugin = RelDoxFood; dove gira da decidere (`docs/VALUTAZIONE-INSTALLAZIONE-RELDOXACADEMY-v1.md`); voce F9 |
 | D6 | *«RelDoxAcademy è e sarà un tuo prodotto quindi non si crea nessun nnuovo repository. Lo gestirai tu dentro il tuo repository.»* | 16:09 | supera D1 bis per la parte «repository e chat sua»; voce F9; messaggio al capo famiglia aggiornato (registro, mappa, SPEC v2) |
 | D7 | *«ok approvo per ora poi in cao apportiamo delle modifiche in base alla reale operatività. Nulla deve essere definitivo, vige la regola che uno strumento deve essere utile, produttivo e facile da usare da parte del nostro cliente. procedi con inventario su tutti i prodotti e dividi per prodotto. In caso devi chiedere alle singole chat di progetto»* | 15:51 | struttura F1 approvata «per ora»; principio di ogni materiale; voce F3 |

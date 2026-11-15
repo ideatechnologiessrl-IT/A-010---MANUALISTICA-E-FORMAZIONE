@@ -2,7 +2,7 @@
 
 # RelDoxAcademy — dove gira: dal cliente o sul nostro server? Valutazione v1
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 15/11/2026 · Formazione F001 (voce F9). Da decidere dall owner; non è ancora una SPEC.
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 15/11/2026 · Formazione F001 (voce F9). **Decisa: B** (owner 15/11/2026 17:02, chat Formazione F001: *«RelDoxAcademy: B (accesso sul nostro server)»*).
 
 **Scelta dell owner** (15/11/2026 16:57, chat Formazione F001): *«per il plugin direi di iniziare a usare RelDoxFood come punto di partenza. Di fatti chi compra il prodotto installerà 1) il core del prodotto (plugin) 2) manutenzione 3) reldoxAccadamy da valutare se si oppure fare solo accesso su nostro server ideatechnologie.it ma protetto con la gestioni delle chiavi»*.
 **Principio** (15:51): *«uno strumento deve essere utile, produttivo e facile da usare da parte del nostro cliente»*.
