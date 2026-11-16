@@ -7,6 +7,7 @@
 ## F001 · 16/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D18 | *«Il dominio RelDoxAcademy ha un redirect che porterà ad una pagina sotto ideatechnologies.it se però preferisci che compro una infrastruttura a parte con un wp separato l ofacciamo. Per ottimizzazione vorrei mntenere tutto nel sito istituzionale. Sentiamo anche il parere di cyber»* | 16:11 | SPEC § 2.1: nel sito istituzionale, salvo parere di Sicurezza-Cyber (`…-a-sicurezza-cyber-academy-dove-installarla.md`) |
 | D17 | *«le guide non devono esere sviluppate a livello sol odi testo, ma devono avere delle caratteristiche tipiche ForDummies. L'utente deve essere in grado di fare da se e solo se proprio non capisce deve chiamarci»* | 09:34 | `docs/STILE-DEI-MATERIALI-v1.md`, `modelli/MODELLO-LEZIONE.md` a otto elementi, lezione d esempio `mockup/MOCKUP-LEZIONE-ESEMPIO-v1.html` |
 | D16 | *«reldoxfood che è quello attualmente in corso d'offerta sul secondo cliente il primo lo sta già usando»* | 09:32 | primo percorso «primi passi»: RelDoxFood, chi mangia; indice `corsi/reldoxfood/utente-primi-passi/INDICE.md` |
 | D15 | *«leggi news · per ora mockup approvato, devo provare a lavoraci prima di confermarlo definitivamente»* | 09:16 | mockup 0.1.01A v1 approvato per ora; SPEC 1.3 § 8 |
