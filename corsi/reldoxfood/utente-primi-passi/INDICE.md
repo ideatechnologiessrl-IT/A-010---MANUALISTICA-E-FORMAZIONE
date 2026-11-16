@@ -33,6 +33,7 @@
 **In più, fuori dai corsi**: «I miei pasti» e il profilo (cap. 6) diventano una **scheda rapida**; le domande frequenti (cap. 9) restano nel manuale; la **scheda tascabile** «Apri · Mostra · Se è rosso» chiude il corso 2 come riassunto da salvare.
 
 ## Come è fatta ogni lezione
+⛔ **Stile «fai da solo»** (owner 16/11/2026 09:34, chat Formazione F001): gli otto elementi di `docs/STILE-DEI-MATERIALI-v1.md` (in 30 secondi · passo per passo con figura annotata · i quattro riquadri · prova tu · hai capito? · in una riga · se ancora non va); esempio: `mockup/MOCKUP-LEZIONE-ESEMPIO-v1.html` (lezione 2.2).
 Intestazione di `modelli/MODELLO-LEZIONE.md` (id `reldoxfood-utente-primi-passi-L<nn>`, `vale_per: RelDoxFood 1.24.11L`, `pubblico: utente`); in testa «Che cosa impari»; i passi con le schermate; «Che cosa non fa»; un esercizio con dati inventati (Marco Rossi, Trattoria del Ponte, come nel manuale); la verifica.
 
 ## Che cosa serve dalle altre chat (dopo l approvazione)

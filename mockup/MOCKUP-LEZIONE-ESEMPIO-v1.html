@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup lezione d esempio — Alla cassa: il QR verde — v1</title>
+<style>
+:root{--nav:#0F2A44;--bg:#F4F6F9;--card:#fff;--line:#E3E7ED;--line-2:#EEF1F5;--txt:#111827;--txt-2:#374151;--dim:#5B6472;--brand:#0C6E86;--brand-2:#16A5C4;--brand-bg:#E8F6FA;--gold:#E8B23A;--gold-bg:#FDF6E3;--tip:#0F172A;--ok:#15803D;--ok-bg:#E8F5EC;--warn:#9A5B00;--warn-bg:#FDF3E1;--bad:#B91C1C;--bad-bg:#FDECEC;--vio:#5B4BB7;--vio-bg:#EFEDFB}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--txt);background:var(--bg)}
+a{color:var(--brand)}:focus-visible{outline:3px solid var(--brand-2);outline-offset:2px}
+.nota-mockup{background:var(--tip);color:#fff;padding:10px 20px;font-size:14px}
+.nota-mockup b{background:var(--gold);color:var(--tip);border-radius:999px;padding:2px 10px;font-size:13px;margin-right:8px}
+.testata{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:12px}
+.testata img{height:30px}.testata .sepv{width:1px;height:28px;background:var(--line)}
+.testata .acad{font-weight:700;font-size:17px;color:var(--brand)}
+.testata .ut{margin-left:auto;font-size:15px;color:var(--txt-2)}
+main{max-width:980px;margin:0 auto;padding:22px 20px 60px}
+.briciole{font-size:15px;margin:0 0 6px}
+h1{font-size:30px;line-height:1.25;margin:0 0 6px}
+.meta{color:var(--dim);margin:0 0 18px}
+h2{font-size:20px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+h2 .num{width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;font-size:16px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.blocco{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+.trenta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.trenta div{background:var(--brand-bg);border-radius:12px;padding:14px 16px}
+.trenta b{display:block;font-size:14px;color:var(--brand);text-transform:uppercase;letter-spacing:.04em}
+.trenta span{font-size:17px;font-weight:600}
+.passo{display:grid;grid-template-columns:1fr 240px;gap:22px;align-items:center;padding:18px 0;border-top:1px solid var(--line-2)}
+.passo:first-of-type{border-top:0;padding-top:4px}
+.passo .n{font-size:15px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.04em}
+.passo .gesto{font-size:21px;font-weight:700;margin:4px 0 8px;line-height:1.3}
+.passo .vedi{background:var(--ok-bg);color:#0F5A2B;border-radius:10px;padding:10px 14px;font-size:16px}
+.passo .vedi b{color:var(--ok)}
+.passo svg.fig{width:100%;height:auto;max-width:240px;justify-self:center}
+.fig text{font-family:inherit}
+.riq{border-radius:12px;padding:14px 16px 14px 14px;display:flex;gap:14px;align-items:flex-start;margin-bottom:12px;border-left:6px solid}
+.riq svg{width:30px;height:30px;flex-shrink:0}
+.riq b{display:block;font-size:15px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.r-sug{background:var(--gold-bg);border-color:var(--gold);color:#5C4100}.r-sug svg{color:#B7860B}
+.r-ric{background:var(--vio-bg);border-color:var(--vio);color:#2E2470}.r-ric svg{color:var(--vio)}
+.r-att{background:var(--bad-bg);border-color:var(--bad);color:#7A1212}.r-att svg{color:var(--bad)}
+.r-fix{background:var(--brand-bg);border-color:var(--brand);color:#0B4F60}.r-fix svg{color:var(--brand)}
+.prova{background:var(--ok-bg);border-radius:12px;padding:16px}
+.prova .ok{font-weight:700;color:var(--ok)}
+fieldset{border:1px solid var(--line);border-radius:12px;padding:12px 16px 14px;margin:0 0 14px}
+legend{font-weight:700;padding:0 6px}
+label.sc{display:flex;gap:10px;align-items:center;min-height:46px;padding:0 10px;border-radius:9px;cursor:pointer}
+label.sc:hover{background:var(--line-2)}
+input[type=radio]{width:20px;height:20px;accent-color:var(--brand)}
+.esito{display:none;border-radius:10px;padding:10px 14px;margin-top:8px;font-size:15px}
+.esito.si{display:block;background:var(--ok-bg);color:#0F5A2B}.esito.no{display:block;background:var(--bad-bg);color:#7A1212}
+.riga{background:var(--nav);color:#fff;border-radius:12px;padding:18px 20px;font-size:22px;font-weight:700;display:flex;gap:14px;align-items:center}
+.riga small{display:block;font-size:14px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.06em}
+.scala{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.scala li{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.scala .g{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;background:var(--line-2);color:var(--txt-2)}
+.scala li:last-child{border-style:dashed}.scala li:last-child .g{background:var(--brand);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;font:600 15px/1 inherit;font-family:inherit;border:1px solid var(--line);background:#fff;color:var(--txt-2);cursor:pointer;text-decoration:none}
+.btn.prim{background:var(--brand);border-color:var(--brand);color:#fff}
+.navlez{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.legenda{font-size:14px;color:var(--dim);margin-top:24px;border-top:1px solid var(--line);padding-top:12px}
+@media (max-width:760px){
+ .trenta{grid-template-columns:1fr}
+ .passo{grid-template-columns:1fr}
+ .passo svg.fig{max-width:220px}
+ h1{font-size:25px}.passo .gesto{font-size:19px}.riga{font-size:19px}
+ .testata .ut{display:none}
+}
+</style>
+</head>
+<body>
+<div class="nota-mockup" role="note"><b>Mockup</b> Lezione d esempio nello stile «fai da solo» · v1 · 16/11/2026 · Formazione F001 · RelDoxFood 1.24.11L, dati inventati · ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</div>
+
+<header class="testata"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MTAgMTE2IiB3aWR0aD0iNDEwIiBoZWlnaHQ9IjExNiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJSZWxEb3gg4oCUIGlsbHVtaW5hIGlsIHR1byBsYXZvcm8iPgogIDwhLS0gVGVzdG8gTElWRSBpbiBTcGFjZSBHcm90ZXNrIChjYXJpY2F0byBnbG9iYWxtZW50ZSBkYWwgc2l0bykuIFBlciB1c2kgc2VuemEgZm9udCwgdXNhcmUgaWwgUE5HLiAtLT4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0icmR4TGtEaXNjIiBjeD0iNDIlIiBjeT0iMzglIiByPSI3MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkJENDc0Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTUlIiBzdG9wLWNvbG9yPSIjRThCMjNBIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0UwN0E1RiIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPCEtLSBTT0xFOiBhbHRlenphID0gZGFsIHRvcCBkZWxsYSBSIGFsIGZvbmRvIGRlbGxhICJpIiBkZWwgcGF5b2ZmOyBhY2Nvc3RhdG8gYWxsYSBzY3JpdHRhIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIgMTYpIHNjYWxlKDAuODgpIj4KICAgIDxnIHN0cm9rZT0iI0U4QjIzQSIgc3Ryb2tlLXdpZHRoPSIzLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgICAgIDxsaW5lIHgxPSI1MCIgeTE9IjI2IiB4Mj0iNTAiIHkyPSIxMiIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDMwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDYwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDkwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiLz4KICAgICAgPGxpbmUgeDE9IjUwIiB5MT0iMjYiIHgyPSI1MCIgeTI9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTAgNTApIi8+CiAgICAgIDxsaW5lIHgxPSI1MCIgeTE9IjI2IiB4Mj0iNTAiIHkyPSIxMiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDIxMCA1MCA1MCkiLz4KICAgICAgPGxpbmUgeDE9IjUwIiB5MT0iMjYiIHgyPSI1MCIgeTI9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDAgNTAgNTApIi8+CiAgICAgIDxsaW5lIHgxPSI1MCIgeTE9IjI2IiB4Mj0iNTAiIHkyPSIxMiIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDMwMCA1MCA1MCkiLz4KICAgICAgPGxpbmUgeDE9IjUwIiB5MT0iMjYiIHgyPSI1MCIgeTI9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzAgNTAgNTApIi8+CiAgICA8L2c+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxNSIgZmlsbD0idXJsKCNyZHhMa0Rpc2MpIi8+CiAgPC9nPgogIDwhLS0gd29yZG1hcmsgLS0+CiAgPHRleHQgeD0iODQiIHk9IjY1IiBmb250LWZhbWlseT0iJ1NwYWNlIEdyb3Rlc2snLHN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjU0IiBsZXR0ZXItc3BhY2luZz0iMiI+CiAgICA8dHNwYW4gZmlsbD0iIzBDNkU4NiI+UjwvdHNwYW4+PHRzcGFuIGZpbGw9IiMwQzFCMjciPmVsPC90c3Bhbj48dHNwYW4gZmlsbD0iI0U4QjIzQSI+RDwvdHNwYW4+PHRzcGFuIGZpbGw9IiMwQzFCMjciPm94PC90c3Bhbj4KICA8L3RleHQ+CiAgPCEtLSBwYXlvZmYgLS0+CiAgPHRleHQgeD0iODYiIHk9Ijk0IiBmb250LWZhbWlseT0ic3lzdGVtLXVpLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc2l6ZT0iMTQuNSIgbGV0dGVyLXNwYWNpbmc9IjQuMiIgZmlsbD0iI0UwN0E1RiI+SUxMVU1JTkEgSUwgVFVPIExBVk9STzwvdGV4dD4KPC9zdmc+Cg==" alt="RelDox"><span class="sepv"></span><span class="acad">Academy</span><span class="ut">Marco R. · utente</span></header>
+
+<main>
+<p class="briciole"><a href="#">Il mio catalogo</a> › RelDoxFood › Corso 2 · A pranzo, ogni giorno</p>
+<h1>Alla cassa: il QR verde</h1>
+<p class="meta">Lezione 2.2 · vale per RelDoxFood 1.24.11L</p>
+
+<!-- 1 IN 30 SECONDI -->
+<section class="blocco" aria-labelledby="h1s">
+ <h2 id="h1s"><span class="num">1</span>In 30 secondi</h2>
+ <div class="trenta">
+  <div><b>Saprai</b><span>pranzare senza buoni, firme né contanti</span></div>
+  <div><b>Ci vogliono</b><span>5 minuti</span></div>
+  <div><b>Ti serve</b><span>il telefono con l icona della mensa</span></div>
+ </div>
+</section>
+
+<!-- 2 PASSO PER PASSO -->
+<section class="blocco" aria-labelledby="h2s">
+ <h2 id="h2s"><span class="num">2</span>Passo per passo</h2>
+
+ <div class="passo">
+  <div>
+   <div class="n">Passo 1</div>
+   <div class="gesto">Tocca l icona con il logo della tua azienda.</div>
+   <div class="vedi"><b>Vedi:</b> il tuo codice QR <b>verde</b>, con il tuo nome sopra.</div>
+  </div>
+  <svg class="fig" viewBox="0 0 240 300" role="img" aria-label="Figura 1: la schermata Home del telefono; il numero 1 indica l icona Mensa con il logo dell azienda, in basso a destra">
+   <rect x="40" y="6" width="160" height="288" rx="22" fill="#0F2A44"/><rect x="48" y="22" width="144" height="256" rx="12" fill="#E8F6FA"/>
+   <g fill="#fff" stroke="#CBD3DE"><rect x="60" y="40" width="34" height="34" rx="9"/><rect x="103" y="40" width="34" height="34" rx="9"/><rect x="146" y="40" width="34" height="34" rx="9"/><rect x="60" y="92" width="34" height="34" rx="9"/><rect x="103" y="92" width="34" height="34" rx="9"/><rect x="60" y="144" width="34" height="34" rx="9"/><rect x="103" y="144" width="34" height="34" rx="9"/></g>
+   <rect x="146" y="144" width="34" height="34" rx="9" fill="#0C6E86"/><circle cx="163" cy="161" r="8" fill="#E8B23A"/>
+   <text x="163" y="202" font-size="10" text-anchor="middle" fill="#111827" font-weight="700">Mensa</text>
+   <circle cx="163" cy="161" r="26" fill="none" stroke="#E8B23A" stroke-width="3"/>
+   <circle cx="206" cy="128" r="15" fill="#E8B23A"/><text x="206" y="134" font-size="16" font-weight="700" text-anchor="middle" fill="#0F172A">1</text>
+   <line x1="195" y1="139" x2="183" y2="149" stroke="#E8B23A" stroke-width="3"/>
+  </svg>
+ </div>
+
+ <div class="passo">
+  <div>
+   <div class="n">Passo 2</div>
+   <div class="gesto">Gira il telefono verso il ristoratore.</div>
+   <div class="vedi"><b>Vedi:</b> il ristoratore inquadra il codice con il suo telefono. Lui legge solo il tuo nome e l iniziale del cognome.</div>
+  </div>
+  <svg class="fig" viewBox="0 0 240 300" role="img" aria-label="Figura 2: la schermata con il QR verde e il nome Marco R.; il numero 2 indica il codice da mostrare">
+   <rect x="40" y="6" width="160" height="288" rx="22" fill="#0F2A44"/><rect x="48" y="22" width="144" height="256" rx="12" fill="#fff"/>
+   <text x="120" y="50" font-size="15" font-weight="700" text-anchor="middle" fill="#111827">Marco R.</text>
+   <text x="120" y="68" font-size="10" text-anchor="middle" fill="#5B6472">Presenta il codice al ristoratore</text>
+   <rect x="70" y="80" width="100" height="100" rx="10" fill="#E8F5EC" stroke="#15803D" stroke-width="4"/>
+   <g fill="#15803D"><rect x="80" y="90" width="22" height="22"/><rect x="138" y="90" width="22" height="22"/><rect x="80" y="148" width="22" height="22"/><rect x="112" y="100" width="8" height="8"/><rect x="124" y="118" width="10" height="10"/><rect x="110" y="134" width="8" height="8"/><rect x="138" y="138" width="10" height="10"/><rect x="150" y="156" width="10" height="10"/><rect x="122" y="152" width="8" height="8"/></g>
+   <rect x="62" y="196" width="116" height="62" rx="8" fill="#F4F6F9"/><text x="72" y="214" font-size="10" font-weight="700" fill="#111827">Dove mangiare oggi</text><text x="72" y="232" font-size="10" fill="#374151">Trattoria del Ponte</text><text x="72" y="248" font-size="9" font-weight="700" fill="#15803D">APERTO · 11:30–15:00</text>
+   <circle cx="210" cy="96" r="15" fill="#E8B23A"/><text x="210" y="102" font-size="16" font-weight="700" text-anchor="middle" fill="#0F172A">2</text>
+   <line x1="198" y1="104" x2="174" y2="116" stroke="#E8B23A" stroke-width="3"/>
+  </svg>
+ </div>
+
+ <div class="passo">
+  <div>
+   <div class="n">Passo 3</div>
+   <div class="gesto">Aspetta lo schermo verde del ristoratore.</div>
+   <div class="vedi"><b>Vedi:</b> il ristoratore tocca <b>«HA MANGIATO QUI»</b>. Il pasto è registrato con l ora e il ristorante: <b>non devi fare altro</b>.</div>
+  </div>
+  <svg class="fig" viewBox="0 0 240 300" role="img" aria-label="Figura 3: lo schermo del ristoratore, verde, con Marco R., Pranzo 12:47, Trattoria del Ponte e il pulsante HA MANGIATO QUI indicato dal numero 3">
+   <rect x="40" y="6" width="160" height="288" rx="22" fill="#0F2A44"/><rect x="48" y="22" width="144" height="256" rx="12" fill="#15803D"/>
+   <circle cx="120" cy="78" r="26" fill="#fff" opacity=".18"/><path d="M106 78l10 10 18-20" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+   <text x="120" y="134" font-size="17" font-weight="700" text-anchor="middle" fill="#fff">Marco R.</text>
+   <text x="120" y="154" font-size="11" text-anchor="middle" fill="#E8F5EC">Pranzo · 12:47</text>
+   <text x="120" y="170" font-size="11" text-anchor="middle" fill="#E8F5EC">Trattoria del Ponte</text>
+   <rect x="62" y="204" width="116" height="40" rx="10" fill="#fff"/><text x="120" y="229" font-size="12" font-weight="800" text-anchor="middle" fill="#15803D">HA MANGIATO QUI</text>
+   <circle cx="210" cy="224" r="15" fill="#E8B23A"/><text x="210" y="230" font-size="16" font-weight="700" text-anchor="middle" fill="#0F172A">3</text>
+   <line x1="195" y1="224" x2="180" y2="224" stroke="#E8B23A" stroke-width="3"/>
+  </svg>
+ </div>
+</section>
+
+<!-- 3 RIQUADRI -->
+<section class="blocco" aria-labelledby="h3s">
+ <h2 id="h3s"><span class="num">3</span>Da sapere</h2>
+ <div class="riq r-sug"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg><div><b>Suggerimento</b>Il ristoratore fatica a leggere? <strong>Alza la luminosità</strong> del telefono prima di arrivare alla cassa.</div></div>
+ <div class="riq r-ric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg><div><b>Ricorda</b>Il QR è <strong>solo tuo</strong>: non darlo a un collega e non mandarne la foto. Non cambia ogni giorno.</div></div>
+ <div class="riq r-att"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><div><b>Attenzione</b><strong>Un pranzo al giorno.</strong> Se hai già pranzato, anche in un altro ristorante, il secondo pranzo lo paghi tu.</div></div>
+ <div class="riq r-fix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg><div><b>Se non funziona</b>Il codice non si legge → avvicina lo schermo e alza la luminosità. Se ancora niente, il ristoratore può <strong>scrivere il codice a mano</strong>. Il codice è rosso → vai alla lezione 3.1.</div></div>
+</section>
+
+<!-- 4 PROVA TU -->
+<section class="blocco" aria-labelledby="h4s">
+ <h2 id="h4s"><span class="num">4</span>Prova tu</h2>
+ <div class="prova">Adesso, senza andare alla cassa: apri RelDoxFood dall icona e guarda il tuo codice.<br><span class="ok">Ce l hai fatta se</span> vedi il tuo nome sopra un QR <strong>verde</strong> e, sotto, «Dove mangiare oggi».</div>
+</section>
+
+<!-- 5 HAI CAPITO -->
+<section class="blocco" aria-labelledby="h5s">
+ <h2 id="h5s"><span class="num">5</span>Hai capito?</h2>
+ <fieldset data-giusta="b" data-perche-si="Giusto: il ristoratore vede solo nome e iniziale del cognome. Il resto lo fa lui." data-perche-no="Non proprio: tu mostri il codice e basta; è il ristoratore che conferma il pasto.">
+  <legend>1. Alla cassa, che cosa fai tu?</legend>
+  <label class="sc"><input type="radio" name="q1" value="a">Firmo il foglio del ristoratore</label>
+  <label class="sc"><input type="radio" name="q1" value="b">Mostro il QR verde, il ristoratore fa il resto</label>
+  <label class="sc"><input type="radio" name="q1" value="c">Tocco «HA MANGIATO QUI» sul mio telefono</label>
+  <div class="esito" role="status"></div>
+ </fieldset>
+ <fieldset data-giusta="a" data-perche-si="Giusto: un pranzo al giorno, in qualunque ristorante convenzionato." data-perche-no="No: il secondo pranzo dello stesso giorno non è a carico dell azienda, lo paghi tu.">
+  <legend>2. Hai già pranzato in un ristorante. Ne provi un altro: che cosa succede?</legend>
+  <label class="sc"><input type="radio" name="q2" value="a">Il secondo pranzo lo pago io</label>
+  <label class="sc"><input type="radio" name="q2" value="b">Lo paga l azienda come il primo</label>
+  <div class="esito" role="status"></div>
+ </fieldset>
+</section>
+
+<!-- 6 IN UNA RIGA -->
+<div class="riga" style="margin-bottom:18px"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#E8B23A" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><div><small>In una riga</small>Apri, mostra, mangia. Il resto lo fa il sistema.</div></div>
+
+<!-- 7 SE ANCORA NON VA -->
+<section class="blocco" aria-labelledby="h7s">
+ <h2 id="h7s"><span class="num">7</span>Se ancora non va</h2>
+ <ol class="scala">
+  <li><span class="g">1</span><span>Rileggi il passo in cui ti sei fermato e guarda la figura.</span></li>
+  <li><span class="g">2</span><span>Apri «Se non funziona» qui sopra e le domande frequenti di RelDoxFood.</span></li>
+  <li><span class="g">3</span><span>Chiedi all <strong>ufficio del personale</strong> della tua azienda.</span></li>
+  <li><span class="g">4</span><span>Solo se ancora non va: l <strong>assistenza</strong>. <em style="color:var(--dim)">(recapito a cura del Marketing)</em></span></li>
+ </ol>
+</section>
+
+<div class="navlez"><a class="btn" href="#">← 2.1 Dove mangiare oggi</a><a class="btn prim" href="#">2.3 Le regole del pasto →</a></div>
+
+<p class="legenda">Nel mockup: le figure sono disegni (SVG) costruiti sulle schermate del manuale «Chi mangia» 1.24.11L; nelle lezioni vere potranno essere schermate dall ambiente di prova, sempre con i numeri sopra. I quattro riquadri hanno sempre questi colori e queste icone in tutta la famiglia.</p>
+</main>
+
+<script>
+document.querySelectorAll('fieldset[data-giusta]').forEach(function(f){
+ f.addEventListener('change',function(e){
+  var es=f.querySelector('.esito'),ok=e.target.value===f.getAttribute('data-giusta');
+  es.className='esito '+(ok?'si':'no');
+  es.textContent=ok?f.getAttribute('data-perche-si'):f.getAttribute('data-perche-no');
+ });
+});
+</script>
+</body>
+</html>
