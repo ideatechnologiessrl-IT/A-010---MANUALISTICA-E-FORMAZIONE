@@ -31,6 +31,9 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 | **partner / segnalatore** | chi rivende o segnala i prodotti | percorso partner (più avanti) |
 | **personale interno** | chi lavora in Idea Technologies | tutti i corsi, per l assistenza e l avvio dei clienti |
 
+## § 1 bis · I manuali dei prodotti stanno qui
+⛔ I **manuali veri** dei prodotti venduti (capitoli, PDF per ruolo e lingua, guida dell amministratore, corsi) passano in RelDoxAcademy; nel plugin del prodotto restano l accesso «Corsi» e le scritte d aiuto dell interfaccia. **Solo quando RelDoxAcademy è in produzione**: fino ad allora i manuali nei plugin restano come sono. *(owner 16/11/2026 09:22, chat RelDoxFood S122: «ricordati che i veri manuali dovranno essere gestiti dalla academy (plugin dedicato) così allegeriamo il pluin»; SPEC della chat v3 § 2 ter)*. Dalla **0.1.02A** (§ 16); il prodotto apre il manuale giusto per ruolo e lingua con lo stesso accesso firmato (§ 3.4, destinazione e lingua).
+
 ## § 2 · Come è fatta
 1. **Una sola installazione** WordPress su ideatechnologies.it (D9), indurita secondo `SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`. Nessun plugin dal cliente.
 2. **Due plugin sulla base di RelDoxFood** (D8), come ogni prodotto della famiglia: `reldox-academy/` (il prodotto) e `reldox-academy-diagnostica/` (la manutenzione, `SPEC-MANUTENZIONE-E-DIAGNOSTICA-v2`). Codice nel repository A-010 (D6).
@@ -41,15 +44,16 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 ## § 3 · Come si entra
 1. ⛔ **Si entra solo con una chiave valida di un prodotto acquistato** (D12). La chiave la emette **RelDox Chiavi** del capo famiglia.
 2. **Il percorso**: nel prodotto del cliente c è il pulsante **«Corsi»** → apre RelDoxAcademy in una scheda nuova portando un **accesso firmato e a tempo** → RelDoxAcademy controlla firma, scadenza e chiave → apre il catalogo di quella persona. Nessuna password da ricordare, nessuna registrazione.
-3. **Che cosa porta l accesso** ⏳ (forma da concordare con RelDox CRD, `bacheca/formazione/messaggi/2026-11-15-a-reldox-crd-academy-chiavi.md`): prodotto, versione, riferimento della chiave, azienda licenziataria (identificativo, non il nome), nome visualizzato e ruolo di chi entra, ora di emissione e di scadenza (pochi minuti), firma. Nessuna password, nessun dato oltre questi.
-4. **Regole di famiglia sulle chiavi** (capo famiglia, `bacheca/reldox-crd/messaggi/2026-11-15-a-tutti-scadenza-delle-chiavi.md`; owner 15/11/2026 18:58-19:01, chat RelDox CRD S706): avviso **60 giorni** prima della fine, nessun giorno di tolleranza dopo, rinnovo = vecchia fine + 12 mesi, nessuna revoca tecnica prima della fine. Per RelDoxAcademy: nel catalogo (S2), negli ultimi 60 giorni, la striscia «La manutenzione di <prodotto> finisce il <data>: dopo, i corsi non saranno più disponibili»; dal giorno dopo la fine, la pagina qui sotto.
-5. **Chiave scaduta**: RelDoxAcademy mostra una pagina sola: «L accesso ai corsi è compreso nella manutenzione annuale del prodotto. Per riattivarlo scrivi a sales@ideatechnologies.com». Nessun contenuto visibile.
-6. **Personale interno**: entra con un account di RelDoxAcademy (accesso WordPress con le regole di indurimento), vede tutto.
-7. **Una seduta**: dopo l accesso firmato RelDoxAcademy apre una sua seduta (cookie sicuro, durata breve); a ogni apertura del pulsante «Corsi» la chiave si ricontrolla.
+3. **Due firme diverse** (RelDox CRD, `bacheca/reldox-crd/messaggi/2026-11-16-a-formazione-academy-chiavi.md` e `…-academy-spec.md`): la **chiave di licenza** è firmata da Idea Technologies con «RelDox Chiavi» (prodotto, dominio, tipo, ultimo giorno) e l Academy la verifica **da sola con la chiave pubblica**, senza chiamare servizi (licenza v4 art. 10.4 bis); l **accesso** lo firma il **prodotto del cliente** e l Academy se ne fida solo se porta una chiave di licenza valida.
+4. **Che cosa porta l accesso** ⏳ (lo scrive la Formazione come proposta del pezzo comune «Accesso ai corsi», owner 16/11/2026, chat RelDox CRD S708: *«Proposta dalla Formazione»*): la chiave di licenza del prodotto, versione, azienda licenziataria (identificativo, non il nome), nome visualizzato, ruolo e lingua di chi entra, **destinazione** (catalogo, corso, manuale), ora di emissione e di scadenza (pochi minuti), firma. Nessuna password, nessun dato oltre questi.
+5. **Regole di famiglia sulle chiavi** (capo famiglia, `bacheca/reldox-crd/messaggi/2026-11-15-a-tutti-scadenza-delle-chiavi.md`; owner 15/11/2026 18:58-19:01, chat RelDox CRD S706): avviso **60 giorni** prima della fine, nessun giorno di tolleranza dopo, rinnovo = vecchia fine + 12 mesi, nessuna revoca tecnica prima della fine. Per RelDoxAcademy: nel catalogo (S2), negli ultimi 60 giorni, la striscia «La manutenzione di <prodotto> finisce il <data>: dopo, i corsi non saranno più disponibili»; dal giorno dopo la fine, la pagina qui sotto.
+6. **Chiave scaduta**: RelDoxAcademy mostra una pagina sola: «L accesso ai corsi è compreso nella manutenzione annuale del prodotto. Per riattivarlo scrivi a sales@ideatechnologies.com». Nessun contenuto visibile.
+7. **Personale interno**: entra con un account di RelDoxAcademy (accesso WordPress con le regole di indurimento), vede tutto.
+8. **Una seduta**: dopo l accesso firmato RelDoxAcademy apre una sua seduta (cookie sicuro, durata breve); a ogni apertura del pulsante «Corsi» la chiave si ricontrolla.
 
 ## § 4 · Il catalogo
 1. ⛔ **Il cliente vede corsi, manuali e schede solo dei prodotti acquistati, non degli altri** (D12), e della **versione** che ha installato.
-2. Più prodotti della stessa azienda ⏳: se le chiavi si riconoscono come della stessa azienda (domanda b) a RelDox CRD), un solo accesso mostra tutti i prodotti acquistati; altrimenti un catalogo per prodotto, dal pulsante di ciascuno.
+2. **Più prodotti della stessa azienda: un solo accesso** (owner 16/11/2026, chat RelDox CRD S708: *«Sì, un solo accesso»*): un solo accesso mostra tutti i prodotti acquistati. ⏳ L identificativo dell azienda entra nella chiave con la voce 159 di RelDox CRD; le chiavi già emesse senza identificativo valgono una alla volta (un catalogo per prodotto, dal pulsante di ciascuno).
 3. **Il catalogo per ruolo**: l utente vede i percorsi da utente; l amministratore anche la guida dell amministratore e il registro.
 4. **Ogni materiale dice per quale versione vale** (intestazione `vale_per`). Se il cliente ha una versione più vecchia di tutti i materiali, vede l ultimo materiale valido per la sua versione e l avviso «la tua versione è precedente: alcune schermate possono essere diverse».
 5. **Cerca**: una casella di ricerca su titoli e testo, dentro i soli materiali visibili a quella persona.
@@ -105,7 +109,7 @@ Dalle risposte di Legale (`bacheca/legale/messaggi/2026-11-15-a-formazione-acade
 3. ⏳ **Parere di Sicurezza-Cyber** su server, accesso firmato e conservazione, prima della prima versione; riga di sicurezza nello `STATO.md` a ogni unione.
 
 ## § 13 · Licenza e canone
-1. I corsi sono **compresi nel canone** (D3): ⏳ Legale, voce L9 (oggi la licenza v3 art. 9.4 mette «la formazione» fra le cose pagate a parte; Legale aggiunge l autoformazione on line fra quelle comprese).
+1. I corsi sono **compresi nel canone** (D3): licenza d uso **v4 art. 9.2** (pubblicata il 16/11/2026): i corsi on line di autoformazione sono compresi nel canone e non sono assistenza.
 2. La **chiave valida** del prodotto è l unico controllo: niente contratto da firmare per RelDoxAcademy.
 
 ## § 14 · Manutenzione
@@ -126,7 +130,8 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 17 · Domande aperte
 | a chi | che cosa | dove |
 |---|---|---|
-| RelDox CRD | forma e verifica della chiave; chiavi della stessa azienda; chi progetta l accesso firmato; segno e indirizzo | `…-a-reldox-crd-academy-chiavi.md` e messaggio con questa SPEC |
+| RelDox CRD | formato della chiave con l identificativo dell azienda (voce 159); verifica della proposta «Accesso ai corsi» | da mandare: `…-a-reldox-crd-proposta-accesso-ai-corsi.md` |
+| owner | dominio di RelDoxAcademy: ideatechnologies.it (come oggi nella SPEC) o `reldoxacademy.it`, registrato il 15/11/2026 | in chat |
 | Legale | L9 canone; L15 informativa; L4 capitolo art. 28 | `…-a-legale-corsi-nel-canone.md`, risposte del 15/11/2026 |
 | Sicurezza-Cyber | parere su server, accesso firmato e conservazione (sulla SPEC, nella loro prossima sessione con l owner) | `…-a-sicurezza-cyber-academy-spec.md` |
 | ogni prodotto | il pulsante «Corsi» | dopo l accordo con RelDox CRD |
@@ -134,6 +139,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.4 | 16/11/2026 | § 1 bis manuali dei prodotti in Academy; § 3 due firme, verifica della chiave con la chiave pubblica, destinazione e lingua nell accesso; § 4 un solo accesso per azienda; § 13 licenza v4 | messaggi di RelDox CRD S708 e RelDoxFood S122 del 16/11/2026 |
 | 1.3 | 16/11/2026 | § 6 nessun attestato anche per il modulo di igiene, registro con la data; § 14 «Copia configurazione» nella riga del plugin dalla 0.1.01A; § 8 mockup approvato «per ora» | Sicurezza-Cyber 16/11/2026; regola dell owner 16/11/2026 08:57, chat RelDox CRD S707; owner 16/11/2026 09:16, chat Formazione F001 |
 | 1.2 | 15/11/2026 | § 3.4 regole di famiglia sulle chiavi (avviso 60 giorni, nessuna tolleranza); § 11 ruoli privacy e conservazione da Legale | messaggi di RelDox CRD S706 e Legale L001 del 15/11/2026 |
 | 1.1 | 15/11/2026 | segno `rdacademy`, pulsante «Corsi» pezzo comune, mockup subito | D14, owner 19:21, chat Formazione F001 |
