@@ -120,13 +120,12 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 4. Prova su un ambiente di prova prima del server vero (`SPEC-AMBIENTE-DI-PROVA-TESTING-LIVE-v3`).
 
 ## § 16 · Prima versione (0.1.01A)
-**C è**: S1 ingresso con accesso firmato e chiave; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; un percorso **«primi passi»** per l utente di **un** prodotto (quale, lo sceglie l owner); italiano.
+**C è**: S1 ingresso con accesso firmato e chiave; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; un percorso **«primi passi»** per chi mangia di **RelDoxFood** (owner 16/11/2026 09:32, chat Formazione F001); italiano.
 **Non c è**: S4 manuali e schede (arrivano dalla 0.1.02A), cerca, statistiche, pannello di pubblicazione (nella prima i materiali si caricano col kit), altre lingue, partner.
 
 ## § 17 · Domande aperte
 | a chi | che cosa | dove |
 |---|---|---|
-| owner | il prodotto del primo percorso «primi passi» | in chat, dopo questa SPEC |
 | RelDox CRD | forma e verifica della chiave; chiavi della stessa azienda; chi progetta l accesso firmato; segno e indirizzo | `…-a-reldox-crd-academy-chiavi.md` e messaggio con questa SPEC |
 | Legale | L9 canone; L15 informativa; L4 capitolo art. 28 | `…-a-legale-corsi-nel-canone.md`, risposte del 15/11/2026 |
 | Sicurezza-Cyber | parere su server, accesso firmato e conservazione (sulla SPEC, nella loro prossima sessione con l owner) | `…-a-sicurezza-cyber-academy-spec.md` |

@@ -2,7 +2,7 @@
 
 # Struttura del repository — v1
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 15/11/2026 · Formazione F001 (voce F1 della SPEC § 6). Da approvare dall owner.
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1.1 · 16/11/2026 · Formazione F001 (voce F1 della SPEC § 6). Approvata «per ora» (D7, 15/11/2026 15:51); v1.1: i corsi stanno nella cartella del prodotto.
 
 ## 1 · Le cartelle
 | cartella | che cosa contiene | voce |
@@ -11,7 +11,7 @@
 | `fonti/` | inventario di ciò che esiste per ogni prodotto (`INVENTARIO.md`) e appunti di lettura delle fonti | F3 |
 | `glossario/` | `GLOSSARIO-FAMIGLIA-RELDOX.md`: una parola, una definizione, dove si usa | F4 |
 | `manuali/<prodotto>/it/` | manuale d uso, un capitolo per file; una cartella per versione principale quando serve (`v3/`) | F5 |
-| `corsi/<percorso>/it/` | un percorso per ruolo; una lezione per file, più verifica finale | F6, F8 |
+| `corsi/<prodotto>/<percorso>/` | un percorso per prodotto e ruolo: `INDICE.md` e le lezioni in `it/`, una per file, con le verifiche | F6, F8 |
 | `guida-amministratore/it/` | installazione, licenza d uso (testo di Legale), utenti e ruoli, copie, aggiornamenti | F7 |
 | `schede/<prodotto>/it/` | schede rapide: una funzione, una pagina | dopo F5 |
 | `faq/<prodotto>/it/` | domande frequenti | dopo F5 |
@@ -19,7 +19,7 @@
 | `risorse/` | logo di famiglia (copia da `grafica/loghi/` del nodo), immagini con dati inventati | — |
 | `reldox-academy/` | il plugin RelDoxAcademy (SPEC v2 § 2 bis), da creare con la prima versione dopo SPEC e mockup approvati | F9 |
 
-Prodotti: `reldox-crd`, `reldoxchecks`, `reldoxfood`, `reldoxportal` (gli stessi nomi delle cartelle del nodo). Percorsi: `utente-primi-passi`, `amministratore`, `partner`, `personale-interno`, `igiene-di-sicurezza`.
+Prodotti: `reldox-crd`, `reldoxchecks`, `reldoxfood`, `reldoxportal` (gli stessi nomi delle cartelle del nodo). Percorsi (dentro la cartella del prodotto; il modulo di sicurezza in `corsi/famiglia/`): `utente-primi-passi`, `amministratore`, `partner`, `personale-interno`, `igiene-di-sicurezza`.
 
 ## 2 · Lingue (D5, owner 15/11/2026, chat Formazione F001: *«Italiano subito, traduzioni dopo»*)
 Ogni materiale ha la sottocartella di lingua `it/`. Una traduzione futura è la cartella gemella (`en/`, `de/`) con gli stessi nomi di file, così il registro delle versioni li tiene allineati.

@@ -7,6 +7,7 @@
 ## F001 · 16/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D16 | *«reldoxfood che è quello attualmente in corso d'offerta sul secondo cliente il primo lo sta già usando»* | 09:32 | primo percorso «primi passi»: RelDoxFood, chi mangia; indice `corsi/reldoxfood/utente-primi-passi/INDICE.md` |
 | D15 | *«leggi news · per ora mockup approvato, devo provare a lavoraci prima di confermarlo definitivamente»* | 09:16 | mockup 0.1.01A v1 approvato per ora; SPEC 1.3 § 8 |
 
 ## F001 · 15/11/2026 — dopo le domande di avvio
