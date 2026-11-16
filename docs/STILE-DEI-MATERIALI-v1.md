@@ -2,12 +2,18 @@
 
 # Lo stile di manuali, lezioni e schede — v1
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 16/11/2026 · Formazione F001. Vale per **ogni** materiale per chi usa i prodotti (lezioni, manuali, schede, domande frequenti).
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1.1 · 16/11/2026 · **approvato dall owner** (16:14) · Formazione F001. Vale per **ogni** materiale per chi usa i prodotti (lezioni, manuali, schede, domande frequenti).
 
 **Scelta dell owner** (16/11/2026 09:34, chat Formazione F001): *«le guide non devono esere sviluppate a livello sol odi testo, ma devono avere delle caratteristiche tipiche ForDummies. L'utente deve essere in grado di fare da se e solo se proprio non capisce deve chiamarci»*.
 **Principio** (15/11/2026 15:51): *«uno strumento deve essere utile, produttivo e facile da usare da parte del nostro cliente»*.
 
 ⛔ «For Dummies» è un marchio di un editore: lo usiamo solo qui, come riferimento interno di stile. Nei materiali non compare mai, né il nome né le sue icone o la sua grafica: usiamo la grafica di famiglia (`grafica/SPEC-GRAFICA-RELDOX-v4.md`).
+
+## 0 · Prima l immagine, su ogni schermo
+**Scelta dell owner** (16/11/2026 16:14, chat Formazione F001): *«Si stile perfetto ricorda che la parte visiva deve avere sempre la priorità gli occhi imparano prima delle parole. Inoltre il tutto deve essere utilizzabile su tutti i dispositivi»*.
+- ⛔ **La figura viene prima del testo**: a sinistra del passo su computer e tablet, **sopra** il passo sul telefono. Ogni passo ha la sua figura; il testo spiega la figura, non il contrario.
+- Se una cosa si può mostrare (figura annotata, schema SVG, animazione breve, colore del riquadro), si mostra; le parole sono il minimo per fare il gesto.
+- ⛔ **Tutti i dispositivi**: ogni materiale si prova su computer (1366 px), tablet (820 px) e telefono (390 px) prima di pubblicarlo: niente scorrimento di lato, niente da ingrandire, pulsanti di almeno 44 px.
 
 ## 1 · La regola d oro: fai da solo
 Chi legge deve **riuscire da solo, la prima volta**, senza chiedere a nessuno. Ogni pagina si prova così: una persona che non ha mai visto il prodotto la segue col telefono in mano e arriva al risultato. Se si ferma, la pagina è sbagliata, non la persona.
@@ -46,12 +52,14 @@ I recapiti dell assistenza li scrive il Marketing con l owner; nei materiali c �
 - [ ] Ogni passo ha un gesto solo e la sua figura col numero.
 - [ ] Ogni scritta di pulsante è uguale allo schermo della versione indicata in `vale_per`.
 - [ ] Nessun nome di cliente, nessun nome interno, dati inventati.
-- [ ] Letta sul telefono: si legge senza ingrandire.
+- [ ] La figura viene prima del testo in ogni passo.
+- [ ] Provata su computer, tablet e telefono: niente scorrimento di lato, niente da ingrandire.
 - [ ] Provata da una persona che non conosce il prodotto (quando possibile).
 
 ## Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.1 | 16/11/2026 | § 0 prima l immagine, tutti i dispositivi; stile approvato | owner 16/11/2026 16:14, chat Formazione F001 |
 | 1 | 16/11/2026 | prima stesura | owner 16/11/2026 09:34, chat Formazione F001 |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

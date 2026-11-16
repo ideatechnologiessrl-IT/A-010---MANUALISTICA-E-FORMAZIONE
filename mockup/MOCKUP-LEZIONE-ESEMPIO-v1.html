@@ -26,13 +26,13 @@ h2 .num{width:32px;height:32px;border-radius:50%;background:var(--brand);color:#
 .trenta div{background:var(--brand-bg);border-radius:12px;padding:14px 16px}
 .trenta b{display:block;font-size:14px;color:var(--brand);text-transform:uppercase;letter-spacing:.04em}
 .trenta span{font-size:17px;font-weight:600}
-.passo{display:grid;grid-template-columns:1fr 240px;gap:22px;align-items:center;padding:18px 0;border-top:1px solid var(--line-2)}
+.passo{display:grid;grid-template-columns:240px 1fr;gap:26px;align-items:center;padding:18px 0;border-top:1px solid var(--line-2)}
 .passo:first-of-type{border-top:0;padding-top:4px}
 .passo .n{font-size:15px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.04em}
 .passo .gesto{font-size:21px;font-weight:700;margin:4px 0 8px;line-height:1.3}
 .passo .vedi{background:var(--ok-bg);color:#0F5A2B;border-radius:10px;padding:10px 14px;font-size:16px}
 .passo .vedi b{color:var(--ok)}
-.passo svg.fig{width:100%;height:auto;max-width:240px;justify-self:center}
+.passo svg.fig{width:100%;height:auto;max-width:240px;justify-self:center;order:-1}
 .fig text{font-family:inherit}
 .riq{border-radius:12px;padding:14px 16px 14px 14px;display:flex;gap:14px;align-items:flex-start;margin-bottom:12px;border-left:6px solid}
 .riq svg{width:30px;height:30px;flex-shrink:0}
@@ -60,17 +60,22 @@ input[type=radio]{width:20px;height:20px;accent-color:var(--brand)}
 .btn.prim{background:var(--brand);border-color:var(--brand);color:#fff}
 .navlez{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .legenda{font-size:14px;color:var(--dim);margin-top:24px;border-top:1px solid var(--line);padding-top:12px}
+@media (min-width:761px) and (max-width:1024px){.passo{grid-template-columns:200px 1fr}.trenta{grid-template-columns:1fr 1fr 1fr}main{padding:20px 24px 60px}}
 @media (max-width:760px){
- .trenta{grid-template-columns:1fr}
+ .trenta{grid-template-columns:1fr;gap:6px}
+ .trenta div{padding:8px 12px;display:flex;gap:8px;align-items:baseline}
+ .trenta b{font-size:12px;min-width:86px}
+ .trenta span{font-size:15px}
  .passo{grid-template-columns:1fr}
- .passo svg.fig{max-width:220px}
+ .passo svg.fig{max-width:200px}
+ .passo{gap:12px}
  h1{font-size:25px}.passo .gesto{font-size:19px}.riga{font-size:19px}
  .testata .ut{display:none}
 }
 </style>
 </head>
 <body>
-<div class="nota-mockup" role="note"><b>Mockup</b> Lezione d esempio nello stile «fai da solo» · v1 · 16/11/2026 · Formazione F001 · RelDoxFood 1.24.11L, dati inventati · ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</div>
+<div class="nota-mockup" role="note"><b>Mockup</b> Lezione d esempio nello stile «fai da solo» · v1.1 (prima l immagine) · 16/11/2026 · Formazione F001 · RelDoxFood 1.24.11L, dati inventati · ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</div>
 
 <header class="testata"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MTAgMTE2IiB3aWR0aD0iNDEwIiBoZWlnaHQ9IjExNiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJSZWxEb3gg4oCUIGlsbHVtaW5hIGlsIHR1byBsYXZvcm8iPgogIDwhLS0gVGVzdG8gTElWRSBpbiBTcGFjZSBHcm90ZXNrIChjYXJpY2F0byBnbG9iYWxtZW50ZSBkYWwgc2l0bykuIFBlciB1c2kgc2VuemEgZm9udCwgdXNhcmUgaWwgUE5HLiAtLT4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0icmR4TGtEaXNjIiBjeD0iNDIlIiBjeT0iMzglIiByPSI3MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkJENDc0Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTUlIiBzdG9wLWNvbG9yPSIjRThCMjNBIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0UwN0E1RiIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPCEtLSBTT0xFOiBhbHRlenphID0gZGFsIHRvcCBkZWxsYSBSIGFsIGZvbmRvIGRlbGxhICJpIiBkZWwgcGF5b2ZmOyBhY2Nvc3RhdG8gYWxsYSBzY3JpdHRhIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIgMTYpIHNjYWxlKDAuODgpIj4KICAgIDxnIHN0cm9rZT0iI0U4QjIzQSIgc3Ryb2tlLXdpZHRoPSIzLjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgICAgIDxsaW5lIHgxPSI1MCIgeTE9IjI2IiB4Mj0iNTAiIHkyPSIxMiIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDMwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDYwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDkwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDEyMCA1MCA1MCkiLz4KICAgICAgPGxpbmUgeDE9IjUwIiB5MT0iMjYiIHgyPSI1MCIgeTI9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTAgNTApIi8+CiAgICAgIDxsaW5lIHgxPSI1MCIgeTE9IjI2IiB4Mj0iNTAiIHkyPSIxMiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDIxMCA1MCA1MCkiLz4KICAgICAgPGxpbmUgeDE9IjUwIiB5MT0iMjYiIHgyPSI1MCIgeTI9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNDAgNTAgNTApIi8+CiAgICAgIDxsaW5lIHgxPSI1MCIgeTE9IjI2IiB4Mj0iNTAiIHkyPSIxMiIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwIDUwIDUwKSIvPgogICAgICA8bGluZSB4MT0iNTAiIHkxPSIyNiIgeDI9IjUwIiB5Mj0iMTIiIHRyYW5zZm9ybT0icm90YXRlKDMwMCA1MCA1MCkiLz4KICAgICAgPGxpbmUgeDE9IjUwIiB5MT0iMjYiIHgyPSI1MCIgeTI9IjEyIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzAgNTAgNTApIi8+CiAgICA8L2c+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxNSIgZmlsbD0idXJsKCNyZHhMa0Rpc2MpIi8+CiAgPC9nPgogIDwhLS0gd29yZG1hcmsgLS0+CiAgPHRleHQgeD0iODQiIHk9IjY1IiBmb250LWZhbWlseT0iJ1NwYWNlIEdyb3Rlc2snLHN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjU0IiBsZXR0ZXItc3BhY2luZz0iMiI+CiAgICA8dHNwYW4gZmlsbD0iIzBDNkU4NiI+UjwvdHNwYW4+PHRzcGFuIGZpbGw9IiMwQzFCMjciPmVsPC90c3Bhbj48dHNwYW4gZmlsbD0iI0U4QjIzQSI+RDwvdHNwYW4+PHRzcGFuIGZpbGw9IiMwQzFCMjciPm94PC90c3Bhbj4KICA8L3RleHQ+CiAgPCEtLSBwYXlvZmYgLS0+CiAgPHRleHQgeD0iODYiIHk9Ijk0IiBmb250LWZhbWlseT0ic3lzdGVtLXVpLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc2l6ZT0iMTQuNSIgbGV0dGVyLXNwYWNpbmc9IjQuMiIgZmlsbD0iI0UwN0E1RiI+SUxMVU1JTkEgSUwgVFVPIExBVk9STzwvdGV4dD4KPC9zdmc+Cg==" alt="RelDox"><span class="sepv"></span><span class="acad">Academy</span><span class="ut">Marco R. · utente</span></header>
 
