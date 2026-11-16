@@ -36,6 +36,8 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 
 ## § 2 · Come è fatta
 1. **Un sito indipendente su un infrastruttura tutta dedicata** (owner 16/11/2026 16:56, chat Formazione F001: *«ok avrai il tuo sito indipendente con un'infrastruttura totalmente dedicata a te»*; supera la scelta delle 16:11 sul sito istituzionale): un WordPress con i soli plugin dell Academy, nessun altro sito sulla stessa macchina. **Dominio**: `reldoxacademy.it`, che ospita direttamente l Academy su un **hosting separato** da quello istituzionale (decisione dell owner del 16/11/2026 16:19 riportata da Sicurezza-Cyber: *«mi attivo per un nuovo spazio su reldoxaccademy.it separato dal hosting istituzionale»*; parere 🟢 di Sicurezza-Cyber, `bacheca/sicurezza-cyber/messaggi/2026-11-16-a-formazione-academy-dove-installarla.md`). Se mai si pubblicasse un indirizzo `/academy/` sul sito istituzionale: 301 in HTTPS verso `reldoxacademy.it`. Indurita secondo `SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`. Nessun plugin dal cliente.
+   **Stato del sito** (Sicurezza-Cyber, `bacheca/sicurezza-cyber/messaggi/2026-11-16-a-formazione-academy-sito-installato.md`): WordPress 7.1.4, PHP 8.3, HTTPS attivo, un solo amministratore, registrazione pubblica spenta, posta con DKIM/SPF/DMARC, Wordfence attivo. ⏳ **Quattro punti da chiudere prima di far entrare chi studia**: errori PHP non visibili al pubblico; `DISALLOW_FILE_EDIT`; temi inattivi cancellati; aggiornamenti automatici di core e Wordfence; poi verifica di Sicurezza-Cyber in testing-live.
+   **Logo**: il sole di famiglia col tocco del laureato, «Academy» in indaco `#3E3F9B` (su scuro `#A3A6F0`), frase «il sapere, la tua crescita» (owner 16/11/2026 19:04-19:10, chat Marketing S144); copia in `risorse/logo-academy/`. L indaco torna nei dettagli (pulsanti, evidenze); mai l arcobaleno.
 2. **Due plugin sulla base di RelDoxFood** (D8), come ogni prodotto della famiglia: `reldox-academy/` (il prodotto) e `reldox-academy-diagnostica/` (la manutenzione, `SPEC-MANUTENZIONE-E-DIAGNOSTICA-v2`). Codice nel repository A-010 (D6).
 3. **Database proprio** (regola «un prodotto, un database»): credenziali solo in `wp-config.php`.
 4. **Segno e indirizzo dell app**: segno approvato dall owner (D14, 19:21), da scrivere in `REGOLE-FAMIGLIA` dal capo famiglia ⏳ (indirizzo e diagnostica da confermare): segno `rdacademy` (`RDACADEMY_`, `rdacademy_`, `Rdacademy_`), indirizzo `/academy/`, diagnostica `reldox-academy-diagnostica`.
@@ -79,7 +81,7 @@ Italiano subito (D5). Struttura pronta: cartelle `it/`, `en/`, `de/` con gli ste
 | n. | schermata | per chi |
 |---|---|---|
 | S1 | Ingresso (accesso firmato in corso / chiave scaduta) | tutti |
-| S1 bis | **«Chi sei?»** con l **assistente** disegnato (owner 16/11/2026 17:09): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» | tutti |
+| S1 bis | **«Chi sei?»** con **Iris**, l assistente disegnato (owner 16/11/2026 17:09; nome 18:51, chat Marketing S144; pose in `risorse/assistente/`): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» | tutti |
 | S2 | Il mio catalogo (prodotti acquistati, percorsi per ruolo, avanzamento) | utente, amministratore |
 | S3 | La lezione (passi, esercizio, verifica) | utente |
 | S4 | Manuale e schede (indice, capitolo, PDF) | utente, amministratore |
@@ -133,7 +135,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 4. Prova su un ambiente di prova prima del server vero (`SPEC-AMBIENTE-DI-PROVA-TESTING-LIVE-v3`).
 
 ## § 16 · Prima versione (0.1.01A)
-**C è**: S1 ingresso con accesso firmato e chiave; S1 bis «Chi sei?» con l assistente; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; i **quattro percorsi di RelDoxFood** nell ordine dell avvio — configurare, rilasciare i QR, mangiare, la cassa del ristorante (owner 16/11/2026 09:32 e 17:09, chat Formazione F001; indice `corsi/reldoxfood/INDICE.md`); italiano.
+**C è**: S1 ingresso con accesso firmato e chiave; S1 bis «Chi sei?» con Iris; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; i **quattro percorsi di RelDoxFood** nell ordine dell avvio — configurare, rilasciare i QR, mangiare, la cassa del ristorante (owner 16/11/2026 09:32 e 17:09, chat Formazione F001; indice `corsi/reldoxfood/INDICE.md`); italiano.
 **Non c è**: S4 manuali e schede (arrivano dalla 0.1.02A), cerca, statistiche, pannello di pubblicazione (nella prima i materiali si caricano col kit), altre lingue, partner.
 
 ## § 17 · Domande aperte
@@ -149,8 +151,9 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.9 | 16/11/2026 | § 2.1 stato del sito installato e quattro punti; logo; § 8 Iris | Marketing e Sicurezza-Cyber, 16/11/2026 |
 | 1.8 | 16/11/2026 | § 2.1 dominio `reldoxacademy.it` su hosting separato; § 12 condizioni minime del server | parere 🟢 di Sicurezza-Cyber del 16/11/2026 |
-| 1.7 | 16/11/2026 | § 8 S1 bis «Chi sei?» con l assistente; § 16 i quattro percorsi di RelDoxFood | owner 16/11/2026 17:09, chat Formazione F001 |
+| 1.7 | 16/11/2026 | § 8 S1 bis «Chi sei?» con Iris; § 16 i quattro percorsi di RelDoxFood | owner 16/11/2026 17:09, chat Formazione F001 |
 | 1.6 | 16/11/2026 | § 2.1 sito e infrastruttura dedicati (supera la 1.5); § 17 dominio e corsi fuori famiglia | owner 16/11/2026 16:56, chat Formazione F001 |
 | 1.5 | 16/11/2026 | § 2.1 nel sito istituzionale, `reldoxacademy.it` rimanda; parere di Sicurezza-Cyber | owner 16/11/2026 16:11, chat Formazione F001 |
 | 1.4 | 16/11/2026 | § 1 bis manuali dei prodotti in Academy; § 3 due firme, verifica della chiave con la chiave pubblica, destinazione e lingua nell accesso; § 4 un solo accesso per azienda; § 13 licenza v4 | messaggi di RelDox CRD S708 e RelDoxFood S122 del 16/11/2026 |

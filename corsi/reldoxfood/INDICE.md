@@ -12,7 +12,7 @@
 **Fonti**: i tre manuali di RelDoxFood 1.24.11L — Amministratore (15 capitoli), Chi mangia (9), Ristoratore (11) — e le schede di `novita/reldoxfood.md`. Nessuna funzione nuova; dati inventati.
 
 ## 0 · L ingresso: «Chi sei?» con l assistente
-Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **l assistente** — il personaggio disegnato del Marketing (`Mkrt-Idea-Technologies`, `linkedin/personaggio/`, 30 pose; richiesta in `bacheca/formazione/messaggi/2026-11-16-a-marketing-assistente-per-academy.md`) — che fa **una domanda sola**: **«Chi sei?»**, con quattro risposte grandi, ognuna con la sua figura.
+Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **Iris**, l assistente — il personaggio disegnato del Marketing (nome: owner 16/11/2026 18:51, chat Marketing S144; pose in `risorse/assistente/`, regole in `risorse/assistente/FONTE.md`) — che fa **una domanda sola**: **«Chi sei?»**, con quattro risposte grandi, ognuna con la sua figura.
 
 | risposta | chi è | percorso |
 |---|---|---|
@@ -21,7 +21,7 @@ Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **l assistente** �
 | **«Vado a mangiare con il QR»** | chi usa il servizio | **3 · Mangiare con RelDoxFood** |
 | **«Ho un ristorante convenzionato»** | il ristoratore | **4 · La cassa del ristorante** |
 
-- **L assistente sa già molto**: l accesso dal prodotto porta il ruolo (SPEC di RelDoxAcademy § 3.4); se il ruolo è chiaro l assistente propone la risposta («Ciao Laura, sei amministratore: comincia da qui») e si può cambiarla.
+- **L assistente sa già molto**: l accesso dal prodotto porta il ruolo (SPEC di RelDoxAcademy § 3.4); se il ruolo è chiaro l assistente propone la risposta («Ciao, sono Iris. Laura, sei amministratore: comincia da qui») e si può cambiarla.
 - Dopo la scelta l assistente **accompagna**: mostra il percorso come una strada a tappe, dice «sei qui», alla fine di ogni lezione propone la successiva, riprende da dove eri. Battute di una riga, una posa diversa a ogni momento (come nella serie del Marketing).
 - L ordine 1 → 4 è **l ordine dell avvio** presso un cliente: prima si configura, poi si danno gli accessi, poi si mangia e si incassa. L assistente lo ricorda all amministratore («prima di invitare i colleghi, finisci il percorso 1»).
 
@@ -74,7 +74,7 @@ Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **l assistente** �
 | *verifica e riassunto da tasca* | | |
 
 ## Che cosa serve prima di scrivere
-1. **Marketing**: l assistente (pose, regole d uso, nome se ce l ha) — messaggio del 16/11/2026.
+1. ~~Marketing: l assistente~~ fatto: **Iris**, nove pose in `risorse/assistente/`; logo di RelDoxAcademy in `risorse/logo-academy/`.
 2. **Glossario** (F4): QR, fascia, trattenuta, convenzione, codice cumulativo (FUZZYCode), referente, ospite accreditato, registro dei pasti.
 3. **RelDoxFood**: immagini da dati inventati (domanda c dell inventario) o schermate dall ambiente di prova.
 4. **Mockup** del «Chi sei?» e della strada a tappe (SPEC di RelDoxAcademy § 8), all owner prima del codice.
