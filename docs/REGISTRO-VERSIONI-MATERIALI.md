@@ -6,8 +6,8 @@
 
 | materiale | percorso | versione | data | prodotto e versione a cui vale | lingua | allineato |
 |---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — |
-
-Nessun materiale ancora (15/11/2026, Formazione F001).
+| Emetti una chiave | `manuali/reldox-chiavi/it/2-emetti-una-chiave.md` | 2 | 16/11/2026 | RelDox Chiavi 1.0.06 (interno) | it | sì |
+| Più prodotti sullo stesso sito | `manuali/reldox-chiavi/it/3-piu-prodotti-sullo-stesso-sito.md` | 2 | 16/11/2026 | RelDox Chiavi 1.0.06 (interno) | it | sì |
+| Rinnova, sostituisci, disattiva | `manuali/reldox-chiavi/it/6-rinnova-sostituisci-disattiva.md` | 1 | 16/11/2026 | RelDox Chiavi 1.0.06 (interno) | it | sì |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

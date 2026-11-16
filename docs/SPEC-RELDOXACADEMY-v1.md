@@ -63,15 +63,15 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 
 ## § 6 · Il registro di completamento
 1. Per ogni persona: lezione, data di apertura, data di completamento, esito della verifica (giuste su totali), tentativi.
-2. **L amministratore del cliente** vede il registro dei soli utenti della sua azienda e lo **scarica** (CSV e PDF) come prova della formazione fatta.
-3. ⛔ **Nessun attestato** (D4). Il modulo di igiene di sicurezza ⏳: proposta a Sicurezza-Cyber che basti il registro scaricabile (`…-a-sicurezza-cyber-attestato-e-skill.md`).
+2. **L amministratore del cliente** vede il registro dei soli utenti della sua azienda e lo **scarica** (CSV e PDF, con la data di scarico e il periodo) come prova della formazione fatta.
+3. ⛔ **Nessun attestato** (D4), **nemmeno per il modulo di igiene di sicurezza**: basta il registro scaricabile **con la data** (Sicurezza-Cyber, `bacheca/sicurezza-cyber/messaggi/2026-11-16-a-formazione-attestato-e-skill.md`); eccezione solo se Legale trova una norma che chieda un attestato (voce L16 b).
 4. Idea vede il registro di tutte le aziende, solo come numeri per migliorare i corsi (§ 9).
 
 ## § 7 · Le lingue
 Italiano subito (D5). Struttura pronta: cartelle `it/`, `en/`, `de/` con gli stessi nomi di file (`docs/STRUTTURA.md` § 2); il gestore delle lingue di RelDoxFood mostra la lingua della persona, se il materiale esiste, altrimenti l italiano.
 
 ## § 8 · Le schermate
-⛔ Ognuna col suo **mockup all owner** prima del codice.
+⛔ Ognuna col suo **mockup all owner** prima del codice. Mockup 0.1.01A v1 (S1, S2, S3, S6): `mockup/MOCKUP-RELDOXACADEMY-0.1.01A-v1.html`, approvato **per ora** (owner 16/11/2026 09:16, chat Formazione F001: *«per ora mockup approvato, devo provare a lavoraci prima di confermarlo definitivamente»*).
 | n. | schermata | per chi |
 |---|---|---|
 | S1 | Ingresso (accesso firmato in corso / chiave scaduta) | tutti |
@@ -111,6 +111,8 @@ Dalle risposte di Legale (`bacheca/legale/messaggi/2026-11-15-a-formazione-acade
 ## § 14 · Manutenzione
 Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistema, controlli, «Copia configurazione», indurimento, registro dei banchi.
 
+**Regola di famiglia** (owner 16/11/2026 08:57, chat RelDox CRD S707; `bacheca/reldox-crd/messaggi/2026-11-16-a-tutti-copia-configurazione-nella-riga-del-plugin.md`): nell elenco dei plugin di WordPress, sotto il nome di **tutti e due** i plugin, «Stato e assistenza» e **«Copia configurazione»** (solo `manage_options`), in aggiunta alla copia della pagina di stato; mai chiavi, frasi segrete, password, nomi o host dei database, prefisso, utenti, indirizzi IP. **Dalla 0.1.01A.**
+
 ## § 15 · Versioni, banchi e smoke
 1. Numerazione della famiglia: tre segmenti con lo stadio attaccato (`0.1.01A`), dopo `.09` il padre +1; terna intestazione · `RDACADEMY_VERSION` · `RDACADEMY_STAGE`.
 2. Banco **rosso** sulla versione prima, **verde** sulla nuova; mockup prima di ogni schermata; dopo due fallimenti ci si ferma.
@@ -118,7 +120,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 4. Prova su un ambiente di prova prima del server vero (`SPEC-AMBIENTE-DI-PROVA-TESTING-LIVE-v3`).
 
 ## § 16 · Prima versione (0.1.01A)
-**C è**: S1 ingresso con accesso firmato e chiave; S2 catalogo; S3 lezione; S6 registro; un percorso **«primi passi»** per l utente di **un** prodotto (quale, lo sceglie l owner); italiano.
+**C è**: S1 ingresso con accesso firmato e chiave; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; un percorso **«primi passi»** per l utente di **un** prodotto (quale, lo sceglie l owner); italiano.
 **Non c è**: S4 manuali e schede (arrivano dalla 0.1.02A), cerca, statistiche, pannello di pubblicazione (nella prima i materiali si caricano col kit), altre lingue, partner.
 
 ## § 17 · Domande aperte
@@ -127,12 +129,13 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 | owner | il prodotto del primo percorso «primi passi» | in chat, dopo questa SPEC |
 | RelDox CRD | forma e verifica della chiave; chiavi della stessa azienda; chi progetta l accesso firmato; segno e indirizzo | `…-a-reldox-crd-academy-chiavi.md` e messaggio con questa SPEC |
 | Legale | L9 canone; L15 informativa; L4 capitolo art. 28 | `…-a-legale-corsi-nel-canone.md`, risposte del 15/11/2026 |
-| Sicurezza-Cyber | attestato del modulo di igiene; parere su server e accesso | `…-a-sicurezza-cyber-attestato-e-skill.md` |
+| Sicurezza-Cyber | parere su server, accesso firmato e conservazione (sulla SPEC, nella loro prossima sessione con l owner) | `…-a-sicurezza-cyber-academy-spec.md` |
 | ogni prodotto | il pulsante «Corsi» | dopo l accordo con RelDox CRD |
 
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.3 | 16/11/2026 | § 6 nessun attestato anche per il modulo di igiene, registro con la data; § 14 «Copia configurazione» nella riga del plugin dalla 0.1.01A; § 8 mockup approvato «per ora» | Sicurezza-Cyber 16/11/2026; regola dell owner 16/11/2026 08:57, chat RelDox CRD S707; owner 16/11/2026 09:16, chat Formazione F001 |
 | 1.2 | 15/11/2026 | § 3.4 regole di famiglia sulle chiavi (avviso 60 giorni, nessuna tolleranza); § 11 ruoli privacy e conservazione da Legale | messaggi di RelDox CRD S706 e Legale L001 del 15/11/2026 |
 | 1.1 | 15/11/2026 | segno `rdacademy`, pulsante «Corsi» pezzo comune, mockup subito | D14, owner 19:21, chat Formazione F001 |
 | 1 | 15/11/2026 | prima stesura sull indice approvato | D13, owner 18:56, chat Formazione F001 |
