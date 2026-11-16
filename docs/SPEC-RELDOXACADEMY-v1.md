@@ -35,7 +35,7 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 ⛔ I **manuali veri** dei prodotti venduti (capitoli, PDF per ruolo e lingua, guida dell amministratore, corsi) passano in RelDoxAcademy; nel plugin del prodotto restano l accesso «Corsi» e le scritte d aiuto dell interfaccia. **Solo quando RelDoxAcademy è in produzione**: fino ad allora i manuali nei plugin restano come sono. *(owner 16/11/2026 09:22, chat RelDoxFood S122: «ricordati che i veri manuali dovranno essere gestiti dalla academy (plugin dedicato) così allegeriamo il pluin»; SPEC della chat v3 § 2 ter)*. Dalla **0.1.02A** (§ 16); il prodotto apre il manuale giusto per ruolo e lingua con lo stesso accesso firmato (§ 3.4, destinazione e lingua).
 
 ## § 2 · Come è fatta
-1. **Un sito indipendente su un infrastruttura tutta dedicata** (owner 16/11/2026 16:56, chat Formazione F001: *«ok avrai il tuo sito indipendente con un'infrastruttura totalmente dedicata a te»*; supera la scelta delle 16:11 sul sito istituzionale): un WordPress con i soli plugin dell Academy, nessun altro sito sulla stessa macchina. ⏳ Dominio principale da confermare con l owner (proposta: `reldoxacademy.it`, della società; `reldoxacademy.com` rimanda lì); requisiti del server da Sicurezza-Cyber (`…-a-sicurezza-cyber-academy-dove-installarla.md`). Indurita secondo `SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`. Nessun plugin dal cliente.
+1. **Un sito indipendente su un infrastruttura tutta dedicata** (owner 16/11/2026 16:56, chat Formazione F001: *«ok avrai il tuo sito indipendente con un'infrastruttura totalmente dedicata a te»*; supera la scelta delle 16:11 sul sito istituzionale): un WordPress con i soli plugin dell Academy, nessun altro sito sulla stessa macchina. **Dominio**: `reldoxacademy.it`, che ospita direttamente l Academy su un **hosting separato** da quello istituzionale (decisione dell owner del 16/11/2026 16:19 riportata da Sicurezza-Cyber: *«mi attivo per un nuovo spazio su reldoxaccademy.it separato dal hosting istituzionale»*; parere 🟢 di Sicurezza-Cyber, `bacheca/sicurezza-cyber/messaggi/2026-11-16-a-formazione-academy-dove-installarla.md`). Se mai si pubblicasse un indirizzo `/academy/` sul sito istituzionale: 301 in HTTPS verso `reldoxacademy.it`. Indurita secondo `SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`. Nessun plugin dal cliente.
 2. **Due plugin sulla base di RelDoxFood** (D8), come ogni prodotto della famiglia: `reldox-academy/` (il prodotto) e `reldox-academy-diagnostica/` (la manutenzione, `SPEC-MANUTENZIONE-E-DIAGNOSTICA-v2`). Codice nel repository A-010 (D6).
 3. **Database proprio** (regola «un prodotto, un database»): credenziali solo in `wp-config.php`.
 4. **Segno e indirizzo dell app**: segno approvato dall owner (D14, 19:21), da scrivere in `REGOLE-FAMIGLIA` dal capo famiglia ⏳ (indirizzo e diagnostica da confermare): segno `rdacademy` (`RDACADEMY_`, `rdacademy_`, `Rdacademy_`), indirizzo `/academy/`, diagnostica `reldox-academy-diagnostica`.
@@ -79,6 +79,7 @@ Italiano subito (D5). Struttura pronta: cartelle `it/`, `en/`, `de/` con gli ste
 | n. | schermata | per chi |
 |---|---|---|
 | S1 | Ingresso (accesso firmato in corso / chiave scaduta) | tutti |
+| S1 bis | **«Chi sei?»** con l **assistente** disegnato (owner 16/11/2026 17:09): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» | tutti |
 | S2 | Il mio catalogo (prodotti acquistati, percorsi per ruolo, avanzamento) | utente, amministratore |
 | S3 | La lezione (passi, esercizio, verifica) | utente |
 | S4 | Manuale e schede (indice, capitolo, PDF) | utente, amministratore |
@@ -104,9 +105,17 @@ Dalle risposte di Legale (`bacheca/legale/messaggi/2026-11-15-a-formazione-acade
 4. **Conservazione**: il registro **finché la licenza è attiva**; alla cessazione l amministratore del cliente ha **30 giorni** per scaricarlo, poi Idea lo cancella (licenza v3 art. 10.7). Un tempo più lungo solo con una ragione precisa portata all owner da Legale.
 
 ## § 12 · Sicurezza
-1. Server esposto e indurito (`SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`, «n su 11» nella diagnostica).
-2. Accesso firmato a tempo breve, usabile una volta; freno ai tentativi; registro degli accessi senza dati personali oltre l identificativo.
-3. ⏳ **Parere di Sicurezza-Cyber** su server, accesso firmato e conservazione, prima della prima versione; riga di sicurezza nello `STATO.md` a ogni unione.
+**Condizioni minime del server** (Sicurezza-Cyber, 16/11/2026, parere 🟢):
+1. HTTPS obbligatorio con HSTS; intestazioni X-Content-Type-Options, X-Frame-Options, Referrer-Policy (policy di indurimento A1-A12, `SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1`).
+2. Pannello di amministrazione: **un utente per persona**, mai condiviso; password forti e **doppio fattore** sugli amministratori.
+3. Database e utente del database **propri** dell Academy, con permessi minimi.
+4. ⛔ **Nessuna chiave di licenza in chiaro nei registri**: l Academy controlla la chiave che arriva con l accesso e non la scrive in nessun log né tabella (al massimo il prodotto, il dominio e l ultimo giorno).
+5. Solo i plugin che servono all Academy; nessun plugin di terzi non necessario.
+6. Aggiornamenti di WordPress e del plugin **entro sette giorni** dall uscita.
+7. Copia dei dati **ogni giorno**, con prova di ripristino almeno una volta l anno.
+8. `wp-config.php` con permessi stretti e `DISALLOW_FILE_EDIT` attivo.
+9. Accesso firmato a tempo breve, usabile una volta; freno ai tentativi; registro degli accessi senza dati personali oltre l identificativo.
+10. **Prima del rilascio** a Sicurezza-Cyber: nome dell hosting, versioni di WordPress e PHP, elenco dei plugin; loro prova in testing-live e verifica di sicurezza; riga di sicurezza nello `STATO.md` a ogni unione. ⏳ Il parere sull accesso firmato e sulla conservazione resta quello chiesto con la SPEC (`…-a-sicurezza-cyber-academy-spec.md`).
 
 ## § 13 · Licenza e canone
 1. I corsi sono **compresi nel canone** (D3): licenza d uso **v4 art. 9.2** (pubblicata il 16/11/2026): i corsi on line di autoformazione sono compresi nel canone e non sono assistenza.
@@ -124,15 +133,14 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 4. Prova su un ambiente di prova prima del server vero (`SPEC-AMBIENTE-DI-PROVA-TESTING-LIVE-v3`).
 
 ## § 16 · Prima versione (0.1.01A)
-**C è**: S1 ingresso con accesso firmato e chiave; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; un percorso **«primi passi»** per chi mangia di **RelDoxFood** (owner 16/11/2026 09:32, chat Formazione F001); italiano.
+**C è**: S1 ingresso con accesso firmato e chiave; S1 bis «Chi sei?» con l assistente; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; i **quattro percorsi di RelDoxFood** nell ordine dell avvio — configurare, rilasciare i QR, mangiare, la cassa del ristorante (owner 16/11/2026 09:32 e 17:09, chat Formazione F001; indice `corsi/reldoxfood/INDICE.md`); italiano.
 **Non c è**: S4 manuali e schede (arrivano dalla 0.1.02A), cerca, statistiche, pannello di pubblicazione (nella prima i materiali si caricano col kit), altre lingue, partner.
 
 ## § 17 · Domande aperte
 | a chi | che cosa | dove |
 |---|---|---|
 | RelDox CRD | formato della chiave con l identificativo dell azienda (voce 159); verifica della proposta «Accesso ai corsi» | da mandare: `…-a-reldox-crd-proposta-accesso-ai-corsi.md` |
-| Sicurezza-Cyber | requisiti del server dedicato (D20) | `…-a-sicurezza-cyber-academy-dove-installarla.md` |
-| owner | dominio principale (proposta `reldoxacademy.it`) | in chat |
+| owner | nome dell hosting separato, versioni di WordPress e PHP, da dare a Sicurezza-Cyber prima del rilascio | in chat |
 | owner, più avanti | aprire l Academy a **corsi fuori dalla famiglia** (D20: *«magari più avanti ci faremo un pensiero … vedremo l'evoluzione»*): per non chiudere la strada, catalogo, lezioni e registro non dipendono dai soli prodotti RelDox (il «prodotto» di un corso è un campo, non una regola fissa); accesso e prezzi di quei corsi da decidere allora | — |
 | Legale | L9 canone; L15 informativa; L4 capitolo art. 28 | `…-a-legale-corsi-nel-canone.md`, risposte del 15/11/2026 |
 | Sicurezza-Cyber | parere su server, accesso firmato e conservazione (sulla SPEC, nella loro prossima sessione con l owner) | `…-a-sicurezza-cyber-academy-spec.md` |
@@ -141,6 +149,8 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.8 | 16/11/2026 | § 2.1 dominio `reldoxacademy.it` su hosting separato; § 12 condizioni minime del server | parere 🟢 di Sicurezza-Cyber del 16/11/2026 |
+| 1.7 | 16/11/2026 | § 8 S1 bis «Chi sei?» con l assistente; § 16 i quattro percorsi di RelDoxFood | owner 16/11/2026 17:09, chat Formazione F001 |
 | 1.6 | 16/11/2026 | § 2.1 sito e infrastruttura dedicati (supera la 1.5); § 17 dominio e corsi fuori famiglia | owner 16/11/2026 16:56, chat Formazione F001 |
 | 1.5 | 16/11/2026 | § 2.1 nel sito istituzionale, `reldoxacademy.it` rimanda; parere di Sicurezza-Cyber | owner 16/11/2026 16:11, chat Formazione F001 |
 | 1.4 | 16/11/2026 | § 1 bis manuali dei prodotti in Academy; § 3 due firme, verifica della chiave con la chiave pubblica, destinazione e lingua nell accesso; § 4 un solo accesso per azienda; § 13 licenza v4 | messaggi di RelDox CRD S708 e RelDoxFood S122 del 16/11/2026 |

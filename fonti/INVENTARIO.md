@@ -47,7 +47,7 @@
 - **Documentazione** (`reldoxfood/docs-content/`): configurazione database, API e collegamenti (1.18.0L), i manuali dei ruoli (1.9.0B), il codice personale e i suoi invii (1.10.0B); guida della cassa (`public/views/guida-cassa.php`).
 - **Regola già scritta dal prodotto**: `docs/SPEC-MANUALI-IN-LINEA-RELDOXFOOD-v1.md` — una sola fonte, due uscite (capitoli nell app e PDF), manuali rigenerati a ogni pacchetto con la sua versione.
 
-- **Foto nuove** (16/11/2026): pagina Novità per l integrazione 1.26.0L (`banco/S91-182-foto/`, ramo `sessione/S122`) e guida della cassa 1.26.1L in veste nuova (`banco/S91-192-foto/`, ramo `sessione/S123`): si usano dopo il collaudo e le schede di `novita/`.
+- **Foto nuove** (16/11/2026): pagina Novità per l integrazione 1.26.0L (`banco/S91-182-foto/`, ramo `sessione/S122`) e guida della cassa 1.26.1L in veste nuova (`banco/S91-192-foto/`, ramo `sessione/S123`): si usano dopo il collaudo e le schede di `novita/`. Pagina **FUZZYCode** 1.26.2L in veste nuova (`banco/S91-200-foto/`, ramo `sessione/S124`, a 2560, 1920, 1440, 820 e 390).
 
 ## 4 · RelDoxPortal — 0.3.09 Beta
 - **Nodo**: `novita/reldoxportal.md` senza schede.
