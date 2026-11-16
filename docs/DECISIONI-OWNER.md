@@ -7,6 +7,7 @@
 ## F001 · 16/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D20 | *«ok avrai il tuo sito indipendente con un'infrastruttura totalmente dedicata a te ... magari più avanti ci faremo un pensiero per aprirlo a dei corsi fuori famiglia .... vedremo l'evoluzione»* | 16:56 | **supera D18**: RelDoxAcademy su un sito e un infrastruttura dedicati; SPEC 1.6 § 2.1 e § 17; messaggio a Sicurezza-Cyber aggiornato |
 | D19 | *«Si stile perfetto ricorda che la parte visiva deve avere sempre la priorità gli occhi imparano prima delle parole. Inoltre il tutto deve essere utilizzabile su tutti i dispositivi»* | 16:14 | `docs/STILE-DEI-MATERIALI-v1.md` 1.1 § 0; lezione d esempio v1.1 con la figura prima del testo |
 | D18 | *«Il dominio RelDoxAcademy ha un redirect che porterà ad una pagina sotto ideatechnologies.it se però preferisci che compro una infrastruttura a parte con un wp separato l ofacciamo. Per ottimizzazione vorrei mntenere tutto nel sito istituzionale. Sentiamo anche il parere di cyber»* | 16:11 | SPEC § 2.1: nel sito istituzionale, salvo parere di Sicurezza-Cyber (`…-a-sicurezza-cyber-academy-dove-installarla.md`) |
 | D17 | *«le guide non devono esere sviluppate a livello sol odi testo, ma devono avere delle caratteristiche tipiche ForDummies. L'utente deve essere in grado di fare da se e solo se proprio non capisce deve chiamarci»* | 09:34 | `docs/STILE-DEI-MATERIALI-v1.md`, `modelli/MODELLO-LEZIONE.md` a otto elementi, lezione d esempio `mockup/MOCKUP-LEZIONE-ESEMPIO-v1.html` |
