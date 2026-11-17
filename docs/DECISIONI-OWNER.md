@@ -7,6 +7,7 @@
 ## F001 · 17/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D23 | *«Chi è Iris ? :-) devi anche presentarla e dire cosa farà e cosa dirà un domani potrebbe anche essere integrata con la AI (tu) come abbiamo fatto con relDox (vai a vedere come)»* | 10:23 | `docs/IRIS-v1.md` (chi è, che cosa fa, catalogo delle battute, «Chiedi a Iris» col modello della voce 71 di RelDox); SPEC 1.10 § 8 e § 17; roadmap F21 |
 | D22 | indice di RelDoxFood in quattro percorsi con il «Chi sei?» di Iris: *«si ok»*; sui quattro punti del sito: *«Alcuen di queste attività sono già state completate»* | 10:17 | indice v2 approvato; mockup del «Chi sei?», poi glossario e prime lezioni |
 
 ## F001 · 16/11/2026

@@ -81,7 +81,7 @@ Italiano subito (D5). Struttura pronta: cartelle `it/`, `en/`, `de/` con gli ste
 | n. | schermata | per chi |
 |---|---|---|
 | S1 | Ingresso (accesso firmato in corso / chiave scaduta) | tutti |
-| S1 bis | **«Chi sei?»** con **Iris**, l assistente disegnato (owner 16/11/2026 17:09; nome 18:51, chat Marketing S144; pose in `risorse/assistente/`): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» e la **tappa completata**. Mockup v1: `mockup/MOCKUP-CHI-SEI-IRIS-v1.html` (17/11/2026) | tutti |
+| S1 bis | **«Chi sei?»** con **Iris**, l assistente disegnato (owner 16/11/2026 17:09; nome 18:51, chat Marketing S144; pose in `risorse/assistente/`): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» e la **tappa completata**. Mockup v1: `mockup/MOCKUP-CHI-SEI-IRIS-v1.html` (17/11/2026). Chi è Iris, che cosa fa e che cosa dice (catalogo delle battute, scritte dalla Formazione, nessuna IA nella prima versione): `docs/IRIS-v1.md` | tutti |
 | S2 | Il mio catalogo (prodotti acquistati, percorsi per ruolo, avanzamento) | utente, amministratore |
 | S3 | La lezione (passi, esercizio, verifica) | utente |
 | S4 | Manuale e schede (indice, capitolo, PDF) | utente, amministratore |
@@ -143,6 +143,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 |---|---|---|
 | RelDox CRD | formato della chiave con l identificativo dell azienda (voce 159); verifica della proposta «Accesso ai corsi» | da mandare: `…-a-reldox-crd-proposta-accesso-ai-corsi.md` |
 | owner | nome dell hosting separato, versioni di WordPress e PHP, da dare a Sicurezza-Cyber prima del rilascio | in chat |
+| owner, più avanti | **«Chiedi a Iris» con l IA** (owner 17/11/2026 10:23: *«un domani potrebbe anche essere integrata con la AI»*): modello della voce 71 di RelDox CRD — un pulsante, catalogo di domande che cresce con l uso, risposte solo dai materiali con il link alla fonte, tetto e registro dei costi, trasparenza IA (Legale), parere di Sicurezza-Cyber; `docs/IRIS-v1.md` § 5 | — |
 | owner, più avanti | aprire l Academy a **corsi fuori dalla famiglia** (D20: *«magari più avanti ci faremo un pensiero … vedremo l'evoluzione»*): per non chiudere la strada, catalogo, lezioni e registro non dipendono dai soli prodotti RelDox (il «prodotto» di un corso è un campo, non una regola fissa); accesso e prezzi di quei corsi da decidere allora | — |
 | Legale | L9 canone; L15 informativa; L4 capitolo art. 28 | `…-a-legale-corsi-nel-canone.md`, risposte del 15/11/2026 |
 | Sicurezza-Cyber | parere su server, accesso firmato e conservazione (sulla SPEC, nella loro prossima sessione con l owner) | `…-a-sicurezza-cyber-academy-spec.md` |
@@ -151,6 +152,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.10 | 17/11/2026 | § 8 Iris presentata (`docs/IRIS-v1.md`); § 17 «Chiedi a Iris» con l IA, più avanti | owner 17/11/2026 10:23, chat Formazione F001 |
 | 1.9 | 16/11/2026 | § 2.1 stato del sito installato e quattro punti; logo; § 8 Iris | Marketing e Sicurezza-Cyber, 16/11/2026 |
 | 1.8 | 16/11/2026 | § 2.1 dominio `reldoxacademy.it` su hosting separato; § 12 condizioni minime del server | parere 🟢 di Sicurezza-Cyber del 16/11/2026 |
 | 1.7 | 16/11/2026 | § 8 S1 bis «Chi sei?» con Iris; § 16 i quattro percorsi di RelDoxFood | owner 16/11/2026 17:09, chat Formazione F001 |

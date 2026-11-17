@@ -26,5 +26,6 @@
 | F18 | Proposta del pezzo comune **«Accesso ai corsi»** al capo famiglia (`…-a-reldox-crd-proposta-accesso-ai-corsi.md`): firma del prodotto, chiave di licenza dentro, destinazione e lingua, pochi minuti, monouso | owner 16/11/2026, chat RelDox CRD S708: «Proposta dalla Formazione» | dopo il formato della chiave con l identificativo dell azienda (voce 159 di RelDox CRD) |
 | F19 | **Manuali dei prodotti in RelDoxAcademy** (SPEC della chat v3 § 2 ter): dalla 0.1.02A; si parte da RelDoxFood (fonte unica `banco/S91-42-…`), poi RelDoxChecks | owner 16/11/2026 09:22, chat RelDoxFood S122 | dopo la 0.1.01A in produzione |
 | F20 | Testo corretto della pagina «API e collegamenti» di RelDoxFood (capitolo per titolo, non per numero) | RelDoxFood 16/11/2026 | fatto il 16/11 |
+| F21 | **Iris**: presentazione, catalogo delle battute (prima versione senza IA, file di testo per lingua); più avanti **«Chiedi a Iris»** con l IA sul modello della voce 71 di RelDox | owner 17/11/2026 10:23, chat Formazione F001 | `docs/IRIS-v1.md` all owner; IA dopo l Academy in produzione e i materiali di un prodotto completi |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
