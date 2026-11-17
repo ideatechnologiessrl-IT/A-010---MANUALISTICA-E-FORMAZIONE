@@ -220,7 +220,7 @@ function rdacademy_loghi( bool $posta = false ): array {
 function rdacademy_marchio_html( string $logo_installazione = '' ): string {
 	/* 0.8.5A (owner 08/10 07:23-07:24, SPEC-CASSA § 0 punto 27) — DUE LOGHI SULLA STESSA RIGA. «Il logo reldox deve andare
 	   a sinistra e sulla stessa linea a destra deve andare il logo del cliente» · «non ci deve andare la scritta RelDoxAcademy
-	   ma il suo logo vero». A sinistra il LOGO APPROVATO (kit LOGO-RELDOXFOOD-v1 del 04/10: simbolo, wordmark e payoff),
+	   ma il suo logo vero». A sinistra il LOGO APPROVATO (kit del logo del prodotto: simbolo, wordmark e payoff),
 	   rasterizzato a sfondo trasparente perché nelle porte il suo carattere non si carica; un filetto; a destra il logo
 	   del cliente alla stessa altezza. Senza logo del cliente resta il logo RelDoxAcademy da solo, centrato. Sostituisce
 	   «un simbolo solo» della 0.6.12A (logo del cliente al posto del Sole, sotto la scritta).

@@ -107,8 +107,8 @@ class Rdacademy_Activator {
         // Copiata da RelDox; le colonne delle ALTER storiche sono gia qui
         // (REGOLE-FAMIGLIA § 3.3). `login` facoltativo e mai un email: l univocita
         // la difende Rdacademy_Auth::login() (due righe uguali = rifiuto, BUG-79).
-        // 0.11.1A: l email non è più univoca (idx_user_email): la stessa email sta su due account, la scheda e un
-        // amministratore senza scheda (Rdacademy_Email_Condivisa); oltre, il codice la rifiuta.
+        // 0.11.1A: l email non è univoca nell indice (idx_user_email); due utenti con la stessa email li rifiuta
+        // Rdacademy_Auth::login() come «ambiguo».
         // ⛔ Tutte le istanti sono scritti in UTC da PHP (SPEC § 2.3).
         // =============================================
         Rdacademy_DB::raw("
