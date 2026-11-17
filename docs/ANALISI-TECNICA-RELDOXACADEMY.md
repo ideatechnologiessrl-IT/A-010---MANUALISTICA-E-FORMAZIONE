@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 3 · F004 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 4 · F005 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 4 | Formazione F005 · 17/11/2026 | edizione 3 approvata (D27); **manuale e codice tenuti distinti** (D28, D29): ogni manuale, guida, specifica e novità di RelDoxFood, API comprese, non si toglie più ma entra nell Academy **come materiale** (decisione nuova MATERIALE nell allegato A, § 4, § 7.1, blocco M); il motore delle API resta solo in RelDoxFood; nulla si toglie dai prodotti |
 | 3 | Formazione F004 · 17/11/2026 | scritta **sul codice di RelDoxFood 1.24.11L**: database (§ 2), ciclo di vita (§ 3), albero intero con tieni/togli (§ 4 e allegato A), tabelle ereditate (§ 5), nomi presi dal codice (§ 1), cornice (§ 9), rail Setup (§ 10), banchi standard (§ 14); prima forma `.html` col generatore |
 | 2 | Formazione F003 · 17/11/2026 | base **RelDoxFood 1.24.11L**, non il guscio; segno, indirizzo, diagnostica e ingresso della 0.1.01A confermati dal capo famiglia (RelDox CRD S713) |
 | 1 | Formazione F003 · 17/11/2026 | prima stesura, sulla SPEC 1.10 e sul mockup 0.1.01A v1 |
@@ -27,11 +28,11 @@
 ---
 
 ## § 0 — Stato dello sviluppo
-{proposta} edizione 3, nessun codice · *il codice parte solo dopo l approvazione e il «genera» dell owner*
+{proposta} edizione 4 (la 3 approvata, D27), nessun codice · *il codice parte solo dopo l approvazione e il «genera» dell owner*
 
 | voce | che cosa | stato | dove si legge |
 |---|---|---|---|
-| A0 | Analisi tecnica, edizione 3 sul codice di RelDoxFood | {proposta} | questo documento |
+| A0 | Analisi tecnica, edizione 4 sul codice di RelDoxFood (la 3 approvata, D27) | {proposta} | questo documento |
 | A1 | Copia di RelDoxFood 1.24.11L con nome e segno nuovi, ristorazione tolta: `reldox-academy/` e `reldox-academy-diagnostica/` | {dafare} | § 1, § 4, allegato A |
 | A2 | Caricamento dei materiali dal repository (Markdown → tabelle) | {dafare} | § 7.1 |
 | A3 | Ingresso 0.1.01A: login interno e persone di prova | {dafare} | § 8 |
@@ -87,7 +88,7 @@ I tre livelli di database del § 3.5 delle regole, come li fa RelDoxFood:
 
 - **La convivenza** con altri prodotti sullo stesso WordPress è data dai nomi del § 1; sul WordPress dell Academy non ci sono altri prodotti RelDox (SPEC § 2.1).
 - **L autoriparazione dello schema** si copia così com è: `Rdfood_Provisioning_Guard` a ogni avvio, `Rdfood_Schema_Flag_Guard` (un flag non basta, la tabella deve esistere davvero), schemi che fanno solo `CREATE TABLE IF NOT EXISTS` e `ALTER … ADD`.
-- **Le API esterne** (`includes/ext/`, dieci tabelle `ext_*` ed `eliminazioni`) **si tolgono**: sono le API che RelDoxFood offre ai gestionali dei clienti. L Academy, nella 0.1.01A, non offre API; quando chiederà anagrafiche e stato del canone a RelDox CRD sarà lei a chiamare, con le API di famiglia (CLAUDE.md di A-010). Il motore delle API si ricopierà, dalla versione in vigore, solo se un giorno l Academy dovrà rispondere a qualcuno.
+- **Il motore delle API esterne** (`includes/ext/`, dieci tabelle `ext_*` ed `eliminazioni`) **si tolgono**: sono le API che RelDoxFood offre ai gestionali dei clienti. L Academy, nella 0.1.01A, non offre API; quando chiederà anagrafiche e stato del canone a RelDox CRD sarà lei a chiamare, con le API di famiglia (CLAUDE.md di A-010). Il motore delle API si ricopierà, dalla versione in vigore, solo se un giorno l Academy dovrà rispondere a qualcuno.
 
 ---
 
@@ -109,6 +110,8 @@ I tre livelli di database del § 3.5 delle regole, come li fa RelDoxFood:
 ## § 4 — L albero dei file
 {proposta} l albero intero, file per file, è nell **allegato A**; qui il riassunto
 
+⛔ **Manuale e codice sono due cose distinte** *(owner 17/11/2026 15:10, chat Formazione F005: «tieni sempre presente ciò che è manuale e ciò che è codice . Tu non entri mai nel codice»)*. Il **codice** di RelDoxFood si legge e basta: non si cambia un file e non si scrive nel suo repository; nel codice di RelDoxAcademy entra solo la copia del motore che serve ai corsi. I **manuali** (guide, manuali dei ruoli, manuale e guida delle API, specifiche d integrazione, novità, pagine di documentazione) non si tolgono mai: entrano nell Academy **come materiali** (decisione MATERIALE). ⛔ **Nulla si toglie dai prodotti** *(owner 17/11/2026 15:08, D28)*: i manuali restano anche nei plugin; solo quando nell Academy tutto è in linea e funziona le chat dei prodotti tolgono la loro manualistica.
+
 Sul codice (PHP, JS, CSS) di RelDoxFood 1.24.11L, 83.964 righe:
 
 | decisione | file | righe | che cosa vuol dire |
@@ -116,23 +119,24 @@ Sul codice (PHP, JS, CSS) di RelDoxFood 1.24.11L, 83.964 righe:
 | TIENI | 91 | 32.475 | si copia con nome e segno nuovi, senza cambiare la logica |
 | TIENI, ridotto | 13 | 9.171 | si copia e si tolgono i rami della ristorazione; oggi quei rami sono quasi tutti dietro `class_exists(…)`, perciò togliere le classi non rompe il resto; il banco G lo prova |
 | RIFAI | 18 | 2.388 | resta il posto e la forma, cambia il contenuto (file principale, carico dell Academy, schema, catalogo, lezione, marchio) |
-| TOGLI | 121 | 39.930 | ristorazione (menu, cassa, codice personale e QR, pasti, ospiti e FUZZYCode, statistiche, invii del registro, cartella dati, ristoratori), API esterne, contratto di licenza da firmare, manuali e PDF della ristorazione |
+| TOGLI | 97 | 39.479 | non entra nella copia (in RelDoxFood resta tutto): ristorazione (menu, cassa, codice personale e QR, pasti, ospiti e FUZZYCode, statistiche, invii del registro, cartella dati, ristoratori), motore delle API esterne, contratto di licenza da firmare |
+| MATERIALE | 24 | — | manualistica, non codice: 6 pagine Markdown (API e collegamenti, manuali dei ruoli, codice personale, tre novità per l integratore), 11 PDF (manuali dei ruoli in tre lingue, manuale dell amministratore, guida dello sviluppatore del gestionale, specifiche d integrazione ed. 8-10), 7 cartelle con le 75 pagine HTML dei manuali; si caricano nell Academy come materiali (§ 7.1, blocco M) e restano anche in RelDoxFood (D28) |
 
 Per cartella:
 
-| cartella di RelDoxFood | tieni | rifai | togli |
-|---|---|---|---|
-| `reldoxfood.php` | | 1 | |
-| `includes/` (nucleo: database, opzioni, accesso, ruoli, instradatore, lingua, stato del sistema) | 23 | 2 | 13 (carichi `carico-e-1xx` della mensa) |
-| `includes/bootstrap/`, `backup/`, `docs/`, `lotto-c/`, `lotto-d/`, `uploads-js/` | 27 | | |
-| `includes/security/` (password, gettoni, casella di servizio, cifratura, allegati) | 12 | | |
-| `includes/lotto-e/` | 3 (testi delle notifiche, spedizioni, icona sul telefono) | 1 (lo schema) | 24 |
-| `includes/ext/`, `includes/license/`, `includes/novita/`, `includes/vendor/` | | | 19 |
-| `public/views/` | 16 | 2 (Pannello → catalogo; manuali → lezione) | 18 |
-| `public/js/`, `public/css/`, `public/img/` | 11 | 8 (marchio) | 19 |
-| `assets/`, `admin/`, `docs-content/` | 6 | 1 | 8 |
-| `manuali/` | | 3 | 18 |
-| `reldoxfood-diagnostica/` | 5 | | 2 (azzera il contratto; licenza per l API) |
+| cartella di RelDoxFood | tieni | rifai | togli | materiale |
+|---|---|---|---|---|
+| `reldoxfood.php` | | 1 | | |
+| `includes/` (nucleo: database, opzioni, accesso, ruoli, instradatore, lingua, stato del sistema) | 23 | 2 | 13 (carichi `carico-e-1xx` della mensa) | |
+| `includes/bootstrap/`, `backup/`, `docs/`, `lotto-c/`, `lotto-d/`, `uploads-js/` | 27 | | | |
+| `includes/security/` (password, gettoni, casella di servizio, cifratura, allegati) | 12 | | | |
+| `includes/lotto-e/` | 3 (testi delle notifiche, spedizioni, icona sul telefono) | 1 (lo schema) | 24 | |
+| `includes/ext/`, `includes/license/`, `includes/novita/`, `includes/vendor/` | | | 19 | |
+| `public/views/` | 16 | 2 (Pannello → catalogo; manuali → lezione) | 18 | |
+| `public/js/`, `public/css/`, `public/img/` | 11 | 8 (marchio) | 19 | |
+| `assets/`, `admin/`, `docs-content/` | 6 | 1 | 2 | 6 |
+| `manuali/` | | 3 | | 18 |
+| `reldoxfood-diagnostica/` | 5 | | 2 (azzera il contratto; licenza per l API) | |
 
 **Che cosa si aggiunge**, accanto ai file tenuti (nomi da confermare alla scrittura, uno per responsabilità come in RelDoxFood):
 
@@ -211,6 +215,7 @@ Scelta tecnica dichiarata: il Markdown si converte in HTML **al caricamento**, c
 - **Una fonte sola**: i Markdown del repository A-010 (`corsi/<prodotto>/<percorso>/it/`) con l intestazione di `modelli/MODELLO-LEZIONE.md` (`id`, `vale_per`, `pubblico`, `lingua`, `durata_minuti`, `obiettivi`).
 - Nella 0.1.01A i materiali **viaggiano col kit** (SPEC § 16): una cartella `materiali/` nel pacchetto, con la sua etichetta e il commit. Il pannello «Carica la versione dei materiali» arriva dopo (SPEC § 9.1).
 - Il caricamento è **tutto o niente**: si legge tutto, si controlla (intestazioni complete, `id` unici, immagini presenti, domande con una sola risposta giusta), poi si scrive in una transazione. Un errore = nessun cambiamento e il motivo per riga.
+- **I manuali dei prodotti** *(D28, D29)*: ogni file MATERIALE dell allegato A (manuali dei ruoli, manuale dell amministratore, manuale e guida delle API, specifiche d integrazione, novità) si porta nell Academy **senza cambiarne il senso**, con la sua versione e la versione del prodotto a cui vale; i PDF come allegati scaricabili, le pagine HTML e Markdown come materiali leggibili. In RelDoxFood restano come sono finché l owner non dà l ok.
 - Le domande della verifica stanno in un file del percorso (`verifica.md` accanto alle lezioni), **non nella pagina** (SPEC § 5.4). *Oggi le due lezioni di prova hanno la verifica nel testo: si sposta nel file del percorso prima del primo caricamento.*
 
 ### 7.2 Il catalogo: chi vede che cosa
@@ -374,9 +379,9 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 
 | blocco | che cosa | dipende da | «fatto» quando |
 |---|---|---|---|
-| K | RelDoxFood letto; edizione 3 | — | questa edizione approvata |
+| K | RelDoxFood letto; edizione 3 approvata (D27), edizione 4 | — | questa edizione approvata |
 | G | copia con nome e segno nuovi, ristorazione tolta (allegato A), lettura riga per riga di ogni file copiato → i due plugin installabili | K | G0-G2 e G10 verdi; G3-G7 verdi sul palco; una differenza trovata leggendo = edizione 4 prima di andare avanti |
-| M | caricamento dei materiali | G | B6 verde, le due lezioni di prova caricate |
+| M | caricamento dei materiali, compresi i manuali di RelDoxFood (MATERIALE, allegato A) | G | B6 verde, le due lezioni di prova e i manuali di RelDoxFood caricati e leggibili |
 | P | persone di prova (porta 2) | G | uno studente e un amministratore del cliente entrano |
 | C · L | catalogo e lezione con verifica | M, P | B2 e B3 verdi, browser a tre misure |
 | I | «Chi sei?» con Iris | C | battute da `iris.txt` |
@@ -386,8 +391,8 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | Z | pacchetto 0.1.01A, kit, smoke dell owner | K-D | «ok smoke» |
 
 **Domande per l owner** con questa edizione (una alla volta, nell ordine):
-1. Approvi l edizione 3 così (tieni / rifai / togli dell allegato A)?
-2. Le API esterne di RelDoxFood si tolgono (§ 2): d accordo?
+1. ~~Approvi l edizione 3?~~ *«approvo»* (17/11/2026 14:51, D27).
+2. ~~Le API esterne si tolgono?~~ Il motore resta solo in RelDoxFood; i manuali delle API entrano come materiali (15:08-15:10, D28, D29); edizione 4 approvata con il suo «ok» (15:10, D29).
 3. Indirizzo della mail di servizio dell Academy (§ 1).
 
 ---
@@ -412,14 +417,14 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/assets/search/rdfood-search.css` | 225 | TIENI | ricerca dell app |
 | `reldoxfood/assets/search/rdfood-search.js` | 566 | TIENI | ricerca dell app |
 | `reldoxfood/docs-content/10-configurazione-database.md` | 107 | TIENI, ridotto | Documentazione interna in wp-admin |
-| `reldoxfood/docs-content/20-api-e-collegamenti.md` | 309 | TOGLI | pagina della ristorazione o delle API |
-| `reldoxfood/docs-content/30-manuali-dei-ruoli.md` | 39 | TOGLI | pagina della ristorazione o delle API |
-| `reldoxfood/docs-content/40-codice-personale.md` | 56 | TOGLI | pagina della ristorazione o delle API |
+| `reldoxfood/docs-content/20-api-e-collegamenti.md` | 309 | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/docs-content/30-manuali-dei-ruoli.md` | 39 | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/docs-content/40-codice-personale.md` | 56 | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
 | `reldoxfood/docs-content/assets/flusso-credenziali-db.svg` | 93 | TIENI, ridotto | Documentazione interna in wp-admin |
 | `reldoxfood/docs-content/novita/.htaccess` | — | TOGLI | pagina della ristorazione o delle API |
-| `reldoxfood/docs-content/novita/1_13_0B.md` | 14 | TOGLI | pagina della ristorazione o delle API |
-| `reldoxfood/docs-content/novita/1_17_0L.md` | 16 | TOGLI | pagina della ristorazione o delle API |
-| `reldoxfood/docs-content/novita/1_18_0L.md` | 17 | TOGLI | pagina della ristorazione o delle API |
+| `reldoxfood/docs-content/novita/1_13_0B.md` | 14 | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/docs-content/novita/1_17_0L.md` | 16 | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/docs-content/novita/1_18_0L.md` | 17 | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
 | `reldoxfood/docs-content/novita/index.php` | 2 | TOGLI | novità per l integratore delle API |
 | `reldoxfood/includes/backup/class-rdfood-backup.php` | 747 | TIENI |  |
 | `reldoxfood/includes/bootstrap/class-rdfood-bootstrap-wizard.php` | 628 | TIENI |  |
@@ -546,26 +551,26 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/uploads-js/class-rdfood-uploads-js.php` | 99 | TIENI |  |
 | `reldoxfood/includes/vendor/class-rdfood-qr.php` | 270 | TOGLI | lettore e generatore di QR: servono alla cassa e al codice personale |
 | `reldoxfood/manuali/.htaccess` | — | RIFAI | indice e protezione della cartella: diventano quelli dei materiali caricati (§ 7.1) |
-| `reldoxfood/manuali/Guida-sviluppatore-gestionale-RelDoxFood-1_13_0B.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Amministratore-1_24_11L.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-DE.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-EN.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-DE.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-EN.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed10.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed8.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed9.pdf` | — | TOGLI | manuali e immagini della ristorazione |
-| `reldoxfood/manuali/amministratore/ (15 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
-| `reldoxfood/manuali/chi-mangia-de/ (9 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
-| `reldoxfood/manuali/chi-mangia-en/ (9 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
-| `reldoxfood/manuali/chi-mangia/ (9 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
+| `reldoxfood/manuali/Guida-sviluppatore-gestionale-RelDoxFood-1_13_0B.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Amministratore-1_24_11L.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-DE.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-EN.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-DE.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-EN.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed10.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed8.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed9.pdf` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/amministratore/ (15 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/chi-mangia-de/ (9 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/chi-mangia-en/ (9 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/chi-mangia/ (9 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
 | `reldoxfood/manuali/index.php` | 2 | RIFAI | indice e protezione della cartella: diventano quelli dei materiali caricati (§ 7.1) |
 | `reldoxfood/manuali/indice.php` | 104 | RIFAI | indice e protezione della cartella: diventano quelli dei materiali caricati (§ 7.1) |
-| `reldoxfood/manuali/ristoratore-de/ (11 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
-| `reldoxfood/manuali/ristoratore-en/ (11 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
-| `reldoxfood/manuali/ristoratore/ (11 pagine)` | — | TOGLI | manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta |
+| `reldoxfood/manuali/ristoratore-de/ (11 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/ristoratore-en/ (11 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
+| `reldoxfood/manuali/ristoratore/ (11 pagine)` | — | MATERIALE | manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28) |
 | `reldoxfood/public/css/app.css` | 7451 | TIENI |  |
 | `reldoxfood/public/css/rdfood-1100.css` | 18 | TOGLI | ristorazione |
 | `reldoxfood/public/css/rdfood-1190.css` | 81 | TOGLI | ristorazione |

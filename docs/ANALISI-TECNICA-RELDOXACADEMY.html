@@ -78,13 +78,13 @@ footer{border-top:1px solid var(--line);padding:22px 20px 36px;font-family:var(-
 .tw{overflow-x:auto;max-width:100%}main{min-width:0}code{overflow-wrap:anywhere}</style>
 </head>
 <body>
-<header class="mast"><div class="mast-in"><div><div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="30" height="30" role="img" aria-label="RelDoxAcademy"><rect x="6" y="6" width="88" height="88" rx="22" fill="#3E3F9B"/><path d="M22 44 50 30l28 14-28 14z" fill="#fff"/><path d="M34 51v13c8 6 24 6 32 0V51L50 59z" fill="#fff" opacity=".85"/><path d="M78 44v16" stroke="#E8B23A" stroke-width="4" stroke-linecap="round"/></svg><span><span style="color:#3E3F9B">R</span>el<span style="color:#E8B23A">D</span>ox<em style="color:#3E3F9B">Academy</em> · Analisi tecnica</span></div><div class="sub">documento della struttura del prodotto · famiglia RelDox · Idea Technologies · ⛔ riservato, non divulgabile</div></div><div class="meta">nessun pacchetto · base RelDoxFood 1.24.11L<br>edizione 3 · F004</div><div class="legenda" aria-label="Legenda degli stati"><span class="st st-fatto">FATTO</span><span class="st st-consegnato">CONSEGNATO</span><span class="st st-proposta">PROPOSTA</span><span class="st st-dafare">DA FARE</span></div></div></header>
+<header class="mast"><div class="mast-in"><div><div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="30" height="30" role="img" aria-label="RelDoxAcademy"><rect x="6" y="6" width="88" height="88" rx="22" fill="#3E3F9B"/><path d="M22 44 50 30l28 14-28 14z" fill="#fff"/><path d="M34 51v13c8 6 24 6 32 0V51L50 59z" fill="#fff" opacity=".85"/><path d="M78 44v16" stroke="#E8B23A" stroke-width="4" stroke-linecap="round"/></svg><span><span style="color:#3E3F9B">R</span>el<span style="color:#E8B23A">D</span>ox<em style="color:#3E3F9B">Academy</em> · Analisi tecnica</span></div><div class="sub">documento della struttura del prodotto · famiglia RelDox · Idea Technologies · ⛔ riservato, non divulgabile</div></div><div class="meta">nessun pacchetto<br>edizione 4 · F005</div><div class="legenda" aria-label="Legenda degli stati"><span class="st st-fatto">FATTO</span><span class="st st-consegnato">CONSEGNATO</span><span class="st st-proposta">PROPOSTA</span><span class="st st-dafare">DA FARE</span></div></div></header>
 <div class="wrap"><div class="layout"><nav class="toc" aria-label="Indice"><b>Indice</b><a href="#0-stato-dello-sviluppo"><i class="i-proposta"></i>§ 0 — Stato dello sviluppo</a><a href="#1-il-prodotto-e-l-installazione-sono-due-cose"><i class="i-proposta"></i>§ 1 — Il prodotto e l installazione sono due cose</a><a href="#2-architettura-un-prodotto-i-suoi-database"><i class="i-proposta"></i>§ 2 — Architettura: un prodotto, i suoi database</a><a href="#3-ciclo-di-vita"><i class="i-proposta"></i>§ 3 — Ciclo di vita</a><a href="#4-l-albero-dei-file"><i class="i-proposta"></i>§ 4 — L albero dei file</a><a href="#5-lo-schema-del-base"><i class="i-proposta"></i>§ 5 — Lo schema del BASE</a><a href="#6-utenti-ruoli-e-sicurezza"><i class="i-proposta"></i>§ 6 — Utenti, ruoli e sicurezza</a><a href="#7-materiali-e-percorsi-il-cuore-del-prodotto"><i class="i-proposta"></i>§ 7 — Materiali e percorsi (il cuore del prodotto)</a><a href="#8-accessi"><i class="i-proposta"></i>§ 8 — Accessi</a><a href="#9-l-applicazione-la-cornice"><i class="i-proposta"></i>§ 9 — L applicazione: la cornice</a><a href="#10-impostazioni-e-rail-setup"><i class="i-proposta"></i>§ 10 — Impostazioni e rail Setup</a><a href="#11-il-pannello-wordpress"><i class="i-proposta"></i>§ 11 — Il pannello WordPress</a><a href="#12-manutenzione-e-diagnostica"><i class="i-proposta"></i>§ 12 — Manutenzione e diagnostica</a><a href="#13-opzioni-nel-database-di-wordpress"><i class="i-proposta"></i>§ 13 — Opzioni nel database di WordPress</a><a href="#14-come-si-misura"><i class="i-dafare"></i>§ 14 — Come si misura</a><a href="#15-riferimenti-di-famiglia-e-ordine-dei-blocchi"><i class="i-proposta"></i>§ 15 — Riferimenti di famiglia e ordine dei blocchi</a><a href="#allegato-a-l-albero-intero-di-reldoxfood-1-24-11l-file-per-file"><i class="i-nessuno"></i>Allegato A — L albero intero di RelDoxFood 1.24.11L, file per file</a></nav>
 <main><h1 id="analisi-tecnica-del-prodotto-reldoxacademy">ANALISI TECNICA DEL PRODOTTO — RELDOXACADEMY</h1>
 <blockquote>
 <p>⛔ <strong>Documento riservato · non divulgabile</strong> — Idea Technologies srl soc. Uninominale.</p>
 </blockquote>
-<p><strong>Edizione 3 · F004 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, <code>main</code> 5e4a40c)</strong></p>
+<p><strong>Edizione 4 · F005 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, <code>main</code> 5e4a40c)</strong></p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -94,6 +94,11 @@ footer{border-top:1px solid var(--line);padding:22px 20px 36px;font-family:var(-
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>4</td>
+<td>Formazione F005 · 17/11/2026</td>
+<td>edizione 3 approvata (D27); <strong>manuale e codice tenuti distinti</strong> (D28, D29): ogni manuale, guida, specifica e novità di RelDoxFood, API comprese, non si toglie più ma entra nell Academy <strong>come materiale</strong> (decisione nuova MATERIALE nell allegato A, § 4, § 7.1, blocco M); il motore delle API resta solo in RelDoxFood; nulla si toglie dai prodotti</td>
+</tr>
 <tr>
 <td>3</td>
 <td>Formazione F004 · 17/11/2026</td>
@@ -124,7 +129,7 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 ⛔ Non è ancora la lettura <strong>riga per riga</strong> di ogni file. Si fa nel blocco G, <strong>file per file, prima di copiarlo</strong>: ciò che quella lettura trova di diverso da qui entra in un edizione 4 prima di andare avanti.</p>
 <hr />
 <h2 id="0-stato-dello-sviluppo">§ 0 — Stato dello sviluppo</h2>
-<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>edizione 3, nessun codice · <em>il codice parte solo dopo l approvazione e il «genera» dell owner</em></span> <span class="q">aspetta una decisione</span></p>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>edizione 4 (la 3 approvata, D27), nessun codice · <em>il codice parte solo dopo l approvazione e il «genera» dell owner</em></span> <span class="q">aspetta una decisione</span></p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -137,7 +142,7 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <tbody>
 <tr>
 <td>A0</td>
-<td>Analisi tecnica, edizione 3 sul codice di RelDoxFood</td>
+<td>Analisi tecnica, edizione 4 sul codice di RelDoxFood (la 3 approvata, D27)</td>
 <td><span class="st st-proposta">PROPOSTA</span></td>
 <td>questo documento</td>
 </tr>
@@ -345,7 +350,7 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <ul>
 <li><strong>La convivenza</strong> con altri prodotti sullo stesso WordPress è data dai nomi del § 1; sul WordPress dell Academy non ci sono altri prodotti RelDox (SPEC § 2.1).</li>
 <li><strong>L autoriparazione dello schema</strong> si copia così com è: <code>Rdfood_Provisioning_Guard</code> a ogni avvio, <code>Rdfood_Schema_Flag_Guard</code> (un flag non basta, la tabella deve esistere davvero), schemi che fanno solo <code>CREATE TABLE IF NOT EXISTS</code> e <code>ALTER … ADD</code>.</li>
-<li><strong>Le API esterne</strong> (<code>includes/ext/</code>, dieci tabelle <code>ext_*</code> ed <code>eliminazioni</code>) <strong>si tolgono</strong>: sono le API che RelDoxFood offre ai gestionali dei clienti. L Academy, nella 0.1.01A, non offre API; quando chiederà anagrafiche e stato del canone a RelDox CRD sarà lei a chiamare, con le API di famiglia (CLAUDE.md di A-010). Il motore delle API si ricopierà, dalla versione in vigore, solo se un giorno l Academy dovrà rispondere a qualcuno.</li>
+<li><strong>Il motore delle API esterne</strong> (<code>includes/ext/</code>, dieci tabelle <code>ext_*</code> ed <code>eliminazioni</code>) <strong>si tolgono</strong>: sono le API che RelDoxFood offre ai gestionali dei clienti. L Academy, nella 0.1.01A, non offre API; quando chiederà anagrafiche e stato del canone a RelDox CRD sarà lei a chiamare, con le API di famiglia (CLAUDE.md di A-010). Il motore delle API si ricopierà, dalla versione in vigore, solo se un giorno l Academy dovrà rispondere a qualcuno.</li>
 </ul>
 <hr />
 <h2 id="3-ciclo-di-vita">§ 3 — Ciclo di vita</h2>
@@ -399,6 +404,7 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <hr />
 <h2 id="4-l-albero-dei-file">§ 4 — L albero dei file</h2>
 <p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>l albero intero, file per file, è nell <strong>allegato A</strong>; qui il riassunto</span> <span class="q">aspetta una decisione</span></p>
+<p>⛔ <strong>Manuale e codice sono due cose distinte</strong> <em>(owner 17/11/2026 15:10, chat Formazione F005: «tieni sempre presente ciò che è manuale e ciò che è codice . Tu non entri mai nel codice»)</em>. Il <strong>codice</strong> di RelDoxFood si legge e basta: non si cambia un file e non si scrive nel suo repository; nel codice di RelDoxAcademy entra solo la copia del motore che serve ai corsi. I <strong>manuali</strong> (guide, manuali dei ruoli, manuale e guida delle API, specifiche d integrazione, novità, pagine di documentazione) non si tolgono mai: entrano nell Academy <strong>come materiali</strong> (decisione MATERIALE). ⛔ <strong>Nulla si toglie dai prodotti</strong> <em>(owner 17/11/2026 15:08, D28)</em>: i manuali restano anche nei plugin; solo quando nell Academy tutto è in linea e funziona le chat dei prodotti tolgono la loro manualistica.</p>
 <p>Sul codice (PHP, JS, CSS) di RelDoxFood 1.24.11L, 83.964 righe:</p>
 <div class="tw"><table>
 <thead>
@@ -430,9 +436,15 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 </tr>
 <tr>
 <td>TOGLI</td>
-<td>121</td>
-<td>39.930</td>
-<td>ristorazione (menu, cassa, codice personale e QR, pasti, ospiti e FUZZYCode, statistiche, invii del registro, cartella dati, ristoratori), API esterne, contratto di licenza da firmare, manuali e PDF della ristorazione</td>
+<td>97</td>
+<td>39.479</td>
+<td>non entra nella copia (in RelDoxFood resta tutto): ristorazione (menu, cassa, codice personale e QR, pasti, ospiti e FUZZYCode, statistiche, invii del registro, cartella dati, ristoratori), motore delle API esterne, contratto di licenza da firmare</td>
+</tr>
+<tr>
+<td>MATERIALE</td>
+<td>24</td>
+<td>—</td>
+<td>manualistica, non codice: 6 pagine Markdown (API e collegamenti, manuali dei ruoli, codice personale, tre novità per l integratore), 11 PDF (manuali dei ruoli in tre lingue, manuale dell amministratore, guida dello sviluppatore del gestionale, specifiche d integrazione ed. 8-10), 7 cartelle con le 75 pagine HTML dei manuali; si caricano nell Academy come materiali (§ 7.1, blocco M) e restano anche in RelDoxFood (D28)</td>
 </tr>
 </tbody>
 </table></div>
@@ -444,6 +456,7 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <th>tieni</th>
 <th>rifai</th>
 <th>togli</th>
+<th>materiale</th>
 </tr>
 </thead>
 <tbody>
@@ -452,16 +465,19 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <td></td>
 <td>1</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td><code>includes/</code> (nucleo: database, opzioni, accesso, ruoli, instradatore, lingua, stato del sistema)</td>
 <td>23</td>
 <td>2</td>
 <td>13 (carichi <code>carico-e-1xx</code> della mensa)</td>
+<td></td>
 </tr>
 <tr>
 <td><code>includes/bootstrap/</code>, <code>backup/</code>, <code>docs/</code>, <code>lotto-c/</code>, <code>lotto-d/</code>, <code>uploads-js/</code></td>
 <td>27</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -470,41 +486,48 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <td>12</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td><code>includes/lotto-e/</code></td>
 <td>3 (testi delle notifiche, spedizioni, icona sul telefono)</td>
 <td>1 (lo schema)</td>
 <td>24</td>
+<td></td>
 </tr>
 <tr>
 <td><code>includes/ext/</code>, <code>includes/license/</code>, <code>includes/novita/</code>, <code>includes/vendor/</code></td>
 <td></td>
 <td></td>
 <td>19</td>
+<td></td>
 </tr>
 <tr>
 <td><code>public/views/</code></td>
 <td>16</td>
 <td>2 (Pannello → catalogo; manuali → lezione)</td>
 <td>18</td>
+<td></td>
 </tr>
 <tr>
 <td><code>public/js/</code>, <code>public/css/</code>, <code>public/img/</code></td>
 <td>11</td>
 <td>8 (marchio)</td>
 <td>19</td>
+<td></td>
 </tr>
 <tr>
 <td><code>assets/</code>, <code>admin/</code>, <code>docs-content/</code></td>
 <td>6</td>
 <td>1</td>
-<td>8</td>
+<td>2</td>
+<td>6</td>
 </tr>
 <tr>
 <td><code>manuali/</code></td>
 <td></td>
 <td>3</td>
+<td></td>
 <td>18</td>
 </tr>
 <tr>
@@ -512,6 +535,7 @@ Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.
 <td>5</td>
 <td></td>
 <td>2 (azzera il contratto; licenza per l API)</td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
@@ -696,6 +720,7 @@ reldox-academy-diagnostica/              i cinque file tenuti, col segno nuovo, 
 <li><strong>Una fonte sola</strong>: i Markdown del repository A-010 (<code>corsi/&lt;prodotto&gt;/&lt;percorso&gt;/it/</code>) con l intestazione di <code>modelli/MODELLO-LEZIONE.md</code> (<code>id</code>, <code>vale_per</code>, <code>pubblico</code>, <code>lingua</code>, <code>durata_minuti</code>, <code>obiettivi</code>).</li>
 <li>Nella 0.1.01A i materiali <strong>viaggiano col kit</strong> (SPEC § 16): una cartella <code>materiali/</code> nel pacchetto, con la sua etichetta e il commit. Il pannello «Carica la versione dei materiali» arriva dopo (SPEC § 9.1).</li>
 <li>Il caricamento è <strong>tutto o niente</strong>: si legge tutto, si controlla (intestazioni complete, <code>id</code> unici, immagini presenti, domande con una sola risposta giusta), poi si scrive in una transazione. Un errore = nessun cambiamento e il motivo per riga.</li>
+<li><strong>I manuali dei prodotti</strong> <em>(D28, D29)</em>: ogni file MATERIALE dell allegato A (manuali dei ruoli, manuale dell amministratore, manuale e guida delle API, specifiche d integrazione, novità) si porta nell Academy <strong>senza cambiarne il senso</strong>, con la sua versione e la versione del prodotto a cui vale; i PDF come allegati scaricabili, le pagine HTML e Markdown come materiali leggibili. In RelDoxFood restano come sono finché l owner non dà l ok.</li>
 <li>Le domande della verifica stanno in un file del percorso (<code>verifica.md</code> accanto alle lezioni), <strong>non nella pagina</strong> (SPEC § 5.4). <em>Oggi le due lezioni di prova hanno la verifica nel testo: si sposta nel file del percorso prima del primo caricamento.</em></li>
 </ul>
 <h3 id="7-2-il-catalogo-chi-vede-che-cosa">7.2 Il catalogo: chi vede che cosa</h3>
@@ -1064,7 +1089,7 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 <tbody>
 <tr>
 <td>K</td>
-<td>RelDoxFood letto; edizione 3</td>
+<td>RelDoxFood letto; edizione 3 approvata (D27), edizione 4</td>
 <td>—</td>
 <td>questa edizione approvata</td>
 </tr>
@@ -1076,9 +1101,9 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 </tr>
 <tr>
 <td>M</td>
-<td>caricamento dei materiali</td>
+<td>caricamento dei materiali, compresi i manuali di RelDoxFood (MATERIALE, allegato A)</td>
 <td>G</td>
-<td>B6 verde, le due lezioni di prova caricate</td>
+<td>B6 verde, le due lezioni di prova e i manuali di RelDoxFood caricati e leggibili</td>
 </tr>
 <tr>
 <td>P</td>
@@ -1125,8 +1150,8 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 </tbody>
 </table></div>
 <p><strong>Domande per l owner</strong> con questa edizione (una alla volta, nell ordine):
-1. Approvi l edizione 3 così (tieni / rifai / togli dell allegato A)?
-2. Le API esterne di RelDoxFood si tolgono (§ 2): d accordo?
+1. ~~Approvi l edizione 3?~~ <em>«approvo»</em> (17/11/2026 14:51, D27).
+2. ~~Le API esterne si tolgono?~~ Il motore resta solo in RelDoxFood; i manuali delle API entrano come materiali (15:08-15:10, D28, D29); edizione 4 approvata con il suo «ok» (15:10, D29).
 3. Indirizzo della mail di servizio dell Academy (§ 1).</p>
 <hr />
 <h2 id="allegato-a-l-albero-intero-di-reldoxfood-1-24-11l-file-per-file">Allegato A — L albero intero di RelDoxFood 1.24.11L, file per file</h2>
@@ -1228,20 +1253,20 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 <tr>
 <td><code>reldoxfood/docs-content/20-api-e-collegamenti.md</code></td>
 <td>309</td>
-<td>TOGLI</td>
-<td>pagina della ristorazione o delle API</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/docs-content/30-manuali-dei-ruoli.md</code></td>
 <td>39</td>
-<td>TOGLI</td>
-<td>pagina della ristorazione o delle API</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/docs-content/40-codice-personale.md</code></td>
 <td>56</td>
-<td>TOGLI</td>
-<td>pagina della ristorazione o delle API</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/docs-content/assets/flusso-credenziali-db.svg</code></td>
@@ -1258,20 +1283,20 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 <tr>
 <td><code>reldoxfood/docs-content/novita/1_13_0B.md</code></td>
 <td>14</td>
-<td>TOGLI</td>
-<td>pagina della ristorazione o delle API</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/docs-content/novita/1_17_0L.md</code></td>
 <td>16</td>
-<td>TOGLI</td>
-<td>pagina della ristorazione o delle API</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/docs-content/novita/1_18_0L.md</code></td>
 <td>17</td>
-<td>TOGLI</td>
-<td>pagina della ristorazione o delle API</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/docs-content/novita/index.php</code></td>
@@ -2032,92 +2057,92 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 <tr>
 <td><code>reldoxfood/manuali/Guida-sviluppatore-gestionale-RelDoxFood-1_13_0B.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Amministratore-1_24_11L.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-DE.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-EN.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-DE.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-EN.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed10.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed8.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed9.pdf</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali e immagini della ristorazione</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/amministratore/ (15 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/chi-mangia-de/ (9 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/chi-mangia-en/ (9 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/chi-mangia/ (9 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/index.php</code></td>
@@ -2134,20 +2159,20 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 <tr>
 <td><code>reldoxfood/manuali/ristoratore-de/ (11 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/ristoratore-en/ (11 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/manuali/ristoratore/ (11 pagine)</code></td>
 <td>—</td>
-<td>TOGLI</td>
-<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+<td>MATERIALE</td>
+<td>manualistica: si carica nell Academy come materiale (§ 7.1); resta anche in RelDoxFood (D28)</td>
 </tr>
 <tr>
 <td><code>reldoxfood/public/css/app.css</code></td>
@@ -2602,6 +2627,6 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 </tbody>
 </table></div>
 <p><em>⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</em></p></main></div></div>
-<footer>Generato dal gemello .md con strumenti/genera-analisi-tecnica.py · il .md e questo .html si aggiornano insieme · nessun pacchetto · base RelDoxFood 1.24.11L</footer>
+<footer>Generato dal gemello .md con strumenti/genera-analisi-tecnica.py · il .md e questo .html si aggiornano insieme · nessun pacchetto</footer>
 </body>
 </html>
