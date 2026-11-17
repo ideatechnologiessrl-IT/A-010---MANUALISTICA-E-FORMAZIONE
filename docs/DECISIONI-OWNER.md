@@ -4,6 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F001 · 17/11/2026
+| n. | scelta dell owner | ora | effetti |
+|---|---|---|---|
+| D22 | indice di RelDoxFood in quattro percorsi con il «Chi sei?» di Iris: *«si ok»*; sui quattro punti del sito: *«Alcuen di queste attività sono già state completate»* | 10:17 | indice v2 approvato; mockup del «Chi sei?», poi glossario e prime lezioni |
+
 ## F001 · 16/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|

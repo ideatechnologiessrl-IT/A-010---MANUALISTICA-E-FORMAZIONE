@@ -81,7 +81,7 @@ Italiano subito (D5). Struttura pronta: cartelle `it/`, `en/`, `de/` con gli ste
 | n. | schermata | per chi |
 |---|---|---|
 | S1 | Ingresso (accesso firmato in corso / chiave scaduta) | tutti |
-| S1 bis | **«Chi sei?»** con **Iris**, l assistente disegnato (owner 16/11/2026 17:09; nome 18:51, chat Marketing S144; pose in `risorse/assistente/`): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» | tutti |
+| S1 bis | **«Chi sei?»** con **Iris**, l assistente disegnato (owner 16/11/2026 17:09; nome 18:51, chat Marketing S144; pose in `risorse/assistente/`): una domanda, quattro risposte per ruolo, risposta proposta dal ruolo che porta l accesso; poi la **strada a tappe** del percorso con «sei qui» e la **tappa completata**. Mockup v1: `mockup/MOCKUP-CHI-SEI-IRIS-v1.html` (17/11/2026) | tutti |
 | S2 | Il mio catalogo (prodotti acquistati, percorsi per ruolo, avanzamento) | utente, amministratore |
 | S3 | La lezione (passi, esercizio, verifica) | utente |
 | S4 | Manuale e schede (indice, capitolo, PDF) | utente, amministratore |

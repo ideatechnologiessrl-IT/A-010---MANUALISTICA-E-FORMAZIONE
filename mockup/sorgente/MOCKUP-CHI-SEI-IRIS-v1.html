@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup RelDoxAcademy — «Chi sei?» con Iris — v1</title>
+<style>
+:root{--nav:#0F2A44;--bg:#F4F6F9;--line:#E3E7ED;--line-2:#EEF1F5;--txt:#111827;--txt-2:#374151;--dim:#5B6472;--brand:#0C6E86;--brand-bg:#E8F6FA;--ind:#3E3F9B;--ind-2:#5254C4;--ind-bg:#EEEEFA;--gold:#E8B23A;--gold-bg:#FDF6E3;--tip:#0F172A;--ok:#15803D;--ok-bg:#E8F5EC}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--txt);background:var(--bg)}
+a{color:var(--ind)}:focus-visible{outline:3px solid var(--ind-2);outline-offset:2px}
+.nota-mockup{background:var(--tip);color:#fff;padding:10px 20px;font-size:14px}
+.nota-mockup b{background:var(--gold);color:var(--tip);border-radius:999px;padding:2px 10px;font-size:13px;margin-right:8px}
+.schede{display:flex;flex-wrap:wrap;gap:8px;padding:12px 20px;background:#fff;border-bottom:1px solid var(--line)}
+.schede button{font:600 15px/1 inherit;font-family:inherit;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--txt-2);cursor:pointer}
+.schede button[aria-selected="true"]{background:var(--ind);border-color:var(--ind);color:#fff}
+.testata{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:14px}
+.testata img{height:38px}
+.testata .prod{font-size:15px;color:var(--txt-2);border-left:1px solid var(--line);padding-left:14px}
+.testata .ut{margin-left:auto;font-size:15px;color:var(--txt-2);white-space:nowrap}
+main{max-width:1080px;margin:0 auto;padding:24px 20px 60px}
+.schermo{display:none}.schermo.attivo{display:block}
+/* Iris e la nuvoletta */
+.iris{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:end;margin-bottom:22px}
+.iris img{width:200px;height:auto;display:block}
+.nuvola{position:relative;background:#fff;border:2px solid var(--ind);border-radius:18px;padding:16px 20px;font-size:21px;font-weight:600;line-height:1.35;margin-bottom:60px}
+.nuvola::before{content:"";position:absolute;left:-14px;bottom:24px;width:24px;height:24px;background:#fff;border-left:2px solid var(--ind);border-bottom:2px solid var(--ind);transform:rotate(45deg)}
+.nuvola small{display:block;font-size:15px;font-weight:400;color:var(--txt-2);margin-top:6px}
+/* Chi sei */
+.scelte{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.scelta{display:grid;grid-template-columns:92px 1fr;gap:16px;align-items:center;background:#fff;border:2px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;text-align:left;font:inherit;color:inherit;min-height:120px;transition:border-color .12s,box-shadow .12s}
+.scelta:hover{border-color:var(--ind-2)}
+.scelta[aria-pressed="true"]{border-color:var(--ind);box-shadow:0 0 0 4px var(--ind-bg)}
+.scelta svg{width:92px;height:92px}
+.scelta .tit{font-size:19px;font-weight:700;line-height:1.25;display:block}
+.scelta .chi{font-size:15px;color:var(--dim);display:block;margin-top:4px}
+.scelta .num{display:inline-block;font-size:13px;font-weight:700;color:var(--ind);background:var(--ind-bg);border-radius:999px;padding:2px 10px;margin-bottom:6px}
+.scelta .proposta{display:inline-block;font-size:13px;font-weight:700;color:#5C4100;background:var(--gold-bg);border:1px solid var(--gold);border-radius:999px;padding:2px 10px;margin-left:6px}
+.sotto{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;font:700 16px/1 inherit;font-family:inherit;border:1px solid var(--line);background:#fff;color:var(--txt-2);cursor:pointer;text-decoration:none}
+.btn.prim{background:var(--ind);border-color:var(--ind);color:#fff}.btn.prim:hover{background:#33348A}
+.dim{color:var(--dim);font-size:15px}
+/* Strada a tappe */
+.strada{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+.strada h2{font-size:20px;margin:0 0 4px}
+.strada .meta{color:var(--dim);margin:0 0 16px;font-size:15px}
+.barra{height:12px;background:var(--line-2);border-radius:999px;overflow:hidden;margin-bottom:18px}.barra i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--ind))}
+.tappe{list-style:none;margin:0;padding:0;position:relative}
+.tappe::before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:4px;background:var(--line);border-radius:2px}
+.tappa{position:relative;display:grid;grid-template-columns:50px 1fr auto;gap:14px;align-items:center;padding:10px 0}
+.tappa .pallino{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;background:#fff;border:4px solid var(--line);color:var(--dim);position:relative;z-index:1}
+.tappa.fatta .pallino{background:var(--ok);border-color:var(--ok);color:#fff}
+.tappa.qui .pallino{background:var(--ind);border-color:var(--ind);color:#fff;box-shadow:0 0 0 6px var(--ind-bg)}
+.tappa .nome{font-size:17px;font-weight:600}
+.tappa .det{font-size:14px;color:var(--dim)}
+.tappa.qui .nome{color:var(--ind)}
+.qui-et{font-size:13px;font-weight:800;color:#fff;background:var(--ind);border-radius:999px;padding:3px 10px}
+.fatta-et{font-size:13px;font-weight:700;color:var(--ok)}
+.layout{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.lato{position:sticky;top:16px;text-align:center}
+.lato img{width:220px;height:auto}
+.lato .nuvola{margin:0 0 10px;font-size:18px;text-align:left}
+.lato .nuvola::before{left:auto;right:40px;bottom:-14px;transform:rotate(-45deg)}
+/* Tappa completata */
+.fine{text-align:center;max-width:640px;margin:0 auto}
+.fine img{width:230px;height:auto}
+.fine h1{font-size:30px;margin:6px 0 6px}
+.punti{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px 0 22px}
+.punti div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 18px;min-width:150px}
+.punti b{display:block;font-size:24px;color:var(--ind)}
+.punti span{font-size:14px;color:var(--dim)}
+.legenda{font-size:14px;color:var(--dim);margin-top:28px;border-top:1px solid var(--line);padding-top:12px}
+@media (min-width:701px) and (max-width:1024px){.scelte{grid-template-columns:1fr 1fr}.layout{grid-template-columns:1fr 240px}.lato img{width:180px}.iris{grid-template-columns:160px 1fr}.iris img{width:160px}}
+@media (max-width:700px){
+ .testata .prod{display:none}.testata img{height:32px}
+ main{padding:16px 14px 40px}
+ .iris{grid-template-columns:110px 1fr;gap:12px}.iris img{width:110px}
+ .nuvola{font-size:18px;padding:12px 14px;margin-bottom:30px}
+ .scelte{grid-template-columns:1fr;gap:12px}
+ .scelta{grid-template-columns:64px 1fr;min-height:96px;padding:12px}.scelta svg{width:64px;height:64px}.scelta .tit{font-size:17px}
+ .layout{grid-template-columns:1fr}
+ .lato{position:static;display:grid;grid-template-columns:1fr 96px;gap:12px;align-items:end;text-align:left;order:-1}
+ .lato img{width:96px}.lato .nuvola{font-size:16px;margin:0 0 24px}.lato .nuvola::before{left:auto;right:-14px;bottom:20px;transform:rotate(-135deg)}
+ .tappa{grid-template-columns:44px 1fr}.tappa .pallino{width:44px;height:44px}.tappe::before{left:20px}
+ .tappa > :last-child{grid-column:2}
+ .fine h1{font-size:25px}.fine img{width:170px}
+}
+</style>
+</head>
+<body>
+<div class="nota-mockup" role="note"><b>Mockup</b> RelDoxAcademy · «Chi sei?» con Iris e la strada a tappe · v1 · 17/11/2026 · Formazione F001 · RelDoxFood 1.24.11L, dati inventati · ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</div>
+<div class="schede" role="tablist" aria-label="Schermate del mockup">
+ <button role="tab" aria-selected="true" data-s="a">1 · Chi sei?</button>
+ <button role="tab" aria-selected="false" data-s="b">2 · La tua strada</button>
+ <button role="tab" aria-selected="false" data-s="c">3 · Tappa completata</button>
+</div>
+<header class="testata"><img src="{{LOGO}}" alt="RelDoxAcademy"><span class="prod">RelDoxFood · versione 1.24.11L</span><span class="ut">Laura B.</span></header>
+
+<main>
+<!-- 1 CHI SEI -->
+<section class="schermo attivo" id="a" aria-label="Chi sei?">
+ <div class="iris">
+  <img src="{{IRIS_domanda}}" alt="Iris, l assistente, con la mano alzata">
+  <div class="nuvola">Ciao, sono Iris. Chi sei?<small>Scegli la frase che ti somiglia: ti porto io sulla strada giusta. Puoi cambiarla quando vuoi.</small></div>
+ </div>
+ <div class="scelte" role="group" aria-label="Chi sei?">
+  <button class="scelta" type="button" aria-pressed="true">
+   <svg viewBox="0 0 92 92" aria-hidden="true"><circle cx="46" cy="46" r="44" fill="#EEEEFA"/><circle cx="46" cy="46" r="17" fill="none" stroke="#3E3F9B" stroke-width="6"/><g stroke="#3E3F9B" stroke-width="7" stroke-linecap="round"><path d="M46 17v8M46 67v8M17 46h8M67 46h8M25 25l6 6M61 61l6 6M25 67l6-6M61 31l6-6"/></g><circle cx="46" cy="46" r="6" fill="#E8B23A"/></svg>
+   <span><span class="num">1 · prima di tutto</span><span class="proposta">proposta per te</span><span class="tit">Preparo RelDoxFood per la mia azienda</span><span class="chi">Amministratore del sistema · circa 60 minuti</span></span>
+  </button>
+  <button class="scelta" type="button" aria-pressed="false">
+   <svg viewBox="0 0 92 92" aria-hidden="true"><circle cx="46" cy="46" r="44" fill="#E8F6FA"/><rect x="18" y="22" width="34" height="48" rx="6" fill="#fff" stroke="#0C6E86" stroke-width="4"/><g fill="#0C6E86"><rect x="24" y="28" width="9" height="9"/><rect x="37" y="28" width="9" height="9"/><rect x="24" y="41" width="9" height="9"/><rect x="38" y="42" width="5" height="5"/></g><path d="M50 52h20m-7-7 7 7-7 7" fill="none" stroke="#E8B23A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="30" r="8" fill="#0C6E86"/><path d="M62 44a10 8 0 0 1 20 0" fill="#0C6E86"/></svg>
+   <span><span class="num">2</span><span class="tit">Do gli accessi ai colleghi e ai ristoranti</span><span class="chi">Personale aziendale · circa 40 minuti</span></span>
+  </button>
+  <button class="scelta" type="button" aria-pressed="false">
+   <svg viewBox="0 0 92 92" aria-hidden="true"><circle cx="46" cy="46" r="44" fill="#E8F5EC"/><rect x="30" y="14" width="32" height="62" rx="7" fill="#0F2A44"/><rect x="34" y="22" width="24" height="44" rx="3" fill="#fff"/><rect x="38" y="30" width="16" height="16" rx="2" fill="#E8F5EC" stroke="#15803D" stroke-width="3"/><g fill="#15803D"><rect x="41" y="33" width="4" height="4"/><rect x="47" y="39" width="4" height="4"/></g><rect x="38" y="52" width="16" height="5" rx="2" fill="#15803D"/></svg>
+   <span><span class="num">3</span><span class="tit">Vado a mangiare con il QR</span><span class="chi">Chi usa il servizio · circa 45 minuti</span></span>
+  </button>
+  <button class="scelta" type="button" aria-pressed="false">
+   <svg viewBox="0 0 92 92" aria-hidden="true"><circle cx="46" cy="46" r="44" fill="#FDF6E3"/><path d="M26 44a20 20 0 0 1 40 0z" fill="#E8B23A"/><rect x="22" y="44" width="48" height="6" rx="3" fill="#B7860B"/><circle cx="46" cy="22" r="4" fill="#B7860B"/><rect x="24" y="58" width="44" height="14" rx="4" fill="#0F2A44"/><rect x="30" y="62" width="14" height="6" rx="2" fill="#15803D"/></svg>
+   <span><span class="num">4</span><span class="tit">Ho un ristorante convenzionato</span><span class="chi">Ristoratore · circa 40 minuti</span></span>
+  </button>
+ </div>
+ <div class="sotto"><span class="dim">«Proposta per te»: il prodotto ci ha detto che sei <b>amministratore</b>.</span><button class="btn prim" type="button" data-v="b">Andiamo →</button></div>
+</section>
+
+<!-- 2 LA TUA STRADA -->
+<section class="schermo" id="b" aria-label="La tua strada">
+ <div class="layout">
+  <div class="strada">
+   <h2>Percorso 1 · Configurare RelDoxFood</h2>
+   <p class="meta">Per l amministratore del sistema · 9 tappe · circa 60 minuti · <a href="#" data-v="a">cambia percorso</a></p>
+   <div class="barra" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" aria-label="Avanzamento del percorso"><i style="width:22%"></i></div>
+   <ol class="tappe">
+    <li class="tappa fatta"><span class="pallino">✓</span><span><span class="nome">La mappa dell applicazione</span><br><span class="det">5 min · fatta il 17/11</span></span><span class="fatta-et">fatta</span></li>
+    <li class="tappa fatta"><span class="pallino">✓</span><span><span class="nome">La prima configurazione</span><br><span class="det">8 min · fatta il 17/11</span></span><span class="fatta-et">fatta</span></li>
+    <li class="tappa qui"><span class="pallino">3</span><span><span class="nome">Caricare le anagrafiche</span><br><span class="det">8 min · dal file del gestionale, con la prova a secco</span></span><a class="btn prim" href="#" data-v="c">Comincia</a></li>
+    <li class="tappa"><span class="pallino">4</span><span><span class="nome">I ristoranti convenzionati</span><br><span class="det">7 min</span></span><span></span></li>
+    <li class="tappa"><span class="pallino">5</span><span><span class="nome">Come decide la cassa</span><br><span class="det">6 min</span></span><span></span></li>
+    <li class="tappa"><span class="pallino">6</span><span><span class="nome">Il registro e le statistiche</span><br><span class="det">7 min</span></span><span></span></li>
+    <li class="tappa"><span class="pallino">7</span><span><span class="nome">I report automatici</span><br><span class="det">5 min</span></span><span></span></li>
+    <li class="tappa"><span class="pallino">8</span><span><span class="nome">Controllo e sicurezza</span><br><span class="det">5 min</span></span><span></span></li>
+    <li class="tappa"><span class="pallino">9</span><span><span class="nome">Integrazione col gestionale</span><br><span class="det">8 min · solo se l azienda ce l ha</span></span><span></span></li>
+   </ol>
+  </div>
+  <aside class="lato">
+   <div class="nuvola">Sei qui: tappa 3. Dopo questa, i colleghi possono già ricevere l invito.</div>
+   <img src="{{IRIS_indica-foglio}}" alt="Iris seduta con il tablet indica la tappa corrente">
+  </aside>
+ </div>
+</section>
+
+<!-- 3 TAPPA COMPLETATA -->
+<section class="schermo" id="c" aria-label="Tappa completata">
+ <div class="fine">
+  <img src="{{IRIS_pollice}}" alt="Iris con i pollici in su">
+  <h1>Fatto: le anagrafiche sono dentro!</h1>
+  <p class="dim" style="margin:0">Tappa 3 di 9 · percorso «Configurare RelDoxFood»</p>
+  <div class="punti">
+   <div><b>3 su 3</b><span>risposte giuste</span></div>
+   <div><b>33%</b><span>del percorso</span></div>
+   <div><b>~40 min</b><span>alla fine</span></div>
+  </div>
+  <div class="nuvola" style="margin:0 auto 22px;max-width:520px;text-align:left;font-size:19px">Prossima tappa: <b>I ristoranti convenzionati</b>. Ci vogliono 7 minuti.</div>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn" href="#" data-v="b">Torna alla strada</a><a class="btn prim" href="#">Vai alla tappa 4 →</a></div>
+ </div>
+</section>
+
+<p class="legenda">Nel mockup: Iris è il personaggio del Marketing (pose 08, 20, 29, in versione web); le quattro figure delle scelte sono disegni SVG nei colori di famiglia; «proposta per te» viene dal ruolo che porta l accesso firmato (SPEC § 3.4). L indaco è il colore di RelDoxAcademy; niente arcobaleno.</p>
+</main>
+
+<script>
+(function(){
+ function apri(id){document.querySelectorAll('.schermo').forEach(function(x){x.classList.toggle('attivo',x.id===id)});document.querySelectorAll('.schede button').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-s')===id?'true':'false')});window.scrollTo(0,0)}
+ document.querySelectorAll('.schede button').forEach(function(b){b.addEventListener('click',function(){apri(b.getAttribute('data-s'))})});
+ document.addEventListener('click',function(e){var a=e.target.closest('[data-v]');if(a&&!a.matches('.schede button')){e.preventDefault();apri(a.getAttribute('data-v'))}});
+ document.querySelectorAll('.scelta').forEach(function(s){s.addEventListener('click',function(){document.querySelectorAll('.scelta').forEach(function(x){x.setAttribute('aria-pressed','false')});s.setAttribute('aria-pressed','true')})});
+})();
+</script>
+</body>
+</html>

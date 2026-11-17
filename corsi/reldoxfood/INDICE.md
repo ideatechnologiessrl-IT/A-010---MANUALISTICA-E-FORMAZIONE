@@ -2,7 +2,7 @@
 
 # RelDoxFood in RelDoxAcademy — «Chi sei?» e i quattro percorsi · indice proposto v2
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v2 · 16/11/2026 · Formazione F001 (voce F6). Solo l indice: da approvare dall owner prima di scrivere le lezioni. Stile: `docs/STILE-DEI-MATERIALI-v1.md` (fai da solo, prima l immagine, tutti i dispositivi).
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v2 · 16/11/2026 · Formazione F001 (voce F6). Indice **approvato** dall owner (17/11/2026 10:17, chat Formazione F001: *«si ok»*). Stile: `docs/STILE-DEI-MATERIALI-v1.md` (fai da solo, prima l immagine, tutti i dispositivi).
 
 **Scelte dell owner** (chat Formazione F001):
 - 16/11/2026 09:32: *«reldoxfood che è quello attualmente in corso d'offerta sul secondo cliente il primo lo sta già usando»*;
