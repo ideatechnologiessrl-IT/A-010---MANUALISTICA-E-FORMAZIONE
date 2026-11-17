@@ -4,6 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F006 · 17/11/2026
+| n. | scelta dell owner | ora | effetti |
+|---|---|---|---|
+| D31 | domanda 3 del § 15 (mail di servizio dell Academy): *«academy@reldox.it»* | 15:58 | `RDACADEMY_SERVICE_EMAIL` = `academy@reldox.it` in `reldox-academy/reldox-academy.php`; domanda 3 chiusa (la casella va creata se non c è) |
+
 ## F005 · 17/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|

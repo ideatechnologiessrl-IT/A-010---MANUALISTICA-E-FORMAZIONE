@@ -35,8 +35,8 @@ define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );
 define( 'RDACADEMY_VENDOR',        'Idea Technologies S.r.l.' );
 define( 'RDACADEMY_VENDOR_URL',    'https://www.ideatechnologies.com' );
 // Utente di servizio: vive nel BASE di QUESTO prodotto, nessun conflitto con gli altri della famiglia.
-// ⛔ Indirizzo da confermare con l owner (domanda 3 del § 15 dell analisi, D30): fino ad allora quello del prodotto di base.
-define( 'RDACADEMY_SERVICE_EMAIL', 'admin@reldox.it' );
+// Indirizzo deciso dall owner (domanda 3 del § 15 dell analisi, D31, 17/11/2026 15:58).
+define( 'RDACADEMY_SERVICE_EMAIL', 'academy@reldox.it' );
 define( 'RDACADEMY_PLUGIN_DIR',      plugin_dir_path( __FILE__ ) );
 define( 'RDACADEMY_PLUGIN_URL',      plugin_dir_url( __FILE__ ) );
 define( 'RDACADEMY_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
