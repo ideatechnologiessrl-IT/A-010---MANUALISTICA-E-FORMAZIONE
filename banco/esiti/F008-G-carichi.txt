@@ -1,0 +1,7 @@
+[VERDE] G0   php -l su 29 file: nessun errore
+[VERDE] G0   lingue it/en/de: stesse chiavi in ogni lingua
+[VERDE] G1   29 file, resti di RelDoxFood: zero
+[VERDE] G1   51 classi tolte, chiamate fuori da class_exists: zero
+[ROSSO] G2   manca reldox-academy-diagnostica/includes/class-rdacademy-maintenance.php
+[ROSSO] G10  mancano i file principali dei due plugin
+4 verdi, 2 rossi
