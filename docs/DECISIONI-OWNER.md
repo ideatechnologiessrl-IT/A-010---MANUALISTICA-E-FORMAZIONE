@@ -7,6 +7,7 @@
 ## F002 · 17/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
+| D26 | *«ferma la lezione e crea il plugin secondo lo starda di quelli esistenti, chiedi al capo famiglia in caso»* | 12:10 | lezioni ferme alla 1.2; F003 parte da RelDoxAcademy 0.1.01A secondo REGOLE-FAMIGLIA v4 (§ 2 si copia, § 7.0 analisi tecnica ed. 1, § 14 guscio «RelDox Base» dal kit di partenza); al capo famiglia il kit e il segno del prodotto |
 | D25 | *«riesco a darti un check solo dopo che è attiva eventuali modifiche le vediamo dopo come in un qualsiasi corso»* | 12:01 | le lezioni non aspettano l approvazione una per una: si scrivono nello stile approvato, si provano sui tre schermi e si registrano; il controllo dell owner è con RelDoxAcademy attiva, le correzioni come versioni nuove delle lezioni |
 
 ## F001 · 17/11/2026
