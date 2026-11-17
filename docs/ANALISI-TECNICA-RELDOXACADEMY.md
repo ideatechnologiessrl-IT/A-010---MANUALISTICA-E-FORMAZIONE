@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 4 · F005 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 5 · F006 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 5 | Formazione F006 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `public/views/preferenze.php` ha il ramo «I miei dati» del ristoratore (dietro `class_exists`) → **TIENI, ridotto** nell allegato A; domanda 3 del § 15 chiusa (D31: mail di servizio `academy@reldox.it`) |
 | 4 | Formazione F005 · 17/11/2026 | edizione 3 approvata (D27); **manuale e codice tenuti distinti** (D28, D29): ogni manuale, guida, specifica e novità di RelDoxFood, API comprese, non si toglie più ma entra nell Academy **come materiale** (decisione nuova MATERIALE nell allegato A, § 4, § 7.1, blocco M); il motore delle API resta solo in RelDoxFood; nulla si toglie dai prodotti |
 | 3 | Formazione F004 · 17/11/2026 | scritta **sul codice di RelDoxFood 1.24.11L**: database (§ 2), ciclo di vita (§ 3), albero intero con tieni/togli (§ 4 e allegato A), tabelle ereditate (§ 5), nomi presi dal codice (§ 1), cornice (§ 9), rail Setup (§ 10), banchi standard (§ 14); prima forma `.html` col generatore |
 | 2 | Formazione F003 · 17/11/2026 | base **RelDoxFood 1.24.11L**, non il guscio; segno, indirizzo, diagnostica e ingresso della 0.1.01A confermati dal capo famiglia (RelDox CRD S713) |
@@ -393,7 +394,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 **Domande per l owner** con questa edizione (una alla volta, nell ordine):
 1. ~~Approvi l edizione 3?~~ *«approvo»* (17/11/2026 14:51, D27).
 2. ~~Le API esterne si tolgono?~~ Il motore resta solo in RelDoxFood; i manuali delle API entrano come materiali (15:08-15:10, D28, D29); edizione 4 approvata con il suo «ok» (15:10, D29).
-3. Indirizzo della mail di servizio dell Academy (§ 1).
+3. ~~Indirizzo della mail di servizio dell Academy (§ 1).~~ *«academy@reldox.it»* (17/11/2026 15:58, chat Formazione F006, D31).
 
 ---
 
@@ -634,7 +635,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/public/views/menu-del-giorno.php` | 139 | TOGLI | ristorazione |
 | `reldoxfood/public/views/miei-pasti.php` | 86 | TOGLI | ristorazione |
 | `reldoxfood/public/views/novita.php` | 81 | TOGLI | novità per l integratore |
-| `reldoxfood/public/views/preferenze.php` | 379 | TIENI |  |
+| `reldoxfood/public/views/preferenze.php` | 379 | TIENI, ridotto | tolto il ramo «I miei dati» del ristoratore (oggi dietro class_exists) — ed. 5 |
 | `reldoxfood/public/views/recupera.php` | 120 | TIENI |  |
 | `reldoxfood/public/views/registro-pasti.php` | 230 | TOGLI | ristorazione |
 | `reldoxfood/public/views/scheda-persona-valori.php` | 335 | TOGLI | ristorazione |

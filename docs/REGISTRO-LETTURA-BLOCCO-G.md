@@ -9,7 +9,7 @@ Fonte: RelDoxFood `main` 1.24.11L (5e4a40c), letta e mai cambiata. Regola: ogni 
 Banchi: `banco/F005-G-banchi-copia.py` (G0, G1, G2, G10). Rosso prima: `banco/esiti/F005-G-rosso-prima.txt` (0 verdi, 4 rossi, 17/11/2026).
 
 ## Differenze trovate leggendo
-*(nessuna per ora)*
+- **F006 · 17/11 · `public/views/preferenze.php`** — l allegato A dice TIENI, ma il file ha il ramo «I miei dati» del ristoratore (dietro `class_exists( Rdfood_Miei_Dati )`, classe TOLTA) e usa 29 chiavi `dati.*` del gestore delle lingue. → **TIENI, ridotto** nell analisi **edizione 5**. Le chiavi `dati.*` restano nella copia del gestore delle lingue finché `preferenze.php` non è letto e ridotto.
 
 ## File letti e copiati
 | quando | file in RelDoxFood | righe | decisione | MD5 della fonte | nota |
@@ -22,3 +22,4 @@ Banchi: `banco/F005-G-banchi-copia.py` (G0, G1, G2, G10). Rosso prima: `banco/es
 | 17/11 15:54 | `reldoxfood/includes/class-rdfood-schema-flag-guard.php` | 222 | TIENI | `885a790586` | letto per intero; guardia dei flag, mappa del nucleo e dell ancora di licenza; solo il segno |
 | 17/11 15:54 | `reldoxfood/includes/class-rdfood-provisioning-guard.php` | 250 | TIENI | `bba310e48c` | letto per intero; i flag si riconoscono dal prefisso del segno, che cambia insieme ai valori delle costanti; solo il segno |
 | 17/11 15:54 | `reldoxfood/includes/class-rdfood-roles.php` | 69 | TIENI | `a47b92e921` | letto per intero; permessi per modulo e livello; solo il segno |
+| 17/11 16:01 | `reldoxfood/includes/class-rdfood-lingua.php` | 1572 | TIENI, ridotto | `8bd5b0d277` | letto per intero; tolte le chiavi della ristorazione (TESTI e NOTIFICHE), restano accesso, recupero, password, cornice, icona, mail di sicurezza, porta; restano per ora le dati.* usate da preferenze.php |
