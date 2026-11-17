@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>RelDoxAcademy — Analisi tecnica</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='30' height='30' role='img' aria-label='RelDoxAcademy'%3E%3Crect x='6' y='6' width='88' height='88' rx='22' fill='%233E3F9B'/%3E%3Cpath d='M22 44 50 30l28 14-28 14z' fill='%23fff'/%3E%3Cpath d='M34 51v13c8 6 24 6 32 0V51L50 59z' fill='%23fff' opacity='.85'/%3E%3Cpath d='M78 44v16' stroke='%23E8B23A' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{--ok-soft:#E6F4EC;--brand:#DC0B15;--brand-soft:#FDECEC;--ink:#161611;--teal:#2A8FAA;--teal-soft:#E8F3F7;--bg:#FAF8F6;--surface:#FFFFFF;--surface-2:#F3EFEC;--line:#E3DCD6;--line-strong:#CFC6BE;--text:#1C1A18;--text-2:#4A443E;--muted:#7A726A;--ok:#136B45;--warn:#9A6209;--warn-soft:#FBF0DC;--ko:#B4121B;--ko-soft:#FDEBEB;--navy:#1E3A5F;
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ok:#4CC38A;--ok-soft:#10261B;--brand:#FF5A5F;--brand-soft:#3A1A1B;--ink:#EDE8E2;--teal:#5FB9D4;--teal-soft:#10262D;--bg:#131211;--surface:#1C1A18;--surface-2:#252220;--line:#332E2A;--line-strong:#463F39;--text:#EDE8E2;--text-2:#C3BBB2;--muted:#948B82;--warn:#E0A94A;--warn-soft:#2B2113;--ko:#FF6B6B;--ko-soft:#301618;--navy:#2B4F7E}}
+:root[data-theme="dark"]{--ok:#4CC38A;--ok-soft:#10261B;--brand:#FF5A5F;--brand-soft:#3A1A1B;--ink:#EDE8E2;--teal:#5FB9D4;--teal-soft:#10262D;--bg:#131211;--surface:#1C1A18;--surface-2:#252220;--line:#332E2A;--line-strong:#463F39;--text:#EDE8E2;--text-2:#C3BBB2;--muted:#948B82;--warn:#E0A94A;--warn-soft:#2B2113;--ko:#FF6B6B;--ko-soft:#301618;--navy:#2B4F7E}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+p,li,td,th{overflow-wrap:break-word}code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.5}pre code{background:none;padding:0}
+.mast{background:var(--surface);border-bottom:2px solid var(--ink)}
+.mast-in{max-width:1240px;margin:0 auto;padding:24px 20px 20px;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;justify-content:space-between}
+.mark{font-weight:800;font-size:24px;letter-spacing:-.02em;line-height:1.1;display:flex;align-items:center;gap:8px}.mark svg{flex:0 0 30px}.mark em{font-style:normal;color:#E07A5F}
+.sub{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.meta{font-family:var(--mono);font-size:12px;color:var(--text-2);text-align:right}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:32px}
+@media(min-width:1040px){.layout{grid-template-columns:240px minmax(0,1fr);gap:52px}}
+nav.toc{position:sticky;top:0;align-self:start;padding:24px 0;max-height:100vh;overflow:auto;font-size:14px}
+@media(max-width:1039px){nav.toc{position:static;max-height:none;padding:16px 0 0;border-bottom:1px solid var(--line)}}
+nav.toc b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+nav.toc a{display:block;padding:5px 0 5px 10px;border-left:2px solid var(--line);color:var(--text-2);text-decoration:none;line-height:1.35}
+nav.toc a:hover{border-color:var(--brand);color:var(--text)}
+main{min-width:0;padding:16px 0 64px}
+h1{font-size:clamp(26px,4vw,34px);line-height:1.15;margin:24px 0 12px;letter-spacing:-.015em}
+h2{font-size:clamp(20px,2.6vw,24px);line-height:1.2;margin:48px 0 14px;padding-top:14px;border-top:1px solid var(--line);scroll-margin-top:12px}
+h3{font-size:18px;margin:28px 0 10px}
+p,ul,ol{max-width:72ch}a{color:var(--brand)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0 20px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface-2);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-2)}
+tr:last-child td{border-bottom:0}
+blockquote{margin:16px 0;padding:10px 16px;border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 8px 8px 0}
+figure{margin:22px 0 28px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 1px 2px rgba(22,22,17,.05)}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+figure.prop{border-color:var(--warn);background:linear-gradient(var(--warn-soft),var(--surface) 60px)}
+.t{fill:var(--text);font:600 14px var(--sans)}.t-h{fill:var(--text);font:700 15px var(--sans)}.t-h2{fill:var(--text);font:700 14px var(--sans)}.t-s{fill:var(--text-2);font:12.5px var(--sans)}.t-ko{fill:var(--ko);font:600 12.5px var(--sans)}
+.b-soft{fill:var(--surface-2);stroke:var(--line-strong)}.b-main{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}.b-brand{fill:var(--brand-soft);stroke:var(--brand)}.b-teal{fill:var(--teal-soft);stroke:var(--teal)}.b-ko{fill:var(--ko-soft);stroke:var(--ko)}.b-warn{fill:var(--warn-soft);stroke:var(--warn)}
+.l{fill:none;stroke:var(--ink);stroke-width:1.6}.l-teal{stroke:var(--teal)}.l-dash{stroke-dasharray:5 4}.f-ink{fill:var(--ink)}
+.m-bg{fill:#F3F4F6}.m-rail{fill:#1E3A5F}.m-logo{fill:#DC0B15}.m-it{fill:transparent}.m-on{fill:#fff}.m-back{fill:rgba(255,255,255,.1);stroke:rgba(255,255,255,.25)}
+.m-rt{fill:#C7D6EA;font:600 10px var(--sans)}.m-ont{fill:#1E3A5F;font:700 11px var(--sans)}.m-rh{fill:#7E9AC0;font:700 8.5px var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.m-top{fill:#fff;stroke:#E5E7EB}.m-sym{fill:#F2B33D}.m-tb{fill:#111827;font:700 12.5px var(--sans)}.m-tp{fill:#6B7280;font:12px var(--sans)}
+.m-chip{fill:#E5EAF1}.m-ct{fill:#1E3A5F;font:600 9.5px var(--sans)}.m-av{fill:#D6E4F0}.m-btn{fill:#fff;stroke:#E2E8F0}.m-gear{fill:#1E3A5F}.m-gt{fill:#fff;font:700 14px var(--sans)}
+.m-card{fill:#fff;stroke:#E5E7EB}.m-cht{fill:#111827;font:700 12.5px var(--sans)}.m-sep{stroke:#E5E7EB}.m-tx{fill:#374151;font:12px var(--sans)}.m-s{fill:#6B7280;font:11.5px var(--sans)}
+.m-in{fill:#fff;stroke:#D1D5DB}.m-pri{fill:#2E75B6}.m-pri+text,.m-pri~text.m-ont{fill:#fff}.m-tab{fill:#F3F4F6;stroke:#E5E7EB}.m-tabon{fill:#D6E4F0;stroke:#2E75B6}.m-tabd{fill:#FEF3C7;stroke:#D97706;stroke-dasharray:4 3}
+.st{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 9px;border-radius:999px;border:1px solid;white-space:nowrap;vertical-align:1px}
+.st::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.st-fatto{color:var(--ok);background:var(--ok-soft);border-color:var(--ok)}.st-consegnato{color:var(--teal);background:var(--teal-soft);border-color:var(--teal)}
+.st-proposta{color:var(--warn);background:var(--warn-soft);border-color:var(--warn);border-style:dashed}.st-dafare{color:var(--muted);background:var(--surface-2);border-color:var(--line-strong)}
+.stato{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:-4px 0 18px;padding:9px 14px;border-radius:10px;border-left:4px solid;background:var(--surface);font-size:14.5px;color:var(--text-2);max-width:none}
+.stato.st-fatto,.stato.st-consegnato,.stato.st-proposta,.stato.st-dafare{font-family:var(--sans);font-weight:400;letter-spacing:0;white-space:normal}
+.stato.st-fatto{border-color:var(--ok)}.stato.st-consegnato{border-color:var(--teal)}.stato.st-proposta{border-color:var(--warn)}.stato.st-dafare{border-color:var(--line-strong)}
+.stato.st-fatto::before,.stato.st-consegnato::before,.stato.st-proposta::before,.stato.st-dafare::before{display:none}
+.stato .st{flex:0 0 auto}.stato span.q{color:var(--muted);font-size:13px}
+nav.toc a i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:1px;background:var(--line-strong)}
+nav.toc a i.i-fatto{background:var(--ok)}nav.toc a i.i-consegnato{background:var(--teal)}nav.toc a i.i-proposta{background:var(--warn)}nav.toc a i.i-dafare{background:var(--line-strong)}
+.sb-fatto{fill:var(--ok)}.sb-consegnato{fill:var(--teal)}.sb-proposta{fill:var(--warn)}.sb-dafare{fill:var(--line-strong)}.sb-cornice{fill:none;stroke:var(--ink);stroke-width:1}
+.sb-t{font:700 11px var(--mono);fill:var(--surface)}.sb-t-dafare{fill:var(--text)}
+.tl-fatto{fill:var(--ok-soft);stroke:var(--ok);stroke-width:1.5}.tl-consegnato{fill:var(--teal-soft);stroke:var(--teal);stroke-width:1.5}.tl-proposta{fill:var(--warn-soft);stroke:var(--warn);stroke-width:1.5;stroke-dasharray:5 4}.tl-dafare{fill:var(--surface-2);stroke:var(--line-strong)}
+.tl-n{fill:var(--text);font:800 20px var(--sans)}.tl-c{fill:var(--text-2);font:11.5px var(--sans)}
+.tl-b-fatto{fill:var(--ok)}.tl-b-consegnato{fill:var(--teal)}.tl-b-proposta{fill:var(--warn)}.tl-b-dafare{fill:var(--line-strong)}
+.tl-bt{font:700 10px var(--mono);fill:var(--surface);letter-spacing:.05em}
+.solo-stretto{display:none}@media(max-width:640px){.solo-largo{display:none}.solo-stretto{display:block}}.tl-bt-dafare{fill:var(--text)}
+.legenda{display:flex;flex-wrap:wrap;gap:8px 16px;margin:8px 0 0}
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;background:var(--teal-soft);color:var(--teal);vertical-align:middle}
+footer{border-top:1px solid var(--line);padding:22px 20px 36px;font-family:var(--mono);font-size:12px;color:var(--muted);max-width:1240px;margin:0 auto}
+@media print{nav.toc{display:none}.layout{display:block}h2{break-after:avoid}figure,table{break-inside:avoid}}
+
+.tw{overflow-x:auto;max-width:100%}main{min-width:0}code{overflow-wrap:anywhere}</style>
+</head>
+<body>
+<header class="mast"><div class="mast-in"><div><div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="30" height="30" role="img" aria-label="RelDoxAcademy"><rect x="6" y="6" width="88" height="88" rx="22" fill="#3E3F9B"/><path d="M22 44 50 30l28 14-28 14z" fill="#fff"/><path d="M34 51v13c8 6 24 6 32 0V51L50 59z" fill="#fff" opacity=".85"/><path d="M78 44v16" stroke="#E8B23A" stroke-width="4" stroke-linecap="round"/></svg><span><span style="color:#3E3F9B">R</span>el<span style="color:#E8B23A">D</span>ox<em style="color:#3E3F9B">Academy</em> · Analisi tecnica</span></div><div class="sub">documento della struttura del prodotto · famiglia RelDox · Idea Technologies · ⛔ riservato, non divulgabile</div></div><div class="meta">nessun pacchetto · base RelDoxFood 1.24.11L<br>edizione 3 · F004</div><div class="legenda" aria-label="Legenda degli stati"><span class="st st-fatto">FATTO</span><span class="st st-consegnato">CONSEGNATO</span><span class="st st-proposta">PROPOSTA</span><span class="st st-dafare">DA FARE</span></div></div></header>
+<div class="wrap"><div class="layout"><nav class="toc" aria-label="Indice"><b>Indice</b><a href="#0-stato-dello-sviluppo"><i class="i-proposta"></i>§ 0 — Stato dello sviluppo</a><a href="#1-il-prodotto-e-l-installazione-sono-due-cose"><i class="i-proposta"></i>§ 1 — Il prodotto e l installazione sono due cose</a><a href="#2-architettura-un-prodotto-i-suoi-database"><i class="i-proposta"></i>§ 2 — Architettura: un prodotto, i suoi database</a><a href="#3-ciclo-di-vita"><i class="i-proposta"></i>§ 3 — Ciclo di vita</a><a href="#4-l-albero-dei-file"><i class="i-proposta"></i>§ 4 — L albero dei file</a><a href="#5-lo-schema-del-base"><i class="i-proposta"></i>§ 5 — Lo schema del BASE</a><a href="#6-utenti-ruoli-e-sicurezza"><i class="i-proposta"></i>§ 6 — Utenti, ruoli e sicurezza</a><a href="#7-materiali-e-percorsi-il-cuore-del-prodotto"><i class="i-proposta"></i>§ 7 — Materiali e percorsi (il cuore del prodotto)</a><a href="#8-accessi"><i class="i-proposta"></i>§ 8 — Accessi</a><a href="#9-l-applicazione-la-cornice"><i class="i-proposta"></i>§ 9 — L applicazione: la cornice</a><a href="#10-impostazioni-e-rail-setup"><i class="i-proposta"></i>§ 10 — Impostazioni e rail Setup</a><a href="#11-il-pannello-wordpress"><i class="i-proposta"></i>§ 11 — Il pannello WordPress</a><a href="#12-manutenzione-e-diagnostica"><i class="i-proposta"></i>§ 12 — Manutenzione e diagnostica</a><a href="#13-opzioni-nel-database-di-wordpress"><i class="i-proposta"></i>§ 13 — Opzioni nel database di WordPress</a><a href="#14-come-si-misura"><i class="i-dafare"></i>§ 14 — Come si misura</a><a href="#15-riferimenti-di-famiglia-e-ordine-dei-blocchi"><i class="i-proposta"></i>§ 15 — Riferimenti di famiglia e ordine dei blocchi</a><a href="#allegato-a-l-albero-intero-di-reldoxfood-1-24-11l-file-per-file"><i class="i-nessuno"></i>Allegato A — L albero intero di RelDoxFood 1.24.11L, file per file</a></nav>
+<main><h1 id="analisi-tecnica-del-prodotto-reldoxacademy">ANALISI TECNICA DEL PRODOTTO — RELDOXACADEMY</h1>
+<blockquote>
+<p>⛔ <strong>Documento riservato · non divulgabile</strong> — Idea Technologies srl soc. Uninominale.</p>
+</blockquote>
+<p><strong>Edizione 3 · F004 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, <code>main</code> 5e4a40c)</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>edizione</th>
+<th>sessione · data</th>
+<th>che cosa cambia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>Formazione F004 · 17/11/2026</td>
+<td>scritta <strong>sul codice di RelDoxFood 1.24.11L</strong>: database (§ 2), ciclo di vita (§ 3), albero intero con tieni/togli (§ 4 e allegato A), tabelle ereditate (§ 5), nomi presi dal codice (§ 1), cornice (§ 9), rail Setup (§ 10), banchi standard (§ 14); prima forma <code>.html</code> col generatore</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Formazione F003 · 17/11/2026</td>
+<td>base <strong>RelDoxFood 1.24.11L</strong>, non il guscio; segno, indirizzo, diagnostica e ingresso della 0.1.01A confermati dal capo famiglia (RelDox CRD S713)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Formazione F003 · 17/11/2026</td>
+<td>prima stesura, sulla SPEC 1.10 e sul mockup 0.1.01A v1</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⛔ <strong>È il documento della struttura del prodotto</strong> (<code>REGOLE-FAMIGLIA-RELDOX-v4</code> § 7.0): non si scrive codice su una struttura che non è qui.
+⛔ <strong>Due forme, un testo</strong>: questo <code>.md</code> è il canonico; l <code>.html</code> si genera con <code>python3 -I strumenti/genera-analisi-tecnica.py</code> (nato dal generatore di RelDoxFood, <code>banco/S67-1-genera-analisi-tecnica.py</code>).
+⛔ <strong>I contratti si richiamano, non si ricopiano</strong>: SPEC di RelDoxAcademy 1.11, regole di famiglia v4, SPEC della manutenzione v2, SPEC dell indurimento v1, SPEC delle API v8.
+Ciò che arriva dal codice si segna <strong>«da RelDoxFood 1.24.11L»</strong>.</p>
+</blockquote>
+<p><strong>Decisioni che aprono questo lavoro</strong> — D26 (owner 17/11/2026 12:10, chat Formazione F002): <em>«ferma la lezione e crea il plugin secondo lo starda di quelli esistenti, chiedi al capo famiglia in caso»</em>; base RelDoxFood 1.24.11L (capo famiglia, RelDox CRD S713, 17/11/2026; owner 17/11/2026 11:48, chat RelDox CRD S713: <em>«la decidione tecnica è del programmatore»</em>).</p>
+<p><strong>Come è stato letto il codice</strong> (§ 2 delle regole). RelDoxFood <code>main</code> 1.24.11L: 194 file di codice del prodotto (69.291 righe, compresi i 75 manuali HTML) e 7 della diagnostica (2.005 righe). Due passate:
+1. <strong>inventario di ogni file</strong>, con uno strumento che li apre tutti: classi, funzioni, carichi, mappe delle pagine e delle azioni, tabelle create, opzioni di WordPress, rotte REST, dipendenze fra le parti da tenere e quelle da togliere;
+2. <strong>lettura diretta del nucleo</strong>: file principale, instradatore, attivatore, opzioni sul BASE, configurazione e sorgenti del database, cornice, registro delle Tabelle Funzionali, schemi C ed E, accesso d emergenza, diagnostica.
+⛔ Non è ancora la lettura <strong>riga per riga</strong> di ogni file. Si fa nel blocco G, <strong>file per file, prima di copiarlo</strong>: ciò che quella lettura trova di diverso da qui entra in un edizione 4 prima di andare avanti.</p>
+<hr />
+<h2 id="0-stato-dello-sviluppo">§ 0 — Stato dello sviluppo</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>edizione 3, nessun codice · <em>il codice parte solo dopo l approvazione e il «genera» dell owner</em></span> <span class="q">aspetta una decisione</span></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>voce</th>
+<th>che cosa</th>
+<th>stato</th>
+<th>dove si legge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0</td>
+<td>Analisi tecnica, edizione 3 sul codice di RelDoxFood</td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+<td>questo documento</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>Copia di RelDoxFood 1.24.11L con nome e segno nuovi, ristorazione tolta: <code>reldox-academy/</code> e <code>reldox-academy-diagnostica/</code></td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 1, § 4, allegato A</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Caricamento dei materiali dal repository (Markdown → tabelle)</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 7.1</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>Ingresso 0.1.01A: login interno e persone di prova</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 8</td>
+</tr>
+<tr>
+<td>A3 bis</td>
+<td>Ingresso con accesso firmato e controllo della chiave, versione successiva</td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+<td>§ 8</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>«Chi sei?» con Iris</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 7.4, § 9</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>Il mio catalogo</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 7.2</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>La lezione con la verifica</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 7.3</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>Registro dell azienda, CSV e PDF</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 7.5</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>«Stato e assistenza» e «Copia configurazione» nella riga dei due plugin</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 11</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>Banchi del prodotto e banchi standard</td>
+<td><span class="st st-dafare">DA FARE</span></td>
+<td>§ 14</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="1-il-prodotto-e-l-installazione-sono-due-cose">§ 1 — Il prodotto e l installazione sono due cose</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>nomi presi dal codice di RelDoxFood 1.24.11L · <em>segno, indirizzo e diagnostica già confermati (D14; RelDox CRD S708 e S713)</em></span> <span class="q">aspetta una decisione</span></p>
+<ul>
+<li><strong>Il prodotto</strong> è RelDoxAcademy, rivendibile come gli altri. <strong>L installazione</strong> oggi è una sola, su <code>reldoxacademy.it</code>, tenuta da Idea (D9; SPEC § 2.1). Niente nel codice dipende dal dominio.</li>
+<li><strong>Il marchio</strong> (logo «Academy», indaco <code>#3E3F9B</code>) è un dato, da <code>risorse/logo-academy/</code>, non scritto nelle viste.</li>
+</ul>
+<p><strong>Scheda dei nomi</strong>: a sinistra com è in RelDoxFood, a destra come diventa. Ogni nome si cambia in un punto solo, come fa già RelDoxFood (<code>reldoxfood.php</code>, righe 313-389).</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>che cosa</th>
+<th>in RelDoxFood 1.24.11L</th>
+<th>in RelDoxAcademy</th>
+<th>stato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file principale</td>
+<td><code>reldoxfood/reldoxfood.php</code></td>
+<td><code>reldox-academy/reldox-academy.php</code></td>
+<td>approvato (SPEC § 2.2)</td>
+</tr>
+<tr>
+<td>classi · funzioni · costanti</td>
+<td><code>Rdfood_</code> · <code>rdfood_</code> · <code>RDFOOD_</code></td>
+<td><code>Rdacademy_</code> · <code>rdacademy_</code> · <code>RDACADEMY_</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>versione · stadio · etichetta</td>
+<td><code>RDFOOD_VERSION</code> · <code>RDFOOD_STAGE</code> · <code>RDFOOD_VERSION_LABEL</code></td>
+<td><code>0.1.01</code> · <code>Alfa</code> · <code>0.1.01A</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>pacchetto</td>
+<td><code>RDFOOD_PACKAGE</code> <code>// 1.24.11L \| S108 \| log-accessi-standard</code></td>
+<td><code>// 0.1.01A \| F00n \| &lt;tema&gt;</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>credenziali del BASE in <code>wp-config.php</code></td>
+<td><code>RDFOOD_DB_HOST/NAME/USER/PASS/CHARSET</code></td>
+<td><code>RDACADEMY_DB_HOST/NAME/USER/PASS/CHARSET</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>prefisso delle tabelle</td>
+<td><code>RDFOOD_TABLE_PREFIX</code> = <code>rdfood_</code></td>
+<td><code>rdacademy_</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>indirizzo dell applicazione</td>
+<td><code>RDFOOD_APP_SLUG</code> = <code>food</code> (<code>/food/</code>)</td>
+<td><code>academy</code> (<code>/academy/</code>)</td>
+<td>registrato nelle regole v4</td>
+</tr>
+<tr>
+<td>variabili d indirizzo</td>
+<td><code>rdfood_page</code>, <code>rdfood_id</code>, <code>rdfood_codice</code></td>
+<td><code>rdacademy_page</code>, <code>rdacademy_id</code> (il codice non serve)</td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>canale delle chiamate</td>
+<td>azione AJAX <code>rdfood</code>, nonce <code>rdfood_ajax</code>, campo <code>rdfood_action</code></td>
+<td><code>rdacademy</code>, <code>rdacademy_ajax</code>, <code>rdacademy_action</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>innesti (filtri e azioni)</td>
+<td><code>rdfood_page_map</code>, <code>rdfood_page_access</code>, <code>rdfood_capability_map</code>, <code>rdfood_nav_items</code>, <code>rdfood_setup_pages</code>, <code>rdfood_setup_sistema_items</code>, <code>rdfood_ajax_&lt;azione&gt;</code>…</td>
+<td>stessi nomi col segno <code>rdacademy_</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>cookie della sessione</td>
+<td><code>rdfood_session</code>, <code>rdfood_scaduta</code>, <code>rdfood_vista</code></td>
+<td><code>rdacademy_session</code>, <code>rdacademy_scaduta</code>, <code>rdacademy_vista</code> · <em>l ed. 2 diceva <code>rdacademy_seduta</code>: vale il nome del codice</em></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>spazio REST</td>
+<td><code>rdfood/v1</code> (Tabelle Funzionali, allegati, testi delle notifiche)</td>
+<td><code>rdacademy/v1</code></td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+<tr>
+<td>plugin di diagnostica</td>
+<td><code>reldoxfood-diagnostica/</code>, <code>RDFOOD_DIAG_*</code></td>
+<td><code>reldox-academy-diagnostica/</code>, <code>RDACADEMY_DIAG_*</code></td>
+<td>confermato (RelDox CRD S713)</td>
+</tr>
+<tr>
+<td>mail di servizio</td>
+<td><code>RDFOOD_SERVICE_EMAIL</code> = <code>admin@reldox.it</code></td>
+<td>stessa costante col segno nuovo; indirizzo da decidere con l owner</td>
+<td><span class="st st-proposta">PROPOSTA</span></td>
+</tr>
+</tbody>
+</table></div>
+<p><em>Nota trovata leggendo</em>: in RelDoxFood 1.24.11L la diagnostica dichiara ancora <code>RDFOOD_DIAG_PACKAGE = '// 1.20.0L | S76 | menu-del-giorno'</code>, mentre la versione è 1.24.11. Nell Academy il pacchetto della diagnostica si scrive a ogni versione e lo controlla un banco (§ 14).</p>
+<hr />
+<h2 id="2-architettura-un-prodotto-i-suoi-database">§ 2 — Architettura: un prodotto, i suoi database</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>da RelDoxFood 1.24.11L, senza cambiamenti di forma</span> <span class="q">aspetta una decisione</span></p>
+<p>I tre livelli di database del § 3.5 delle regole, come li fa RelDoxFood:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>n.</th>
+<th>database</th>
+<th>come lo fa RelDoxFood 1.24.11L</th>
+<th>nell Academy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>WordPress</td>
+<td>non contiene tabelle del prodotto; solo <strong>sei opzioni di avvio</strong> (§ 13)</td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>BASE del prodotto</td>
+<td>database proprio; credenziali solo in <code>wp-config.php</code> (<code>Rdfood_DB_Config</code>); se ne manca una il prodotto non parte e si apre l <strong>installazione guidata</strong> (<code>Rdfood_Bootstrap_Wizard</code>, che rifiuta un BASE uguale a quello di WordPress e scrive il blocco delle costanti); lo stato del prodotto vive sul BASE nella tabella <code>options</code> (<code>Rdfood_Option</code>, sempre la connessione del BASE)</td>
+<td>uguale: qui stanno tutte le tabelle del § 5</td>
+</tr>
+<tr>
+<td><strong>3-5</strong></td>
+<td>sorgenti</td>
+<td>registro <code>data_sources</code> sul BASE con password cifrata (<code>Rdfood_Cifra</code>, busta <code>enc1:</code>); tre posti: <code>sorgente_3</code>, <code>sorgente_4</code>, <code>riserva</code> (<code>Rdfood_Sorgenti::MAPPA</code>); due stati IN USO / NON IN USO; se una sorgente non risponde si ricade sul BASE (<code>Rdfood_DataSource</code>); le tabelle nascono quando la si accende (<code>Rdfood_Sorgente_Provisioner</code>); backup per sorgente e «Correggi da backup» (<code>Rdfood_Backup</code>)</td>
+<td><strong>si tiene il meccanismo, nessuna sorgente accesa</strong>: i materiali e il registro dell Academy sono piccoli e stanno sul BASE. Una sorgente si accende solo se il registro cresce (decisione dell owner, più avanti)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>La convivenza</strong> con altri prodotti sullo stesso WordPress è data dai nomi del § 1; sul WordPress dell Academy non ci sono altri prodotti RelDox (SPEC § 2.1).</li>
+<li><strong>L autoriparazione dello schema</strong> si copia così com è: <code>Rdfood_Provisioning_Guard</code> a ogni avvio, <code>Rdfood_Schema_Flag_Guard</code> (un flag non basta, la tabella deve esistere davvero), schemi che fanno solo <code>CREATE TABLE IF NOT EXISTS</code> e <code>ALTER … ADD</code>.</li>
+<li><strong>Le API esterne</strong> (<code>includes/ext/</code>, dieci tabelle <code>ext_*</code> ed <code>eliminazioni</code>) <strong>si tolgono</strong>: sono le API che RelDoxFood offre ai gestionali dei clienti. L Academy, nella 0.1.01A, non offre API; quando chiederà anagrafiche e stato del canone a RelDox CRD sarà lei a chiamare, con le API di famiglia (CLAUDE.md di A-010). Il motore delle API si ricopierà, dalla versione in vigore, solo se un giorno l Academy dovrà rispondere a qualcuno.</li>
+</ul>
+<hr />
+<h2 id="3-ciclo-di-vita">§ 3 — Ciclo di vita</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>da RelDoxFood 1.24.11L</span> <span class="q">aspetta una decisione</span></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>momento</th>
+<th>che cosa fa RelDoxFood 1.24.11L</th>
+<th>nell Academy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>caricamento del file principale</td>
+<td>se manca una delle cinque costanti del BASE: solo l installazione guidata, nessun altro file, il sito resta in piedi</td>
+<td>uguale</td>
+</tr>
+<tr>
+<td>attivazione (<code>register_activation_hook</code>)</td>
+<td><code>Rdfood_Activator::activate()</code>: crea le tabelle del nucleo, semina ruoli («Service Account», «Admin») e l utente di servizio con una password che nessuno conosce, scrive la versione, alza il flag dello schema solo se le tabelle esistono davvero, chiede il rinnovo delle regole d indirizzo</td>
+<td>uguale; i ruoli seminati sono quelli del § 6</td>
+</tr>
+<tr>
+<td>ogni avvio (<code>plugins_loaded</code>, priorità 5)</td>
+<td>se <code>rdfood_db_version</code> &lt; versione: riattiva; poi <code>Rdfood_Provisioning_Guard::provision()</code> (ricrea ciò che manca, a flag allineati non fa nulla)</td>
+<td>uguale</td>
+</tr>
+<tr>
+<td>carichi</td>
+<td><code>carico-b</code> (menu di WordPress, licenza, documentazione, stato del sistema, accesso d emergenza), <code>carico-c</code> (Gestione utenti, Preferenze, Impostazioni, Tabelle Funzionali, Area tecnica), <code>carico-d</code> (sorgenti, Database, allegati, backup), <code>carico-e</code> (la mensa, con i carichi a catena <code>carico-e-1xx</code>); ognuno si carica solo se il file c è (<code>is_readable</code>)</td>
+<td><code>carico-b</code>, <code>carico-c</code>, <code>carico-d</code> si tengono (senza la licenza da firmare); <strong><code>carico-e</code> diventa il carico dell Academy</strong> (materiali, catalogo, lezione, registro, Iris) e tiene solo due pezzi generici di oggi: l indipendenza dalla cache (<code>carico-e-143</code>) e il registro delle spedizioni (<code>carico-e-144</code>)</td>
+</tr>
+<tr>
+<td>aggiornamento</td>
+<td>per rimozione e reinstallazione; <code>upgrader_process_complete</code> svuota l OPcache</td>
+<td>uguale</td>
+</tr>
+<tr>
+<td>disattivazione</td>
+<td>rinnova le regole d indirizzo e spegne il pianificatore degli invii del registro (<code>Rdfood_Invii::spegni</code>, ogni 15 minuti)</td>
+<td>rinnova le regole; il pianificatore non c è più</td>
+</tr>
+<tr>
+<td>rimozione</td>
+<td><strong>non c è <code>uninstall.php</code></strong>: il BASE resta intero, restano le opzioni di avvio</td>
+<td>uguale per il BASE; il registro di completamento segue la conservazione della SPEC § 11.4 (30 giorni dopo la cessazione, poi si cancella), con un controllo della diagnostica (§ 12)</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="4-l-albero-dei-file">§ 4 — L albero dei file</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>l albero intero, file per file, è nell <strong>allegato A</strong>; qui il riassunto</span> <span class="q">aspetta una decisione</span></p>
+<p>Sul codice (PHP, JS, CSS) di RelDoxFood 1.24.11L, 83.964 righe:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>decisione</th>
+<th>file</th>
+<th>righe</th>
+<th>che cosa vuol dire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TIENI</td>
+<td>91</td>
+<td>32.475</td>
+<td>si copia con nome e segno nuovi, senza cambiare la logica</td>
+</tr>
+<tr>
+<td>TIENI, ridotto</td>
+<td>13</td>
+<td>9.171</td>
+<td>si copia e si tolgono i rami della ristorazione; oggi quei rami sono quasi tutti dietro <code>class_exists(…)</code>, perciò togliere le classi non rompe il resto; il banco G lo prova</td>
+</tr>
+<tr>
+<td>RIFAI</td>
+<td>18</td>
+<td>2.388</td>
+<td>resta il posto e la forma, cambia il contenuto (file principale, carico dell Academy, schema, catalogo, lezione, marchio)</td>
+</tr>
+<tr>
+<td>TOGLI</td>
+<td>121</td>
+<td>39.930</td>
+<td>ristorazione (menu, cassa, codice personale e QR, pasti, ospiti e FUZZYCode, statistiche, invii del registro, cartella dati, ristoratori), API esterne, contratto di licenza da firmare, manuali e PDF della ristorazione</td>
+</tr>
+</tbody>
+</table></div>
+<p>Per cartella:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>cartella di RelDoxFood</th>
+<th>tieni</th>
+<th>rifai</th>
+<th>togli</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reldoxfood.php</code></td>
+<td></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td><code>includes/</code> (nucleo: database, opzioni, accesso, ruoli, instradatore, lingua, stato del sistema)</td>
+<td>23</td>
+<td>2</td>
+<td>13 (carichi <code>carico-e-1xx</code> della mensa)</td>
+</tr>
+<tr>
+<td><code>includes/bootstrap/</code>, <code>backup/</code>, <code>docs/</code>, <code>lotto-c/</code>, <code>lotto-d/</code>, <code>uploads-js/</code></td>
+<td>27</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>includes/security/</code> (password, gettoni, casella di servizio, cifratura, allegati)</td>
+<td>12</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>includes/lotto-e/</code></td>
+<td>3 (testi delle notifiche, spedizioni, icona sul telefono)</td>
+<td>1 (lo schema)</td>
+<td>24</td>
+</tr>
+<tr>
+<td><code>includes/ext/</code>, <code>includes/license/</code>, <code>includes/novita/</code>, <code>includes/vendor/</code></td>
+<td></td>
+<td></td>
+<td>19</td>
+</tr>
+<tr>
+<td><code>public/views/</code></td>
+<td>16</td>
+<td>2 (Pannello → catalogo; manuali → lezione)</td>
+<td>18</td>
+</tr>
+<tr>
+<td><code>public/js/</code>, <code>public/css/</code>, <code>public/img/</code></td>
+<td>11</td>
+<td>8 (marchio)</td>
+<td>19</td>
+</tr>
+<tr>
+<td><code>assets/</code>, <code>admin/</code>, <code>docs-content/</code></td>
+<td>6</td>
+<td>1</td>
+<td>8</td>
+</tr>
+<tr>
+<td><code>manuali/</code></td>
+<td></td>
+<td>3</td>
+<td>18</td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/</code></td>
+<td>5</td>
+<td></td>
+<td>2 (azzera il contratto; licenza per l API)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Che cosa si aggiunge</strong>, accanto ai file tenuti (nomi da confermare alla scrittura, uno per responsabilità come in RelDoxFood):</p>
+<pre><code>reldox-academy/
+  includes/academy/
+    class-rdacademy-schema-academy.php   tabelle proprie del § 5 (grammatica di Rdfood_Schema_E_V1)
+    class-rdacademy-materiali.php        caricamento tutto o niente, § 7.1 (usa Rdfood_Markdown → Rdacademy_Markdown)
+    class-rdacademy-catalogo.php         chi vede che cosa, § 7.2
+    class-rdacademy-lezione.php          lezione e verifica, § 7.3
+    class-rdacademy-iris.php             battute dal file di testo, § 7.4
+    class-rdacademy-registro.php         registro, CSV e PDF, § 7.5
+  public/views/  catalogo.php (dal Pannello) · lezione.php (dai manuali) · chi-sei.php · registro.php · pausa.php
+  lang/it/iris.txt                       catalogo delle battute (docs/IRIS-v1.md)
+  materiali/                             i materiali della 0.1.01A, con etichetta e commit (SPEC § 16)
+reldox-academy-diagnostica/              i cinque file tenuti, col segno nuovo, più i controlli propri del § 12
+</code></pre>
+<hr />
+<h2 id="5-lo-schema-del-base">§ 5 — Lo schema del BASE</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>15 tabelle ereditate da RelDoxFood 1.24.11L + 7 proprie · <em>nomi senza prefisso</em></span> <span class="q">aspetta una decisione</span></p>
+<p><strong>Ereditate</strong>, da RelDoxFood 1.24.11L (colonne lette dal codice):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>tabella</th>
+<th>colonne</th>
+<th>da dove</th>
+<th>nell Academy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>options</code></td>
+<td>chiave e valore dello stato del prodotto</td>
+<td><code>Rdfood_Option</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>users</code></td>
+<td>nome, cognome, email, login, password, <code>tipo</code> (interno · esterno · integratore), avatar, stato, ultimo accesso, tentativi falliti, bloccato fino a; il lotto C aggiunge telefono, cellulare, ufficio, matricola, mansione, responsabile</td>
+<td><code>Rdfood_Activator</code>, <code>Rdfood_Schema_C_V1</code></td>
+<td>uguale; il tipo <code>integratore</code> non serve (era delle API) e resta solo come valore ammesso, nessuna interfaccia</td>
+</tr>
+<tr>
+<td><code>roles</code></td>
+<td>nome, descrizione, colore, <code>is_backdoor</code>, <code>is_system</code>, permessi in JSON</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale; ruoli del § 6</td>
+</tr>
+<tr>
+<td><code>user_roles</code></td>
+<td>utente, ruolo, assegnato il, da</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>sessions</code></td>
+<td>utente, impronta del gettone, IP, browser, scadenza</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>access_log</code></td>
+<td>utente, cosa è stato scritto, IP, browser, esito, motivo</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>activity_log</code></td>
+<td>utente, oggetto, azione, descrizione, prima, dopo, IP</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>impostazioni</code></td>
+<td>chiave, valore, tipo</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale, chiavi della ristorazione tolte</td>
+</tr>
+<tr>
+<td><code>user_prefs</code></td>
+<td>utente, chiave, valore JSON</td>
+<td><code>Rdfood_Activator</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>license_activation</code></td>
+<td>il dominio d attivazione</td>
+<td><code>Rdfood_Schema_License_V1</code></td>
+<td>uguale</td>
+</tr>
+<tr>
+<td><code>data_sources</code></td>
+<td>registro delle sorgenti 3-5, password cifrata</td>
+<td><code>Rdfood_Schema_Datasources_V1</code></td>
+<td>uguale, nessuna accesa (§ 2)</td>
+</tr>
+<tr>
+<td><code>uploads</code> · <code>uploads_blob</code></td>
+<td>allegati per qualunque oggetto e i loro file</td>
+<td><code>Rdfood_Schema_Uploads_V1</code>, <code>…_Blob_V1</code></td>
+<td>uguale: servono per le immagini delle lezioni</td>
+</tr>
+<tr>
+<td><code>tf_testi_notifiche</code></td>
+<td>testi delle mail per lingua</td>
+<td><code>Rdfood_Testi_Notifiche</code></td>
+<td>ridotta alle mail dell account</td>
+</tr>
+<tr>
+<td><code>spedizioni</code></td>
+<td>registro delle mail spedite</td>
+<td><code>Rdfood_Spedizioni</code></td>
+<td>uguale</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Non si copiano</strong> (ristorazione e API): <code>persone</code>, <code>pasti</code>, <code>fuzzy</code>, <code>fuzzy_ditte</code>, <code>inviti</code>, <code>riservati</code>, <code>giorni_persona</code>, <code>ristoranti_importi</code>, <code>ristoranti_valori</code>, <code>ristoranti_menu</code>, <code>pasti_voci</code>, <code>menu_righe</code>, <code>note_ristoratori</code>, <code>campi_mano</code>, <code>tf_invii_registro</code>, <code>invii_registro_log</code>, <code>tf_nomi_file</code>, le dieci <code>ext_*</code> ed <code>eliminazioni</code>.</p>
+<p><strong>Proprie del prodotto</strong> (dalla SPEC; la persona del registro è un utente di <code>users</code>, perciò l ed. 2 si semplifica: niente tabella <code>persone</code> a parte nella 0.1.01A):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>tabella</th>
+<th>che cosa contiene</th>
+<th>voce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>carichi</code></td>
+<td>ogni caricamento dei materiali: etichetta, commit del repository A-010, data, chi</td>
+<td>A2</td>
+</tr>
+<tr>
+<td><code>percorsi</code></td>
+<td>prodotto, ruolo (pubblico), titolo, ordine, lingua</td>
+<td>A2</td>
+</tr>
+<tr>
+<td><code>lezioni</code></td>
+<td><code>id</code> (<code>&lt;prodotto&gt;-&lt;percorso&gt;-L&lt;nn&gt;</code>), percorso, titolo, <code>vale_per</code>, durata, HTML già pronto, lingua, versione del materiale</td>
+<td>A2</td>
+</tr>
+<tr>
+<td><code>domande</code></td>
+<td>domande della verifica e risposta giusta: <strong>mai mandate al browser</strong></td>
+<td>A2, A6</td>
+</tr>
+<tr>
+<td><code>aziende</code></td>
+<td>identificativo dell azienda (dalla chiave, voce 159 di RelDox CRD); fino ad allora la coppia prodotto + dominio</td>
+<td>A3</td>
+</tr>
+<tr>
+<td><code>persone_azienda</code></td>
+<td>utente (<code>users.id</code>), azienda, prodotto e versione, ruolo nel prodotto · per la porta 1 anche l identificativo della persona nel prodotto (SPEC § 11.1: nessuna mail né password in più)</td>
+<td>A3</td>
+</tr>
+<tr>
+<td><code>registro</code></td>
+<td>utente, lezione, aperta il, completata il, esito (giuste su totali), tentativi</td>
+<td>A6, A7</td>
+</tr>
+</tbody>
+</table></div>
+<p>Con la porta 1 (dopo la 0.1.01A) si aggiungono <code>accessi_usati</code> (impronta dell accesso firmato e scadenza) e le righe d accesso nel <code>access_log</code> esistente: niente tabella <code>registro_accessi</code> a parte, perché il registro degli accessi c è già.</p>
+<p>Scelta tecnica dichiarata: il Markdown si converte in HTML <strong>al caricamento</strong>, col convertitore che RelDoxFood ha già (<code>Rdfood_Markdown</code>, 281 righe, oggi per la Documentazione in wp-admin); se non basta per le lezioni lo dice il banco B6.</p>
+<hr />
+<h2 id="6-utenti-ruoli-e-sicurezza">§ 6 — Utenti, ruoli e sicurezza</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>accesso da RelDoxFood 1.24.11L; segreti della SPEC · <em>parere di Sicurezza-Cyber atteso prima della porta 1</em></span> <span class="q">aspetta una decisione</span></p>
+<ul>
+<li><strong>Accesso</strong>, da RelDoxFood 1.24.11L: utenti propri (mai utenti WordPress), login con email o nome utente e risposta sempre uguale verso l esterno (<code>Rdfood_Router::ajax_login</code>, <code>Rdfood_Auth</code>), sessione da 8 ore di inattività che si rinnova lavorando, nel database solo l impronta del gettone; recupero e imposta password (<code>Rdfood_Password_Token</code>, <code>…_Policy</code>, <code>…_Mail</code>); casella di servizio verificata da una spedizione vera (<code>Rdfood_Casella</code>); freno: 60 scritture al minuto per utente e 200 chiamate al minuto per indirizzo; ritardo sui tentativi falliti senza blocco (owner 17/11/2026 11:50, chat Sicurezza-Cyber S3); <strong>primo accesso e rientro d emergenza</strong> da wp-admin con collegamento monouso (<code>Rdfood_Accesso_Emergenza</code>).</li>
+<li><strong>Permessi</strong>, da RelDoxFood: ogni pagina e ogni azione dichiara il suo livello (<code>public</code>, <code>auth</code>, <code>interno</code>, <code>write</code>, <code>admin</code>, <code>backdoor</code>); <strong>ciò che non è dichiarato vale <code>admin</code></strong> (<code>Rdfood_Router::page_level</code>, <code>handle_ajax</code>).</li>
+<li><strong>Ruoli seminati</strong> nell Academy: «Service Account» e «Admin» come in RelDoxFood (personale interno, <code>tipo</code> = interno); in più «Studente» e «Amministratore del cliente» (<code>tipo</code> = esterno), che vedono catalogo e lezioni, e il secondo anche il registro della sua azienda. Il ruolo scelto in «Chi sei?» cambia solo la vista, <strong>mai i permessi</strong>.</li>
+<li><strong>Persone di prova</strong> della 0.1.01A: utenti <code>esterno</code> creati dal personale interno in Gestione utenti, con dati inventati (<code>@esempio.it</code>).</li>
+<li><strong>Segreti</strong>: chiave di licenza mai salvata; chiavi pubbliche di RelDox Chiavi in Impostazioni; credenziali solo in <code>wp-config.php</code>; risposte giuste solo sul server; personale interno con doppio fattore quando il pezzo di famiglia c è (oggi non è in RelDoxFood: regole v4 § 3.3, mockup da approvare).</li>
+</ul>
+<h2 id="7-materiali-e-percorsi-il-cuore-del-prodotto">§ 7 — Materiali e percorsi (il cuore del prodotto)</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>dalla SPEC § 4-§ 7 e dal mockup 0.1.01A v1 approvato «per ora» · <em>owner 16/11/2026 09:16, chat Formazione F001</em></span> <span class="q">aspetta una decisione</span></p>
+<h3 id="7-1-il-caricamento-dei-materiali">7.1 Il caricamento dei materiali</h3>
+<ul>
+<li><strong>Una fonte sola</strong>: i Markdown del repository A-010 (<code>corsi/&lt;prodotto&gt;/&lt;percorso&gt;/it/</code>) con l intestazione di <code>modelli/MODELLO-LEZIONE.md</code> (<code>id</code>, <code>vale_per</code>, <code>pubblico</code>, <code>lingua</code>, <code>durata_minuti</code>, <code>obiettivi</code>).</li>
+<li>Nella 0.1.01A i materiali <strong>viaggiano col kit</strong> (SPEC § 16): una cartella <code>materiali/</code> nel pacchetto, con la sua etichetta e il commit. Il pannello «Carica la versione dei materiali» arriva dopo (SPEC § 9.1).</li>
+<li>Il caricamento è <strong>tutto o niente</strong>: si legge tutto, si controlla (intestazioni complete, <code>id</code> unici, immagini presenti, domande con una sola risposta giusta), poi si scrive in una transazione. Un errore = nessun cambiamento e il motivo per riga.</li>
+<li>Le domande della verifica stanno in un file del percorso (<code>verifica.md</code> accanto alle lezioni), <strong>non nella pagina</strong> (SPEC § 5.4). <em>Oggi le due lezioni di prova hanno la verifica nel testo: si sposta nel file del percorso prima del primo caricamento.</em></li>
+</ul>
+<h3 id="7-2-il-catalogo-chi-vede-che-cosa">7.2 Il catalogo: chi vede che cosa</h3>
+<p>Regola, nell ordine, dentro la seduta:
+1. solo i <strong>prodotti acquistati</strong> dall azienda della seduta (D12);
+2. solo i percorsi del <strong>ruolo</strong> della persona (l amministratore vede anche i suoi);
+3. per ogni lezione, l ultima versione con <code>vale_per</code> ≤ alla versione del prodotto della persona; se la sua versione è più vecchia di tutte, l ultima con l avviso «la tua versione è precedente» (SPEC § 4.4);
+4. italiano; le altre lingue quando ci sono (SPEC § 7).
+Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la strada ai corsi fuori dalla famiglia resta aperta (D20).</p>
+<h3 id="7-3-la-lezione-e-la-verifica">7.3 La lezione e la verifica</h3>
+<p>Una lezione si apre → riga <code>aperta il</code> nel registro. Si chiude la verifica → esito e tentativi; la lezione è completata quando la verifica è fatta (anche se non tutta giusta: si può ripetere quante volte si vuole, SPEC § 5.4). «Riprendi da dove eri» = ultima lezione aperta e non completata.</p>
+<h3 id="7-4-iris">7.4 Iris</h3>
+<p>Battute dal file di testo per lingua (<code>docs/IRIS-v1.md</code>), <strong>nessuna IA</strong> nella prima versione. «Chi sei?» propone il ruolo che porta l accesso; la scelta cambia solo la vista del catalogo, <strong>mai i permessi</strong> (un utente non diventa amministratore scegliendolo).</p>
+<h3 id="7-5-il-registro-dell-azienda">7.5 Il registro dell azienda</h3>
+<p>Solo l amministratore del cliente e solo la sua azienda; filtri per prodotto, corso, periodo; scarico CSV e PDF con la data di scarico e il periodo (SPEC § 6). Nessun attestato (D4).</p>
+<hr />
+<hr />
+<h2 id="8-accessi">§ 8 — Accessi</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>tre porte; nella 0.1.01A solo la seconda</span> <span class="q">aspetta una decisione</span></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>porta</th>
+<th>chi</th>
+<th>verifica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 · accesso firmato dal prodotto</td>
+<td>utente e amministratore del cliente</td>
+<td>firma del prodotto, scadenza, monouso, chiave valida con la chiave pubblica, prodotto acquistato; freno ai tentativi</td>
+</tr>
+<tr>
+<td>2 · login dell applicazione</td>
+<td>personale interno e persone di prova</td>
+<td>il login di RelDoxFood 1.24.11L (§ 6)</td>
+</tr>
+<tr>
+<td>3 · wp-admin</td>
+<td>amministratore del sito</td>
+<td>WordPress indurito; da qui «Primo accesso» come in RelDoxFood</td>
+</tr>
+</tbody>
+</table></div>
+<p>⛔ <strong>Ingresso della 0.1.01A: solo la porta 2</strong> (proposta della Formazione, confermata dal capo famiglia, RelDox CRD S713; SPEC 1.11 § 16). La porta 1 arriva dopo, col parere di Sicurezza-Cyber prima del codice, la voce 159 di RelDox CRD e il pezzo comune «Accesso ai corsi» (roadmap F18). Chiave scaduta → pagina «I corsi sono in pausa»; ultimi 60 giorni → striscia nel catalogo.</p>
+<hr />
+<h2 id="9-l-applicazione-la-cornice">§ 9 — L applicazione: la cornice</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>la cornice è quella di RelDoxFood 1.24.11L (<code>public/views/layout.php</code>, 670 righe)</span> <span class="q">aspetta una decisione</span></p>
+<p><strong>Come funziona in RelDoxFood</strong>: l instradatore (<code>Rdfood_Router</code>) riceve <code>/food/&lt;pagina&gt;</code> con quattro regole d indirizzo più un ripiego che legge l indirizzo anche senza regole salvate e un autoriparazione; sceglie la vista dalla mappa delle pagine, toglie dalla coda <strong>tutti</strong> gli stili e gli script del tema e monta la vista dentro la cornice unica. Pagina negata = 403 con «Accesso riservato» e il rail operativo. La cornice ha: barra in alto (marchio del prodotto, contesto, ingranaggio solo per l amministratore, utente col ruolo, Esci), <strong>rail operativo</strong> (ogni voce dichiara pagina e tipi di utente; si vede solo ciò che si può aprire), <strong>rail Setup</strong> (§ 10), logo dell azienda in testa al rail con segnaposto neutro, piede con prodotto e produttore, tre larghezze (al telefono menu ☰ e fogli dal basso), indipendenza dalla cache dell hosting (<code>carico-e-143</code>).</p>
+<p><strong>Nell Academy</strong> (rotte dal mockup 0.1.01A v1):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>rotta</th>
+<th>schermata</th>
+<th>livello</th>
+<th>da</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/academy/login</code>, <code>/recupera</code>, <code>/imposta-password</code></td>
+<td>accesso</td>
+<td>public</td>
+<td>RelDoxFood, uguale</td>
+</tr>
+<tr>
+<td><code>/academy/</code></td>
+<td>il mio catalogo</td>
+<td>auth</td>
+<td>RIFAI del Pannello (<code>dashboard.php</code>)</td>
+</tr>
+<tr>
+<td><code>/academy/chi-sei</code></td>
+<td>«Chi sei?» con Iris</td>
+<td>auth</td>
+<td>nuova (mockup approvato)</td>
+</tr>
+<tr>
+<td><code>/academy/lezione/&lt;n&gt;</code></td>
+<td>la lezione</td>
+<td>auth, lezione visibile (§ 7.2)</td>
+<td>RIFAI di <code>manuali.php</code></td>
+</tr>
+<tr>
+<td><code>/academy/registro</code></td>
+<td>registro dell azienda</td>
+<td>Amministratore del cliente</td>
+<td>nuova (mockup approvato)</td>
+</tr>
+<tr>
+<td><code>/academy/pausa</code></td>
+<td>chiave scaduta</td>
+<td>public</td>
+<td>nuova, porta 1</td>
+</tr>
+<tr>
+<td><code>/academy/preferenze</code></td>
+<td>preferenze personali</td>
+<td>auth</td>
+<td>RelDoxFood, uguale</td>
+</tr>
+<tr>
+<td><code>/academy/impostazioni</code>, <code>/utenti</code>, <code>/tabelle</code>, <code>/log-accessi</code>, <code>/area-tecnica</code></td>
+<td>rail Setup</td>
+<td>admin</td>
+<td>RelDoxFood (§ 10)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Rail operativo: <strong>studente</strong> Catalogo · Le mie lezioni; <strong>amministratore del cliente</strong> + Registro; <strong>personale interno</strong> + ingranaggio. Le voci della mensa (Ospiti, Registro dei pasti, Invii, Il mio codice, FUZZYCode, Menu del giorno, Comunica, Statistiche, Guida alla cassa, I miei pasti, Novità per l integrazione) non si copiano.</p>
+<hr />
+<h2 id="10-impostazioni-e-rail-setup">§ 10 — Impostazioni e rail Setup</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>rail Setup di RelDoxFood 1.24.11L · <em>le linguette proprie hanno bisogno del loro mockup prima del codice (SPEC § 8)</em></span> <span class="q">aspetta una decisione</span></p>
+<p><strong>Rail Setup in RelDoxFood</strong> (<code>Rdfood_Router::SETUP_PAGES</code> e <code>layout.php</code>): «← Torna» (ritorna esattamente dov eri), poi il gruppo SISTEMA, solo amministratore: <strong>Utenti · Tabelle · Log accessi · Impostazioni · Area tecnica</strong>; le Preferenze si aprono dal proprio nome. La mensa vi aggiunge Registro dei pasti e Invii del registro: <strong>non si copiano</strong>.</p>
+<p><strong>Impostazioni</strong> (pannello a dieci riquadri, 1.24.7L):</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>riquadro di RelDoxFood</th>
+<th>nell Academy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azienda</td>
+<td>tieni</td>
+</tr>
+<tr>
+<td>Festività</td>
+<td>togli (serviva ai giorni della mensa)</td>
+</tr>
+<tr>
+<td>Branding (due loghi)</td>
+<td>tieni: logo Academy</td>
+</tr>
+<tr>
+<td>Email (casella di servizio)</td>
+<td>tieni</td>
+</tr>
+<tr>
+<td>Dati FTP</td>
+<td>togli</td>
+</tr>
+<tr>
+<td>Integrazioni (API)</td>
+<td>togli</td>
+</tr>
+<tr>
+<td>Ristoratori</td>
+<td>togli</td>
+</tr>
+<tr>
+<td>Sistema</td>
+<td>tieni</td>
+</tr>
+<tr>
+<td>Database (sorgenti, capacità, backup)</td>
+<td>tieni</td>
+</tr>
+<tr>
+<td>Zona pericolosa</td>
+<td>tieni</td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Materiali</strong> (versione caricata, data, commit; nella 0.1.01A solo lettura) · <strong>nuovo, mockup prima</strong></td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Chiavi pubbliche</strong> di RelDox Chiavi · nuovo, con la porta 1</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Tabelle Funzionali</strong> (<code>Rdfood_TF_Registry</code>, tre nature: normativa, sistema, azienda): resta «Testi delle notifiche» (sistema); «Invii del registro» si toglie; si aggiunge <strong>Prodotti della famiglia</strong> (nome, segno, versioni note; natura sistema).</p>
+<p><strong>Area tecnica, Gestione utenti, Log accessi</strong>: allo standard grafico di famiglia già in RelDoxFood (1.24.3L-1.24.11L); si copiano così, senza le linguette della scheda della mensa.</p>
+<hr />
+<h2 id="11-il-pannello-wordpress">§ 11 — Il pannello WordPress</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>come RelDoxFood 1.24.11L</span> <span class="q">aspetta una decisione</span></p>
+<ul>
+<li>Menu «RelDoxAcademy» (<code>Rdfood_Admin</code>, <code>add_menu_page</code>) che porta all applicazione, con «Primo accesso», «Stato sistema» (<code>Rdfood_Stato_Sistema</code>) e «Documentazione» (<code>Rdfood_Docs</code>, solo le pagine sulla configurazione del database).</li>
+<li>Il plugin di diagnostica col suo menu: Manutenzione, Manutenzione storica, registro dei banchi, console SQL fra le sorgenti.</li>
+<li>Nella riga di <strong>tutti e due</strong> i plugin: «Stato e assistenza» e «Copia configurazione» (solo <code>manage_options</code>), mai chiavi, segreti, password, nomi o host dei database, prefisso, utenti, indirizzi IP (regola dell owner 16/11/2026 08:57, chat RelDox CRD S707).</li>
+</ul>
+<hr />
+<h2 id="12-manutenzione-e-diagnostica">§ 12 — Manutenzione e diagnostica</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>i tre livelli della SPEC della manutenzione v2, da RelDoxFood 1.24.11L</span> <span class="q">aspetta una decisione</span></p>
+<ul>
+<li><strong>Si tengono</strong>, col segno nuovo: <code>class-rdfood-maintenance.php</code> (ruoli e rientro, il banco comune «Ruoli e recupero accesso»), <code>class-rdfood-banchi-registro.php</code>, <code>class-rdfood-console-sql.php</code>, <code>manifest-file.php</code>, il file principale.</li>
+<li><strong>Si tolgono</strong>: Strumento 6 «Azzera il contratto di licenza» e Strumento 7 «Licenza obbligatoria per l API».</li>
+<li><strong>Controlli propri</strong> dello Stato del sistema: materiali caricati e coerenti (lezioni contate, domande senza risposta giusta = rosso); chiavi pubbliche presenti (con la porta 1); accessi monouso scaduti ripuliti; registri delle aziende cessate oltre i 30 giorni = rosso; nessuna chiave di licenza in tabelle e registri; pacchetto della diagnostica uguale a quello del prodotto.</li>
+</ul>
+<hr />
+<h2 id="13-opzioni-nel-database-di-wordpress">§ 13 — Opzioni nel database di WordPress</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>solo le sei chiavi di avvio di RelDoxFood 1.24.11L, col segno nuovo</span> <span class="q">aspetta una decisione</span></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>opzione in RelDoxFood</th>
+<th>nell Academy</th>
+<th>a che cosa serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rdfood_db_version</code></td>
+<td><code>rdacademy_db_version</code></td>
+<td>versione dello schema: se è più vecchia, a ogni avvio si riattiva</td>
+</tr>
+<tr>
+<td><code>rdfood_booted_version</code></td>
+<td><code>rdacademy_booted_version</code></td>
+<td>primo avvio di una versione: rinnova le regole d indirizzo</td>
+</tr>
+<tr>
+<td><code>rdfood_flush_rewrite</code></td>
+<td><code>rdacademy_flush_rewrite</code></td>
+<td>rinnovo delle regole d indirizzo in attesa</td>
+</tr>
+<tr>
+<td><code>rdfood_installed_at</code></td>
+<td><code>rdacademy_installed_at</code></td>
+<td>data d installazione</td>
+</tr>
+<tr>
+<td><code>rdfood_just_activated</code></td>
+<td><code>rdacademy_just_activated</code></td>
+<td>appena attivato</td>
+</tr>
+<tr>
+<td><code>rdfood_version</code></td>
+<td><code>rdacademy_version</code></td>
+<td>versione del plugin</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tutto il resto vive sul BASE (<code>options</code>, <code>impostazioni</code>). Alla rimozione restano, come in RelDoxFood.</p>
+<hr />
+<h2 id="14-come-si-misura">§ 14 — Come si misura</h2>
+<p class="stato st-dafare"><span class="st st-dafare">DA FARE</span> <span>banchi nella forma comune (skill <code>banco-forma-comune-reldox</code>), rossi prima e verdi dopo</span> <span class="q">non ancora sviluppato</span></p>
+<p><strong>Banchi standard</strong>, da RelDoxFood 1.24.11L:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>banco</th>
+<th>che cosa prova</th>
+<th>in RelDoxFood</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G0 sintassi e lingue</td>
+<td><code>php -l</code> su ogni file; stesse chiavi in ogni lingua del gestore</td>
+<td>verifica prima di ogni consegna (CLAUDE.md di RelDoxFood)</td>
+</tr>
+<tr>
+<td>G1 nessun resto</td>
+<td>zero occorrenze di <code>rdfood</code>, <code>RDFOOD</code>, <code>Rdfood</code>, <code>RelDoxFood</code>, <code>/food/</code> e delle classi tolte; nessuna chiamata a una classe tolta fuori da <code>class_exists</code></td>
+<td>nuovo per la copia (regole v4 § 14)</td>
+</tr>
+<tr>
+<td>G2 ruoli e recupero accesso</td>
+<td>il banco comune della Manutenzione</td>
+<td><code>class-rdfood-maintenance.php</code></td>
+</tr>
+<tr>
+<td>G3 Gestione utenti allo standard</td>
+<td></td>
+<td><code>banco/S91-76-banco-gestione-utenti-standard.py</code></td>
+</tr>
+<tr>
+<td>G4 Impostazioni allo standard</td>
+<td></td>
+<td><code>banco/S91-84-banco-impostazioni-standard.py</code></td>
+</tr>
+<tr>
+<td>G5 Area tecnica allo standard</td>
+<td></td>
+<td><code>banco/S91-92-banco-area-tecnica-standard.py</code></td>
+</tr>
+<tr>
+<td>G6 Tabelle Funzionali allo standard</td>
+<td></td>
+<td><code>banco/S91-109-banco-tabelle-funzionali-standard.py</code></td>
+</tr>
+<tr>
+<td>G7 Log accessi allo standard</td>
+<td></td>
+<td><code>banco/S91-118-banco-log-accessi-standard.py</code></td>
+</tr>
+<tr>
+<td>G8 sabotaggi</td>
+<td>si rompe di proposito una cosa per banco e il banco deve dire rosso</td>
+<td><code>banco/S91-93-sabotaggi-1_24_8L.py</code></td>
+</tr>
+<tr>
+<td>G9 installato uguale al pacchetto</td>
+<td>i file sul server hanno lo stesso MD5 del pacchetto</td>
+<td><code>banco/S91-95-installato-uguale-pacchetto-1_24_8L.sh</code></td>
+</tr>
+<tr>
+<td>G10 diagnostica allineata</td>
+<td>stesso numero e stesso pacchetto del prodotto</td>
+<td>nuovo (§ 1, nota)</td>
+</tr>
+</tbody>
+</table></div>
+<p>I banchi G3-G7 di RelDoxFood girano a 2560, 1920, 1440, 820 e 390 px, senza scorrimento orizzontale e con la console pulita; nell Academy si copiano cambiando indirizzo e persone di prova. Il banco della scheda della persona e quelli della mensa non si copiano.</p>
+<p><strong>Banchi del prodotto</strong>:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>banco</th>
+<th>che cosa prova</th>
+<th>rosso se</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1 accesso (porta 1)</td>
+<td>firma, scadenza, monouso, chiave valida e scaduta</td>
+<td>entra un accesso falso, scaduto, già usato o con chiave scaduta</td>
+</tr>
+<tr>
+<td>B2 catalogo</td>
+<td>prodotti acquistati, ruolo, versione</td>
+<td>si vede un prodotto non acquistato o un percorso di un altro ruolo</td>
+</tr>
+<tr>
+<td>B3 verifica</td>
+<td>esito calcolato sul server</td>
+<td>la risposta giusta arriva al browser</td>
+</tr>
+<tr>
+<td>B4 registro</td>
+<td>sola propria azienda; CSV e PDF</td>
+<td>un amministratore vede persone di un altra azienda</td>
+</tr>
+<tr>
+<td>B5 segreti</td>
+<td>nessuna chiave di licenza in tabelle e registri</td>
+<td>il formato della chiave si trova nel database o nei log</td>
+</tr>
+<tr>
+<td>B6 caricamento</td>
+<td>tutto o niente</td>
+<td>un materiale rotto lascia il catalogo a metà</td>
+</tr>
+</tbody>
+</table></div>
+<p>Palco e testing-live secondo <code>SPEC-AMBIENTE-DI-PROVA-TESTING-LIVE-v3</code>; due pacchetti con MD5 (regole v4 § 9.2).</p>
+<hr />
+<h2 id="15-riferimenti-di-famiglia-e-ordine-dei-blocchi">§ 15 — Riferimenti di famiglia e ordine dei blocchi</h2>
+<p class="stato st-proposta"><span class="st st-proposta">PROPOSTA</span> <span>ordine da approvare con l analisi</span> <span class="q">aspetta una decisione</span></p>
+<p>Riferimenti: RelDoxFood <code>main</code> 1.24.11L (5e4a40c) · <code>docs/SPEC-RELDOXACADEMY-v1.md</code> 1.11 · mockup <code>MOCKUP-RELDOXACADEMY-0.1.01A-v1</code> e <code>MOCKUP-CHI-SEI-IRIS-v1</code> · <code>docs/IRIS-v1.md</code> · <code>REGOLE-FAMIGLIA-RELDOX-v4</code> · <code>SPEC-MANUTENZIONE-E-DIAGNOSTICA-v2</code> · <code>SPEC-INDURIMENTO-INSTALLAZIONI-FAMIGLIA-RELDOX-v1</code> · <code>SPEC-API-FAMIGLIA-RELDOX-v8</code>.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>blocco</th>
+<th>che cosa</th>
+<th>dipende da</th>
+<th>«fatto» quando</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K</td>
+<td>RelDoxFood letto; edizione 3</td>
+<td>—</td>
+<td>questa edizione approvata</td>
+</tr>
+<tr>
+<td>G</td>
+<td>copia con nome e segno nuovi, ristorazione tolta (allegato A), lettura riga per riga di ogni file copiato → i due plugin installabili</td>
+<td>K</td>
+<td>G0-G2 e G10 verdi; G3-G7 verdi sul palco; una differenza trovata leggendo = edizione 4 prima di andare avanti</td>
+</tr>
+<tr>
+<td>M</td>
+<td>caricamento dei materiali</td>
+<td>G</td>
+<td>B6 verde, le due lezioni di prova caricate</td>
+</tr>
+<tr>
+<td>P</td>
+<td>persone di prova (porta 2)</td>
+<td>G</td>
+<td>uno studente e un amministratore del cliente entrano</td>
+</tr>
+<tr>
+<td>C · L</td>
+<td>catalogo e lezione con verifica</td>
+<td>M, P</td>
+<td>B2 e B3 verdi, browser a tre misure</td>
+</tr>
+<tr>
+<td>I</td>
+<td>«Chi sei?» con Iris</td>
+<td>C</td>
+<td>battute da <code>iris.txt</code></td>
+</tr>
+<tr>
+<td>R</td>
+<td>registro, CSV e PDF</td>
+<td>L</td>
+<td>B4 verde</td>
+</tr>
+<tr>
+<td>D</td>
+<td>riga dei plugin e controlli propri</td>
+<td>G</td>
+<td>«Copia configurazione» senza segreti</td>
+</tr>
+<tr>
+<td>A</td>
+<td>porta 1, accesso firmato (dopo la 0.1.01A)</td>
+<td>parere di Sicurezza-Cyber, pezzo comune, voce 159</td>
+<td>B1 e B5 verdi</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>pacchetto 0.1.01A, kit, smoke dell owner</td>
+<td>K-D</td>
+<td>«ok smoke»</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Domande per l owner</strong> con questa edizione (una alla volta, nell ordine):
+1. Approvi l edizione 3 così (tieni / rifai / togli dell allegato A)?
+2. Le API esterne di RelDoxFood si tolgono (§ 2): d accordo?
+3. Indirizzo della mail di servizio dell Academy (§ 1).</p>
+<hr />
+<h2 id="allegato-a-l-albero-intero-di-reldoxfood-1-24-11l-file-per-file">Allegato A — L albero intero di RelDoxFood 1.24.11L, file per file</h2>
+<p><em>Righe contate sul file; «—» per immagini e PDF. I 75 manuali HTML sono raggruppati per cartella.</em></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>file</th>
+<th>righe</th>
+<th>decisione</th>
+<th>perché</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reldoxfood-diagnostica/includes/class-rdfood-azzera-licenza.php</code></td>
+<td>175</td>
+<td>TOGLI</td>
+<td>azzera il contratto di licenza</td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/includes/class-rdfood-banchi-registro.php</code></td>
+<td>158</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/includes/class-rdfood-console-sql.php</code></td>
+<td>598</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/includes/class-rdfood-licenza-api.php</code></td>
+<td>93</td>
+<td>TOGLI</td>
+<td>licenza per l API</td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/includes/class-rdfood-maintenance.php</code></td>
+<td>890</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/includes/manifest-file.php</code></td>
+<td>16</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood-diagnostica/reldoxfood-diagnostica.php</code></td>
+<td>75</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/admin/css/admin.css</code></td>
+<td>111</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/assets/docs/docs.css</code></td>
+<td>325</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/assets/docs/docs.js</code></td>
+<td>130</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/assets/manuali/manuale.css</code></td>
+<td>309</td>
+<td>RIFAI</td>
+<td>foglio di stile della lezione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/assets/search/rdfood-search.css</code></td>
+<td>225</td>
+<td>TIENI</td>
+<td>ricerca dell app</td>
+</tr>
+<tr>
+<td><code>reldoxfood/assets/search/rdfood-search.js</code></td>
+<td>566</td>
+<td>TIENI</td>
+<td>ricerca dell app</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/10-configurazione-database.md</code></td>
+<td>107</td>
+<td>TIENI, ridotto</td>
+<td>Documentazione interna in wp-admin</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/20-api-e-collegamenti.md</code></td>
+<td>309</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/30-manuali-dei-ruoli.md</code></td>
+<td>39</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/40-codice-personale.md</code></td>
+<td>56</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/assets/flusso-credenziali-db.svg</code></td>
+<td>93</td>
+<td>TIENI, ridotto</td>
+<td>Documentazione interna in wp-admin</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/novita/.htaccess</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/novita/1_13_0B.md</code></td>
+<td>14</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/novita/1_17_0L.md</code></td>
+<td>16</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/novita/1_18_0L.md</code></td>
+<td>17</td>
+<td>TOGLI</td>
+<td>pagina della ristorazione o delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/docs-content/novita/index.php</code></td>
+<td>2</td>
+<td>TOGLI</td>
+<td>novità per l integratore delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/backup/class-rdfood-backup.php</code></td>
+<td>747</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/bootstrap/class-rdfood-bootstrap-wizard.php</code></td>
+<td>628</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/bootstrap/view-bootstrap-wizard.php</code></td>
+<td>474</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-b.php</code></td>
+<td>69</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-c.php</code></td>
+<td>149</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-d.php</code></td>
+<td>159</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1100.php</code></td>
+<td>488</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1120.php</code></td>
+<td>16</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1130.php</code></td>
+<td>83</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1160.php</code></td>
+<td>18</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1190.php</code></td>
+<td>122</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1200.php</code></td>
+<td>109</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1210.php</code></td>
+<td>21</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1220.php</code></td>
+<td>35</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-1230.php</code></td>
+<td>44</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-140.php</code></td>
+<td>216</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-143.php</code></td>
+<td>274</td>
+<td>TIENI</td>
+<td>indipendenza dalla cache dell hosting (generico); passa nel carico dell Academy</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-144.php</code></td>
+<td>48</td>
+<td>TIENI</td>
+<td>pagina del registro delle spedizioni</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-150.php</code></td>
+<td>99</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-160.php</code></td>
+<td>81</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-183.php</code></td>
+<td>31</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e-190.php</code></td>
+<td>232</td>
+<td>RIFAI</td>
+<td>i manuali dei ruoli: la voce del rail diventa il catalogo dei corsi</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/carico-e.php</code></td>
+<td>361</td>
+<td>RIFAI</td>
+<td>resta il punto d innesto del carico; dentro solo le voci dell Academy</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-accesso-emergenza.php</code></td>
+<td>388</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-activator.php</code></td>
+<td>365</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-admin.php</code></td>
+<td>212</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-auth.php</code></td>
+<td>732</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-db-config.php</code></td>
+<td>166</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-db.php</code></td>
+<td>676</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-license-anchor.php</code></td>
+<td>178</td>
+<td>TIENI</td>
+<td>ancora di licenza: solo il dominio</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-lingua.php</code></td>
+<td>1572</td>
+<td>TIENI, ridotto</td>
+<td>gestore delle lingue; si tolgono le chiavi della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-option.php</code></td>
+<td>567</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-provisioning-guard.php</code></td>
+<td>250</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-roles.php</code></td>
+<td>69</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-router.php</code></td>
+<td>820</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-schema-flag-guard.php</code></td>
+<td>222</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-schema-license-v1.php</code></td>
+<td>68</td>
+<td>TIENI</td>
+<td>ancora di licenza: solo il dominio</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-stato-sistema.php</code></td>
+<td>441</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/class-rdfood-user-prefs.php</code></td>
+<td>161</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/docs/class-rdfood-docs-loader.php</code></td>
+<td>84</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/docs/class-rdfood-docs.php</code></td>
+<td>93</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/docs/class-rdfood-markdown.php</code></td>
+<td>281</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/docs/views/docs-page.php</code></td>
+<td>99</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-admin.php</code></td>
+<td>209</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-esporta.php</code></td>
+<td>263</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-flusso.php</code></td>
+<td>336</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-fonte.php</code></td>
+<td>77</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-oggetti.php</code></td>
+<td>292</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-profilo.php</code></td>
+<td>265</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-ristoratori.php</code></td>
+<td>432</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-schema.php</code></td>
+<td>124</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-scrivi.php</code></td>
+<td>373</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext-sentinella.php</code></td>
+<td>229</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/ext/class-rdfood-ext.php</code></td>
+<td>440</td>
+<td>TOGLI</td>
+<td>API esterne della ristorazione: l Academy nella 0.1.01A non espone API (§ 2)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/helpers.php</code></td>
+<td>245</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/license/class-rdfood-license-admin.php</code></td>
+<td>928</td>
+<td>TOGLI</td>
+<td>contratto di licenza da firmare e sua pagina (SPEC § 2.5)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/license/class-rdfood-license-firma.php</code></td>
+<td>169</td>
+<td>TOGLI</td>
+<td>contratto di licenza da firmare e sua pagina (SPEC § 2.5)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/license/class-rdfood-license-pdf.php</code></td>
+<td>401</td>
+<td>TOGLI</td>
+<td>contratto di licenza da firmare e sua pagina (SPEC § 2.5)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/license/class-rdfood-license-validate.php</code></td>
+<td>183</td>
+<td>TOGLI</td>
+<td>contratto di licenza da firmare e sua pagina (SPEC § 2.5)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/license/class-rdfood-license.php</code></td>
+<td>814</td>
+<td>TOGLI</td>
+<td>contratto di licenza da firmare e sua pagina (SPEC § 2.5)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-area-tecnica.php</code></td>
+<td>468</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-impostazioni.php</code></td>
+<td>572</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-me.php</code></td>
+<td>175</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-schema-c.php</code></td>
+<td>91</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-tf-admin-rest.php</code></td>
+<td>101</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-tf-registry.php</code></td>
+<td>390</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-c/class-rdfood-utenti.php</code></td>
+<td>601</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-database.php</code></td>
+<td>523</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-datasource.php</code></td>
+<td>404</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-dimensioni.php</code></td>
+<td>64</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-schema-datasources-v1.php</code></td>
+<td>66</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-schema-sorgente-esempio-v1.php</code></td>
+<td>41</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-sorgente-provisioner.php</code></td>
+<td>208</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-sorgenti.php</code></td>
+<td>144</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-tabella-senza-casa.php</code></td>
+<td>46</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-table-map.php</code></td>
+<td>53</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-d/class-rdfood-table-owner.php</code></td>
+<td>266</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-accesso-stampato.php</code></td>
+<td>1112</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-app-install.php</code></td>
+<td>264</td>
+<td>TIENI</td>
+<td>icona sul telefono (SPEC-ICONA-WEBAPP di famiglia)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-cartella-dati.php</code></td>
+<td>972</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-cassa.php</code></td>
+<td>868</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-codice.php</code></td>
+<td>413</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-conti.php</code></td>
+<td>530</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-email-condivisa.php</code></td>
+<td>119</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-export.php</code></td>
+<td>489</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-fuzzy.php</code></td>
+<td>1636</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-invii.php</code></td>
+<td>877</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-inviti.php</code></td>
+<td>111</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-menu-giorno.php</code></td>
+<td>344</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-miei-dati.php</code></td>
+<td>227</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-note.php</code></td>
+<td>414</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-obbligatori.php</code></td>
+<td>202</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-pass.php</code></td>
+<td>257</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-pasti-avanzata.php</code></td>
+<td>445</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-persone.php</code></td>
+<td>1324</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-profili.php</code></td>
+<td>113</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-quadro-pasti.php</code></td>
+<td>121</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-report-ristoratore.php</code></td>
+<td>427</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-riservati.php</code></td>
+<td>121</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-schema-e.php</code></td>
+<td>467</td>
+<td>RIFAI</td>
+<td>resta la grammatica dello schema (versione, flag, solo CREATE IF NOT EXISTS e ALTER ADD); le tabelle diventano quelle del § 5</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-servizio.php</code></td>
+<td>532</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-spedizioni.php</code></td>
+<td>467</td>
+<td>TIENI</td>
+<td>registro delle mail spedite dalla casella di servizio</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-statistiche.php</code></td>
+<td>616</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-storno.php</code></td>
+<td>183</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/lotto-e/class-rdfood-testi-notifiche.php</code></td>
+<td>510</td>
+<td>TIENI, ridotto</td>
+<td>Tabella Funzionale dei testi delle mail: restano invito, recupero, avvisi dell account</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/manifest-file.php</code></td>
+<td>313</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/novita/class-rdfood-giro.php</code></td>
+<td>40</td>
+<td>TOGLI</td>
+<td>novità per l integratore delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/novita/class-rdfood-novita.php</code></td>
+<td>629</td>
+<td>TOGLI</td>
+<td>novità per l integratore delle API</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-casella.php</code></td>
+<td>706</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-cifra.php</code></td>
+<td>102</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-imap-diretta.php</code></td>
+<td>296</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-password-mail.php</code></td>
+<td>729</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-password-policy.php</code></td>
+<td>279</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-password-token.php</code></td>
+<td>329</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-rest-auth.php</code></td>
+<td>74</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-schema-uploads-blob-v1.php</code></td>
+<td>145</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-schema-uploads-v1.php</code></td>
+<td>59</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-security.php</code></td>
+<td>194</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-uploads-entity.php</code></td>
+<td>541</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/security/class-rdfood-uploads-rest.php</code></td>
+<td>234</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/uploads-js/assets/rdfood-uploads.css</code></td>
+<td>904</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/uploads-js/assets/rdfood-uploads.js</code></td>
+<td>905</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/uploads-js/class-rdfood-uploads-js.php</code></td>
+<td>99</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/includes/vendor/class-rdfood-qr.php</code></td>
+<td>270</td>
+<td>TOGLI</td>
+<td>lettore e generatore di QR: servono alla cassa e al codice personale</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/.htaccess</code></td>
+<td>—</td>
+<td>RIFAI</td>
+<td>indice e protezione della cartella: diventano quelli dei materiali caricati (§ 7.1)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Guida-sviluppatore-gestionale-RelDoxFood-1_13_0B.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Amministratore-1_24_11L.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-DE.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L-EN.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Chi-mangia-1_24_11L.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-DE.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L-EN.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Manuale-RelDoxFood-Ristoratore-1_24_11L.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed10.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed8.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/Specifica-integrazione-RelDoxFood-ed9.pdf</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali e immagini della ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/amministratore/ (15 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/chi-mangia-de/ (9 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/chi-mangia-en/ (9 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/chi-mangia/ (9 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/index.php</code></td>
+<td>2</td>
+<td>RIFAI</td>
+<td>indice e protezione della cartella: diventano quelli dei materiali caricati (§ 7.1)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/indice.php</code></td>
+<td>104</td>
+<td>RIFAI</td>
+<td>indice e protezione della cartella: diventano quelli dei materiali caricati (§ 7.1)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/ristoratore-de/ (11 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/ristoratore-en/ (11 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/manuali/ristoratore/ (11 pagine)</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>manuali della ristorazione in tre lingue: i manuali veri passano all Academy come materiali, un manuale alla volta</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/app.css</code></td>
+<td>7451</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-1100.css</code></td>
+<td>18</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-1190.css</code></td>
+<td>81</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-1200.css</code></td>
+<td>57</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-1210.css</code></td>
+<td>45</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-140.css</code></td>
+<td>118</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-144.css</code></td>
+<td>49</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-150.css</code></td>
+<td>389</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-leggibilita.css</code></td>
+<td>451</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-lotto-c.css</code></td>
+<td>1298</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/css/rdfood-lotto-d.css</code></td>
+<td>122</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/icona-qr.png</code></td>
+<td>—</td>
+<td>TOGLI</td>
+<td>codice personale</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo-azienda-segnaposto.svg</code></td>
+<td>7</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/README-LOGO.md</code></td>
+<td>31</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/idea-technologies.png</code></td>
+<td>—</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/mail/reldoxfood-lockup.png</code></td>
+<td>—</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/reldox-favicon.svg</code></td>
+<td>21</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/reldox-symbol-color.svg</code></td>
+<td>24</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/reldox-symbol-mono.svg</code></td>
+<td>18</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/reldox-symbol.png</code></td>
+<td>—</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/img/logo/reldoxfood-lockup.png</code></td>
+<td>—</td>
+<td>RIFAI</td>
+<td>marchio Academy da risorse/logo-academy/</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/app.js</code></td>
+<td>169</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-cassa.js</code></td>
+<td>260</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-fuzzy.js</code></td>
+<td>755</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-galleria.js</code></td>
+<td>158</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-guida.js</code></td>
+<td>108</td>
+<td>TOGLI</td>
+<td>guida alla cassa</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-icona.js</code></td>
+<td>68</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-integrazioni.js</code></td>
+<td>181</td>
+<td>TOGLI</td>
+<td>Impostazioni › Integrazioni (API)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-invio-codice.js</code></td>
+<td>114</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-menu-giorno.js</code></td>
+<td>162</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-note.js</code></td>
+<td>114</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-novita.js</code></td>
+<td>129</td>
+<td>TOGLI</td>
+<td>novità per l integratore</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-pagine.js</code></td>
+<td>135</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-pwd-meter.js</code></td>
+<td>188</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/rdfood-tf.js</code></td>
+<td>401</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/vendor/jsQR-1.4.0-LICENSE.txt</code></td>
+<td>202</td>
+<td>TOGLI</td>
+<td>lettore e generatore di QR: servono alla cassa e al codice personale</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/vendor/jsQR-1.4.0.js</code></td>
+<td>10101</td>
+<td>TOGLI</td>
+<td>lettore e generatore di QR: servono alla cassa e al codice personale</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/js/vendor/qrcode-generator-1.4.4.js</code></td>
+<td>2297</td>
+<td>TOGLI</td>
+<td>lettore e generatore di QR: servono alla cassa e al codice personale</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/accesso-riservato.php</code></td>
+<td>17</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/area-tecnica.php</code></td>
+<td>390</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/attiva.php</code></td>
+<td>70</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/codice.php</code></td>
+<td>48</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/coming-soon.php</code></td>
+<td>26</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/comunica.php</code></td>
+<td>59</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/dashboard.php</code></td>
+<td>279</td>
+<td>RIFAI</td>
+<td>il Pannello diventa «Il mio catalogo» (S2 del mockup)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/fuzzycode.php</code></td>
+<td>54</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/gestione-utenti.php</code></td>
+<td>1445</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/guida-cassa.php</code></td>
+<td>112</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/hanno-mangiato.php</code></td>
+<td>44</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/imposta-password.php</code></td>
+<td>288</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/impostazioni-database.php</code></td>
+<td>517</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/impostazioni-integrazioni.php</code></td>
+<td>209</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/impostazioni-ristoratori.php</code></td>
+<td>123</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/impostazioni-standard-1247.php</code></td>
+<td>369</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/impostazioni.php</code></td>
+<td>1181</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/invii-registro.php</code></td>
+<td>581</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/layout.php</code></td>
+<td>670</td>
+<td>TIENI, ridotto</td>
+<td>tolti i rami della ristorazione (oggi dietro class_exists)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/log-accessi.php</code></td>
+<td>382</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/login.php</code></td>
+<td>102</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/manuali.php</code></td>
+<td>109</td>
+<td>RIFAI</td>
+<td>diventa la lezione (S3 del mockup)</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/menu-del-giorno.php</code></td>
+<td>139</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/miei-pasti.php</code></td>
+<td>86</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/novita.php</code></td>
+<td>81</td>
+<td>TOGLI</td>
+<td>novità per l integratore</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/preferenze.php</code></td>
+<td>379</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/recupera.php</code></td>
+<td>120</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/registro-pasti.php</code></td>
+<td>230</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/scheda-persona-valori.php</code></td>
+<td>335</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/scheda-persona.php</code></td>
+<td>1421</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/scheda-ristoratore-1241.php</code></td>
+<td>268</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/scheda-utente-1243.php</code></td>
+<td>363</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/spedizioni.php</code></td>
+<td>95</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/statistiche.php</code></td>
+<td>328</td>
+<td>TOGLI</td>
+<td>ristorazione</td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/tabelle-funzionali.php</code></td>
+<td>327</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/public/views/tf-barra.php</code></td>
+<td>44</td>
+<td>TIENI</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reldoxfood/reldoxfood.php</code></td>
+<td>525</td>
+<td>RIFAI</td>
+<td>reldox-academy.php: intestazione, costanti RDACADEMY_*, elenco dei carichi; la storia delle versioni non si copia</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale</em></p></main></div></div>
+<footer>Generato dal gemello .md con strumenti/genera-analisi-tecnica.py · il .md e questo .html si aggiornano insieme · nessun pacchetto · base RelDoxFood 1.24.11L</footer>
+</body>
+</html>
