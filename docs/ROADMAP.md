@@ -9,7 +9,7 @@
 | F1 | Struttura del repository (`docs/STRUTTURA.md`), modelli, `ROADMAP.md`, registro delle versioni | SPEC § 6, istituzione 15/11/2026 | fatta in F001, approvata «per ora» (D7, 15:51) |
 | F2 | Domande all owner: piattaforma, pubblico, prezzo, attestato, lingue | owner 15/11/2026 08:47 | chiusa in F001 (`DECISIONI-OWNER.md` D1-D5) |
 | F3 | Inventario di ciò che esiste per ogni prodotto (`novita/`, SPEC, «Documentazione» dei plugin, testi del sito) | SPEC § 6, D7 | v1 fatta in F001 (`fonti/INVENTARIO.md`); domande aperte alle quattro chat di prodotto |
-| F4 | Glossario di famiglia, prima versione | SPEC § 6 | da fare |
+| F4 | Glossario di famiglia, prima versione | SPEC § 6 | v1 fatta il 17/11 (`glossario/GLOSSARIO-FAMIGLIA-RELDOX.md`: RelDoxAcademy e RelDoxFood); gli altri prodotti col loro manuale |
 | F5 | Manuale d uso di RelDox CRD: indice all owner, poi i primi capitoli sulle funzioni in produzione | SPEC § 6, `novita/reldox-crd.md` | da fare |
 | F6 | **RelDoxFood in RelDoxAcademy**: «Chi sei?» con l assistente e quattro percorsi nell ordine dell avvio (configurare · rilasciare i QR · mangiare · la cassa del ristorante) | SPEC § 6, D2, D16, D21 | indice v2 **approvato** (D22, 17/11 10:17); Iris dal Marketing; mockup «Chi sei?» v1 all owner (`mockup/MOCKUP-CHI-SEI-IRIS-v1.html`); poi glossario (F4) e prime lezioni |
 | F7 | Guida dell amministratore: installazione, licenza d uso (testo di Legale), copie, aggiornamenti | SPEC § 6 | da fare |
@@ -26,6 +26,6 @@
 | F18 | Proposta del pezzo comune **«Accesso ai corsi»** al capo famiglia (`…-a-reldox-crd-proposta-accesso-ai-corsi.md`): firma del prodotto, chiave di licenza dentro, destinazione e lingua, pochi minuti, monouso | owner 16/11/2026, chat RelDox CRD S708: «Proposta dalla Formazione» | dopo il formato della chiave con l identificativo dell azienda (voce 159 di RelDox CRD) |
 | F19 | **Manuali dei prodotti in RelDoxAcademy** (SPEC della chat v3 § 2 ter): dalla 0.1.02A; si parte da RelDoxFood (fonte unica `banco/S91-42-…`), poi RelDoxChecks | owner 16/11/2026 09:22, chat RelDoxFood S122 | dopo la 0.1.01A in produzione |
 | F20 | Testo corretto della pagina «API e collegamenti» di RelDoxFood (capitolo per titolo, non per numero) | RelDoxFood 16/11/2026 | fatto il 16/11 |
-| F21 | **Iris**: presentazione, catalogo delle battute (prima versione senza IA, file di testo per lingua); più avanti **«Chiedi a Iris»** con l IA sul modello della voce 71 di RelDox | owner 17/11/2026 10:23, chat Formazione F001 | `docs/IRIS-v1.md` all owner; IA dopo l Academy in produzione e i materiali di un prodotto completi |
+| F21 | **Iris**: presentazione, catalogo delle battute (prima versione senza IA, file di testo per lingua); più avanti **«Chiedi a Iris»** con l IA sul modello della voce 71 di RelDox | owner 17/11/2026 10:23, chat Formazione F001 | `docs/IRIS-v1.md` approvata (17/11 10:28); IA dopo l Academy in produzione e i materiali di un prodotto completi |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

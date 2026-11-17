@@ -17,7 +17,7 @@ Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **Iris**, l assiste
 | risposta | chi è | percorso |
 |---|---|---|
 | **«Preparo RelDoxFood per la mia azienda»** | l amministratore del sistema | **1 · Configurare** |
-| **«Do gli accessi ai colleghi e ai ristoranti»** | il personale aziendale (ufficio del personale, reception) | **2 · Rilasciare i QR** |
+| **«Do gli accessi ai colleghi e ai ristoranti»** | il personale aziendale: nel prodotto, il ruolo **Reception** (ufficio del personale, portineria) | **2 · Rilasciare i QR** |
 | **«Vado a mangiare con il QR»** | chi usa il servizio | **3 · Mangiare con RelDoxFood** |
 | **«Ho un ristorante convenzionato»** | il ristoratore | **4 · La cassa del ristorante** |
 
@@ -39,7 +39,7 @@ Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **Iris**, l assiste
 | *per chi ce l ha* 1.9 Integrazione col gestionale | dai all ERP file completi e controllabili | Amm. 13 |
 | *verifica e riassunto da tasca* | | |
 
-## 2 · Rilasciare i QR — per il personale aziendale (circa 40 minuti)
+## 2 · Rilasciare i QR — per il personale aziendale, ruolo Reception (circa 40 minuti)
 | lezione | un gesto, un risultato | dal capitolo |
 |---|---|---|
 | 2.1 La scheda della persona | abiliti, sospendi o chiudi il servizio a un collega | Amm. 4 |
@@ -75,13 +75,14 @@ Chi entra in RelDoxAcademy dai «Corsi» di RelDoxFood trova **Iris**, l assiste
 
 ## Che cosa serve prima di scrivere
 1. ~~Marketing: l assistente~~ fatto: **Iris**, nove pose in `risorse/assistente/`; logo di RelDoxAcademy in `risorse/logo-academy/`.
-2. **Glossario** (F4): QR, fascia, trattenuta, convenzione, codice cumulativo (FUZZYCode), referente, ospite accreditato, registro dei pasti.
+2. ~~Glossario~~ fatto: `glossario/GLOSSARIO-FAMIGLIA-RELDOX.md` v1 (17/11/2026).
 3. **RelDoxFood**: immagini da dati inventati (domanda c dell inventario) o schermate dall ambiente di prova.
 4. **Mockup** del «Chi sei?» e della strada a tappe (SPEC di RelDoxAcademy § 8), all owner prima del codice.
 
 ## Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 2.1 | 17/11/2026 | il personale aziendale è il ruolo **Reception** del prodotto | glossario v1 |
 | 2 | 16/11/2026 | quattro percorsi nell ordine dell avvio, ingresso «Chi sei?» con l assistente | owner 16/11/2026 17:09, chat Formazione F001 |
 | 1 | 16/11/2026 | indice del solo percorso di chi mangia | owner 16/11/2026 09:32, chat Formazione F001 |
 

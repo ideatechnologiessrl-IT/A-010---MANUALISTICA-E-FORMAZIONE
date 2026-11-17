@@ -2,7 +2,7 @@
 
 # Iris, l assistente di RelDoxAcademy — chi è, che cosa fa, che cosa dice · v1
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 17/11/2026 · Formazione F001. Da approvare dall owner.
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. v1 · 17/11/2026 · Formazione F001. **Approvata** dall owner (17/11/2026 10:28, chat Formazione F001: *«approvo»*).
 
 **Scelta dell owner** (17/11/2026 10:23, chat Formazione F001): *«Chi è Iris ? :-) devi anche presentarla e dire cosa farà e cosa dirà un domani potrebbe anche essere integrata con la AI (tu) come abbiamo fatto con relDox (vai a vedere come)»*.
 Fonti: personaggio e nome dal Marketing (owner 16/11/2026 18:48-18:51, chat Marketing S144; `risorse/assistente/FONTE.md`); modello dell IA da RelDox CRD (`SPEC-CATALOGO-FUNZIONI-CLAUDE-v1`, voce 71, e `SPEC-COACHING-CLAUDE-v1`, voce 91, repository RelDox).
