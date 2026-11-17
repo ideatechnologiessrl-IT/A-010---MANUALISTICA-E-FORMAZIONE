@@ -1,0 +1,5 @@
+[ROSSO] G0   nessun file PHP nella copia
+[ROSSO] G1   copia vuota
+[ROSSO] G2   manca reldox-academy-diagnostica/includes/class-rdacademy-maintenance.php
+[ROSSO] G10  mancano i file principali dei due plugin
+0 verdi, 4 rossi
