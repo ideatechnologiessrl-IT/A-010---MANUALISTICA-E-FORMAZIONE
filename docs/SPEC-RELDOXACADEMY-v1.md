@@ -41,7 +41,7 @@ RelDoxAcademy è il posto dove **chi usa i prodotti RelDox impara a usarli**: co
 2. **Due plugin sulla base di RelDoxFood** (D8), come ogni prodotto della famiglia: `reldox-academy/` (il prodotto) e `reldox-academy-diagnostica/` (la manutenzione, `SPEC-MANUTENZIONE-E-DIAGNOSTICA-v2`). Codice nel repository A-010 (D6).
 3. **Database proprio** (regola «un prodotto, un database»): credenziali solo in `wp-config.php`.
 4. **Segno e indirizzo dell app**: segno approvato dall owner (D14, 19:21), da scrivere in `REGOLE-FAMIGLIA` dal capo famiglia ⏳ (indirizzo e diagnostica da confermare): segno `rdacademy` (`RDACADEMY_`, `rdacademy_`, `Rdacademy_`), indirizzo `/academy/`, diagnostica `reldox-academy-diagnostica`.
-5. **Che cosa si prende da RelDoxFood**: ossatura e caricamento, configurazione del database, accessi e accesso d emergenza, lingue, motore dei manuali in linea (una fonte → capitoli nell app e PDF), diagnostica. **Che cosa si toglie**: tutto ciò che è dei pasti (menu, cassa, codice personale, prenotazioni), il contratto di licenza da firmare (qui non serve: § 13).
+5. **Base confermata dal capo famiglia** (RelDox CRD S713, 17/11/2026): copia di RelDoxFood 1.24.11L, non il guscio «RelDox Base»; struttura in `docs/ANALISI-TECNICA-RELDOXACADEMY.md`. **Che cosa si prende da RelDoxFood**: ossatura e caricamento, configurazione del database, accessi e accesso d emergenza, lingue, motore dei manuali in linea (una fonte → capitoli nell app e PDF), diagnostica. **Che cosa si toglie**: tutto ciò che è dei pasti (menu, cassa, codice personale, prenotazioni), il contratto di licenza da firmare (qui non serve: § 13).
 
 ## § 3 · Come si entra
 1. ⛔ **Si entra solo con una chiave valida di un prodotto acquistato** (D12). La chiave la emette **RelDox Chiavi** del capo famiglia.
@@ -135,7 +135,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 4. Prova su un ambiente di prova prima del server vero (`SPEC-AMBIENTE-DI-PROVA-TESTING-LIVE-v3`).
 
 ## § 16 · Prima versione (0.1.01A)
-**C è**: S1 ingresso con accesso firmato e chiave; S1 bis «Chi sei?» con Iris; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; i **quattro percorsi di RelDoxFood** nell ordine dell avvio — configurare, rilasciare i QR, mangiare, la cassa del ristorante (owner 16/11/2026 09:32 e 17:09, chat Formazione F001; indice `corsi/reldoxfood/INDICE.md`); italiano.
+**C è**: S1 ingresso col **login interno e persone di prova** (l accesso firmato con la chiave arriva in una versione dopo, col parere di Sicurezza-Cyber: proposta della Formazione confermata dal capo famiglia, RelDox CRD S713, 17/11/2026); S1 bis «Chi sei?» con Iris; S2 catalogo; S3 lezione; S6 registro; «Copia configurazione» nella riga dei due plugin; i **quattro percorsi di RelDoxFood** nell ordine dell avvio — configurare, rilasciare i QR, mangiare, la cassa del ristorante (owner 16/11/2026 09:32 e 17:09, chat Formazione F001; indice `corsi/reldoxfood/INDICE.md`); italiano.
 **Non c è**: S4 manuali e schede (arrivano dalla 0.1.02A), cerca, statistiche, pannello di pubblicazione (nella prima i materiali si caricano col kit), altre lingue, partner.
 
 ## § 17 · Domande aperte
@@ -152,6 +152,7 @@ Il plugin `reldox-academy-diagnostica` come gli altri prodotti: stato del sistem
 ## § 18 · Registro delle modifiche
 | versione | data | che cosa | perché |
 |---|---|---|---|
+| 1.11 | 17/11/2026 | § 2.5 base RelDoxFood 1.24.11L confermata; § 16 ingresso della 0.1.01A col login interno, accesso firmato dopo | RelDox CRD S713, 17/11/2026 |
 | 1.10 | 17/11/2026 | § 8 Iris presentata (`docs/IRIS-v1.md`); § 17 «Chiedi a Iris» con l IA, più avanti | owner 17/11/2026 10:23, chat Formazione F001 |
 | 1.9 | 16/11/2026 | § 2.1 stato del sito installato e quattro punti; logo; § 8 Iris | Marketing e Sicurezza-Cyber, 16/11/2026 |
 | 1.8 | 16/11/2026 | § 2.1 dominio `reldoxacademy.it` su hosting separato; § 12 condizioni minime del server | parere 🟢 di Sicurezza-Cyber del 16/11/2026 |
