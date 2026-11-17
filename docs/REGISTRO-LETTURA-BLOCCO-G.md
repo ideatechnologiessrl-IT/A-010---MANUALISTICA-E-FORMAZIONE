@@ -13,6 +13,8 @@ Banchi: `banco/F005-G-banchi-copia.py` (G0, G1, G2, G10). Rosso prima: `banco/es
 
 - **F007 · 17/11 · `includes/security/class-rdfood-password-token.php`** — l allegato A dice TIENI, ma il file ha lo scopo `f` del foglio di accesso stampato (`Rdfood_Foglio_Accesso`, classe TOLTA; chiamata dietro `class_exists`, ripiego a 30 giorni); il banco G1 lo trova. → **TIENI, ridotto** nell analisi **edizione 6**: via lo scopo `f`. Nella fonte `conteggi()` conta i gettoni `f:` come «in chiaro» (difetto di RelDoxFood, da segnalare; da noi sparisce con lo scopo).
 
+- **F008 · 17/11 · `includes/carico-b.php`** — l allegato A dice TIENI, ma il file richiede senza condizione i cinque file della licenza da firmare (`license/class-rdfood-license-validate.php`, `-license.php`, `-license-pdf.php`, `-license-firma.php`, `-license-admin.php`, tutti TOLTI) e avvia `Rdfood_License_Admin`: copiato così sarebbe un errore fatale. Il § dei carichi lo diceva già («senza la licenza da firmare»), la riga della tabella no. → **TIENI, ridotto** nell analisi **edizione 7**. `carico-c` e `carico-d` letti per intero: dipendenze tutte TIENI, nessuna differenza.
+
 ## File letti e copiati
 | quando | file in RelDoxFood | righe | decisione | MD5 della fonte | nota |
 |---|---|---|---|---|---|

@@ -78,13 +78,13 @@ footer{border-top:1px solid var(--line);padding:22px 20px 36px;font-family:var(-
 .tw{overflow-x:auto;max-width:100%}main{min-width:0}code{overflow-wrap:anywhere}</style>
 </head>
 <body>
-<header class="mast"><div class="mast-in"><div><div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="30" height="30" role="img" aria-label="RelDoxAcademy"><rect x="6" y="6" width="88" height="88" rx="22" fill="#3E3F9B"/><path d="M22 44 50 30l28 14-28 14z" fill="#fff"/><path d="M34 51v13c8 6 24 6 32 0V51L50 59z" fill="#fff" opacity=".85"/><path d="M78 44v16" stroke="#E8B23A" stroke-width="4" stroke-linecap="round"/></svg><span><span style="color:#3E3F9B">R</span>el<span style="color:#E8B23A">D</span>ox<em style="color:#3E3F9B">Academy</em> · Analisi tecnica</span></div><div class="sub">documento della struttura del prodotto · famiglia RelDox · Idea Technologies · ⛔ riservato, non divulgabile</div></div><div class="meta">nessun pacchetto<br>edizione 6 · F007</div><div class="legenda" aria-label="Legenda degli stati"><span class="st st-fatto">FATTO</span><span class="st st-consegnato">CONSEGNATO</span><span class="st st-proposta">PROPOSTA</span><span class="st st-dafare">DA FARE</span></div></div></header>
+<header class="mast"><div class="mast-in"><div><div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="30" height="30" role="img" aria-label="RelDoxAcademy"><rect x="6" y="6" width="88" height="88" rx="22" fill="#3E3F9B"/><path d="M22 44 50 30l28 14-28 14z" fill="#fff"/><path d="M34 51v13c8 6 24 6 32 0V51L50 59z" fill="#fff" opacity=".85"/><path d="M78 44v16" stroke="#E8B23A" stroke-width="4" stroke-linecap="round"/></svg><span><span style="color:#3E3F9B">R</span>el<span style="color:#E8B23A">D</span>ox<em style="color:#3E3F9B">Academy</em> · Analisi tecnica</span></div><div class="sub">documento della struttura del prodotto · famiglia RelDox · Idea Technologies · ⛔ riservato, non divulgabile</div></div><div class="meta">nessun pacchetto<br>edizione 7 · F008</div><div class="legenda" aria-label="Legenda degli stati"><span class="st st-fatto">FATTO</span><span class="st st-consegnato">CONSEGNATO</span><span class="st st-proposta">PROPOSTA</span><span class="st st-dafare">DA FARE</span></div></div></header>
 <div class="wrap"><div class="layout"><nav class="toc" aria-label="Indice"><b>Indice</b><a href="#0-stato-dello-sviluppo"><i class="i-proposta"></i>§ 0 — Stato dello sviluppo</a><a href="#1-il-prodotto-e-l-installazione-sono-due-cose"><i class="i-proposta"></i>§ 1 — Il prodotto e l installazione sono due cose</a><a href="#2-architettura-un-prodotto-i-suoi-database"><i class="i-proposta"></i>§ 2 — Architettura: un prodotto, i suoi database</a><a href="#3-ciclo-di-vita"><i class="i-proposta"></i>§ 3 — Ciclo di vita</a><a href="#4-l-albero-dei-file"><i class="i-proposta"></i>§ 4 — L albero dei file</a><a href="#5-lo-schema-del-base"><i class="i-proposta"></i>§ 5 — Lo schema del BASE</a><a href="#6-utenti-ruoli-e-sicurezza"><i class="i-proposta"></i>§ 6 — Utenti, ruoli e sicurezza</a><a href="#7-materiali-e-percorsi-il-cuore-del-prodotto"><i class="i-proposta"></i>§ 7 — Materiali e percorsi (il cuore del prodotto)</a><a href="#8-accessi"><i class="i-proposta"></i>§ 8 — Accessi</a><a href="#9-l-applicazione-la-cornice"><i class="i-proposta"></i>§ 9 — L applicazione: la cornice</a><a href="#10-impostazioni-e-rail-setup"><i class="i-proposta"></i>§ 10 — Impostazioni e rail Setup</a><a href="#11-il-pannello-wordpress"><i class="i-proposta"></i>§ 11 — Il pannello WordPress</a><a href="#12-manutenzione-e-diagnostica"><i class="i-proposta"></i>§ 12 — Manutenzione e diagnostica</a><a href="#13-opzioni-nel-database-di-wordpress"><i class="i-proposta"></i>§ 13 — Opzioni nel database di WordPress</a><a href="#14-come-si-misura"><i class="i-dafare"></i>§ 14 — Come si misura</a><a href="#15-riferimenti-di-famiglia-e-ordine-dei-blocchi"><i class="i-proposta"></i>§ 15 — Riferimenti di famiglia e ordine dei blocchi</a><a href="#allegato-a-l-albero-intero-di-reldoxfood-1-24-11l-file-per-file"><i class="i-nessuno"></i>Allegato A — L albero intero di RelDoxFood 1.24.11L, file per file</a></nav>
 <main><h1 id="analisi-tecnica-del-prodotto-reldoxacademy">ANALISI TECNICA DEL PRODOTTO — RELDOXACADEMY</h1>
 <blockquote>
 <p>⛔ <strong>Documento riservato · non divulgabile</strong> — Idea Technologies srl soc. Uninominale.</p>
 </blockquote>
-<p><strong>Edizione 6 · F007 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, <code>main</code> 5e4a40c)</strong></p>
+<p><strong>Edizione 7 · F008 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, <code>main</code> 5e4a40c)</strong></p>
 <div class="tw"><table>
 <thead>
 <tr>
@@ -94,6 +94,11 @@ footer{border-top:1px solid var(--line);padding:22px 20px 36px;font-family:var(-
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>7</td>
+<td>Formazione F008 · 17/11/2026</td>
+<td>differenza trovata nella lettura riga per riga del blocco G: <code>includes/carico-b.php</code> (TIENI nell allegato A) richiede in modo fisso i cinque file della licenza da firmare (<code>license/</code>, TOLTI) e avvia <code>Rdfood_License_Admin</code> → <strong>TIENI, ridotto</strong> nell allegato A, come già diceva il § dei carichi («senza la licenza da firmare»): restano Stato sistema, ancora di licenza (solo il dominio), Documentazione, Primo accesso</td>
+</tr>
 <tr>
 <td>6</td>
 <td>Formazione F007 · 17/11/2026</td>
@@ -1335,8 +1340,8 @@ Il <strong>prodotto di un corso è un campo</strong>, non una regola fissa: la s
 <tr>
 <td><code>reldoxfood/includes/carico-b.php</code></td>
 <td>69</td>
-<td>TIENI</td>
-<td></td>
+<td>TIENI, ridotto</td>
+<td>tolti i cinque <code>require</code> della licenza da firmare (<code>license/</code>, TOLTI) e l avvio di <code>Rdfood_License_Admin</code> — ed. 7</td>
 </tr>
 <tr>
 <td><code>reldoxfood/includes/carico-c.php</code></td>

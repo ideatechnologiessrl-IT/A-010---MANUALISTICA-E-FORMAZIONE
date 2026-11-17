@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 6 · F007 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 7 · F008 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 7 | Formazione F008 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-b.php` (TIENI nell allegato A) richiede in modo fisso i cinque file della licenza da firmare (`license/`, TOLTI) e avvia `Rdfood_License_Admin` → **TIENI, ridotto** nell allegato A, come già diceva il § dei carichi («senza la licenza da firmare»): restano Stato sistema, ancora di licenza (solo il dominio), Documentazione, Primo accesso |
 | 6 | Formazione F007 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/security/class-rdfood-password-token.php` ha lo scopo `f` del foglio di accesso stampato (classe `Rdfood_Foglio_Accesso`, TOLTA; chiamata dietro `class_exists`) → **TIENI, ridotto** nell allegato A: restano gli scopi invito e reimpostazione |
 | 5 | Formazione F006 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `public/views/preferenze.php` ha il ramo «I miei dati» del ristoratore (dietro `class_exists`) → **TIENI, ridotto** nell allegato A; domanda 3 del § 15 chiusa (D31: mail di servizio `academy@reldox.it`) |
 | 4 | Formazione F005 · 17/11/2026 | edizione 3 approvata (D27); **manuale e codice tenuti distinti** (D28, D29): ogni manuale, guida, specifica e novità di RelDoxFood, API comprese, non si toglie più ma entra nell Academy **come materiale** (decisione nuova MATERIALE nell allegato A, § 4, § 7.1, blocco M); il motore delle API resta solo in RelDoxFood; nulla si toglie dai prodotti |
@@ -431,7 +432,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/backup/class-rdfood-backup.php` | 747 | TIENI |  |
 | `reldoxfood/includes/bootstrap/class-rdfood-bootstrap-wizard.php` | 628 | TIENI |  |
 | `reldoxfood/includes/bootstrap/view-bootstrap-wizard.php` | 474 | TIENI |  |
-| `reldoxfood/includes/carico-b.php` | 69 | TIENI |  |
+| `reldoxfood/includes/carico-b.php` | 69 | TIENI, ridotto | tolti i cinque `require` della licenza da firmare (`license/`, TOLTI) e l avvio di `Rdfood_License_Admin` — ed. 7 |
 | `reldoxfood/includes/carico-c.php` | 149 | TIENI |  |
 | `reldoxfood/includes/carico-d.php` | 159 | TIENI |  |
 | `reldoxfood/includes/carico-e-1100.php` | 488 | TOGLI | ristorazione |
