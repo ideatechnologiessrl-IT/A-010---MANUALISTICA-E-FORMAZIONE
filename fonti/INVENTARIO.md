@@ -9,7 +9,7 @@
 ## 0 · Il quadro in una tabella
 | prodotto | versione in `main` | schede `novita/` | manuali per l utente già esistenti | dove | lingue | stato per la formazione |
 |---|---|---|---|---|---|---|
-| RelDox CRD | 3.74.03G | 18 (dal 06/11/2026) | **nessuno**; un aiuto «Posta» dentro il plugin, l Area tecnica | `RelDox` | it | da scrivere quasi da zero |
+| RelDox CRD | 3.74.09G | 20 (dal 06/11/2026) | **nessuno**; un aiuto «Posta» dentro il plugin, l Area tecnica | `RelDox` | it | da scrivere quasi da zero |
 | RelDoxChecks | 1.3.02A | 17 (dal 02/11/2026) | **8 manuali per ruolo** dentro il plugin, con PDF e 242 schermate | `RelDoxChecks` | it (questionari in 4 lingue) | ricchi e allineati alla 1.3.02A: da prendere in carico |
 | RelDoxFood | 1.24.11L | 16 (dal 07/11/2026) | **3 manuali per ruolo** (amministratore, chi mangia, ristoratore) in capitoli HTML e PDF, più 4 pagine «Documentazione» | `RelDoxFood` | it, en, de | ricchi e allineati alla 1.24.11L: da prendere in carico |
 | RelDoxPortal | 0.3.09 Beta | 0 | **nessuno** | `RelDoxPortal` | it | da scrivere da zero, dopo l elenco delle funzioni in produzione |
@@ -22,6 +22,8 @@
 - **Dentro il plugin**: `public/views/partials/aiuto-posta.php` (aiuto della posta), `public/views/area-tecnica.php` (Area tecnica e Manutenzione, controlli e «Copia esito»); plugin gemello RelDox Diagnostica.
 - **RelDox Chiavi 1.0.04** (`reldox-chiavi/docs/*.md`, cinque pagine): **non è in `main`** del repository RelDox; strumento interno, fuori dai materiali per i clienti. Da localizzare (ramo).
 - **Manca**: manuale d uso per ruolo, guida dell amministratore, elenco delle funzioni di base in produzione.
+
+- **Aggiornamento 17/11/2026**: `main` = **3.74.09G**; due schede nuove in `novita/reldox-crd.md` sulla posta — «La posta si legge dalla più recente o dalla più vecchia, con un clic» e «L amministratore scollega una casella di posta da un utente, con conferma». Toccano l aiuto della posta (voce F15) e il futuro manuale (F5).
 
 ## 2 · RelDoxChecks — 1.3.02A Alfa
 - **Nodo**: `novita/reldoxchecks.md`, 17 schede dal 02/11 all 11/11/2026.
