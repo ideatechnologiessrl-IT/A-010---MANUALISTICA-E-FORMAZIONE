@@ -14,6 +14,12 @@ obiettivi:
 fonti:
   - manuale Amministratore di RelDoxFood 1.24.11L, capitolo 1 «La mappa dell applicazione»
   - RelDoxFood 1.24.11, voci del menu dell applicazione e del menu di WordPress (sola lettura, per le scritte dei pulsanti)
+numero: 1.1
+tappa: 1/9
+prodotto: RelDoxFood
+percorso: Percorso 1 · Configurare
+nav_prec: ← La strada del percorso 1
+nav_succ: 1.2 La prima configurazione →
 iris:
   strada: «Sei qui: tappa 1. Ci vogliono 6 minuti.»
   perche_conta: «Dopo questa, sai sempre dove cercare.»
@@ -59,10 +65,11 @@ Apri RelDoxFood dal computer. Senza cambiare nulla, tocca una voce del gruppo «
 
 ## 5 · Hai capito?
 1. Devi vedere quanti pasti ci sono stati ieri. Dove guardi? — a) «Registro dei pasti» b) «Impostazioni» c) «Licenza d uso» in WordPress
+   - giusta: a · sì: Giusto: il registro mostra pasti e tentativi, con i filtri per data. · no: Non proprio: i pasti stanno nel «Registro dei pasti», nel gruppo «LAVORO». Riguarda il passo 3.
 2. Che cosa resta nel menu di WordPress? — a) gli utenti e i ristoranti b) lo «Stato sistema» e la «Licenza d uso» c) tutto il lavoro di ogni giorno
+   - giusta: b · sì: Giusto: in WordPress solo ciò che deve stare lì; il resto è nell applicazione. · no: Quasi. Riguarda il passo 5: in WordPress restano lo stato del sistema e la licenza.
 3. Un collega deve solo registrare gli ospiti alla portineria. Che ruolo gli serve? — a) Admin b) Reception c) Ristoratore
-
-*(Risposte giuste: 1 a · 2 b · 3 b. Spiegazioni nell anteprima HTML e nel registro del percorso.)*
+   - giusta: b · sì: Giusto: Reception registra gli ospiti e consegna gli accessi, senza vedere la configurazione. · no: No: per questo c è il ruolo Reception. Riguarda la mappa del passo 1.
 
 ## 6 · In una riga
 **Lavoro per ogni giorno, Setup per la configurazione, WordPress solo per lo stato e la licenza.**

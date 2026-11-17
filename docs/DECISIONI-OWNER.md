@@ -4,6 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F002 · 17/11/2026
+| n. | scelta dell owner | ora | effetti |
+|---|---|---|---|
+| D25 | *«riesco a darti un check solo dopo che è attiva eventuali modifiche le vediamo dopo come in un qualsiasi corso»* | 12:01 | le lezioni non aspettano l approvazione una per una: si scrivono nello stile approvato, si provano sui tre schermi e si registrano; il controllo dell owner è con RelDoxAcademy attiva, le correzioni come versioni nuove delle lezioni |
+
 ## F001 · 17/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|
