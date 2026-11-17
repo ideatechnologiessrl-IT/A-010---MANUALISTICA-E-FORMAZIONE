@@ -11,6 +11,8 @@ Banchi: `banco/F005-G-banchi-copia.py` (G0, G1, G2, G10). Rosso prima: `banco/es
 ## Differenze trovate leggendo
 - **F006 · 17/11 · `public/views/preferenze.php`** — l allegato A dice TIENI, ma il file ha il ramo «I miei dati» del ristoratore (dietro `class_exists( Rdfood_Miei_Dati )`, classe TOLTA) e usa 29 chiavi `dati.*` del gestore delle lingue. → **TIENI, ridotto** nell analisi **edizione 5**. Le chiavi `dati.*` restano nella copia del gestore delle lingue finché `preferenze.php` non è letto e ridotto.
 
+- **F007 · 17/11 · `includes/security/class-rdfood-password-token.php`** — l allegato A dice TIENI, ma il file ha lo scopo `f` del foglio di accesso stampato (`Rdfood_Foglio_Accesso`, classe TOLTA; chiamata dietro `class_exists`, ripiego a 30 giorni); il banco G1 lo trova. → **TIENI, ridotto** nell analisi **edizione 6**: via lo scopo `f`. Nella fonte `conteggi()` conta i gettoni `f:` come «in chiaro» (difetto di RelDoxFood, da segnalare; da noi sparisce con lo scopo).
+
 ## File letti e copiati
 | quando | file in RelDoxFood | righe | decisione | MD5 della fonte | nota |
 |---|---|---|---|---|---|
@@ -29,3 +31,4 @@ Banchi: `banco/F005-G-banchi-copia.py` (G0, G1, G2, G10). Rosso prima: `banco/es
 | 17/11 16:02 | `reldoxfood/includes/class-rdfood-auth.php` | 732 | TIENI, ridotto | `b0744d4797` | letto per intero; tolto il ramo dell email condivisa (scheda della mensa + amministratore): due utenti con la stessa email = ambiguo; sessione, blocco, impronte e cookie uguali |
 | 17/11 17:00 | `reldoxfood/includes/class-rdfood-user-prefs.php` | 161 | TIENI | `b5e88ad624` | letto per intero; porta unica sulle preferenze personali, chiave d esempio tema; il segno e, nel commento, l indirizzo /academy/ |
 | 17/11 17:01 | `reldoxfood/includes/security/class-rdfood-password-policy.php` | 279 | TIENI | `519c742430` | letto per intero; regola unica della password (lunghezza, parole personali, banali), nessun database; le chiavi pwd.* ci sono nella copia del gestore delle lingue; solo il segno |
+| 17/11 17:01 | `reldoxfood/includes/security/class-rdfood-password-token.php` | 329 | TIENI, ridotto | `4b41684dde` | letto per intero; impronta SHA-256 dei gettoni, consumo che chiude le sessioni; tolto lo scopo f del foglio di accesso stampato (classe TOLTA) — ed. 6; nella fonte conteggi() conta i f: come in chiaro, da segnalare a RelDoxFood |

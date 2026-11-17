@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 5 · F006 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 6 · F007 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 6 | Formazione F007 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/security/class-rdfood-password-token.php` ha lo scopo `f` del foglio di accesso stampato (classe `Rdfood_Foglio_Accesso`, TOLTA; chiamata dietro `class_exists`) → **TIENI, ridotto** nell allegato A: restano gli scopi invito e reimpostazione |
 | 5 | Formazione F006 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `public/views/preferenze.php` ha il ramo «I miei dati» del ristoratore (dietro `class_exists`) → **TIENI, ridotto** nell allegato A; domanda 3 del § 15 chiusa (D31: mail di servizio `academy@reldox.it`) |
 | 4 | Formazione F005 · 17/11/2026 | edizione 3 approvata (D27); **manuale e codice tenuti distinti** (D28, D29): ogni manuale, guida, specifica e novità di RelDoxFood, API comprese, non si toglie più ma entra nell Academy **come materiale** (decisione nuova MATERIALE nell allegato A, § 4, § 7.1, blocco M); il motore delle API resta solo in RelDoxFood; nulla si toglie dai prodotti |
 | 3 | Formazione F004 · 17/11/2026 | scritta **sul codice di RelDoxFood 1.24.11L**: database (§ 2), ciclo di vita (§ 3), albero intero con tieni/togli (§ 4 e allegato A), tabelle ereditate (§ 5), nomi presi dal codice (§ 1), cornice (§ 9), rail Setup (§ 10), banchi standard (§ 14); prima forma `.html` col generatore |
@@ -540,7 +541,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/security/class-rdfood-imap-diretta.php` | 296 | TIENI |  |
 | `reldoxfood/includes/security/class-rdfood-password-mail.php` | 729 | TIENI, ridotto | tolti i rami della ristorazione (oggi dietro class_exists) |
 | `reldoxfood/includes/security/class-rdfood-password-policy.php` | 279 | TIENI |  |
-| `reldoxfood/includes/security/class-rdfood-password-token.php` | 329 | TIENI |  |
+| `reldoxfood/includes/security/class-rdfood-password-token.php` | 329 | TIENI, ridotto | tolto lo scopo `f` del foglio di accesso stampato (classe TOLTA, oggi dietro class_exists) — ed. 6 |
 | `reldoxfood/includes/security/class-rdfood-rest-auth.php` | 74 | TIENI |  |
 | `reldoxfood/includes/security/class-rdfood-schema-uploads-blob-v1.php` | 145 | TIENI |  |
 | `reldoxfood/includes/security/class-rdfood-schema-uploads-v1.php` | 59 | TIENI |  |
