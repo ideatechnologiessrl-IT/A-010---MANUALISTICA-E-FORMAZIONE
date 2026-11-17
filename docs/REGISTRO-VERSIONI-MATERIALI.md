@@ -10,5 +10,6 @@
 | Più prodotti sullo stesso sito | `manuali/reldox-chiavi/it/3-piu-prodotti-sullo-stesso-sito.md` | 2 | 16/11/2026 | RelDox Chiavi 1.0.06 (interno) | it | sì |
 | Che cosa mandare all assistenza | `manuali/reldox-chiavi/it/5-che-cosa-mandare-all-assistenza.md` | 1 | 16/11/2026 | RelDox Chiavi 1.0.07 (interno) | it | sì |
 | Rinnova, sostituisci, disattiva | `manuali/reldox-chiavi/it/6-rinnova-sostituisci-disattiva.md` | 2 | 16/11/2026 | RelDox Chiavi 1.0.07 (interno) | it | sì |
+| RelDoxFood · percorso 1 · 1.1 La mappa dell applicazione | `corsi/reldoxfood/amministratore/it/1-1-la-mappa-dell-applicazione.md` (+ anteprima `.html`, figure `img/1-1-*.svg`) | 1 | 17/11/2026 | RelDoxFood 1.24.11L | it | sì · provata a 1366, 820 e 390 px; in attesa del parere dell owner |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

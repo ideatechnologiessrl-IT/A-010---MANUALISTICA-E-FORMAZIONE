@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-label="Figura 3: la colonna di sinistra; il numero 3 indica il gruppo Lavoro con Registro dei pasti, Statistiche, Utenti, FUZZYCode e Invii del registro">
+<title>RelDoxFood dal computer</title>
+<style>text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}</style>
+<rect x="4" y="4" width="312" height="208" rx="10" fill="#0F2A44"/>
+<rect x="12" y="12" width="296" height="20" rx="5" fill="#fff"/><text x="22" y="26" font-size="10" fill="#374151">www.azienda.it/food/registro</text>
+<rect x="12" y="36" width="88" height="168" fill="#F4F6F9"/>
+<text x="20" y="52" font-size="8" font-weight="700" fill="#5B6472" letter-spacing=".6">LAVORO</text>
+<g font-size="9" fill="#111827"><text x="20" y="66" font-weight="700" fill="#0C6E86">Registro dei pasti</text><text x="20" y="80">Statistiche</text><text x="20" y="94">Utenti</text><text x="20" y="108">FUZZYCode</text><text x="20" y="122">Invii del registro</text></g>
+<text x="20" y="142" font-size="8" font-weight="700" fill="#5B6472" letter-spacing=".6">SETUP</text>
+<g font-size="9" fill="#111827"><text x="20" y="156">Tabelle</text><text x="20" y="170">Log accessi</text><text x="20" y="184">Impostazioni</text><text x="20" y="198">Area tecnica</text></g>
+<rect x="100" y="36" width="208" height="168" fill="#fff"/>
+<text x="110" y="54" font-size="12" font-weight="700" fill="#111827">Registro dei pasti</text>
+<rect x="110" y="62" width="72" height="18" rx="4" fill="#E8F5EC"/><text x="116" y="74" font-size="8.5" fill="#15803D" font-weight="700">confermati 128</text>
+<rect x="186" y="62" width="60" height="18" rx="4" fill="#FDECEC"/><text x="191" y="74" font-size="8.5" fill="#B91C1C" font-weight="700">rifiutati 6</text>
+<g font-size="8.5" fill="#374151"><text x="110" y="98" font-weight="700" fill="#5B6472">Ora   Persona        Struttura</text><text x="110" y="114">12:48  Rossi M.   Tratt. del Ponte</text><text x="110" y="130">12:52  Verdi A.   Bar Centrale</text><text x="110" y="146">13:10  Bianchi L. Tratt. del Ponte</text></g>
+<rect x="13" y="42" width="86" height="86" rx="6" fill="none" stroke="#E8B23A" stroke-width="3"/><circle cx="99" cy="42" r="12" fill="#E8B23A"/><text x="99" y="47" font-size="14" font-weight="700" text-anchor="middle" fill="#0F172A">3</text>
+</svg>
