@@ -131,7 +131,7 @@ class Rdacademy_Auth {
         return array( 'fails' => $fails, 'scattato' => $scattato, 'lock_until' => $lock_until );
     }
 
-    public static function login( string $login_input, string $password, int $profilo = 0 ): ?array {
+    public static function login( string $login_input, string $password ): ?array {
         $p    = RDACADEMY_TABLE_PREFIX;
         $ip   = $_SERVER['REMOTE_ADDR'] ?? '';
         $ua   = substr( $_SERVER['HTTP_USER_AGENT'] ?? '', 0, 500 );
@@ -152,8 +152,8 @@ class Rdacademy_Auth {
             [ $inp ], 's'
         );
 
-        // Copia ridotta: via il ramo dell email condivisa (scheda della mensa + amministratore). $profilo resta nella firma
-        // per i chiamanti copiati e non sceglie più niente: due righe con la stessa email sono «ambiguo» (BUG-79).
+        // Copia ridotta: via il ramo dell email condivisa e il parametro $profilo («Entra come …», F008):
+        // due righe con la stessa email sono «ambiguo» (BUG-79).
         if ( count( $per_email ) === 1 ) {
             $user = $per_email[0];
         } elseif ( count( $per_email ) > 1 ) {
