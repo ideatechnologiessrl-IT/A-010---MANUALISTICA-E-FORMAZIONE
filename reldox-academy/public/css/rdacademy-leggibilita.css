@@ -1,0 +1,451 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+   RelDoxAcademy 0.14.0A — LA LEGGIBILITÀ DI TUTTE LE SCHERMATE (owner 11/10 08:09: «caratteri troppo piccoli, tutto sparso in uno
+   spazio non ottimizzato, l'occhio fa fatica … devi ottimizzare tutte le schermate»; mockup MOCKUP-SCHEDA-RISTORATORE-UX-v1
+   approvato 08:25). Ultimo foglio caricato: sovrascrive le misure dei fogli precedenti senza toccarli.
+   Regole: testo 15 px (valori 16), etichette 13,5 px in tondo, titoli di sezione 16 px, comandi alti ≥ 40 px (44 al telefono),
+   contenuto in una colonna di al massimo 1.180 px, sezioni nei riquadri, due colonne al computer e una al telefono.
+   ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════ */
+:root{ --rx-font-size:15px; --rdl-maxw:1180px; }
+body{ font-size:15px; line-height:1.5; }
+
+/* ── testate delle pagine ── */
+.rx-tf-header h1,.rx-page-header h1{ font-size:24px; line-height:1.25; }
+.rx-tf-header p,.rx-page-header p{ font-size:15px; line-height:1.5; color:#4B5563; }
+
+/* ── campi: etichette, valori, aiuti ── */
+.ff label{ font-size:13.5px; font-weight:600; }
+.ff input,.ff select,.ff textarea{ font-size:15px; padding:9px 11px; border-radius:7px; min-height:40px; }
+.hint{ font-size:13px; line-height:1.5; }
+.rx-btn{ min-height:38px; }
+.rx-btn-sm{ min-height:34px; font-size:14px; }
+.rxu-sez{ font-size:13px; letter-spacing:.3px; }
+
+/* ── tabelle ed elenchi ── */
+.rxiv-tab{ font-size:15px; }
+.rxiv-tab th{ font-size:13px; }
+.rxtf-panel-p{ font-size:14.5px; line-height:1.55; }
+
+/* ═══ LA SCHEDA (operatore, ospite, ristoratore): riquadri su due colonne ═══════════════════════════════════════════ */
+.rxu-edit-head,.sp-ospite-info,.rdq,.rdq-stato,#rxu-esito,#sp-uscita{ max-width:var(--rdl-maxw); margin-left:auto; margin-right:auto; box-sizing:border-box; }
+.sp-card{ display:block !important; columns:2 460px; column-gap:16px; background:transparent; border:0; box-shadow:none; padding:0 !important;
+          max-width:var(--rdl-maxw); margin:0 auto 24px; }
+.sp-card[data-modo="modifica"]{ box-shadow:none; }
+.sp-card > .sp-blocchi{ display:contents; }
+.sp-blocco{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:16px; align-items:start;
+            break-inside:avoid; -webkit-column-break-inside:avoid; page-break-inside:avoid;
+            background:#fff; border:1px solid #E5E7EB; border-radius:12px; padding:0 18px 6px; margin:0 0 16px; box-sizing:border-box; width:100%; }
+.sp-blocco[hidden]{ display:none !important; }
+.sp-card[data-modo="modifica"] .sp-blocco{ box-shadow:0 0 0 2px #FCD34D; }
+.sp-blocco > *{ grid-column:1/-1; }
+.sp-blocco .fg2:not([hidden]),.sp-blocco > div[data-per]:not([hidden]):not([id]){ display:contents; }
+.sp-blocco .ff{ grid-column:auto; margin-bottom:14px; }
+.sp-blocco .rxu-sez{ font-size:16px; font-weight:700; text-transform:none; letter-spacing:0; color:#111827;
+                     margin:0 -18px 14px; padding:14px 18px 12px; border-bottom:1px solid #E5E7EB; }
+.sp-card .ff label{ font-size:13.5px; }
+.sp-card[data-modo="lettura"] .ff label{ color:#6B7280; font-weight:500; }
+.sp-card .sp-val{ font-size:16px; font-weight:500; color:#111827; line-height:1.45; padding:2px 0 0; word-break:break-word; }
+.sp-card .ff input,.sp-card .ff select{ font-size:15px; }
+.sp-card .hint{ font-size:13px; }
+
+/* ═══ IL QUADRO DEI PASTI (scheda del ristoratore) ═══════════════════════════════════════════════════════════════════ */
+.rdq{ background:#fff; border:2px solid #2E75B6; border-radius:14px; padding:14px 16px 16px; margin-bottom:12px; }
+.rdq-t{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 12px; }
+.rdq-t h2{ margin:0; font-size:17px; font-weight:700; color:#111827; }
+.rdq-calc{ font-size:13px; font-weight:600; color:#15803D; background:#DCFCE7; border-radius:6px; padding:3px 8px; }
+.rdq-g{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,2.2fr); gap:10px; align-items:stretch; }
+.rdq-kpi{ border:1px solid #E5E7EB; border-left:5px solid #15803D; border-radius:12px; padding:12px 14px; min-width:0; }
+.rdq-riga{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+.rdq-pt{ width:11px; height:11px; border-radius:50%; background:#15803D; display:inline-block; transform:translateY(-2px); }
+.rdq-n{ font-size:24px; font-weight:800; line-height:1.1; color:#111827; }
+.rdq-st{ font-size:14px; font-weight:700; color:#15803D; }
+.rdq-eti{ font-size:14px; color:#6B7280; margin-top:4px; line-height:1.35; }
+.rdq-kpi.att{ border-left-color:#C2410C; } .rdq-kpi.att .rdq-pt{ background:#C2410C; } .rdq-kpi.att .rdq-st{ color:#C2410C; }
+.rdq-kpi.info{ border-left-color:#2E75B6; } .rdq-kpi.info .rdq-pt{ background:#2E75B6; } .rdq-kpi.info .rdq-st{ color:#2E75B6; }
+.rdq-graf{ border:1px solid #E5E7EB; border-radius:12px; padding:10px 14px 6px; min-width:0; }
+.rdq-gt{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.rdq-gt b{ font-size:15px; }
+.rdq-leg{ margin-left:auto; display:flex; gap:12px; font-size:13px; font-weight:600; color:#374151; }
+.rdq-leg i{ display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
+.rdq-svg{ display:block; width:100%; height:auto; margin-top:6px; }
+.rdq-svg text{ font:12px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; fill:#6B7280; }
+.rdq-stato{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.rdq-chip{ display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; border-radius:999px; padding:4px 12px; }
+.rdq-chip.ok{ background:#DCFCE7; color:#15803D; } .rdq-chip.no{ background:#F3F4F6; color:#6B7280; }
+
+/* ═══ INVII DEL REGISTRO (pagina del menu principale) ════════════════════════════════════════════════════════════════ */
+.rxiv-card{ max-width:var(--rdl-maxw); margin:0 auto 24px; padding:16px 18px; }
+.rxiv-come{ font-size:14px; line-height:1.55; color:#1E3A5F; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:10px 14px; margin:4px 0 18px; }
+
+/* ═══ I MIEI PASTI ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
+.rdacademy-mp{ max-width:900px; margin:0 auto; }
+.rdacademy-mp-filtro{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 12px; margin:0 0 14px; font-size:15px; }
+.rdacademy-mp-filtro label{ font-weight:600; color:#374151; }
+.rdacademy-mp-filtro select{ font-size:15px; padding:8px 10px; min-height:40px; border:1px solid #D1D5DB; border-radius:8px; background:#fff; }
+.rdacademy-mp-conti{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto; }
+.rdacademy-mp-conto{ font-size:14px; background:#EFF6FF; color:#1E3A5F; border-radius:999px; padding:4px 12px; }
+.rdacademy-mp-conto.osp{ background:#DCFCE7; color:#15803D; }
+.rdacademy-mp-tab{ width:100%; border-collapse:collapse; background:#fff; border:1px solid #E5E7EB; border-radius:12px; overflow:hidden; font-size:15px; }
+.rdacademy-mp-tab th{ text-align:left; font-size:13px; font-weight:600; color:#6B7280; padding:10px 12px; border-bottom:1px solid #E5E7EB; background:#F9FAFB; }
+.rdacademy-mp-tab td{ padding:11px 12px; border-bottom:1px solid #F1F2F4; }
+.rdacademy-mp-tab tr:last-child td{ border-bottom:0; }
+.rdacademy-mp-tab tr.mp-ospite td{ background:#F0FDF4; }
+.rdacademy-mp-tab tr.mp-ospite td:first-child{ box-shadow:inset 4px 0 0 #16A34A; }
+.mp-badge{ display:inline-block; font-size:12.5px; font-weight:700; color:#15803D; background:#DCFCE7; border-radius:999px; padding:1px 8px; margin-right:4px; }
+.mp-data{ white-space:nowrap; font-weight:600; }
+
+/* ── tablet ── */
+@media (max-width:1100px){
+  .rdq-g{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .rdq-graf{ grid-column:1 / -1; }
+}
+/* ── telefono ── */
+@media (max-width:640px){
+  .sp-card{ columns:1; }
+  .sp-blocco{ grid-template-columns:minmax(0,1fr); padding:0 14px 4px; }
+  .sp-blocco .rxu-sez{ margin:0 -14px 12px; padding:12px 14px 10px; }
+  .rdq{ padding:12px; }
+  .rdq-g{ gap:8px; }
+  .rdq-kpi{ padding:10px 12px; }
+  .rdq-n{ font-size:21px; }
+  .rdq-leg{ margin-left:0; }
+  .rx-btn{ min-height:44px; }
+  .rdacademy-mp-conti{ margin-left:0; }
+  .rdacademy-mp-tab thead{ display:none; }
+  .rdacademy-mp-tab,.rdacademy-mp-tab tbody,.rdacademy-mp-tab tr,.rdacademy-mp-tab td{ display:block; width:100%; box-sizing:border-box; }
+  .rdacademy-mp-tab tr{ border-bottom:1px solid #E5E7EB; padding:8px 12px; }
+  .rdacademy-mp-tab td{ border:0; padding:2px 0; }
+  .rdacademy-mp-tab td.mp-ora,.rdacademy-mp-tab td.mp-pasto{ display:inline-block; width:auto; margin-right:10px; color:#4B5563; }
+  .rdacademy-mp-tab tr.mp-ospite{ background:#F0FDF4; box-shadow:inset 4px 0 0 #16A34A; }
+  .rdacademy-mp-tab tr.mp-ospite td{ background:transparent; } .rdacademy-mp-tab tr.mp-ospite td:first-child{ box-shadow:none; }
+}
+
+/* ═══ LE IMPOSTAZIONI ALLINEATE ALLA SCHEDA DEL RISTORATORE (1.1.0B, owner 11/10 14:23 · «genera» 15:37) ════════════════
+   Stesso modello della scheda (MOCKUP-SCHEDA-RISTORATORE-UX-v1): colonna di 1.180 px, ogni sezione un riquadro bianco col
+   titolo a 16 px, etichetta sopra e valore a 16 px, vuoto = «non indicato» in grigio, due colonne di riquadri al computer e una
+   al telefono, linguette grandi. Gli id dei campi, il salvataggio e lettura/modifica non cambiano. */
+.rximp-testa,.rximp-uscita,#rximp-esito,#rximp-card{ max-width:var(--rdl-maxw); margin-left:auto; margin-right:auto; box-sizing:border-box; }
+.rximp-testa{ align-items:center; margin-bottom:16px; }
+.rximp-comandi{ gap:10px; }
+.rximp-comandi .rx-btn{ min-height:44px; font-size:15px; padding:0 18px; }
+.rximp-stato{ font-size:14px; font-weight:600; letter-spacing:0; padding:6px 12px; }
+#rximp-card{ background:transparent; border:0; border-radius:0; overflow:visible; box-shadow:none; }
+
+/* linguette: una barra bianca, testo 15 px, bersagli 46 px */
+#rximp-card > .mtabs{ background:#fff; border:1px solid #E5E7EB; border-radius:12px; padding:0 8px; gap:2px; margin:0 0 16px; }
+#rximp-card .mtab{ font-size:15px; min-height:46px; padding:0 16px; display:inline-flex; align-items:center; border-bottom-width:3px; }
+#rximp-card .mpanel{ padding:0; }
+
+/* i riquadri */
+.rximp-griglia{ columns:2 460px; column-gap:16px; }
+.rximp-blocco{ display:block; break-inside:avoid; -webkit-column-break-inside:avoid; page-break-inside:avoid; width:100%;
+               background:#fff; border:1px solid #E5E7EB; border-radius:12px; padding:0 18px 6px; margin:0 0 16px; box-sizing:border-box; }
+#rximp-card[data-modo="modifica"] .rximp-blocco,#rximp-card[data-modo="modifica"] #p-database{ box-shadow:0 0 0 2px #FCD34D; }
+.rximp-bt{ display:flex; align-items:center; justify-content:space-between; gap:8px 12px; flex-wrap:wrap;
+           font-size:16px; font-weight:700; line-height:1.3; color:#111827; text-transform:none; letter-spacing:0;
+           margin:0 -18px 14px; padding:14px 18px 12px; border-bottom:1px solid #E5E7EB; }
+.rximp-bt .sep-cmd{ display:inline-flex; gap:6px; flex-wrap:wrap; font-size:14px; font-weight:600; }
+.rximp-nota{ font-size:14px; line-height:1.55; color:#4B5563; margin:0 0 12px; }   /* owner 10/10: i testi delle Impostazioni a tutta larghezza (S28-19 T1): nessun limite in caratteri */
+.rximp-blocco .fg1,.rximp-blocco .fg2,.rximp-blocco .fg3{ margin-bottom:0; column-gap:16px; row-gap:0; }
+.rximp-blocco .ff{ margin-bottom:14px; min-width:0; }
+.rximp-blocco .rximp-salva{ margin:0 0 12px; }
+.rximp-blocco .rximp-sys{ margin-bottom:10px; }
+
+/* campi: etichetta sopra, valore a 16 px in lettura, vuoto in grigio */
+#rximp-card .ff label{ font-size:13.5px; }
+#rximp-card[data-modo="lettura"] .ff label{ color:#6B7280; font-weight:500; }
+#rximp-card[data-modo="lettura"] .ff input:not([type=checkbox]):not([type=file]),
+#rximp-card[data-modo="lettura"] .ff select{ font-size:16px; font-weight:500; line-height:1.45; min-height:0; height:auto; padding:2px 0 0; width:100%; }
+#rximp-card[data-modo="lettura"] input.rximp-vuoto::placeholder{ color:#9CA3AF; -webkit-text-fill-color:#9CA3AF; font-weight:400; opacity:1; }
+#rximp-card .hint{ font-size:13px; line-height:1.5; }
+
+/* Festività: tabella stretta a sinistra, Santo Patrono e chiusure a destra; in lettura «Chiuso» / «Aperto» */
+.rximp-griglia-fest{ columns:auto; display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:16px; align-items:start; }
+.rximp-griglia-fest .rximp-blocco{ margin:0; }
+.rximp-colonna{ display:grid; gap:16px; align-content:start; min-width:0; }
+.rximp-fest-wrap{ overflow-x:auto; margin:0 -4px 8px; }
+#rximp-card .rximp-fest{ font-size:15px; }
+#rximp-card .rximp-fest th{ font-size:13px; color:#6B7280; font-weight:600; padding:8px; }
+#rximp-card .rximp-fest td{ padding:9px 8px; }
+#rximp-card .rximp-fest tbody tr:last-child td{ border-bottom:0; }
+#rximp-card .rximp-fest td:last-child,#rximp-card .rximp-fest th:last-child{ text-align:right; white-space:nowrap; }
+.rximp-fest-c{ display:inline-flex; align-items:center; gap:8px; min-height:32px; }
+.rximp-fest-pil{ display:none; font-size:13.5px; font-weight:700; border-radius:999px; padding:3px 12px; }
+.rximp-fest-pil.si{ background:#FEE2E2; color:#B91C1C; }
+.rximp-fest-pil.no{ background:#DCFCE7; color:#15803D; }
+#rximp-card[data-modo="lettura"] .rximp-fest-c input,#rximp-card[data-modo="lettura"] .rximp-fest-t{ display:none; }
+#rximp-card[data-modo="lettura"] .rximp-fest-c input:checked ~ .rximp-fest-pil.si,
+#rximp-card[data-modo="lettura"] .rximp-fest-c input:not(:checked) ~ .rximp-fest-pil.no{ display:inline-block; }
+#rximp-card[data-modo="lettura"] .rximp-fest-c{ cursor:default; }
+
+/* Branding: i riquadri uno sotto l'altro a tutta colonna, così i due loghi restano affiancati (telefono a sinistra, computer a
+   destra: 0.8.1A, banco S16-2 D3); al telefono uno sotto l'altro (lotto C, 767 px). Testi leggibili. */
+#p-branding .rximp-griglia{ columns:auto; }
+.rximp-blocco .rximp-logo > div{ font-size:14px !important; }
+.rximp-blocco .rximp-logo > div span{ font-size:12.5px !important; }
+
+/* Sistema */
+#rximp-card .rximp-sys{ font-size:15px; }
+#rximp-card .rximp-sys td{ padding:9px 0; }
+#rximp-card .rximp-sys td:first-child{ color:#6B7280; width:170px; padding-right:12px; }
+#rximp-card .rximp-sys td:last-child{ font-size:16px; font-weight:500; color:#111827; }
+#rximp-card .rximp-sys tr:last-child td{ border-bottom:0; }
+
+/* Database (vista a sé, schede delle sorgenti): un riquadro unico, titoli e valori più grandi */
+#p-database.on{ background:#fff; border:1px solid #E5E7EB; border-radius:12px; padding:0 18px 8px; }
+#rximp-card .section-title{ font-size:16px; font-weight:700; color:#111827; text-transform:none; letter-spacing:0;
+                            margin:0 -18px 14px; padding:14px 18px 12px; border-bottom:1px solid #E5E7EB; }
+#p-database > .hint,#p-database .hint[style]{ font-size:14px; line-height:1.55; max-width:none; }
+#rximp-card .src-tab{ font-size:15px; min-height:44px; padding:0 16px; }
+#rximp-card .ops-h{ font-size:14px; font-weight:700; color:#374151; text-transform:none; letter-spacing:0; margin:20px 0 10px; }
+#rximp-card .db-card,#rximp-card .bkp-card{ border-radius:12px; }
+#rximp-card .db-card-head{ font-size:15px; padding:12px 16px; }
+#rximp-card .db-card-body{ padding:14px 16px; }
+#rximp-card .db-card-intro{ font-size:14px; }
+#rximp-card .db-grid{ grid-template-columns:150px minmax(0,1fr); font-size:15px; }
+#rximp-card .db-grid-key{ font-size:13.5px; font-weight:500; color:#6B7280; text-transform:none; letter-spacing:0; }
+#rximp-card .db-grid-val{ font-size:14.5px; }
+
+/* Pericolo */
+#rximp-card .danger-card{ border-radius:12px; background:#fff; }
+
+/* ── tablet: festività su una colonna ── */
+@media (max-width:980px){
+  .rximp-griglia-fest{ grid-template-columns:minmax(0,1fr); }
+}
+/* ── telefono ── */
+@media (max-width:640px){
+  .rximp-griglia{ columns:1; }
+  .rximp-blocco{ padding:0 14px 4px; }
+  .rximp-bt,#rximp-card .section-title{ margin:0 -14px 12px; padding:12px 14px 10px; }
+  #p-database.on{ padding:0 14px 6px; }
+  #rximp-card > .mtabs{ padding:0 4px; }
+  #rximp-card .mtab{ min-height:44px; padding:0 12px; }
+  #rximp-card .rximp-sys td:first-child{ width:42%; }
+  #rximp-card .db-grid{ grid-template-columns:minmax(0,1fr); }
+  .rximp-comandi .rx-btn{ min-height:44px; }
+}
+
+/* ═══ AREA TECNICA · TABELLE FUNZIONALI · GESTIONE UTENTI CON LA STESSA UX (1.1.1B, owner 11/10 16:49-16:50 · «genera» 16:56) ═
+   Stesso modello delle Impostazioni (1.1.0B) e della scheda del ristoratore: la pagina in .rdl-pagina (colonna di 1.180 px), le
+   sezioni in riquadri bianchi col titolo a 16 px, testi a 15-16 px, comandi alti 40-44. Nessun limite in caratteri (owner 10/10). */
+.rdl-pagina{ max-width:var(--rdl-maxw); margin-left:auto; margin-right:auto; box-sizing:border-box; }
+
+/* — la colonna dei filtri / delle famiglie (Tabelle Funzionali e Gestione utenti): un riquadro col titolo a 16 px — */
+.rdl-pagina .rxtf-card{ background:transparent; border:0; box-shadow:none; overflow:visible; gap:16px; align-items:flex-start; }
+.rdl-pagina .rxtf-rail{ flex:0 0 250px; background:#fff; border:1px solid #E5E7EB; border-radius:12px; padding:6px 8px 10px; position:sticky; top:12px; }
+.rdl-pagina .rxtf-rail-group{ font-size:16px; font-weight:700; color:#111827; text-transform:none; letter-spacing:0;
+                              margin:0 -8px 6px; padding:12px 16px 10px; border-bottom:1px solid #E5E7EB; }
+.rdl-pagina .rxtf-rail-group.rxtf-rail-sub{ margin-top:10px; border-top:1px solid #E5E7EB; }
+.rdl-pagina .rxtf-rail .rxtf-rail-item{ font-size:15px; min-height:42px; padding:8px 12px; }
+.rdl-pagina .rxtf-rail-count{ font-size:13px; padding:2px 9px; }
+.rdl-pagina .rxtf-main{ background:#fff; border:1px solid #E5E7EB; border-radius:12px; min-width:0; }
+
+/* ═══ TABELLE FUNZIONALI ═══ */
+.rdl-tabelle .rxtf-main{ padding:0; }
+.rdl-tabelle .rxtf-main > .rx-tab-panel{ padding:0 18px 18px; }
+.rdl-tabelle .rxtf-panel-h{ font-size:20px; font-weight:700; color:#111827; margin:0 -18px 12px; padding:16px 18px 12px; border-bottom:1px solid #E5E7EB; }
+.rdl-tabelle .rxtf-panel-p{ font-size:15px; line-height:1.55; color:#374151; }
+.rdl-tabelle .rxtfa-bar{ border-radius:12px; padding:12px 14px; }
+.rdl-tabelle .rxtfa-src-txt{ font-size:14.5px; line-height:1.5; }
+.rdl-tabelle .rxtfa-src-lb{ font-size:15px; font-weight:700; color:#111827; text-transform:none; letter-spacing:0; display:block; margin-bottom:2px; }
+.rdl-tabelle .rxtfa-note{ font-size:13.5px; }
+.rdl-tabelle .rxtfa-nat{ font-size:12.5px; }
+.rdl-tabelle .rxtfa-btn{ font-size:14.5px; min-height:40px; padding:0 14px; }
+.rdl-tabelle .rxlr-chip{ font-size:14px; padding:4px 12px; white-space:normal; }
+.rdl-tabelle .rxtn-grp{ border-radius:12px; }
+.rdl-tabelle .rxtn-grp-h{ background:#fff; padding:14px 16px 12px; }
+.rdl-tabelle .rxtn-grp-nm{ font-size:16px; color:#111827; }
+.rdl-tabelle .rxtn-grp-cod{ font-size:12.5px; }
+.rdl-tabelle .rxtn-grp-q{ font-size:14px; color:#4B5563; }
+.rdl-tabelle .rxtn-row{ padding:14px 16px; gap:16px; }
+.rdl-tabelle .rxtn-lang{ font-size:14.5px; width:110px; }
+.rdl-tabelle .rxtn-ogg{ font-size:16px; color:#111827; }
+.rdl-tabelle .rxtn-txt{ font-size:15px; color:#374151; }
+.rdl-tabelle .rxtn-b{ font-size:13px; padding:3px 10px; }
+.rdl-tabelle .rxtn-act .rx-btn{ min-height:40px; font-size:14.5px; }
+.rdl-tabelle .rxtn-lb{ font-size:13.5px; }
+.rdl-tabelle .rxtn-in-ogg,.rdl-tabelle .rxtn-in-txt{ font-size:15px; }
+.rdl-tabelle .rxtn-seg,.rdl-tabelle .rxtn-on{ font-size:14px; }
+
+/* ═══ AREA TECNICA ═══ */
+.rxtec-wrap.rdl-pagina{ font-size:15px; }
+.rxtec-head h1{ font-size:24px; }
+.rxtec-head p{ font-size:15px; }
+.rxtec-badge{ font-size:12.5px; letter-spacing:0; text-transform:none; }
+.rxtec-cmd .rxtec-btn{ font-size:15px; min-height:44px; padding:0 18px; }
+.rxtec-sem{ font-size:14px; }
+.rxtec-sem span{ font-size:14px; }
+.rxtec-quando{ font-size:14px; }
+.rxtec-griglia{ display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:16px; align-items:start; margin-top:16px; }
+.rxtec-griglia .rxtec-grp{ margin:0; background:#fff; border:1px solid #E5E7EB; border-radius:12px; padding:0 0 12px; min-width:0; }
+.rxtec-griglia .rxtec-grph{ margin:0; padding:14px 18px 12px; border-bottom:1px solid #E5E7EB; }
+.rxtec-griglia .rxtec-grph h2{ font-size:16px; font-weight:700; text-transform:none; letter-spacing:0; color:#111827; }
+.rxtec-griglia .rxtec-grph .cnt{ font-size:13px; background:#F3F4F6; border-radius:999px; padding:1px 9px; }
+.rxtec-griglia .rxtec-grph .line{ display:none; }
+.rxtec-griglia .rxtec-lista{ border:0; border-radius:0; box-shadow:none; }
+.rxtec-griglia .rxtec-riga{ min-height:56px; padding:12px 18px; }
+.rxtec-griglia .rxtec-riga h3{ font-size:16px; }
+.rxtec-griglia .rxtec-riga .es{ font-size:14px; }
+.rxtec-griglia .rxtec-stato{ font-size:13.5px; padding:5px 12px; }
+.rxtec-griglia .rxtec-apri{ width:40px; height:40px; }
+.rxtec-griglia .rxtec-hint{ font-size:14px; margin:10px 18px 0; }
+.rxtec-griglia .rxtec-rimedio{ font-size:14.5px; }
+.rxtec-griglia .rxtec-sel{ font-size:15px; min-height:40px; }
+.rxtec-griglia .rxtec-btn.small{ font-size:14.5px; min-height:40px; }
+.rxtec-griglia .rxtec-chip{ font-size:13.5px; }
+
+/* ═══ GESTIONE UTENTI: righe su due righe di testo, comandi vicini ═══ */
+.rdl-utenti .rxu-head-btns .rx-btn{ min-height:44px; font-size:15px; padding:0 16px; display:inline-flex; align-items:center; }
+.rdl-utenti .rxu-toolbar .rxu-cerca input{ font-size:15px; min-height:44px; }
+.rdl-utenti .rxu-toolbar .rxu-tot{ font-size:15px; }
+.rdl-utenti .rxu-toolbar .rx-btn{ min-height:40px; font-size:15px; }
+.rdl-utenti .rxu-list{ gap:10px; }
+.rdl-utenti .rxu-row{ display:grid; grid-template-columns:auto 44px minmax(0,1fr) auto; column-gap:0; row-gap:6px; align-items:center;
+                       grid-template-areas:"sel av main acts" "sel av meta acts"; padding:12px 16px; border-radius:12px; border-color:#E5E7EB; }
+.rdl-utenti .rxu-row > .rxu-sel{ grid-area:sel; margin-right:10px; }
+.rdl-utenti .rxu-row > .u-av{ grid-area:av; width:40px; height:40px; font-size:14px; }
+.rdl-utenti .rxu-row > .rxu-main{ grid-area:main; padding-left:12px; }
+.rdl-utenti .rxu-row > .rxu-meta{ grid-area:meta; padding-left:12px; flex-wrap:wrap; gap:6px 8px; }
+.rdl-utenti .rxu-row > .rxu-acts{ grid-area:acts; padding-left:12px; flex-wrap:nowrap; }
+.rdl-utenti .rxu-name{ font-size:16px; font-weight:700; }
+.rdl-utenti .rxu-mail{ font-size:14px; }
+.rdl-utenti .rxu-cod{ font-size:13px; }
+.rdl-utenti .rxu-ospite{ font-size:14px; }
+.rdl-utenti .rxu-meta .badge,.rdl-utenti .rxu-meta .rtag,.rdl-utenti .rxu-pasti,.rdl-utenti .rxu-mensa{ font-size:13px; padding:3px 10px; }
+.rdl-utenti .rxu-last,.rdl-utenti .rxu-noroles{ font-size:14px; }
+.rdl-utenti .rxu-tipo,.rdl-utenti .rxu-roles,.rdl-utenti .rxu-stato,.rdl-utenti .rxu-last{ width:auto !important; }
+.rdl-utenti .rxu-acts .rx-btn{ min-height:40px; font-size:14.5px; display:inline-flex; align-items:center; }
+.rdl-utenti .rxu-empty{ font-size:15px; }
+.rdl-utenti .rxu-selbar{ font-size:15px; }
+/* lista stretta (tablet, colonna dei filtri accanto): i comandi vanno sotto, a sinistra */
+@container (max-width:760px){
+  .rdl-utenti .rxu-row{ grid-template-columns:auto 44px minmax(0,1fr); grid-template-areas:"sel av main" "sel av meta" "sel av acts"; }
+  .rdl-utenti .rxu-row > .rxu-acts{ justify-content:flex-start; flex-wrap:wrap; margin-left:0; }
+}
+
+/* ── tablet: filtri e famiglie in una striscia sopra (come al telefono), così la lista resta larga ── */
+@media (max-width:1100px){
+  .rxtec-griglia{ grid-template-columns:minmax(0,1fr); }
+  .rdl-pagina .rxtf-card{ flex-direction:column; align-items:stretch; gap:12px; }
+  .rdl-pagina .rxtf-rail{ position:static; flex:0 0 auto; flex-direction:row; flex-wrap:nowrap; gap:4px; overflow-x:auto; padding:8px 10px;
+                          scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .rdl-pagina .rxtf-rail::-webkit-scrollbar{ display:none; }
+  .rdl-pagina .rxtf-rail-group{ display:none; }
+  .rdl-pagina .rxtf-rail .rxtf-rail-item{ width:auto; white-space:nowrap; flex-shrink:0; }
+  .rdl-pagina .rxtf-rail .rxtf-rail-item.active::before{ display:none; }
+}
+/* ── telefono: filtri e famiglie in una striscia sopra (app.css, 760 px), un riquadro sotto l'altro ── */
+@media (max-width:760px){
+  .rdl-pagina .rxtf-card{ gap:12px; align-items:stretch; }
+  .rdl-pagina .rxtf-rail{ position:static; flex-basis:auto; padding:8px 10px; border-radius:12px; border:1px solid #E5E7EB; }
+  .rdl-pagina .rxtf-rail .rxtf-rail-item{ min-height:44px; }
+}
+@media (max-width:640px){
+  .rdl-tabelle .rxtf-main > .rx-tab-panel{ padding:0 14px 14px; }
+  .rdl-tabelle .rxtf-panel-h{ margin:0 -14px 12px; padding:14px 14px 10px; }
+  .rdl-tabelle .rxtn-row{ padding:12px 14px; }
+  .rxtec-griglia .rxtec-riga{ padding:12px 14px; }
+  .rxtec-griglia .rxtec-grph{ padding:12px 14px 10px; }
+  .rxtec-griglia .rxtec-hint{ margin:10px 14px 0; }
+  .rdl-utenti .rxu-row{ padding:12px; }
+  .rdl-utenti .rxu-acts .rx-btn,.rdl-utenti .rxu-head-btns .rx-btn,.rxtec-cmd .rxtec-btn{ min-height:44px; }
+}
+
+/* ═══ LA CARTELLA DATI — DATI FTP (1.2.0B, SPEC-CARTELLA-DATI ed. 2, mockup MOCKUP-CARTELLA-DATI-RELDOXACADEMY-v1) ═══
+   Stessi riquadri delle Impostazioni 1.1.0B. ⛔ Solo computer e tablet (owner 19:01): sotto i 768 px la linguetta Dati FTP, il
+   destinatario «Cartella dati» e la tabella «Nomi dei file esportati» non compaiono; al loro posto la riga .rdcd-tel. */
+.rdcd-solo-tel{ display:none; }
+@media (max-width:767px){
+  .rdcd-solo-grande{ display:none !important; }
+  .rdcd-solo-tel{ display:flex; }
+}
+.rdcd-tel{ align-items:center; gap:10px; margin:0 0 14px; padding:12px 14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:12px;
+           font-size:15px; line-height:1.45; color:#1E3A8A; }
+.rx-srv-pil.ferma{ background:#FEF2F2; color:#991B1B; border:1px solid #FECACA; }
+#rdcd-b-cartella .rximp-bt .rx-srv-pil,#rximp-b-casella .rx-srv-pil{ font-size:12.5px; letter-spacing:0; text-transform:none; }
+.rdcd-dl{ display:grid; grid-template-columns:120px minmax(0,1fr); gap:8px 12px; margin:0 0 14px; font-size:15px; }
+.rdcd-dl dt{ color:#6B7280; font-size:13.5px; font-weight:500; padding-top:2px; }
+.rdcd-dl dd{ margin:0; min-width:0; color:#111827; overflow-wrap:anywhere; }
+.rdcd-dl code{ font-size:14px; background:#F3F4F6; border-radius:6px; padding:2px 6px; }
+.rdcd-calc{ display:block; font-size:13px; color:#6B7280; margin-top:2px; }
+.rdcd-ferma{ margin:0 0 14px; padding:10px 12px; border-radius:10px; background:#FEF2F2; border:1px solid #FECACA; color:#991B1B; font-size:14px; line-height:1.5; }
+.rdcd-lb{ display:block; font-size:13.5px; color:#6B7280; font-weight:500; margin-bottom:4px; }
+.rdcd-v{ display:block; font-size:16px; font-weight:500; color:#111827; line-height:1.45; }
+.rdcd-istr{ margin:0 0 14px; padding:12px 14px; background:#F8FAFC; border:1px solid #E5E7EB; border-radius:10px; font:13.5px/1.55 ui-monospace,Menlo,Consolas,monospace;
+            color:#1F2937; white-space:pre-wrap; overflow-wrap:anywhere; max-height:360px; overflow:auto; }
+.rdcd-registro{ margin-top:0; }
+.rdcd-ult{ font-size:13.5px; font-weight:500; color:#6B7280; }
+.rdcd-filtri{ display:flex; flex-wrap:wrap; gap:10px 16px; align-items:flex-end; margin:0 0 12px; }
+.rdcd-filtri label{ display:flex; flex-direction:column; gap:4px; font-size:13.5px; color:#374151; }
+#rximp-card .rdcd-filtri select{ min-height:40px; font-size:15px; padding:6px 10px; border:1px solid #D1D5DB; border-radius:8px; background:#fff; }
+.rdcd-filtri .rx-btn{ min-height:40px; }
+.rdcd-wrap{ overflow-x:auto; margin:0 -4px 10px; }
+.rdcd-reg{ width:100%; border-collapse:collapse; font-size:14.5px; }
+.rdcd-reg th{ font-size:13px; color:#6B7280; font-weight:600; text-align:left; padding:8px; border-bottom:1px solid #E5E7EB; background:#F8FAFC; }
+.rdcd-reg td{ padding:9px 8px; border-bottom:1px solid #F1F5F9; vertical-align:top; }
+.rdcd-reg td small{ display:block; font-size:12.5px; color:#6B7280; margin-top:2px; }
+.rdcd-reg code{ font-size:13px; overflow-wrap:anywhere; }
+.rdcd-es-ok{ color:#15803D; font-weight:600; } .rdcd-es-ko{ color:#B91C1C; font-weight:600; } .rdcd-es-sa,.rdcd-es-pul{ color:#4B5563; font-weight:600; }
+/* Invii del registro: la riga della cartella */
+.rdcd-file-sp{ display:flex !important; flex-direction:column; gap:2px; }
+.rdcd-file-sp[hidden]{ display:none !important; }
+.rxiv-sp.rdcd-fsp{ white-space:normal; align-items:flex-start; padding-top:8px; min-height:44px; line-height:1.35; }
+.rxiv-sp.rdcd-fsp small{ display:block; font-size:12.5px; color:#6B7280; }
+.rdcd-nota-ora{ font-size:12.5px; color:#4B5563; margin-top:6px; max-width:320px; margin-left:auto; text-align:right; }
+/* Tabelle Funzionali: i nomi dei file */
+.rdnf-list{ display:grid; gap:12px; }
+.rdnf-card{ border:1px solid #E5E7EB; border-radius:12px; background:#fff; overflow:hidden; }
+.rdnf-card.is-editing{ box-shadow:0 0 0 2px #FCD34D; }
+.rdnf-h{ display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px; padding:14px 16px 10px; border-bottom:1px solid #F1F5F9; }
+.rdnf-nm{ font-size:16px; font-weight:700; color:#111827; }
+.rdnf-q{ flex-basis:100%; font-size:14px; color:#4B5563; }
+.rdnf-row{ display:flex; align-items:center; gap:16px; padding:14px 16px; }
+.rdnf-body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
+.rdnf-nome{ font-size:15.5px; color:#111827; background:#F3F4F6; border-radius:6px; padding:3px 8px; align-self:flex-start; overflow-wrap:anywhere; }
+.rdnf-oggi{ font-size:14.5px; color:#374151; overflow-wrap:anywhere; }
+.rdnf-perche{ font-size:13.5px; color:#92400E; }
+.rdnf-row .rx-btn{ min-height:40px; font-size:14.5px; }
+.rdnf-form{ padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+.rdnf-in{ font:15px ui-monospace,Menlo,Consolas,monospace; min-height:44px; padding:8px 10px; border:1px solid #D1D5DB; border-radius:8px; width:100%; box-sizing:border-box; }
+.rdnf-ant{ font-size:14px; overflow-wrap:anywhere; } .rdnf-ant.ok{ color:#15803D; } .rdnf-ant.ko{ color:#B91C1C; }
+.rdcd-seg{ white-space:normal; }
+@media (max-width:640px){
+  .rdcd-dl{ grid-template-columns:minmax(0,1fr); gap:2px; }
+  .rdcd-dl dd{ margin-bottom:8px; }
+}
+
+/* 1.2.0B — l esito passo per passo di «Prova la cartella»: lo stesso di «Prova la spedizione» (lotto C), con testi leggibili. */
+#p-datiftp .srv-testa{font-size:14.5px;font-weight:600;min-height:40px;padding:6px 14px;border-radius:8px;border:1px solid #2563EB;background:#EFF6FF;color:#2563EB;cursor:pointer;font-family:inherit}
+#p-datiftp .srv-testa:hover{background:#DBEAFE}
+#p-datiftp .srv-testa:disabled{opacity:.65;cursor:progress}
+#p-datiftp .srv-passi{margin:4px 0 16px;border:1px solid #E5E7EB;border-radius:8px;background:#fff;overflow:hidden;max-width:100%}
+#p-datiftp .srv-passi[hidden]{display:none!important}
+#p-datiftp .srv-passi-h{padding:10px 14px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+#p-datiftp .srv-passi-h.ok{background:#ECFDF5;color:#065F46}
+#p-datiftp .srv-passi-h.ko{background:#FEF2F2;color:#991B1B}
+#p-datiftp .srv-passi-h.attesa{background:#EFF6FF;color:#1E40AF;font-weight:600}
+#p-datiftp .srv-sp{display:inline-block;width:14px;height:14px;border:2px solid #93C5FD;border-top-color:#2563EB;border-radius:50%;animation:srvGira .7s linear infinite;flex:none}
+@keyframes srvGira{to{transform:rotate(360deg)}}
+#p-datiftp .srv-passi-l{list-style:none;margin:0;padding:6px 13px}
+#p-datiftp .srv-p{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #F3F4F6}
+#p-datiftp .srv-p:last-child{border-bottom:none}
+#p-datiftp .srv-p-s{flex:none;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+#p-datiftp .srv-p.ok .srv-p-s{background:#DCFCE7;color:#15803D}
+#p-datiftp .srv-p.ko .srv-p-s{background:#FEE2E2;color:#B91C1C}
+#p-datiftp .srv-p.avviso .srv-p-s{background:#FEF3C7;color:#92400E}
+#p-datiftp .srv-p.saltato .srv-p-s{background:#F3F4F6;color:#6B7280}
+#p-datiftp .srv-p-c{min-width:0;flex:1}
+#p-datiftp .srv-p-t{font-size:15px;font-weight:600;color:#111827;line-height:1.45}
+#p-datiftp .srv-p-v{display:block;margin-top:3px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;color:#374151;background:#F9FAFB;border:1px solid #F3F4F6;border-radius:4px;padding:3px 6px;word-break:break-word;white-space:pre-wrap}
+#p-datiftp .srv-p-g{margin-top:4px;font-size:14px;color:#92400E;line-height:1.5}
+#p-datiftp .srv-p.ko .srv-p-g{color:#991B1B}
+#p-datiftp .srv-passi-f{padding:8px 13px 11px;border-top:1px solid #F3F4F6}
+
+#p-datiftp .srv-testa{ border:1px solid #2563EB; background:#EFF6FF; color:#1D4ED8; }
+
+/* 1.10.0B ed. 2 (SPEC-CODICE-PERSONALE-E-INVII § 4.1) — interruttore «Mostra i recapiti dell'azienda sulla pagina personale». */
+.rximp-rec{ display:flex; align-items:flex-start; gap:10px; margin:12px 0 4px; cursor:pointer; }
+.rximp-rec input{ width:20px; height:20px; margin:2px 0 0; flex:0 0 auto; accent-color:#1f8f4e; }
+.rximp-rec b{ display:block; font-size:15px; line-height:1.35; }
+.rximp-rec small{ display:block; font-size:14px; line-height:1.45; color:#5b5b5f; margin-top:2px; }
+#rximp-card[data-modo="lettura"] .rximp-rec{ cursor:default; }

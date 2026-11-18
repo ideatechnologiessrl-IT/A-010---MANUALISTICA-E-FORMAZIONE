@@ -13,7 +13,7 @@ import hashlib, sys, datetime
 from pathlib import Path
 
 SEGNI = [('reldoxfood-diagnostica', 'reldox-academy-diagnostica'), ('reldoxfood', 'reldox-academy'),
-         ('RelDoxFood', 'RelDoxAcademy'), ('Rdfood', 'Rdacademy'), ('RDFOOD', 'RDACADEMY'), ('rdfood', 'rdacademy')]
+         ('RelDoxFood', 'RelDoxAcademy'), ('RELDOXFOOD', 'RELDOXACADEMY'), ('Rdfood', 'Rdacademy'), ('RDFOOD', 'RDACADEMY'), ('rdfood', 'rdacademy')]
 
 def segna(s):
     for a, b in SEGNI: s = s.replace(a, b)
