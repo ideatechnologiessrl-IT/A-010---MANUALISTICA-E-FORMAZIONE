@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 12 · F011 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 13 · F011 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 13 | Formazione F011 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-e/class-rdfood-spedizioni.php` (TIENI) in `persona_di()` interroga **senza condizione** la tabella `persone` della mensa a ogni mail registrata (nell Academy la query lancia e la riga della spedizione si perde); legge `persone` anche nell importazione una tantum dal registro attività (spedizioni anteriori alla 1.4.4B del prodotto di partenza) e nel filtro per scheda dell elenco; ha i tipi della mensa (fogli stampati, registro e report dei pasti, FUZZYCode, codice personale, bacheca, contratto di licenza), l esito «stampato» e il metodo `stampa()` del foglio di accesso (TOLTO) → **TIENI, ridotto**: niente `persone`, niente importazione, niente foglio stampato; la tabella resta uguale (colonne della persona vuote) |
 | 12 | Formazione F011 · 18/11/2026 | differenze trovate nella lettura riga per riga del blocco G: `includes/carico-e-144.php` (TIENI) aggancia il controllo dei rifiuti all evento del pianificatore degli invii del registro dei pasti (`Rdfood_Invii::EVENTO`, classe TOLTA: errore fatale) → **TIENI, ridotto**: niente aggancio, i rifiuti si controllano col pulsante «Controlla i rifiuti» (nella copia non c è un pianificatore); il carico registra la pagina `spedizioni`, «la pagina del registro delle spedizioni» che l allegato tiene, ma la vista `public/views/spedizioni.php` era TOGLI per il solo nome della persona letto dalla tabella `persone` della mensa → **TIENI, ridotto**: il nome si legge dagli utenti; si legge per intero al suo turno |
 | 11 | Formazione F011 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-e-143.php` (TIENI nell allegato A) ha tre rami della mensa — l approdo dell amministratore su `pasti` o `mio-codice` (dietro `class_exists`, classi TOLTE), il rinvio vivo di `tabelle?tab=invii` verso la pagina `invii` (TOLTA) e il controllo dello Stato del sistema che legge la pagina `pasti` (nell Academy non c è: misurerebbe una pagina inesistente) → **TIENI, ridotto** nell allegato A: tolti i due rami, il controllo legge `preferenze` (pagina `auth` del Setup, per chi non è collegato un rinvio come prima); restano le sei difese e i rami dell integratore, come nell instradatore già copiato |
 | 10 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-tf-registry.php` (TIENI nell allegato A) dichiara fra le fonti delle Tabelle Funzionali `tf_invii_registro` (destinatari del registro mensile dei pasti; `Rdfood_Invii` TOLTA): nell Academy la tabella non c è e `verifica()` del registro sarebbe ROSSA → **TIENI, ridotto** nell allegato A: resta solo `tf_testi_notifiche` |
@@ -535,7 +536,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/lotto-e/class-rdfood-riservati.php` | 121 | TOGLI | ristorazione |
 | `reldoxfood/includes/lotto-e/class-rdfood-schema-e.php` | 467 | RIFAI | resta la grammatica dello schema (versione, flag, solo CREATE IF NOT EXISTS e ALTER ADD); le tabelle diventano quelle del § 5 |
 | `reldoxfood/includes/lotto-e/class-rdfood-servizio.php` | 532 | TOGLI | ristorazione |
-| `reldoxfood/includes/lotto-e/class-rdfood-spedizioni.php` | 467 | TIENI | registro delle mail spedite dalla casella di servizio |
+| `reldoxfood/includes/lotto-e/class-rdfood-spedizioni.php` | 467 | TIENI, ridotto | registro delle mail spedite dalla casella di servizio; tolte le letture della tabella `persone`, l importazione dal registro attività, il foglio stampato e i tipi della mensa — ed. 13 |
 | `reldoxfood/includes/lotto-e/class-rdfood-statistiche.php` | 616 | TOGLI | ristorazione |
 | `reldoxfood/includes/lotto-e/class-rdfood-storno.php` | 183 | TOGLI | ristorazione |
 | `reldoxfood/includes/lotto-e/class-rdfood-testi-notifiche.php` | 510 | TIENI, ridotto | Tabella Funzionale dei testi delle mail: restano invito, recupero, avvisi dell account |
