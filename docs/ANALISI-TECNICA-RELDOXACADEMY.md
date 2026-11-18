@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 9 · F009 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 10 · F009 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 10 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-tf-registry.php` (TIENI nell allegato A) dichiara fra le fonti delle Tabelle Funzionali `tf_invii_registro` (destinatari del registro mensile dei pasti; `Rdfood_Invii` TOLTA): nell Academy la tabella non c è e `verifica()` del registro sarebbe ROSSA → **TIENI, ridotto** nell allegato A: resta solo `tf_testi_notifiche` |
 | 9 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-impostazioni.php` (TIENI nell allegato A) ha nel salvataggio i rami della ristorazione dietro `class_exists` — Santo Patrono e festività del servizio (`Rdfood_Servizio`, TOLTA), recapiti della pagina personale (`Rdfood_Codice`, TOLTA) — e la porta propria della cartella dati (`datiftp_*`, TOLTA) → **TIENI, ridotto** nell allegato A, come per `preferenze.php` (ed. 5) |
 | 8 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-utenti.php` (TIENI nell allegato A) in `login_libero()` interroga **senza condizione** la tabella `persone` della mensa (username già usato come nome utente di una scheda): nell Academy la tabella non c è e ogni salvataggio di un utente con username finirebbe in «Errore DB»; in più due rami della ristorazione dietro `class_exists` (email condivisa, classe TOLTA; nome utente della scheda della mensa) → **TIENI, ridotto** nell allegato A |
 | 7 | Formazione F008 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-b.php` (TIENI nell allegato A) richiede in modo fisso i cinque file della licenza da firmare (`license/`, TOLTI) e avvia `Rdfood_License_Admin` → **TIENI, ridotto** nell allegato A, come già diceva il § dei carichi («senza la licenza da firmare»): restano Stato sistema, ancora di licenza (solo il dominio), Documentazione, Primo accesso |
@@ -496,7 +497,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/lotto-c/class-rdfood-me.php` | 175 | TIENI |  |
 | `reldoxfood/includes/lotto-c/class-rdfood-schema-c.php` | 91 | TIENI |  |
 | `reldoxfood/includes/lotto-c/class-rdfood-tf-admin-rest.php` | 101 | TIENI |  |
-| `reldoxfood/includes/lotto-c/class-rdfood-tf-registry.php` | 390 | TIENI |  |
+| `reldoxfood/includes/lotto-c/class-rdfood-tf-registry.php` | 390 | TIENI, ridotto | tolta la fonte `tf_invii_registro` (registro dei pasti) e il commento sui nomi dei file di Dati FTP; resta `tf_testi_notifiche` — ed. 10 |
 | `reldoxfood/includes/lotto-c/class-rdfood-utenti.php` | 601 | TIENI, ridotto | tolti il controllo dello username sulla tabella `persone` della mensa (senza condizione: errore DB nell Academy), il ramo dell email condivisa e quello del nome utente della scheda — ed. 8 |
 | `reldoxfood/includes/lotto-d/class-rdfood-database.php` | 523 | TIENI |  |
 | `reldoxfood/includes/lotto-d/class-rdfood-datasource.php` | 404 | TIENI |  |
