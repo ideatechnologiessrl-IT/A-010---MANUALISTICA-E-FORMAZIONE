@@ -52,7 +52,7 @@ final class Rdacademy_Bootstrap_Wizard {
 	const MARK_END   = '/* END RelDoxAcademy DB */';
 
 	/** Marcatore standard di wp-config: punto d'iniezione preferito. */
-	const WP_MARKER = "That's all, stop editing";
+	const WP_MARKERS = array( "That's all, stop editing", 'Finito, interrompere le modifiche' );
 
 	/** Costante-sentinella per l'idempotenza. */
 	const SENTINEL = 'RDACADEMY_DB_HOST';
@@ -189,11 +189,24 @@ final class Rdacademy_Bootstrap_Wizard {
 	}
 
 	/**
-	 * Inietta il blocco: PRIMA della riga del marcatore «stop editing», altrimenti
-	 * append in coda. Ritorna il nuovo contenuto.
+	 * Inietta il blocco PRIMA dell avvio di WordPress, in qualunque lingua sia il wp-config:
+	 * prima della riga «stop editing» (inglese) o «Finito, interrompere le modifiche» (italiano);
+	 * se non c e, prima della riga che carica wp-settings.php; solo se manca anche quella, in coda.
+	 * ⛔ Il wp-config italiano non ha la riga inglese: prima il blocco finiva in coda, DOPO
+	 * wp-settings.php, e il plugin restava in «solo installazione» (owner 18/11/2026 14:37).
 	 */
 	private static function inject( string $content, string $block ): string {
-		$pos = strpos( $content, self::WP_MARKER );
+		$pos = false;
+		foreach ( self::WP_MARKERS as $marker ) {
+			$p = strpos( $content, $marker );
+			if ( $p !== false && ( $pos === false || $p < $pos ) ) {
+				$pos = $p;
+			}
+		}
+		$settings = self::wp_settings_pos( $content );
+		if ( $pos === false || ( $settings !== false && $pos > $settings ) ) {
+			$pos = $settings;
+		}
 		if ( $pos !== false ) {
 			$before   = substr( $content, 0, $pos );
 			$nl       = strrpos( $before, "\n" );
@@ -203,6 +216,24 @@ final class Rdacademy_Bootstrap_Wizard {
 				. substr( $content, $insertAt );
 		}
 		return rtrim( $content, "\n" ) . "\n\n" . $block . "\n";
+	}
+
+	/** Posizione della riga che carica wp-settings.php (inizio riga), oppure false. */
+	private static function wp_settings_pos( string $content ) {
+		if ( preg_match( '/^[^\n]*\brequire(?:_once)?\b[^\n]*wp-settings\.php/m', $content, $m, PREG_OFFSET_CAPTURE ) ) {
+			return (int) $m[0][1];
+		}
+		return false;
+	}
+
+	/**
+	 * True se le costanti RDACADEMY_DB_* ci sono ma DOPO la riga di wp-settings.php: WordPress
+	 * le legge troppo tardi e il plugin non parte. Il wizard allora sposta il blocco da solo.
+	 */
+	private static function misplaced( string $content ): bool {
+		$b = strpos( $content, self::SENTINEL );
+		$w = self::wp_settings_pos( $content );
+		return $b !== false && $w !== false && $b > $w;
 	}
 
 	/**
@@ -408,7 +439,10 @@ final class Rdacademy_Bootstrap_Wizard {
 		}
 
 		// Idempotenza «salta + recupera»: config esistente NON si sovrascrive…
-		if ( self::already_configured( $content ) ) {
+		if ( self::misplaced( $content ) ) {
+			// Blocco scritto dopo wp-settings.php (WordPress lo legge troppo tardi): si sposta prima.
+			$new = self::replace_block( $content, self::build_block( $v ) );
+		} elseif ( self::already_configured( $content ) ) {
 			// …salvo correzione esplicita (M1(b) AP-WIZARD-CORREGGE-BASE): mode=rewrite.
 			if ( ! self::is_rewrite() ) {
 				wp_send_json_success( array(
@@ -436,7 +470,7 @@ final class Rdacademy_Bootstrap_Wizard {
 		self::svuota_cache_config();
 		$check   = @file_get_contents( $path );
 		$name_ok = is_string( $check ) && ( strpos( $check, "'" . self::esc_php( $v['name'] ) . "'" ) !== false );
-		if ( ! is_string( $check ) || ! self::already_configured( $check ) || ! $name_ok ) {
+		if ( ! is_string( $check ) || ! self::already_configured( $check ) || ! $name_ok || self::misplaced( $check ) ) {
 			wp_send_json_error( 'Scrittura eseguita ma verifica fallita: controlla wp-config.php manualmente.' );
 		}
 
@@ -567,7 +601,10 @@ final class Rdacademy_Bootstrap_Wizard {
 			}
 
 			// Idempotenza «salta + recupera»… salvo correzione esplicita (M1(b)).
-			if ( self::already_configured( $content ) ) {
+			if ( self::misplaced( $content ) ) {
+				// Blocco scritto dopo wp-settings.php (WordPress lo legge troppo tardi): si sposta prima.
+				$new = self::replace_block( $content, self::build_block( $v ) );
+			} elseif ( self::already_configured( $content ) ) {
 				if ( ! self::is_rewrite() ) {
 					wp_send_json_success( array(
 						'status'  => 'exists',
@@ -593,7 +630,7 @@ final class Rdacademy_Bootstrap_Wizard {
 			// Verifica: rilettura remota — sentinella + presenza del NUOVO nome BASE.
 			$check   = $fs->get_contents( $cfg_path );
 			$name_ok = is_string( $check ) && ( strpos( $check, "'" . self::esc_php( $v['name'] ) . "'" ) !== false );
-			if ( ! is_string( $check ) || ! self::already_configured( $check ) || ! $name_ok ) {
+			if ( ! is_string( $check ) || ! self::already_configured( $check ) || ! $name_ok || self::misplaced( $check ) ) {
 				// Tentativo di ripristino dell'originale.
 				$fs->put_contents( $cfg_path, $content, false );
 				wp_send_json_error( 'Scrittura FTP non verificata: originale ripristinato. Usa il blocco manuale.' );

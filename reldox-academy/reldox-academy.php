@@ -3,7 +3,7 @@
  * Plugin Name:       RelDoxAcademy
  * Plugin URI:        https://www.ideatechnologies.com
  * Description:       RelDoxAcademy — i corsi on line e i manuali dei prodotti della famiglia RelDox. Prodotto della famiglia RelDox.
- * Version:           0.1.01
+ * Version:           0.1.02
  * Author:            Idea Technologies S.r.l.
  * Author URI:        https://www.ideatechnologies.com
  * License:           Proprietary
@@ -19,16 +19,18 @@
  * dei prodotti entrano come materiali (D28, D29).
  *
  * 0.1.01A — LA COPIA DI BASE (Formazione F005, «genera» dell owner 17/11/2026 15:28).
+ * 0.1.02A — il wizard scrive il database prima di wp-settings.php anche nel wp-config italiano
+ *          e sposta da solo un blocco scritto dopo (owner 18/11/2026 14:37, Formazione F013).
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'RDACADEMY_VERSION',       '0.1.01' );
+define( 'RDACADEMY_VERSION',       '0.1.02' );
 define( 'RDACADEMY_STAGE',         'Alfa' );   // REGOLE-FAMIGLIA § 9.1: lo stadio lo decide l owner
 // § 9.1 — la lettera dello stadio si scrive ATTACCATA al numero: A=Alfa, B=Beta, G=Gold, L=Live.
 define( 'RDACADEMY_VERSION_LABEL', RDACADEMY_VERSION . ( array( 'Alfa' => 'A', 'Beta' => 'B', 'Gold' => 'G', 'Live' => 'L' )[ RDACADEMY_STAGE ] ?? '' ) );
 // RP-VERSIONE-PANNELLO-MINIMO (copiato da RelDox) — il pacchetto e un NOME breve, la cronaca sta nel CHANGELOG.
-define( 'RDACADEMY_PACKAGE',       '// 0.1.01A | F013 | installabile' );
+define( 'RDACADEMY_PACKAGE',       '// 0.1.02A | F013 | wpconfig-italiano' );
 // 0.8.2A (RF-BUG-022) — la data la scrive il compositore del pacchetto insieme al manifesto, MAI A MANO.
 define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-18' );
 define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );

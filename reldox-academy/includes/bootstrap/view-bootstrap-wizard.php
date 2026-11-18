@@ -269,7 +269,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="gn">3</div>
             <div class="gt">
               <b>Manuale</b> <span style="font-size:11px;color:var(--mut);font-weight:700">— fallback finale</span>
-              <p>Incolla il blocco qui sotto in <code>wp-config.php</code> (sopra <code>/* That's all, stop editing! */</code>), salva e ricarica.</p>
+              <p>Incolla il blocco qui sotto in <code>wp-config.php</code> (sopra la riga <code>/* Finito, interrompere le modifiche! */</code>, in inglese <code>/* That's all, stop editing! */</code>, e comunque sopra <code>require_once ABSPATH . 'wp-settings.php';</code>), salva e ricarica.</p>
             </div>
           </div>
         </div>

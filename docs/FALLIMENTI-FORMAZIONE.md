@@ -1,4 +1,4 @@
-<!-- REGISTRO FALLIMENTI · 18/11/2026 F012 · aperti 2 · primo libero F012-F2 -->
+<!-- REGISTRO FALLIMENTI · 18/11/2026 F013 · aperti 3 · primo libero F013-F2 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro FALLIMENTI della Formazione
@@ -26,5 +26,12 @@ Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti dif
 - **Rimedio**: F013 fa **solo** il pacchetto installabile 0.1.01A: chiude i file mancanti (quelli lunghi ridotti all essenziale), lo zip, e lo dà all owner per l installazione su `reldoxacademy.it`. Il resto della copia riprende dopo, guidato da ciò che si vede sul sito.
 - **Regola che ne esce**: prima di copiare un file ci si chiede se serve all installazione; il prompt della sessione dopo sta in 5 righe, senza sigle interne.
 - **Dove entra**: `CLAUDE.md` (regola «Prima la funzionalità») e APERTURA F013, nello stesso commit.
+
+### F013-F1 — 18/11/2026 — zip dichiarato installabile, provato solo su un WordPress in inglese
+- **Che cosa è successo**: ho consegnato la 0.1.01A come «si installa e funziona», provata da zip sul WordPress di prova; sul sito dell owner, in italiano, il plugin dopo il wizard non parte (BUG-1). Owner 18/11/2026 14:37, chat Formazione F013.
+- **Causa (misurata)**: il WordPress di prova aveva il `wp-config` inglese, dove la riga cercata dal wizard c è; non ho provato le condizioni del sito vero (WordPress italiano su Aruba).
+- **Rimedio**: 0.1.02A con la correzione; banco `F013-banco-wpconfig.php` con `wp-config` italiano, inglese e senza segnaposto; prova dello zip sul WordPress di prova con `wp-config` italiano.
+- **Regola**: lo zip si prova nelle condizioni del sito vero: WordPress in italiano, permalink come sul sito, installazione da zero e sopra un installazione precedente.
+- **Dove entra**: nello script di ricostruzione `banco/F013-rifai-0.1.02A.sh`, che va ROSSO e non compone lo zip se il banco del `wp-config` non è verde; nello stesso commit.
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
