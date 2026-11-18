@@ -28,9 +28,9 @@ define( 'RDACADEMY_STAGE',         'Alfa' );   // REGOLE-FAMIGLIA § 9.1: lo sta
 // § 9.1 — la lettera dello stadio si scrive ATTACCATA al numero: A=Alfa, B=Beta, G=Gold, L=Live.
 define( 'RDACADEMY_VERSION_LABEL', RDACADEMY_VERSION . ( array( 'Alfa' => 'A', 'Beta' => 'B', 'Gold' => 'G', 'Live' => 'L' )[ RDACADEMY_STAGE ] ?? '' ) );
 // RP-VERSIONE-PANNELLO-MINIMO (copiato da RelDox) — il pacchetto e un NOME breve, la cronaca sta nel CHANGELOG.
-define( 'RDACADEMY_PACKAGE',       '// 0.1.01A | F005 | copia-base' );
+define( 'RDACADEMY_PACKAGE',       '// 0.1.01A | F013 | installabile' );
 // 0.8.2A (RF-BUG-022) — la data la scrive il compositore del pacchetto insieme al manifesto, MAI A MANO.
-define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-17' );
+define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-18' );
 define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );
 define( 'RDACADEMY_VENDOR',        'Idea Technologies S.r.l.' );
 define( 'RDACADEMY_VENDOR_URL',    'https://www.ideatechnologies.com' );
