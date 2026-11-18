@@ -1,0 +1,9 @@
+Formazione F012 · 18/11/2026 · copia parziale del blocco G (dopo rdacademy-icona.js)
+[VERDE] G0   php -l su 67 file: nessun errore
+[VERDE] G0   lingue it/en/de: stesse chiavi in ogni lingua
+[VERDE] G1   72 file, resti di RelDoxFood: zero
+[VERDE] G1   51 classi tolte, chiamate fuori da class_exists: zero
+[ROSSO] G2   manca reldox-academy-diagnostica/includes/class-rdacademy-maintenance.php
+[ROSSO] G10  mancano i file principali dei due plugin
+4 verdi, 2 rossi
+TRAPPOLA G1: VERDE (il banco ha visto il resto) — 1 righe rosse
