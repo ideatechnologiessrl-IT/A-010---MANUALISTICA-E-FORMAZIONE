@@ -1,0 +1,904 @@
+/* ============================================================================
+   RelDoxAcademy — componente allegati (copiato da reldox-uploads.css,
+   pkg-anagrafica-1b3-uploads-js, RelDox CRD 3.55.09G; prefisso rinominato,
+   aggiunte in fondo la conferma in riga e la chiusura dei messaggi d errore)
+   ----------------------------------------------------------------------------
+   Stili componenti DropZone + List + Banner.
+   Design tokens WP 7.0 con fallback 6.x. WCAG 2.2 AA non negoziabile.
+   Tipografia UX 2026: 16/1.6/65ch su narrativi.
+   Touch target ≥32px denso, ≥44px main DropZone.
+   ============================================================================ */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   1. NAMESPACE + DESIGN TOKENS
+   Tutte le variabili sono scope-loccate sotto .rdacademy-uploads per non
+   contaminare altri componenti del plugin.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads {
+	/* Palette base (fallback 6.x se WP 7.0 tokens assenti) */
+	--rd-up-bg:           var(--wp--preset-color-base,        #ffffff);
+	--rd-up-bg-soft:      var(--wp--preset-color-base-2,      #f6f7f7);
+	--rd-up-border:       var(--wp--preset-color-tertiary,    #dcdcde);
+	--rd-up-border-strong: #c3c4c7;
+	--rd-up-accent:       var(--wp--preset-color-primary,     #2271b1);
+	--rd-up-accent-hover: #135e96;
+	--rd-up-success:      #00824b;
+	--rd-up-danger:       #b32d2e;
+	--rd-up-warn:         #b26200;
+	--rd-up-info:         #2271b1;
+	--rd-up-text:         var(--wp--preset-color-contrast,    #1d2327);
+	--rd-up-text-muted:   #646970;
+
+	/* Geometria */
+	--rd-up-radius:       8px;
+	--rd-up-radius-sm:    4px;
+	--rd-up-spacing:      16px;
+	--rd-up-spacing-sm:   8px;
+	--rd-up-spacing-lg:   24px;
+
+	/* Tipografia 16/1.6/65ch */
+	--rd-up-font-size:    var(--wp--preset-font-size-medium,  16px);
+	--rd-up-font-size-sm: 14px;
+	--rd-up-line-height:  1.6;
+	--rd-up-font-family:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+	/* Focus ring WCAG 2.2 (≥2px contrasto AA) */
+	--rd-up-focus-ring:   0 0 0 2px var(--rd-up-bg), 0 0 0 4px var(--rd-up-accent);
+	--rd-up-shadow-soft:  0 1px 3px rgba(0,0,0,0.06);
+
+	font-family: var(--rd-up-font-family);
+	font-size:   var(--rd-up-font-size);
+	line-height: var(--rd-up-line-height);
+	color:       var(--rd-up-text);
+}
+
+.rdacademy-uploads * {
+	box-sizing: border-box;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   2. DROPZONE
+   Affordance universale: bordo dashed, transizione 150ms, microinterazioni.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads__dropzone {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: var(--rd-up-spacing-sm);
+	min-height: 160px;
+	padding: var(--rd-up-spacing-lg);
+	background: var(--rd-up-bg);
+	border: 2px dashed var(--rd-up-border-strong);
+	border-radius: var(--rd-up-radius);
+	color: var(--rd-up-text);
+	cursor: pointer;
+	text-align: center;
+	transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
+	font: inherit;
+	width: 100%;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.rdacademy-uploads__dropzone:hover {
+	border-color: var(--rd-up-accent);
+	background: color-mix(in srgb, var(--rd-up-accent) 3%, var(--rd-up-bg));
+}
+
+.rdacademy-uploads__dropzone:focus-visible {
+	outline: none;
+	box-shadow: var(--rd-up-focus-ring);
+	border-color: var(--rd-up-accent);
+}
+
+.rdacademy-uploads__dropzone--dragover {
+	border-color: var(--rd-up-accent);
+	background: color-mix(in srgb, var(--rd-up-accent) 8%, var(--rd-up-bg));
+	transform: scale(1.005);
+}
+
+.rdacademy-uploads__dropzone[aria-disabled="true"] {
+	opacity: 0.55;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.rdacademy-uploads__dropzone-icon {
+	width: 48px;
+	height: 48px;
+	color: var(--rd-up-accent);
+	flex-shrink: 0;
+}
+
+.rdacademy-uploads__dropzone-label {
+	font-size: 18px;
+	font-weight: 600;
+	margin: 0;
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__dropzone-or {
+	font-size: var(--rd-up-font-size-sm);
+	color: var(--rd-up-text-muted);
+	margin: 0;
+}
+
+.rdacademy-uploads__dropzone-select {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 36px;
+	padding: 6px 16px;
+	background: var(--rd-up-accent);
+	color: #ffffff;
+	border: 1px solid var(--rd-up-accent);
+	border-radius: var(--rd-up-radius-sm);
+	font-size: var(--rd-up-font-size-sm);
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 150ms ease;
+	pointer-events: none; /* parte cliccabile è tutta la zona */
+}
+
+.rdacademy-uploads__dropzone:hover .rdacademy-uploads__dropzone-select,
+.rdacademy-uploads__dropzone:focus-visible .rdacademy-uploads__dropzone-select {
+	background: var(--rd-up-accent-hover);
+	border-color: var(--rd-up-accent-hover);
+}
+
+.rdacademy-uploads__dropzone-help {
+	font-size: 13px;
+	color: var(--rd-up-text-muted);
+	margin: 0;
+	max-width: 60ch;
+	line-height: 1.5;
+}
+
+.rdacademy-uploads__dropzone-input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   3. PROGRESS QUEUE (visualizza upload in corso)
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads__queue {
+	margin-top: var(--rd-up-spacing);
+	display: flex;
+	flex-direction: column;
+	gap: var(--rd-up-spacing-sm);
+}
+
+.rdacademy-uploads__queue:empty {
+	display: none;
+}
+
+.rdacademy-uploads__queue-item {
+	display: grid;
+	grid-template-columns: 24px 1fr auto;
+	gap: 12px;
+	align-items: center;
+	padding: 10px 12px;
+	background: var(--rd-up-bg-soft);
+	border: 1px solid var(--rd-up-border);
+	border-radius: var(--rd-up-radius-sm);
+	font-size: var(--rd-up-font-size-sm);
+}
+
+.rdacademy-uploads__queue-icon {
+	width: 24px;
+	height: 24px;
+	color: var(--rd-up-accent);
+}
+
+.rdacademy-uploads__queue-body {
+	min-width: 0;
+}
+
+.rdacademy-uploads__queue-filename {
+	display: block;
+	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__queue-bar {
+	display: block;
+	width: 100%;
+	height: 4px;
+	margin-top: 6px;
+	background: var(--rd-up-border);
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.rdacademy-uploads__queue-bar-fill {
+	display: block;
+	height: 100%;
+	width: 0%;
+	background: var(--rd-up-accent);
+	transition: width 200ms ease;
+}
+
+.rdacademy-uploads__queue-item--success .rdacademy-uploads__queue-bar-fill {
+	background: var(--rd-up-success);
+}
+
+.rdacademy-uploads__queue-item--error .rdacademy-uploads__queue-bar-fill {
+	background: var(--rd-up-danger);
+}
+
+.rdacademy-uploads__queue-percent {
+	font-variant-numeric: tabular-nums;
+	color: var(--rd-up-text-muted);
+	font-size: 13px;
+	min-width: 42px;
+	text-align: right;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   4. BANNER duplicato (v1 informativo)
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads__banner {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-top: var(--rd-up-spacing);
+	padding: 12px 14px;
+	background: color-mix(in srgb, var(--rd-up-info) 8%, var(--rd-up-bg));
+	border: 1px solid color-mix(in srgb, var(--rd-up-info) 30%, var(--rd-up-bg));
+	border-left: 4px solid var(--rd-up-info);
+	border-radius: var(--rd-up-radius-sm);
+	font-size: var(--rd-up-font-size-sm);
+	line-height: 1.5;
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__banner-icon {
+	width: 20px;
+	height: 20px;
+	color: var(--rd-up-info);
+	flex-shrink: 0;
+	margin-top: 1px;
+}
+
+.rdacademy-uploads__banner-text {
+	flex: 1;
+	margin: 0;
+	max-width: 65ch;
+}
+
+.rdacademy-uploads__banner-text strong {
+	font-weight: 600;
+}
+
+.rdacademy-uploads__banner-close {
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: var(--rd-up-radius-sm);
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	color: var(--rd-up-text-muted);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	padding: 0;
+	transition: background-color 150ms ease, color 150ms ease;
+}
+
+.rdacademy-uploads__banner-close:hover {
+	background: rgba(0,0,0,0.05);
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__banner-close:focus-visible {
+	outline: none;
+	box-shadow: var(--rd-up-focus-ring);
+}
+
+.rdacademy-uploads__banner-close svg {
+	width: 16px;
+	height: 16px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   5. LIST (allegati esistenti)
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads__list {
+	margin-top: var(--rd-up-spacing-lg);
+	border: 1px solid var(--rd-up-border);
+	border-radius: var(--rd-up-radius);
+	overflow: hidden;
+	background: var(--rd-up-bg);
+}
+
+.rdacademy-uploads__list-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--rd-up-spacing-sm);
+	padding: 12px 16px;
+	background: var(--rd-up-bg-soft);
+	border-bottom: 1px solid var(--rd-up-border);
+	font-size: var(--rd-up-font-size-sm);
+}
+
+.rdacademy-uploads__list-title {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__list-count {
+	color: var(--rd-up-text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.rdacademy-uploads__list-refresh {
+	background: transparent;
+	border: 1px solid var(--rd-up-border);
+	border-radius: var(--rd-up-radius-sm);
+	min-width: 32px;
+	min-height: 32px;
+	cursor: pointer;
+	color: var(--rd-up-text-muted);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 150ms ease, color 150ms ease;
+	padding: 0 8px;
+}
+
+.rdacademy-uploads__list-refresh:hover {
+	background: var(--rd-up-bg-soft);
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__list-refresh:focus-visible {
+	outline: none;
+	box-shadow: var(--rd-up-focus-ring);
+}
+
+.rdacademy-uploads__list-refresh svg {
+	width: 14px;
+	height: 14px;
+}
+
+.rdacademy-uploads__list-items {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.rdacademy-uploads__list-item {
+	display: grid;
+	/* 3.24.00 BUG-116 §4 — la casella entra come PRIMA colonna (22px).
+	   ⛔ E' l'UNICA misura della griglia esistente che cambia: le altre
+	   quattro colonne restano identiche a prima. */
+	grid-template-columns: 22px 32px 1fr auto auto;
+	gap: 12px;
+	align-items: center;
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--rd-up-border);
+	font-size: var(--rd-up-font-size-sm);
+	transition: background-color 150ms ease;
+}
+
+.rdacademy-uploads__list-item:last-child {
+	border-bottom: 0;
+}
+
+.rdacademy-uploads__list-item:hover {
+	background: var(--rd-up-bg-soft);
+}
+
+.rdacademy-uploads__list-item--deleted {
+	opacity: 0.55;
+}
+
+.rdacademy-uploads__list-item-icon {
+	width: 32px;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--rd-up-bg-soft);
+	border-radius: var(--rd-up-radius-sm);
+	color: var(--rd-up-accent);
+	flex-shrink: 0;
+}
+
+.rdacademy-uploads__list-item-icon svg {
+	width: 18px;
+	height: 18px;
+}
+
+.rdacademy-uploads__list-item-body {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.rdacademy-uploads__list-item-filename {
+	font-weight: 500;
+	color: var(--rd-up-text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.rdacademy-uploads__list-item-meta {
+	font-size: 12px;
+	color: var(--rd-up-text-muted);
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.rdacademy-uploads__list-item-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 1px 6px;
+	background: var(--rd-up-border);
+	color: var(--rd-up-text);
+	border-radius: 10px;
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.rdacademy-uploads__list-item-action {
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: var(--rd-up-radius-sm);
+	min-width: 32px;
+	min-height: 32px;
+	cursor: pointer;
+	color: var(--rd-up-text-muted);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+	text-decoration: none;
+	padding: 0;
+}
+
+.rdacademy-uploads__list-item-action:hover {
+	background: var(--rd-up-bg-soft);
+	border-color: var(--rd-up-border);
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__list-item-action:focus-visible {
+	outline: none;
+	box-shadow: var(--rd-up-focus-ring);
+}
+
+.rdacademy-uploads__list-item-action--delete:hover {
+	color: var(--rd-up-danger);
+	border-color: var(--rd-up-danger);
+}
+
+.rdacademy-uploads__list-item-action svg {
+	width: 16px;
+	height: 16px;
+}
+
+/* Stato vuoto */
+.rdacademy-uploads__list-empty {
+	padding: 32px 16px;
+	text-align: center;
+}
+
+.rdacademy-uploads__list-empty-icon {
+	width: 40px;
+	height: 40px;
+	color: var(--rd-up-text-muted);
+	margin: 0 auto 8px;
+	display: block;
+}
+
+.rdacademy-uploads__list-empty-title {
+	margin: 0 0 4px;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--rd-up-text);
+}
+
+.rdacademy-uploads__list-empty-hint {
+	margin: 0;
+	font-size: 13px;
+	color: var(--rd-up-text-muted);
+	max-width: 45ch;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Loading skeleton */
+.rdacademy-uploads__list-loading {
+	padding: 16px;
+	text-align: center;
+	color: var(--rd-up-text-muted);
+	font-size: 13px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   6. TOAST (helper non-bloccante)
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads__toast-region {
+	position: fixed;
+	right: 16px;
+	bottom: 16px;
+	z-index: 99999;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-width: calc(100% - 32px);
+	width: 360px;
+	pointer-events: none;
+}
+
+.rdacademy-uploads__toast {
+	pointer-events: auto;
+	padding: 12px 16px;
+	border-radius: var(--rd-up-radius-sm);
+	background: var(--rd-up-text);
+	color: #ffffff;
+	font-size: 14px;
+	line-height: 1.5;
+	box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+	animation: rdacademyUploadsToastIn 200ms ease;
+	font-family: var(--rd-up-font-family);
+}
+
+.rdacademy-uploads__toast--success {
+	background: var(--rd-up-success);
+}
+
+.rdacademy-uploads__toast--error {
+	background: var(--rd-up-danger);
+}
+
+.rdacademy-uploads__toast--info {
+	background: var(--rd-up-info);
+}
+
+@keyframes rdacademyUploadsToastIn {
+	from { opacity: 0; transform: translateY(8px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   7. RESPONSIVE — mobile ≤ 480px
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+
+	.rdacademy-uploads__dropzone {
+		padding: var(--rd-up-spacing);
+		min-height: 140px;
+	}
+
+	.rdacademy-uploads__dropzone-label {
+		font-size: 16px;
+	}
+
+	.rdacademy-uploads__list-item {
+		/* S346-A — QUATTRO colonne, non tre. BUG-116 (3.24.00) ha aggiunto la
+		   casella come primo figlio e ha cambiato la sola misura desktop:
+		   qui sotto restavano CINQUE figli in TRE colonne e la riga andava a
+		   capo. La gemella responsive va spostata insieme alla sua principale. */
+		grid-template-columns: 20px 28px 1fr auto;
+		gap: 8px;
+		padding: 10px 12px;
+	}
+
+	/* Su mobile lista: il cestino sta in ultima colonna, sulla stessa riga.
+	   Era la 3 quando le colonne erano tre; con la casella diventa la 4. */
+	.rdacademy-uploads__list-item-action--delete {
+		grid-column: 4;
+		grid-row: 1;
+	}
+
+	.rdacademy-uploads__toast-region {
+		left: 12px;
+		right: 12px;
+		bottom: 12px;
+		width: auto;
+	}
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   8. PREFERS-REDUCED-MOTION (accessibilità)
+   ────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.rdacademy-uploads__dropzone,
+	.rdacademy-uploads__queue-bar-fill,
+	.rdacademy-uploads__list-item-action,
+	.rdacademy-uploads__list-refresh,
+	.rdacademy-uploads__banner-close,
+	.rdacademy-uploads__dropzone-select,
+	.rdacademy-uploads__toast {
+		transition: none !important;
+		animation: none !important;
+	}
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   9. SR-ONLY helper (per testo dedicato a screen reader)
+   ────────────────────────────────────────────────────────────────────────── */
+
+.rdacademy-uploads__sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BUG-116 (3.24.00) — CANCELLAZIONE MULTIPLA DEGLI ALLEGATI
+   Contratto grafico: MOCKUP-BUG-116-CANCELLAZIONE-MULTIPLA-ALLEGATI-v1.html,
+   approvato dall'owner in S345. Replicato VERBATIM (RP-MOCKUP-CONTRACT).
+
+   ⛔ QUATTRO CLASSI NUOVE E NESSUNA DI PIU'. RP-DEV-1: tutte e quattro
+      verificate libere (grep = 0) sull'albero 3.23.10 e sull'area progetti.
+      .rdacademy-uploads__list-bulk        la barra
+      .rdacademy-uploads__list-bulk-btn    i tre comandi (+ --danger)
+      .rdacademy-uploads__list-item-check  la casella di riga
+      .is-selected                      modificatore sulla riga scelta
+      (+ .rdacademy-uploads__list-report, la striscia d'esito del §5 del contratto)
+
+   ⛔ RP-UX-BUTTONS-TOP-ONLY: la barra sta SOPRA la lista, sotto
+      l'intestazione. Nessuna azione in fondo, nessuno scroll per trovarla.
+   ⛔ Il cestino di riga NON e' toccato: la barra AGGIUNGE, non sostituisce.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.rdacademy-uploads__list-bulk {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--rd-up-spacing-sm);
+	padding: 10px 16px;
+	background: var(--rd-up-bg-soft);
+	border-bottom: 1px solid var(--rd-up-border);
+	font-size: var(--rd-up-font-size-sm);
+}
+
+.rdacademy-uploads__list-bulk-btn {
+	background: var(--rd-up-bg);
+	border: 1px solid var(--rd-up-border-strong);
+	border-radius: var(--rd-up-radius-sm);
+	color: var(--rd-up-text);
+	font: 600 13px/1 var(--rd-up-font-family);
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	min-height: 34px;
+	padding: 0 14px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.rdacademy-uploads__list-bulk-btn svg {
+	width: 15px;
+	height: 15px;
+	flex: 0 0 auto;
+}
+
+.rdacademy-uploads__list-bulk-btn:hover {
+	background: var(--rd-up-bg-soft);
+	border-color: var(--rd-up-text-muted);
+}
+
+.rdacademy-uploads__list-bulk-btn:focus-visible {
+	outline: none;
+	box-shadow: var(--rd-up-focus-ring);
+}
+
+.rdacademy-uploads__list-bulk-btn--danger {
+	color: var(--rd-up-danger);
+	border-color: var(--rd-up-danger);
+}
+
+.rdacademy-uploads__list-bulk-btn--danger:hover {
+	background: var(--rd-up-danger);
+	border-color: var(--rd-up-danger);
+	color: #fff;
+}
+
+/* §3 — spento finche' la selezione e' vuota: non si preme un comando
+   che non ha bersaglio. */
+.rdacademy-uploads__list-bulk-btn[disabled] {
+	opacity: 0.45;
+	cursor: not-allowed;
+	color: var(--rd-up-text-muted);
+	border-color: var(--rd-up-border);
+	background: var(--rd-up-bg);
+}
+
+.rdacademy-uploads__list-bulk-btn--danger[disabled] {
+	color: var(--rd-up-text-muted);
+}
+
+.rdacademy-uploads__list-bulk-state {
+	margin-left: auto;
+	color: var(--rd-up-text-muted);
+	font-variant-numeric: tabular-nums;
+	font-size: 13px;
+}
+
+/* §4 — la casella, prima colonna della riga. */
+.rdacademy-uploads__list-item-check {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	cursor: pointer;
+	accent-color: var(--rd-up-accent);
+}
+
+.rdacademy-uploads__list-item-check:focus-visible {
+	outline: none;
+	box-shadow: var(--rd-up-focus-ring);
+}
+
+/* Riga gia' eliminata: casella spenta, coerente col cestino gia' spento. */
+.rdacademy-uploads__list-item-check[disabled] {
+	cursor: not-allowed;
+	opacity: 0.4;
+}
+
+/* La selezione si vede senza guardare le caselle. */
+.rdacademy-uploads__list-item.is-selected {
+	background: #eef5fc;
+}
+
+.rdacademy-uploads__list-item.is-selected .rdacademy-uploads__list-item-filename {
+	color: var(--rd-up-accent-hover);
+}
+
+/* §6 — l'esito per file. NON e' un toast: un elenco di nomi deve poter
+   essere RILETTO, e un toast sparisce da solo. */
+.rdacademy-uploads__list-report {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--rd-up-border);
+	background: #fbfbfc;
+	font-size: 13px;
+	position: relative;
+}
+
+.rdacademy-uploads__list-report b {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 13px;
+}
+
+.rdacademy-uploads__list-report ul {
+	margin: 0;
+	padding-left: 18px;
+}
+
+.rdacademy-uploads__list-report li {
+	margin: 2px 0;
+}
+
+.rdacademy-uploads__list-report .ko {
+	color: var(--rd-up-danger);
+}
+
+.rdacademy-uploads__list-report .ok {
+	color: var(--rd-up-success);
+}
+
+/* Mobile: i tre comandi si distribuiscono, lo stato va a capo. */
+@media (max-width: 640px) {
+	.rdacademy-uploads__list-bulk {
+		padding: 10px 12px;
+	}
+	.rdacademy-uploads__list-bulk-btn {
+		flex: 1 1 auto;
+		justify-content: center;
+		padding: 0 10px;
+	}
+	.rdacademy-uploads__list-bulk-state {
+		margin-left: 0;
+		flex: 1 1 100%;
+		order: 9;
+	}
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   S346-A — LA BARRA NON VIVE IN LETTURA  (RP-EDIT-ONLY-MUTATION)
+   3.24.02 — riparazione della regressione introdotta con BUG-116 in 3.24.00
+   e del difetto grafico introdotto dalla prima riparazione in 3.24.01.
+
+   Il gemello VIVO che gia' esisteva copriva il solo cestino di riga:
+       body[data-mode="detail"] .rdacademy-uploads__list-item-action--delete
+   I due elementi nati con la barra restavano scoperti. Qui prendono lo
+   stesso trattamento: il modo e' un attributo del <body> riscritto a
+   runtime, e il CSS lo segue da se'.
+
+   ⛔ NASCONDERE UN FIGLIO NON BASTA. La riga e' una griglia a colonne
+      FISSE: tolto un figlio dal flusso, i superstiti scalano a sinistra e
+      il corpo finisce nella colonna dell'icona. Ogni volta che si spegne un
+      figlio si RIDICHIARA il template sui figli che restano.
+      In lettura i figli visibili sono TRE: icona · corpo · scarica.
+   ⛔ Non e' un divieto di STATO: lo Stato funzionale resta un dato
+      (RP-NO-OPERATION-GATES). Questo e' il MODO, ed e' un'altra cosa.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+body[data-mode="detail"] .rdacademy-uploads__list-bulk {
+	display: none !important;
+}
+
+body[data-mode="detail"] .rdacademy-uploads__list-item-check {
+	display: none !important;
+}
+
+/* Tre figli visibili, tre colonne. Le misure sono quelle di prima di
+   BUG-116: la riga in lettura torna esattamente com'era. */
+body[data-mode="detail"] .rdacademy-uploads__list-item {
+	grid-template-columns: 32px 1fr auto;
+}
+
+@media (max-width: 480px) {
+	body[data-mode="detail"] .rdacademy-uploads__list-item {
+		grid-template-columns: 28px 1fr auto;
+	}
+}
+
+/* Una selezione fatta in modifica non deve tingere le righe in lettura:
+   sparita la casella, sparisce anche la sua traccia. */
+body[data-mode="detail"] .rdacademy-uploads__list-item.is-selected {
+	background: transparent;
+}
+
+body[data-mode="detail"] .rdacademy-uploads__list-item.is-selected .rdacademy-uploads__list-item-filename {
+	color: inherit;
+}
+
+/* ── NUOVO (lotto D): conferma DENTRO la riga, azioni raggruppate, errori che restano ── */
+.rdacademy-uploads__list-item-actions{display:flex;gap:4px;flex:none}
+.rdacademy-uploads .rdacademy-uploads__list-item{grid-template-columns:32px minmax(0,1fr) auto}
+.rdacademy-uploads .rdacademy-uploads__ask{grid-column:1/-1}
+@media (max-width:600px){.rdacademy-uploads .rdacademy-uploads__list-item{grid-template-columns:28px minmax(0,1fr) auto}}
+.rdacademy-uploads__ask{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;border:1px solid #FCA5A5;background:#FEF2F2;border-radius:8px;font-size:13px;color:#7F1D1D}
+.rdacademy-uploads__ask-text{flex:1 1 220px;min-width:0}
+.rdacademy-uploads__ask-yes,.rdacademy-uploads__ask-no{min-height:32px;padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid transparent}
+.rdacademy-uploads__ask-yes{background:#DC2626;color:#fff}
+.rdacademy-uploads__ask-yes:hover{background:#B91C1C}
+.rdacademy-uploads__ask-no{background:#fff;color:#374151;border-color:#D1D5DB}
+.rdacademy-uploads__list-error{color:#B91C1C}
+.rdacademy-uploads__toast{display:flex;align-items:flex-start;gap:8px}
+.rdacademy-uploads__toast-text{flex:1;min-width:0;user-select:text}
+.rdacademy-uploads__toast-close{background:none;border:0;font-size:18px;line-height:1;cursor:pointer;color:inherit;padding:0 4px}
