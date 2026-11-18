@@ -1,4 +1,4 @@
-<!-- REGISTRO VIOLAZIONI · 18/11/2026 F013 · aperti 0 · totale 2 · ultimi 7 giorni 2 · primo libero V-3 -->
+<!-- REGISTRO VIOLAZIONI · 18/11/2026 F013 · aperti 0 · totale 4 · ultimi 7 giorni 4 · primo libero V-5 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro VIOLAZIONI della Formazione
@@ -27,6 +27,22 @@ Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti dif
 - **Chi l ha vista**: l owner, 18/11/2026 15:07, chat Formazione F013: «La regola imposta è sempre delle 4 buste allineati con il capo famiglia le sorelle che genero codice devo rispettare questa regola»; «segnala come violazione».
 - **Rimedio**: la 0.1.02A si riconsegna come kit `KIT-RELDOXACADEMY-K0001-0_1_02A-F014.zip` (quattro buste, manifesto e prova di lettura nell APERTURA F014), composto e verificato da uno script del banco che va rosso se manca una busta; da qui ogni consegna di RelDoxAcademy è un kit.
 - **Classe**: forma della consegna non rispettata.
+- **Ripetizione**: prima della classe.
+
+### V-3 · 18/11/2026 · Formazione F013
+- **Regola violata**: REGOLE-FAMIGLIA v4 § 10 «Contesto»: autovalutazione in una riga a ogni consegna e al 70% ci si ferma e si compone il kit; SPEC-KIT-DI-CONSEGNA v1 § 0.
+- **Che cosa è successo**: in F013 ho fatto tre consegne (0.1.01A, 0.1.02A, kit K0001) senza mai la riga «Contesto: ~NN%» e ho continuato a lavorare oltre il 70% (stima alle 15:24: circa 80%), invece di fermarmi e comporre il kit.
+- **Chi l ha vista**: l owner, 18/11/2026 15:24, chat Formazione F013: «stai decadendo misura il tuo contesto sei oltre il 70% sei in violazione registra e aggiorna i file e dammi il nuovo prompt per la nuova chat».
+- **Rimedio**: fermo il lavoro; kit K0002 con l APERTURA F014 aggiornata e il prompt per la chat nuova. Da qui ogni consegna chiude con la riga «Contesto: ~NN% · soglia kit 70%».
+- **Classe**: contesto non misurato.
+- **Ripetizione**: prima della classe.
+
+### V-4 · 18/11/2026 · Formazione F013
+- **Regola violata**: `CLAUDE.md` «Regole di sempre»: solo italiano; preferenza dell owner: mai scrivere in inglese, nemmeno nel riepilogo finale.
+- **Che cosa è successo**: la risposta delle 15:22 sulla pagina di accesso senza grafica l ho scritta in inglese.
+- **Chi l ha vista**: Claude, rileggendo la conversazione alle 15:24 (conseguenza dello stesso decadimento di V-3).
+- **Rimedio**: risposta di nuovo in italiano; la sessione si chiude e si passa alla chat nuova.
+- **Classe**: lingua.
 - **Ripetizione**: prima della classe.
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
