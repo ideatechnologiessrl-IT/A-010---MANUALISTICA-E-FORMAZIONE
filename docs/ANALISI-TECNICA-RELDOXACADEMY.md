@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 10 · F009 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 11 · F011 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 11 | Formazione F011 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-e-143.php` (TIENI nell allegato A) ha tre rami della mensa — l approdo dell amministratore su `pasti` o `mio-codice` (dietro `class_exists`, classi TOLTE), il rinvio vivo di `tabelle?tab=invii` verso la pagina `invii` (TOLTA) e il controllo dello Stato del sistema che legge la pagina `pasti` (nell Academy non c è: misurerebbe una pagina inesistente) → **TIENI, ridotto** nell allegato A: tolti i due rami, il controllo legge `preferenze` (pagina `auth` del Setup, per chi non è collegato un rinvio come prima); restano le sei difese e i rami dell integratore, come nell instradatore già copiato |
 | 10 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-tf-registry.php` (TIENI nell allegato A) dichiara fra le fonti delle Tabelle Funzionali `tf_invii_registro` (destinatari del registro mensile dei pasti; `Rdfood_Invii` TOLTA): nell Academy la tabella non c è e `verifica()` del registro sarebbe ROSSA → **TIENI, ridotto** nell allegato A: resta solo `tf_testi_notifiche` |
 | 9 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-impostazioni.php` (TIENI nell allegato A) ha nel salvataggio i rami della ristorazione dietro `class_exists` — Santo Patrono e festività del servizio (`Rdfood_Servizio`, TOLTA), recapiti della pagina personale (`Rdfood_Codice`, TOLTA) — e la porta propria della cartella dati (`datiftp_*`, TOLTA) → **TIENI, ridotto** nell allegato A, come per `preferenze.php` (ed. 5) |
 | 8 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-utenti.php` (TIENI nell allegato A) in `login_libero()` interroga **senza condizione** la tabella `persone` della mensa (username già usato come nome utente di una scheda): nell Academy la tabella non c è e ogni salvataggio di un utente con username finirebbe in «Errore DB»; in più due rami della ristorazione dietro `class_exists` (email condivisa, classe TOLTA; nome utente della scheda della mensa) → **TIENI, ridotto** nell allegato A |
@@ -448,7 +449,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/carico-e-1220.php` | 35 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-1230.php` | 44 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-140.php` | 216 | TOGLI | ristorazione |
-| `reldoxfood/includes/carico-e-143.php` | 274 | TIENI | indipendenza dalla cache dell hosting (generico); passa nel carico dell Academy |
+| `reldoxfood/includes/carico-e-143.php` | 274 | TIENI, ridotto | indipendenza dalla cache dell hosting (generico); passa nel carico dell Academy; tolti l approdo dell amministratore su pasti e codice e il rinvio degli invii, il controllo dello Stato del sistema legge `preferenze` invece di `pasti` — ed. 11 |
 | `reldoxfood/includes/carico-e-144.php` | 48 | TIENI | pagina del registro delle spedizioni |
 | `reldoxfood/includes/carico-e-150.php` | 99 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-160.php` | 81 | TOGLI | ristorazione |
