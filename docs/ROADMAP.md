@@ -1,8 +1,9 @@
+<!-- REGISTRO PUNTI APERTI · 18/11/2026 F009 · aperti 21 · primo libero F26 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Roadmap della Manualistica e formazione
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Aggiornata 15/11/2026, Formazione F001. Le voci nuove vanno in coda; la priorità la decide l owner. Una cosa alla volta: prima di un materiale nuovo, il suo indice all owner.
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Aggiornata 15/11/2026, Formazione F001; dal 18/11/2026 (F009) è anche il registro **PUNTI APERTI** della chat (SPEC-REGISTRI v2 § 2: «oppure è la roadmap stessa»): aperte tutte le voci tranne F1, F2, F16, F20. Le voci nuove vanno in coda; la priorità la decide l owner. Una cosa alla volta: prima di un materiale nuovo, il suo indice all owner.
 
 | n. | voce | da dove nasce | stato |
 |---|---|---|---|
@@ -32,3 +33,4 @@
 | F22 | **reldoxacademy.it**: la pagina di attesa del Marketing (Iris, piede legale) si toglie o diventa l entrata dell Academy quando la 0.1.01A va in produzione; dirlo al Marketing. Da ora i materiali di formazione che arrivano al Marketing li gira a noi | Marketing S145, 17/11/2026 (`2026-11-17-a-formazione-manuali-e-corsi-ad-academy.md`); owner 17/11/2026 12:38, chat Marketing S145 | all entrata in produzione della 0.1.01A; il tempo dello spostamento dei manuali nei plugin lo chiarisce il capo famiglia con l owner |
 | F23 | **Manuale Amministratore di RelDoxFood, capitolo 2** sulla 1.24.11L: pannello di dieci pulsanti con «Modifica» e pastiglia di stato, «Diritto alla mensa» in Impostazioni → Azienda; poi indicare a RelDoxFood la pagina «Documentazione» da copiare | risposta di RelDoxFood S128, 17/11/2026 (`2026-11-17-a-formazione-manuale-amministratore-impostazioni.md`) | dopo l avvio di RelDoxAcademy (D26); oppure prima, se l owner lo chiede |
 | F24 | **Manuali di RelDoxChecks passati alla Formazione** (RelDoxChecks S63, 17/11/2026: risposte all inventario e passaggio di consegne): otto testi in `reldoxchecks/docs-content/` (10-80, compreso il manuale integratori; la SPEC d integrazione resta a loro), immagini WebP con dati di fantasia, PDF rigenerati da loro alla versione che indichiamo. Si usano solo le edizioni in produzione (`main` 1.3.02A), mai quelle del ramo 1.3.03A senza scheda in `novita/`. Fili aperti: voce 219 (capitolo nuovo, ci scrivono col codice) e voce 230 (manuali verso RelDoxAcademy). Per D28 restano nel plugin finché l Academy non funziona; entrano come materiali nel blocco M | da fare |
+| F25 | **RelDoxChecks, voce 219**: capitolo nuovo sulla precompilazione nei manuali MASTER, Redattore, Certificatore e Integratori della 1.3.03A (scene A-H del mockup v2), più la parte del fornitore se facciamo la sua guida | `bacheca/reldoxchecks/messaggi/2026-11-18-a-formazione-precompilazione-219.md`; ricevuto dalla lettura automatica del 18/11 | candidata: si scrive dopo lo smoke verde della 1.3.03A e la sua scheda in `novita/reldoxchecks.md`; foto dal nostro palco con dati di fantasia |

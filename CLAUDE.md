@@ -11,6 +11,16 @@ Questo repository è della chat **Manualistica e formazione** della famiglia Rel
 2. Aggancia il nodo `ideatechnologiessrl-IT/RelDox-Famiglia` (prima `git fetch --depth=200 origin main`) e segui il suo `CLAUDE.md`: ⛔ **`python3 strumenti/apertura-nodo.py --prodotto formazione`** (lettura dei messaggi, risposte, `--segna`; alla chiusura `--chiusura` deve essere VERDE).
 3. Leggi `prodotti.md`, la mappa `MAPPA-FAMIGLIA-RELDOX.html` e la SPEC della chat in `spec/`.
 
+## ⛔ I quattro registri (SPEC-REGISTRI v2 del nodo, dal 18/11/2026 F009)
+| registro | file |
+|---|---|
+| BUG | `docs/BUG-FORMAZIONE.md` |
+| PUNTI APERTI | `docs/ROADMAP.md` (la roadmap stessa, voci F<n>) |
+| VIOLAZIONI | `docs/VIOLAZIONI-FORMAZIONE.md` |
+| FALLIMENTI | `docs/FALLIMENTI-FORMAZIONE.md` |
+
+Si leggono all apertura (regole dei fallimenti, ultime 5 violazioni, bug aperti, voci aperte) e lo si dice all owner in una riga «Registri letti: …»; si scrivono **subito**, nello stesso commit del primo gesto; nessuna scheda si cancella; la riga di testa di ogni registro e la riga «Registri: …» in testa a `bacheca/formazione/STATO.md` del nodo si aggiornano a ogni cambio. *(owner 17/11/2026 18:35, chat RelDox CRD S714)*
+
 ## Dove sta ogni cosa
 | cartella | contenuto |
 |---|---|
