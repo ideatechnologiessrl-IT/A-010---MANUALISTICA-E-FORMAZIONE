@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 14 · F012 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 15 · F012 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 15 | Formazione F012 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `public/js/app.js` (TIENI nell allegato A) ha il ramo «Entra come…» (`mostraProfili`, `nascondiProfili`, risposta `scegli` col `profilo`), già segnalato in F008 con l instradatore: l email condivisa e il parametro `$profilo` sono tolti, il contenitore `rx-login-profili` pure (ed. 14) → **TIENI, ridotto** nell allegato A |
 | 14 | Formazione F012 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `public/views/login.php` (TIENI nell allegato A) ha il contenitore del ramo «Entra come…» (`rx-login-profili`, la stessa email su due profili: l email condivisa non c è nell Academy) e il collegamento «Come si usa» verso `/manuali` (le pagine dei manuali dei ruoli non si copiano, `carico-e-190` RIFAI) → **TIENI, ridotto** nell allegato A: tolti i due rami; la chiave `login.come_si_usa` resta nel gestore delle lingue senza chi la usa finché la porta non avrà il suo collegamento ai corsi |
 | 13 | Formazione F011 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-e/class-rdfood-spedizioni.php` (TIENI) in `persona_di()` interroga **senza condizione** la tabella `persone` della mensa a ogni mail registrata (nell Academy la query lancia e la riga della spedizione si perde); legge `persone` anche nell importazione una tantum dal registro attività (spedizioni anteriori alla 1.4.4B del prodotto di partenza) e nel filtro per scheda dell elenco; ha i tipi della mensa (fogli stampati, registro e report dei pasti, FUZZYCode, codice personale, bacheca, contratto di licenza), l esito «stampato» e il metodo `stampa()` del foglio di accesso (TOLTO) → **TIENI, ridotto**: niente `persone`, niente importazione, niente foglio stampato; la tabella resta uguale (colonne della persona vuote) |
 | 12 | Formazione F011 · 18/11/2026 | differenze trovate nella lettura riga per riga del blocco G: `includes/carico-e-144.php` (TIENI) aggancia il controllo dei rifiuti all evento del pianificatore degli invii del registro dei pasti (`Rdfood_Invii::EVENTO`, classe TOLTA: errore fatale) → **TIENI, ridotto**: niente aggancio, i rifiuti si controllano col pulsante «Controlla i rifiuti» (nella copia non c è un pianificatore); il carico registra la pagina `spedizioni`, «la pagina del registro delle spedizioni» che l allegato tiene, ma la vista `public/views/spedizioni.php` era TOGLI per il solo nome della persona letto dalla tabella `persone` della mensa → **TIENI, ridotto**: il nome si legge dagli utenti; si legge per intero al suo turno |
@@ -602,7 +603,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/public/img/logo/reldox-symbol-mono.svg` | 18 | RIFAI | marchio Academy da risorse/logo-academy/ |
 | `reldoxfood/public/img/logo/reldox-symbol.png` | — | RIFAI | marchio Academy da risorse/logo-academy/ |
 | `reldoxfood/public/img/logo/reldoxfood-lockup.png` | — | RIFAI | marchio Academy da risorse/logo-academy/ |
-| `reldoxfood/public/js/app.js` | 169 | TIENI |  |
+| `reldoxfood/public/js/app.js` | 169 | TIENI, ridotto | tolto il ramo «Entra come…» (stessa email su due profili: l email condivisa è tolta, la porta non risponde più «scegli») — ed. 15 |
 | `reldoxfood/public/js/rdfood-cassa.js` | 260 | TOGLI | ristorazione |
 | `reldoxfood/public/js/rdfood-fuzzy.js` | 755 | TOGLI | ristorazione |
 | `reldoxfood/public/js/rdfood-galleria.js` | 158 | TOGLI | ristorazione |
