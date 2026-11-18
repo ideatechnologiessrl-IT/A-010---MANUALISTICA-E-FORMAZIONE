@@ -108,6 +108,7 @@ final class Rdacademy_Lingua {
 		'login.dimenticata'  => array( 'Password dimenticata?', 'Forgot your password?', 'Passwort vergessen?' ),
 		'login.problemi'     => array( 'Hai problemi di accesso? Contatta l’amministratore del sistema.', 'Trouble signing in? Contact your system administrator.', 'Probleme bei der Anmeldung? Wenden Sie sich an den Systemadministrator.' ),
 		'login.come_si_usa'  => array( 'Come si usa', 'How it works', 'So funktioniert es' ),
+		'catalogo.voce'      => array( 'Catalogo', 'Catalogue', 'Katalog' ),   // F011 — la voce del rail del catalogo dei corsi (carico-e-190)
 		'manuali.titolo'     => array( 'Come si usa', 'How it works', 'So funktioniert es' ),
 		'manuali.voce'       => array( 'Manuale', 'Manual', 'Handbuch' ),
 		'manuali.voce_piu'   => array( 'Manuali', 'Manuals', 'Handbücher' ),
