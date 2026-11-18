@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 11 · F011 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 12 · F011 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 12 | Formazione F011 · 18/11/2026 | differenze trovate nella lettura riga per riga del blocco G: `includes/carico-e-144.php` (TIENI) aggancia il controllo dei rifiuti all evento del pianificatore degli invii del registro dei pasti (`Rdfood_Invii::EVENTO`, classe TOLTA: errore fatale) → **TIENI, ridotto**: niente aggancio, i rifiuti si controllano col pulsante «Controlla i rifiuti» (nella copia non c è un pianificatore); il carico registra la pagina `spedizioni`, «la pagina del registro delle spedizioni» che l allegato tiene, ma la vista `public/views/spedizioni.php` era TOGLI per il solo nome della persona letto dalla tabella `persone` della mensa → **TIENI, ridotto**: il nome si legge dagli utenti; si legge per intero al suo turno |
 | 11 | Formazione F011 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-e-143.php` (TIENI nell allegato A) ha tre rami della mensa — l approdo dell amministratore su `pasti` o `mio-codice` (dietro `class_exists`, classi TOLTE), il rinvio vivo di `tabelle?tab=invii` verso la pagina `invii` (TOLTA) e il controllo dello Stato del sistema che legge la pagina `pasti` (nell Academy non c è: misurerebbe una pagina inesistente) → **TIENI, ridotto** nell allegato A: tolti i due rami, il controllo legge `preferenze` (pagina `auth` del Setup, per chi non è collegato un rinvio come prima); restano le sei difese e i rami dell integratore, come nell instradatore già copiato |
 | 10 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-tf-registry.php` (TIENI nell allegato A) dichiara fra le fonti delle Tabelle Funzionali `tf_invii_registro` (destinatari del registro mensile dei pasti; `Rdfood_Invii` TOLTA): nell Academy la tabella non c è e `verifica()` del registro sarebbe ROSSA → **TIENI, ridotto** nell allegato A: resta solo `tf_testi_notifiche` |
 | 9 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-impostazioni.php` (TIENI nell allegato A) ha nel salvataggio i rami della ristorazione dietro `class_exists` — Santo Patrono e festività del servizio (`Rdfood_Servizio`, TOLTA), recapiti della pagina personale (`Rdfood_Codice`, TOLTA) — e la porta propria della cartella dati (`datiftp_*`, TOLTA) → **TIENI, ridotto** nell allegato A, come per `preferenze.php` (ed. 5) |
@@ -450,7 +451,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/carico-e-1230.php` | 44 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-140.php` | 216 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-143.php` | 274 | TIENI, ridotto | indipendenza dalla cache dell hosting (generico); passa nel carico dell Academy; tolti l approdo dell amministratore su pasti e codice e il rinvio degli invii, il controllo dello Stato del sistema legge `preferenze` invece di `pasti` — ed. 11 |
-| `reldoxfood/includes/carico-e-144.php` | 48 | TIENI | pagina del registro delle spedizioni |
+| `reldoxfood/includes/carico-e-144.php` | 48 | TIENI, ridotto | pagina del registro delle spedizioni; tolto l aggancio al pianificatore degli invii del registro (classe TOLTA): i rifiuti col pulsante — ed. 12 |
 | `reldoxfood/includes/carico-e-150.php` | 99 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-160.php` | 81 | TOGLI | ristorazione |
 | `reldoxfood/includes/carico-e-183.php` | 31 | TOGLI | ristorazione |
@@ -648,7 +649,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/public/views/scheda-persona.php` | 1421 | TOGLI | ristorazione |
 | `reldoxfood/public/views/scheda-ristoratore-1241.php` | 268 | TOGLI | ristorazione |
 | `reldoxfood/public/views/scheda-utente-1243.php` | 363 | TIENI |  |
-| `reldoxfood/public/views/spedizioni.php` | 95 | TOGLI | ristorazione |
+| `reldoxfood/public/views/spedizioni.php` | 95 | TIENI, ridotto | la pagina del registro delle spedizioni (carico-e-144); il nome della persona non si legge più dalla tabella `persone` della mensa — ed. 12 |
 | `reldoxfood/public/views/statistiche.php` | 328 | TOGLI | ristorazione |
 | `reldoxfood/public/views/tabelle-funzionali.php` | 327 | TIENI |  |
 | `reldoxfood/public/views/tf-barra.php` | 44 | TIENI |  |
