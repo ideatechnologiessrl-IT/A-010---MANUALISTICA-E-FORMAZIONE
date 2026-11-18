@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 8 · F009 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 9 · F009 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 9 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-impostazioni.php` (TIENI nell allegato A) ha nel salvataggio i rami della ristorazione dietro `class_exists` — Santo Patrono e festività del servizio (`Rdfood_Servizio`, TOLTA), recapiti della pagina personale (`Rdfood_Codice`, TOLTA) — e la porta propria della cartella dati (`datiftp_*`, TOLTA) → **TIENI, ridotto** nell allegato A, come per `preferenze.php` (ed. 5) |
 | 8 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-utenti.php` (TIENI nell allegato A) in `login_libero()` interroga **senza condizione** la tabella `persone` della mensa (username già usato come nome utente di una scheda): nell Academy la tabella non c è e ogni salvataggio di un utente con username finirebbe in «Errore DB»; in più due rami della ristorazione dietro `class_exists` (email condivisa, classe TOLTA; nome utente della scheda della mensa) → **TIENI, ridotto** nell allegato A |
 | 7 | Formazione F008 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-b.php` (TIENI nell allegato A) richiede in modo fisso i cinque file della licenza da firmare (`license/`, TOLTI) e avvia `Rdfood_License_Admin` → **TIENI, ridotto** nell allegato A, come già diceva il § dei carichi («senza la licenza da firmare»): restano Stato sistema, ancora di licenza (solo il dominio), Documentazione, Primo accesso |
 | 6 | Formazione F007 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/security/class-rdfood-password-token.php` ha lo scopo `f` del foglio di accesso stampato (classe `Rdfood_Foglio_Accesso`, TOLTA; chiamata dietro `class_exists`) → **TIENI, ridotto** nell allegato A: restano gli scopi invito e reimpostazione |
@@ -491,7 +492,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/license/class-rdfood-license-validate.php` | 183 | TOGLI | contratto di licenza da firmare e sua pagina (SPEC § 2.5) |
 | `reldoxfood/includes/license/class-rdfood-license.php` | 814 | TOGLI | contratto di licenza da firmare e sua pagina (SPEC § 2.5) |
 | `reldoxfood/includes/lotto-c/class-rdfood-area-tecnica.php` | 468 | TIENI |  |
-| `reldoxfood/includes/lotto-c/class-rdfood-impostazioni.php` | 572 | TIENI |  |
+| `reldoxfood/includes/lotto-c/class-rdfood-impostazioni.php` | 572 | TIENI, ridotto | tolti i rami di `Rdfood_Servizio` (Santo Patrono, festività) e di `Rdfood_Codice` (recapiti) e la porta propria `datiftp_*` della cartella dati — ed. 9 |
 | `reldoxfood/includes/lotto-c/class-rdfood-me.php` | 175 | TIENI |  |
 | `reldoxfood/includes/lotto-c/class-rdfood-schema-c.php` | 91 | TIENI |  |
 | `reldoxfood/includes/lotto-c/class-rdfood-tf-admin-rest.php` | 101 | TIENI |  |
