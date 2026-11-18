@@ -1,11 +1,11 @@
 /* RelDoxAcademy — «METTI L'ICONA SUL TELEFONO».
- *  - Registra il service worker minimo (/food/sw.js): senza, Chrome per Android non offre «Installa».
+ *  - Registra il service worker minimo (/academy/sw.js): senza, Chrome per Android non offre «Installa».
  *  - Android/Chrome: se il telefono offre l'installazione (beforeinstallprompt) il tocco apre direttamente la finestra del
  *    sistema; altrimenti si apre il riquadro con la spiegazione giusta per il telefono (iPhone in Safari, iPhone in un altro
  *    browser, Android, computer).
  *  - App già aperta dall'icona (display-mode standalone, navigator.standalone): la riga non c'è.
  *  - Con data-solo-installa: il pulsante compare solo quando l'installazione diretta è possibile.
- *  - /food/#icona (voce «Icona sul telefono» del menu) apre il riquadro.
+ *  - /academy/#icona (voce «Icona sul telefono» del menu) apre il riquadro.
  * Nessuna dipendenza. */
 (function () {
     'use strict';

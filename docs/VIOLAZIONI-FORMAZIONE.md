@@ -1,4 +1,4 @@
-<!-- REGISTRO VIOLAZIONI · 18/11/2026 F009 · aperti 0 · primo libero V-1 -->
+<!-- REGISTRO VIOLAZIONI · 18/11/2026 F012 · aperti 0 · totale 1 · ultimi 7 giorni 1 · primo libero V-2 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro VIOLAZIONI della Formazione
@@ -12,5 +12,13 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 ## Schede
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
+
+### V-1 · 18/11/2026 · Formazione F012
+- **Regola violata**: APERTURA F012 § 11 e § 01 punto 1 — «dopo ogni file il banco: G0 e G1 restano verdi»; si pubblica solo col banco verde.
+- **Che cosa è successo**: copiando `public/js/rdfood-icona.js` il banco è stato lanciato nella stessa catena del commit e del push; G1 era ROSSO (due `/food/` nei commenti, righe 2 e 8) e il commit `b0684b5` è andato su `main` lo stesso, perché il comando che mostrava l esito non fermava la catena.
+- **Chi l ha vista**: Claude, leggendo l esito subito dopo il push.
+- **Rimedio**: i due commenti corretti in `/academy/`, banco G0 e G1 verdi, commit di correzione con questa scheda. Da qui il banco si lancia **da solo**, si legge l esito e solo dopo si pubblica.
+- **Classe**: banco non rispettato prima della pubblicazione.
+- **Ripetizione**: prima della classe.
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
