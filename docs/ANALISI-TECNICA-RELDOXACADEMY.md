@@ -4,10 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale.
 
-**Edizione 7 · F008 · 17/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
+**Edizione 8 · F009 · 18/11/2026 · nessun pacchetto (base: RelDoxFood 1.24.11L, `main` 5e4a40c)**
 
 | edizione | sessione · data | che cosa cambia |
 |---|---|---|
+| 8 | Formazione F009 · 18/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/lotto-c/class-rdfood-utenti.php` (TIENI nell allegato A) in `login_libero()` interroga **senza condizione** la tabella `persone` della mensa (username già usato come nome utente di una scheda): nell Academy la tabella non c è e ogni salvataggio di un utente con username finirebbe in «Errore DB»; in più due rami della ristorazione dietro `class_exists` (email condivisa, classe TOLTA; nome utente della scheda della mensa) → **TIENI, ridotto** nell allegato A |
 | 7 | Formazione F008 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/carico-b.php` (TIENI nell allegato A) richiede in modo fisso i cinque file della licenza da firmare (`license/`, TOLTI) e avvia `Rdfood_License_Admin` → **TIENI, ridotto** nell allegato A, come già diceva il § dei carichi («senza la licenza da firmare»): restano Stato sistema, ancora di licenza (solo il dominio), Documentazione, Primo accesso |
 | 6 | Formazione F007 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `includes/security/class-rdfood-password-token.php` ha lo scopo `f` del foglio di accesso stampato (classe `Rdfood_Foglio_Accesso`, TOLTA; chiamata dietro `class_exists`) → **TIENI, ridotto** nell allegato A: restano gli scopi invito e reimpostazione |
 | 5 | Formazione F006 · 17/11/2026 | differenza trovata nella lettura riga per riga del blocco G: `public/views/preferenze.php` ha il ramo «I miei dati» del ristoratore (dietro `class_exists`) → **TIENI, ridotto** nell allegato A; domanda 3 del § 15 chiusa (D31: mail di servizio `academy@reldox.it`) |
@@ -495,7 +496,7 @@ Riferimenti: RelDoxFood `main` 1.24.11L (5e4a40c) · `docs/SPEC-RELDOXACADEMY-v1
 | `reldoxfood/includes/lotto-c/class-rdfood-schema-c.php` | 91 | TIENI |  |
 | `reldoxfood/includes/lotto-c/class-rdfood-tf-admin-rest.php` | 101 | TIENI |  |
 | `reldoxfood/includes/lotto-c/class-rdfood-tf-registry.php` | 390 | TIENI |  |
-| `reldoxfood/includes/lotto-c/class-rdfood-utenti.php` | 601 | TIENI |  |
+| `reldoxfood/includes/lotto-c/class-rdfood-utenti.php` | 601 | TIENI, ridotto | tolti il controllo dello username sulla tabella `persone` della mensa (senza condizione: errore DB nell Academy), il ramo dell email condivisa e quello del nome utente della scheda — ed. 8 |
 | `reldoxfood/includes/lotto-d/class-rdfood-database.php` | 523 | TIENI |  |
 | `reldoxfood/includes/lotto-d/class-rdfood-datasource.php` | 404 | TIENI |  |
 | `reldoxfood/includes/lotto-d/class-rdfood-dimensioni.php` | 64 | TIENI |  |
