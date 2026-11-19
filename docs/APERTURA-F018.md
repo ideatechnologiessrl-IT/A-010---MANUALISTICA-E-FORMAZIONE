@@ -117,18 +117,18 @@ F017 (19/11/2026), tutto in `main`. **Pacchetto nuovo: 0.1.06A** (`reldox-academ
 - **0.1.06A** (`reldox-academy-0_1_06.zip`, busta 1): «Stato e assistenza» e «Copia configurazione» nella riga del plugin (voce **F17**, regola di famiglia del 16/11/2026; modello RelDox CRD 3.75.08G). Autore del plugin con la ragione sociale. Banco `banco/F017-banco-riga-plugin.py`: ROSSO sulla 0.1.05A, VERDE 8 su 8; Stato sistema ancora 34 su 34; conformità grafica CONFORME.
 - **Al capo famiglia** (`bacheca/formazione/messaggi/2026-11-19-a-reldox-crd-stato-sistema-modello.md`, aperto): la Stato sistema del CRD è il modello? E le emoji nei suoi titoli. Senza risposta alle 17:28. L owner chiede di seguire le specifiche del capo famiglia (17:28): oltre alla riga del plugin, la prossima è la riga «Indurimento: n su 18» (F32).
 - **Letto** RelDoxPortal: inventario e passaggio della guida «Come si attiva» del Report DMARC (richiesta chiusa); RelDoxPortal entra in testing-live (informativo).
-- **Registri**: BUG 0/5 · punti aperti 28 (F17 consegnata 0.1.06A) · violazioni 5 · fallimenti 3.
+- **Registri**: BUG 0/5 · punti aperti 27 (F17 chiusa con lo smoke delle 18:34, voci chiuse in `docs/PUNTI-CHIUSI-FORMAZIONE.md`) · violazioni 6 (V-6: stelle incomplete, 18:14) · fallimenti 3.
 
 ## §01 — CHE COSA FARE, IN ORDINE
 0. Manifesto, prova di lettura, apertura del nodo, registri letti in una riga.
-1. Esito della 0.1.06A dall owner sul sito: con il suo ok si chiude F17, citando le sue parole, e si aggiornano `prodotti.md` e `novita/`.
+1. La 0.1.06A è in `main` (smoke verde 19/11/2026 18:34, D36; F17 chiusa, nodo aggiornato): niente da collaudare.
 2. Risposta del capo famiglia sulla Stato sistema: si legge e si allinea se serve. Poi F32, riga «Indurimento: n su 18».
 3. Poi il pannello dopo l ingresso nella grafica nuova. A ogni consegna «Contesto: ~NN% · soglia kit 70%».
 
 ## §11 — PROMPT PER LA SESSIONE F018
 > Repository `ideatechnologiessrl-IT/A-010---MANUALISTICA-E-FORMAZIONE`, ramo `main`: leggi `CLAUDE.md` e `docs/APERTURA-F018.md`, confronta il manifesto e rispondi alla prova di lettura.
 > Aggancia il nodo `RelDox-Famiglia` e fai l apertura.
-> Chiedimi l esito della 0.1.06A sul sito; con il mio ok chiudi la voce consegnata e aggiorna il nodo.
+> Leggi la risposta del capo famiglia sulla Stato sistema, poi la riga «Indurimento: n su 18».
 > Consegna come kit a quattro buste, ogni voce nuova con le sue stelle. Riga del contesto a ogni consegna; al 70% fermati e componi il kit.
 > Solo italiano, rapporti brevi.
 

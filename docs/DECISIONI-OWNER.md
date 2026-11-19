@@ -7,6 +7,7 @@
 ## F017 · 19/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|
+| D36 | Esito della 0.1.06A su reldoxacademy.it | configurazione incollata e *«riga plugin»* | 18:34 | 0.1.06A in `main`: F17 chiusa e passata in `PUNTI-CHIUSI-FORMAZIONE.md`; `prodotti.md` e `novita/reldoxacademy.md` aggiornati |
 | D35 | Esito della 0.1.05A su reldoxacademy.it | *«smoke ok ma manca il copia configurazione fuori nella lista dei plugin. adeguati sullo stato sistema sulla base delle specifiche che dice il capo famiglia»* | 17:28 | prima unione in `main` di RelDoxAcademy (0.1.05A): BUG-1, BUG-2, BUG-3 e F33 chiusi; riga in `prodotti.md`, schede in `novita/reldoxacademy.md`; la voce F17 (regola di famiglia del 16/11: «Stato e assistenza» e «Copia configurazione» nella riga del plugin) entra nella 0.1.06A |
 | D34 | Pulsante «Installa» nella barra del browser su reldoxacademy.it (app installabile ereditata da RelDoxFood: manifesto e service worker) | *«togliamola in questo caso non ci serve averla sul phone mi sembra eccessivo»* (chat Formazione F017) | 16:35 | voce F33: al prossimo pacchetto si tolgono manifesto, `sw.js`, la registrazione in `rdacademy-icona.js` e le righe in `layout.php`; niente `sw.js` di passaggio: l unico browser che l ha registrato è quello dell owner (16:40, chat Formazione F017: *«solo io ... uindi nessun problema»*), che lo toglie a mano una volta |
 
