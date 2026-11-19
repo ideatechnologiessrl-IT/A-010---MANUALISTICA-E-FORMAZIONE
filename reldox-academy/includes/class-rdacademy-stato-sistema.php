@@ -236,24 +236,7 @@ final class Rdacademy_Stato_Sistema {
 		$primo = admin_url( 'admin.php?page=' . Rdacademy_Accesso_Emergenza::PAGE_SLUG );
 		?>
 		<div class="wrap reldox-admin-wrap rdacademy-stato">
-			<style>
-			.rdacademy-stato{max-width:1120px}
-			.rdacademy-stato .rdacademy-testata{display:block;padding:24px 32px}
-			.rdacademy-stato .rdacademy-testata-logo{display:block;width:auto;height:64px;max-width:100%;margin:0 0 18px;object-fit:contain;object-position:left center}
-			.rdacademy-stato .rdacademy-testata h1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 6px;padding:0}
-			.rdacademy-stato .rdacademy-testata .reldox-version{margin-left:4px}
-			.rdacademy-stato .reldox-status-card .card-icon{font-size:28px;line-height:1;margin-bottom:8px}
-			.rdacademy-stato .reldox-stage{display:inline-block;padding:3px 10px;background:#2d4a7c;color:#fff;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:.3px}
-			.rdacademy-stato .rdacademy-copia-h{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-			.rdacademy-stato .rdacademy-copia-btn{display:inline-flex;align-items:center;gap:6px}
-			.rdacademy-stato .rdacademy-copia-ok{color:#15803d;font-size:12px;font-weight:600;visibility:hidden}
-			.rdacademy-stato .rdacademy-copia-ko{color:#b91c1c;font-size:12px;font-weight:600}
-			.rdacademy-stato .reldox-info-table{table-layout:auto}
-			.rdacademy-stato .reldox-info-table td{overflow-wrap:anywhere}
-			.rdacademy-stato .rdacademy-muted{color:#646970;font-size:12px}
-			.rdacademy-stato .rdacademy-scroll{overflow-x:auto}
-			@media (max-width:600px){.rdacademy-stato .reldox-status-grid{grid-template-columns:1fr 1fr;gap:10px}.rdacademy-stato .reldox-info-table td:first-child{width:auto}.rdacademy-stato .rdacademy-testata{padding:18px}.rdacademy-stato .rdacademy-testata-logo{height:48px}}
-			</style>
+			<?php /* 0.1.04A (BUG-2) — l aspetto sta in admin/css/admin.css, dopo il foglio comune (SPEC-GRAFICA-RELDOX-v5 § 14). */ ?>
 			<?php /* 0.8.10A (RF-BUG-026, owner 08/10 18:58) — LA TESTATA COME RELDOX: gli avvisi di WordPress vanno SOPRA (wp-header-end:
 			         senza, WordPress li infila dopo il primo h1, cioè dentro la testata blu); in testa il LOGO VERO del prodotto, sotto il
 			         nome con le pillole della versione e dello stadio, poi il sottotitolo. Riquadri con l'icona sopra la scritta. */ ?>
@@ -273,25 +256,25 @@ final class Rdacademy_Stato_Sistema {
 
 			<div class="reldox-status-grid">
 				<div class="reldox-status-card <?php echo $d['db_connected'] ? 'ok' : 'error'; ?>">
-					<div class="card-icon" aria-hidden="true"><?php echo $d['db_connected'] ? '✅' : '❌'; ?></div>
+					<div class="card-icon" aria-hidden="true"><?php echo rdacademy_icona( $d['db_connected'] ? 'cilindro' : 'triangolo' ); ?></div>
 					<div class="card-title">Database BASE</div>
 					<div class="card-value"><?php echo $d['db_connected'] ? 'Connesso' : 'Errore connessione'; ?></div>
 					<div class="card-sub"><?php echo esc_html( defined( 'RDACADEMY_DB_NAME' ) ? RDACADEMY_DB_NAME : '—' ); ?></div>
 				</div>
 				<div class="reldox-status-card <?php echo $d['tables_ok'] ? 'ok' : 'error'; ?>">
-					<div class="card-icon" aria-hidden="true"><?php echo $d['tables_ok'] ? '✅' : '❌'; ?></div>
+					<div class="card-icon" aria-hidden="true"><?php echo rdacademy_icona( $d['tables_ok'] ? 'tabella' : 'triangolo' ); ?></div>
 					<div class="card-title">Tabelle DB</div>
 					<div class="card-value"><?php echo $d['tables_ok'] ? 'Installate' : 'Mancanti'; ?></div>
 					<div class="card-sub"><?php echo (int) $d['tables_n']; ?> tabelle richieste<?php echo $d['tables_miss'] ? ' — mancano: ' . esc_html( implode( ', ', $d['tables_miss'] ) ) : ''; ?></div>
 				</div>
 				<div class="reldox-status-card <?php echo $d['user_count'] === null ? 'error' : 'ok'; ?>">
-					<div class="card-icon" aria-hidden="true"><?php echo $d['user_count'] !== null ? '👥' : '❌'; ?></div>
+					<div class="card-icon" aria-hidden="true"><?php echo rdacademy_icona( $d['user_count'] !== null ? 'persone' : 'triangolo' ); ?></div>
 					<div class="card-title">Utenti</div>
 					<div class="card-value"><?php echo esc_html( $n( $d['user_count'] ) ); ?></div>
 					<div class="card-sub">Registrati nel prodotto</div>
 				</div>
 				<div class="reldox-status-card <?php echo $d['access_count'] === null ? 'error' : 'ok'; ?>">
-					<div class="card-icon" aria-hidden="true"><?php echo $d['access_count'] !== null ? '🔐' : '❌'; ?></div>
+					<div class="card-icon" aria-hidden="true"><?php echo rdacademy_icona( $d['access_count'] !== null ? 'lucchetto' : 'triangolo' ); ?></div>
 					<div class="card-title">Accessi</div>
 					<div class="card-value"><?php echo esc_html( $n( $d['access_count'] ) ); ?></div>
 					<div class="card-sub">Registrati nel Log accessi</div>
@@ -303,7 +286,7 @@ final class Rdacademy_Stato_Sistema {
 					<span>Informazioni installazione</span>
 					<span style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap">
 						<button type="button" id="rdacademy-copy-config" class="button button-primary rdacademy-copia-btn">
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+							<?php echo rdacademy_icona( 'copia' ); ?>
 							Copia configurazione
 						</button>
 						<span id="rdacademy-copy-config-done" class="rdacademy-copia-ok" role="status" aria-live="polite">Copiato</span>
@@ -330,7 +313,7 @@ final class Rdacademy_Stato_Sistema {
 					$lung = ( mb_strlen( (string) RDACADEMY_PACKAGE ) > 120 );
 					?>
 					<tr><td>Pacchetto</td><td><code><?php echo esc_html( $pkg . ( $lung ? '…' : '' ) ); ?></code>
-						<?php if ( $lung ) : ?><span style="color:#996800;font-size:12px;">etichetta troppo lunga: il pacchetto e un NOME, la cronaca sta nel CHANGELOG</span><?php endif; ?>
+						<?php if ( $lung ) : ?><span class="rdacademy-avviso">etichetta troppo lunga: il pacchetto e un NOME, la cronaca sta nel CHANGELOG</span><?php endif; ?>
 					</td></tr>
 					<tr><td>Build del</td><td><?php echo esc_html( RDACADEMY_PACKAGE_DATE ); ?></td></tr>
 					<tr><td>Installato il</td><td><?php echo esc_html( $d['installed_at'] ); ?></td></tr>
@@ -339,7 +322,7 @@ final class Rdacademy_Stato_Sistema {
 					<tr><td>MySQL</td><td><?php echo esc_html( $d['mysql_version'] ); ?></td></tr>
 					<tr><td>WordPress</td><td><?php echo esc_html( get_bloginfo( 'version' ) ); ?></td></tr>
 					<?php if ( class_exists( 'Rdacademy_Cache_Guardia' ) ) : $rx_pc = Rdacademy_Cache_Guardia::prova(); /* 1.4.3B — RF-BUG-028 */ ?>
-					<tr class="rdacademy-cache-pagine" data-esito="<?php echo esc_attr( $rx_pc['esito'] ); ?>"><td>Pagine dell app non memorizzate dalla cache</td><td><strong style="color:<?php echo $rx_pc['esito'] === 'verde' ? '#15803d' : ( $rx_pc['esito'] === 'rosso' ? '#b91c1c' : '#996800' ); ?>"><?php echo $rx_pc['esito'] === 'verde' ? '✅ sì' : ( $rx_pc['esito'] === 'rosso' ? '❌ no' : ( $rx_pc['esito'] === 'arancio' ? '✅ sì, con un avviso' : '⚠️ non misurabile' ) ); /* 1.8.0B — RF-BUG-035 */ ?></strong>
+					<tr class="rdacademy-cache-pagine" data-esito="<?php echo esc_attr( $rx_pc['esito'] ); ?>"><td>Pagine dell app non memorizzate dalla cache</td><td><span class="stato<?php echo $rx_pc['esito'] === 'verde' ? '' : ' mod'; ?>"><?php echo $rx_pc['esito'] === 'verde' ? 'sì' : ( $rx_pc['esito'] === 'rosso' ? 'no' : ( $rx_pc['esito'] === 'arancio' ? 'sì, con un avviso' : 'non misurabile' ) ); /* 1.8.0B — RF-BUG-035; 0.1.04A pastiglia di stato (SPEC-GRAFICA § 7) */ ?></span>
 						<span class="rdacademy-muted"><?php echo esc_html( $rx_pc['motivo'] ); ?></span></td></tr>
 					<?php endif; ?>
 					<tr><td>Ancora di dominio</td><td><?php echo esc_html( $d['ancora'] === Rdacademy_License_Anchor::STATE_NEEDS_RELICENSE ? 'da rinnovare' : 'attiva' ); ?></td></tr>
@@ -394,7 +377,7 @@ final class Rdacademy_Stato_Sistema {
 				if (!err) { return; }
 				err.textContent = 'Copia non riuscita: il browser non permette di scrivere negli appunti. Seleziona e copia il testo qui sotto.';
 				err.hidden = false;
-				src.style.cssText = 'display:block;width:100%;height:220px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;margin:8px 0';
+				src.style.cssText = 'display:block;width:100%;height:220px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;margin:8px 0';
 				src.removeAttribute('aria-hidden');
 			}
 			function legacyCopy() {

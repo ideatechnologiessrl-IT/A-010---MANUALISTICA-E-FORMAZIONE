@@ -1,0 +1,89 @@
+       conformita-grafica: reldox-academy C1 no · C2 no · C3 blu 32 · C4 <13px 607 · C5 emoji 27 · C6 finestre 0
+[ROSSO] C1 e C2: foglio comune copiato identico e gettone --nav definito
+[ROSSO] C3 blu vecchio #1E3A5F a zero
+[ROSSO] C4 nessun carattere sotto i 13px
+[ROSSO] C5 nessuna emoji che arriva a schermo
+[VERDE] C6 nessuna finestra del browser
+[VERDE] accesso all Academy (/academy/)
+[ROSSO] pannello computer 1440: il foglio comune si carica per primo (app.css)
+[ROSSO] pannello computer 1440: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] pannello computer 1440: icone della barra da 34px (0)
+[ROSSO] pannello computer 1440: S-1, in cima alla barra un blocco vuoto di 48px senza collegamento
+[ROSSO] pannello computer 1440: due loghi nella barra in alto (1)
+[VERDE] pannello computer 1440: nessuno scorrimento orizzontale
+[ROSSO] pannello computer 1440: nessun testo a schermo sotto i 13px (5; AS (11px))
+[VERDE] pannello computer 1440: nessuna emoji a schermo (0)
+[ROSSO] pannello computer-basso 1440: il foglio comune si carica per primo (app.css)
+[ROSSO] pannello computer-basso 1440: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] pannello computer-basso 1440: icone della barra da 34px (0)
+[ROSSO] pannello computer-basso 1440: S-1, in cima alla barra un blocco vuoto di 48px senza collegamento
+[ROSSO] pannello computer-basso 1440: due loghi nella barra in alto (1)
+[ROSSO] pannello computer-basso 1440: la barra scorre se le voci non stanno ()
+[VERDE] pannello computer-basso 1440: nessuno scorrimento orizzontale
+[ROSSO] pannello computer-basso 1440: nessun testo a schermo sotto i 13px (5; AS (11px))
+[VERDE] pannello computer-basso 1440: nessuna emoji a schermo (0)
+[ROSSO] pannello tablet 820: il foglio comune si carica per primo (app.css)
+[ROSSO] pannello tablet 820: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] pannello tablet 820: icone della barra da 34px (0)
+[ROSSO] pannello tablet 820: S-1, in cima alla barra un blocco vuoto di 48px senza collegamento
+[ROSSO] pannello tablet 820: due loghi nella barra in alto (1)
+[VERDE] pannello tablet 820: nessuno scorrimento orizzontale
+[ROSSO] pannello tablet 820: nessun testo a schermo sotto i 13px (5; AS (11px))
+[VERDE] pannello tablet 820: nessuna emoji a schermo (0)
+[ROSSO] pannello telefono 390: il foglio comune si carica per primo (app.css)
+[ROSSO] pannello telefono 390: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] pannello telefono 390: sul telefono la barra sta in basso (, -1)
+[VERDE] pannello telefono 390: nessuno scorrimento orizzontale
+[ROSSO] pannello telefono 390: nessun testo a schermo sotto i 13px (3; RelDoxAcademy © 2026 — un prod (10px))
+[VERDE] pannello telefono 390: nessuna emoji a schermo (0)
+[ROSSO] impostazioni computer 1440: il foglio comune si carica per primo (app.css)
+[ROSSO] impostazioni computer 1440: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] impostazioni computer 1440: icone della barra da 34px (0)
+[ROSSO] impostazioni computer 1440: S-1, in cima alla barra un blocco vuoto di 48px senza collegamento
+[ROSSO] impostazioni computer 1440: due loghi nella barra in alto (1)
+[VERDE] impostazioni computer 1440: nessuno scorrimento orizzontale
+[ROSSO] impostazioni computer 1440: nessun testo a schermo sotto i 13px (6; Sistema (9.5px))
+[VERDE] impostazioni computer 1440: nessuna emoji a schermo (0)
+[ROSSO] impostazioni computer-basso 1440: il foglio comune si carica per primo (app.css)
+[ROSSO] impostazioni computer-basso 1440: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] impostazioni computer-basso 1440: icone della barra da 34px (0)
+[ROSSO] impostazioni computer-basso 1440: S-1, in cima alla barra un blocco vuoto di 48px senza collegamento
+[ROSSO] impostazioni computer-basso 1440: due loghi nella barra in alto (1)
+[ROSSO] impostazioni computer-basso 1440: la barra scorre se le voci non stanno ()
+[VERDE] impostazioni computer-basso 1440: nessuno scorrimento orizzontale
+[ROSSO] impostazioni computer-basso 1440: nessun testo a schermo sotto i 13px (6; Sistema (9.5px))
+[VERDE] impostazioni computer-basso 1440: nessuna emoji a schermo (0)
+[ROSSO] impostazioni tablet 820: il foglio comune si carica per primo (app.css)
+[ROSSO] impostazioni tablet 820: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] impostazioni tablet 820: icone della barra da 34px (0)
+[ROSSO] impostazioni tablet 820: S-1, in cima alla barra un blocco vuoto di 48px senza collegamento
+[ROSSO] impostazioni tablet 820: due loghi nella barra in alto (1)
+[VERDE] impostazioni tablet 820: nessuno scorrimento orizzontale
+[ROSSO] impostazioni tablet 820: nessun testo a schermo sotto i 13px (6; Sistema (9.5px))
+[VERDE] impostazioni tablet 820: nessuna emoji a schermo (0)
+[ROSSO] impostazioni telefono 390: il foglio comune si carica per primo (app.css)
+[ROSSO] impostazioni telefono 390: barra laterale .rail con fondo --nav #0F2A44 (assente)
+[ROSSO] impostazioni telefono 390: sul telefono la barra sta in basso (, -1)
+[VERDE] impostazioni telefono 390: nessuno scorrimento orizzontale
+[ROSSO] impostazioni telefono 390: nessun testo a schermo sotto i 13px (3; RelDoxAcademy © 2026 — un prod (10px))
+[VERDE] impostazioni telefono 390: nessuna emoji a schermo (0)
+[ROSSO] stato-sistema computer 1440: foglio comune caricato prima dei fogli del prodotto
+[ROSSO] stato-sistema computer 1440: nessun testo del plugin sotto i 13px (8)
+[ROSSO] stato-sistema computer 1440: nessuna emoji, icone SVG a tratto (5 emoji, 0 icone)
+[VERDE] stato-sistema computer 1440: nessuno scorrimento orizzontale
+[ROSSO] stato-sistema telefono 390: foglio comune caricato prima dei fogli del prodotto
+[ROSSO] stato-sistema telefono 390: nessun testo del plugin sotto i 13px (8)
+[ROSSO] stato-sistema telefono 390: nessuna emoji, icone SVG a tratto (5 emoji, 0 icone)
+[VERDE] stato-sistema telefono 390: nessuno scorrimento orizzontale
+[ROSSO] documentazione computer 1440: foglio comune caricato prima dei fogli del prodotto
+[VERDE] documentazione computer 1440: nessun testo del plugin sotto i 13px (0)
+[VERDE] documentazione computer 1440: nessuna emoji, icone SVG a tratto (0 emoji, 0 icone)
+[VERDE] documentazione computer 1440: nessuno scorrimento orizzontale
+[ROSSO] documentazione telefono 390: foglio comune caricato prima dei fogli del prodotto
+[VERDE] documentazione telefono 390: nessun testo del plugin sotto i 13px (0)
+[VERDE] documentazione telefono 390: nessuna emoji, icone SVG a tratto (0 emoji, 0 icone)
+[VERDE] documentazione telefono 390: nessuno scorrimento orizzontale
+[ROSSO] ogni foglio e script chiamato esiste (admin/css/admin.css, assets/docs/docs.css, assets/docs/docs.js, assets/search/rdacademy-search.css, assets/search/rdacademy-search.js, public/css/rdacademy-lotto-c.css, public/css/rdacademy-lotto-d.css, public/js/rdacademy-pagine.js)
+[ROSSO] nessun errore JavaScript (Unexpected token '<'; Unexpected token '<')
+[VERDE] nessuna finestra del browser (0)
+ESITO: ROSSO — 27 verdi su 87

@@ -35,7 +35,7 @@ final class Rdacademy_Testi_Notifiche {
 		'invito.persona'      => array( 'Invito — persone', 'Parte con «Invia credenziali» e «Reinvia invito»: porta il collegamento per scegliere la password.', '{nome} {utente} {prodotto} {cliente} {giorni} {link} {pulsante}' ),
 		'reinvio'             => array( 'Reinvio dell’invito', 'Oggetto del secondo invio e nota in testa al messaggio; sotto segue il testo dell’invito.', '{nome} {utente} {prodotto} {cliente}' ),
 		'reimpostazione'      => array( 'Reimpostazione della password', 'Parte con «Password dimenticata?» e con «Reimposta password».', '{nome} {utente} {prodotto} {cliente} {giorni} {link} {pulsante}' ),
-		'accesso.persona'     => array( 'Invio login — persone', 'Parte con «✉ Invio login»: solo il collegamento d’accesso, la password non cambia.', '{nome} {utente} {prodotto} {cliente} {link} {pulsante}' ),
+		'accesso.persona'     => array( 'Invio login — persone', 'Parte con «Invio login»: solo il collegamento d’accesso, la password non cambia.', '{nome} {utente} {prodotto} {cliente} {link} {pulsante}' ),
 		'blocco'              => array( 'Avviso di blocco', 'Agli amministratori, quando un account si blocca per tentativi falliti.', '{chi} {email} {ip} {ora} {soglia} {prodotto}' ),
 	);
 

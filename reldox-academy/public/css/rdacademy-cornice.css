@@ -1,0 +1,34 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   rdacademy-cornice.css — RelDoxAcademy · ciò che è del prodotto attorno alla barra laterale comune
+   0.1.04A · Formazione F016 · 19/11/2026 (BUG-2, voce F31 «convergenza alla SPEC-GRAFICA v5»)
+   ⛔ Si carica DOPO reldox-grafica.css (pezzo comune v1.0) e app.css. Non ridefinisce i gettoni né le classi
+   del foglio comune (.rail, .it, .sep, .tip): aggiunge solo la cima vuota (S-1), il pulsante «Torna» e il
+   posto della barra in basso sul telefono. Solo gettoni; niente testo sotto i 13px.
+   Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* S-1 (owner 19/11/2026 15:46, chat Formazione F016): in cima alla barra un blocco vuoto, senza collegamento. */
+.rdacademy-rail-cima{flex:none;width:60px;height:48px}
+
+/* «Torna» è un pulsante: stesso aspetto delle voci della barra. */
+.rail button.it{border:0;background:none;padding:0;cursor:pointer;font:inherit}
+
+/* Il nome al passaggio sta sopra la cornice di WordPress e di ogni pagina. */
+.tip{z-index:100000}
+
+/* La barra in alto: i due loghi (§ 3.2) alla stessa altezza. */
+.rdacademy-dcliente,.rdacademy-mcliente{object-fit:contain}
+
+/* Il menu a comparsa del telefono non serve più: le funzioni stanno nella barra in basso (§ 3.1). */
+.rdacademy-mburger,.rdacademy-mdrawer{display:none!important}
+
+@media(max-width:767px){
+  /* Al telefono resta il comando «Esci» nella barra in alto (era solo nel menu a comparsa). */
+  .rx-topbar-right #rx-logout{display:inline-flex!important}
+}
+
+@media(max-width:700px){
+  .rdacademy-rail-cima{display:none}
+  /* la barra fissa in basso non copre il fondo della pagina né il piede */
+  .rx-main{padding-bottom:76px;box-sizing:border-box}
+}

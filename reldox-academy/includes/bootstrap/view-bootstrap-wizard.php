@@ -249,7 +249,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <div class="grad wait" id="g2">
             <div class="gn">2</div>
             <div class="gt">
-              <b>FTP / FTPS</b> <span style="font-size:11px;color:var(--mut);font-weight:700">— fallback</span>
+              <b>FTP / FTPS</b> <span style="font-size:13px;color:var(--mut);font-weight:700">— fallback</span>
               <p>Se la scrittura diretta non è possibile, indica le credenziali FTP: <code>find_folder(WP_CONTENT_DIR)</code> individua <code>wp-content</code>; <b>wp-config = cartella padre</b>.</p>
               <div class="sub-form">
                 <div class="grid" style="margin-bottom:0">
@@ -268,7 +268,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <div class="grad wait" id="g3">
             <div class="gn">3</div>
             <div class="gt">
-              <b>Manuale</b> <span style="font-size:11px;color:var(--mut);font-weight:700">— fallback finale</span>
+              <b>Manuale</b> <span style="font-size:13px;color:var(--mut);font-weight:700">— fallback finale</span>
               <p>Incolla il blocco qui sotto in <code>wp-config.php</code> (sopra la riga <code>/* Finito, interrompere le modifiche! */</code>, in inglese <code>/* That's all, stop editing! */</code>, e comunque sopra <code>require_once ABSPATH . 'wp-settings.php';</code>), salva e ricarica.</p>
             </div>
           </div>

@@ -13,9 +13,6 @@ body{ font-size:15px; line-height:1.5; }
 .rx-tf-header p,.rx-page-header p{ font-size:15px; line-height:1.5; color:#4B5563; }
 
 /* ── campi: etichette, valori, aiuti ── */
-.ff label{ font-size:13.5px; font-weight:600; }
-.ff input,.ff select,.ff textarea{ font-size:15px; padding:9px 11px; border-radius:7px; min-height:40px; }
-.hint{ font-size:13px; line-height:1.5; }
 .rx-btn{ min-height:38px; }
 .rx-btn-sm{ min-height:34px; font-size:14px; }
 .rxu-sez{ font-size:13px; letter-spacing:.3px; }
@@ -67,14 +64,14 @@ body{ font-size:15px; line-height:1.5; }
 .rdq-leg{ margin-left:auto; display:flex; gap:12px; font-size:13px; font-weight:600; color:#374151; }
 .rdq-leg i{ display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
 .rdq-svg{ display:block; width:100%; height:auto; margin-top:6px; }
-.rdq-svg text{ font:12px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; fill:#6B7280; }
+.rdq-svg text{ font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; fill:#6B7280; }
 .rdq-stato{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
 .rdq-chip{ display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; border-radius:999px; padding:4px 12px; }
 .rdq-chip.ok{ background:#DCFCE7; color:#15803D; } .rdq-chip.no{ background:#F3F4F6; color:#6B7280; }
 
 /* ═══ INVII DEL REGISTRO (pagina del menu principale) ════════════════════════════════════════════════════════════════ */
 .rxiv-card{ max-width:var(--rdl-maxw); margin:0 auto 24px; padding:16px 18px; }
-.rxiv-come{ font-size:14px; line-height:1.55; color:#1E3A5F; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:10px 14px; margin:4px 0 18px; }
+.rxiv-come{ font-size:14px; line-height:1.55; color:var(--nav); background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:10px 14px; margin:4px 0 18px; }
 
 /* ═══ I MIEI PASTI ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
 .rdacademy-mp{ max-width:900px; margin:0 auto; }
@@ -82,7 +79,7 @@ body{ font-size:15px; line-height:1.5; }
 .rdacademy-mp-filtro label{ font-weight:600; color:#374151; }
 .rdacademy-mp-filtro select{ font-size:15px; padding:8px 10px; min-height:40px; border:1px solid #D1D5DB; border-radius:8px; background:#fff; }
 .rdacademy-mp-conti{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto; }
-.rdacademy-mp-conto{ font-size:14px; background:#EFF6FF; color:#1E3A5F; border-radius:999px; padding:4px 12px; }
+.rdacademy-mp-conto{ font-size:14px; background:#EFF6FF; color:var(--nav); border-radius:999px; padding:4px 12px; }
 .rdacademy-mp-conto.osp{ background:#DCFCE7; color:#15803D; }
 .rdacademy-mp-tab{ width:100%; border-collapse:collapse; background:#fff; border:1px solid #E5E7EB; border-radius:12px; overflow:hidden; font-size:15px; }
 .rdacademy-mp-tab th{ text-align:left; font-size:13px; font-weight:600; color:#6B7280; padding:10px 12px; border-bottom:1px solid #E5E7EB; background:#F9FAFB; }
@@ -90,7 +87,7 @@ body{ font-size:15px; line-height:1.5; }
 .rdacademy-mp-tab tr:last-child td{ border-bottom:0; }
 .rdacademy-mp-tab tr.mp-ospite td{ background:#F0FDF4; }
 .rdacademy-mp-tab tr.mp-ospite td:first-child{ box-shadow:inset 4px 0 0 #16A34A; }
-.mp-badge{ display:inline-block; font-size:12.5px; font-weight:700; color:#15803D; background:#DCFCE7; border-radius:999px; padding:1px 8px; margin-right:4px; }
+.mp-badge{ display:inline-block; font-size:13px; font-weight:700; color:#15803D; background:#DCFCE7; border-radius:999px; padding:1px 8px; margin-right:4px; }
 .mp-data{ white-space:nowrap; font-weight:600; }
 
 /* ── tablet ── */
@@ -156,8 +153,7 @@ body{ font-size:15px; line-height:1.5; }
 #rximp-card[data-modo="lettura"] .ff input:not([type=checkbox]):not([type=file]),
 #rximp-card[data-modo="lettura"] .ff select{ font-size:16px; font-weight:500; line-height:1.45; min-height:0; height:auto; padding:2px 0 0; width:100%; }
 #rximp-card[data-modo="lettura"] input.rximp-vuoto::placeholder{ color:#9CA3AF; -webkit-text-fill-color:#9CA3AF; font-weight:400; opacity:1; }
-#rximp-card .hint{ font-size:13px; line-height:1.5; }
-
+#rximp-card 
 /* Festività: tabella stretta a sinistra, Santo Patrono e chiusure a destra; in lettura «Chiuso» / «Aperto» */
 .rximp-griglia-fest{ columns:auto; display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:16px; align-items:start; }
 .rximp-griglia-fest .rximp-blocco{ margin:0; }
@@ -181,7 +177,7 @@ body{ font-size:15px; line-height:1.5; }
    destra: 0.8.1A, banco S16-2 D3); al telefono uno sotto l'altro (lotto C, 767 px). Testi leggibili. */
 #p-branding .rximp-griglia{ columns:auto; }
 .rximp-blocco .rximp-logo > div{ font-size:14px !important; }
-.rximp-blocco .rximp-logo > div span{ font-size:12.5px !important; }
+.rximp-blocco .rximp-logo > div span{ font-size:13px !important; }
 
 /* Sistema */
 #rximp-card .rximp-sys{ font-size:15px; }
@@ -249,13 +245,13 @@ body{ font-size:15px; line-height:1.5; }
 .rdl-tabelle .rxtfa-src-txt{ font-size:14.5px; line-height:1.5; }
 .rdl-tabelle .rxtfa-src-lb{ font-size:15px; font-weight:700; color:#111827; text-transform:none; letter-spacing:0; display:block; margin-bottom:2px; }
 .rdl-tabelle .rxtfa-note{ font-size:13.5px; }
-.rdl-tabelle .rxtfa-nat{ font-size:12.5px; }
+.rdl-tabelle .rxtfa-nat{ font-size:13px; }
 .rdl-tabelle .rxtfa-btn{ font-size:14.5px; min-height:40px; padding:0 14px; }
 .rdl-tabelle .rxlr-chip{ font-size:14px; padding:4px 12px; white-space:normal; }
 .rdl-tabelle .rxtn-grp{ border-radius:12px; }
 .rdl-tabelle .rxtn-grp-h{ background:#fff; padding:14px 16px 12px; }
 .rdl-tabelle .rxtn-grp-nm{ font-size:16px; color:#111827; }
-.rdl-tabelle .rxtn-grp-cod{ font-size:12.5px; }
+.rdl-tabelle .rxtn-grp-cod{ font-size:13px; }
 .rdl-tabelle .rxtn-grp-q{ font-size:14px; color:#4B5563; }
 .rdl-tabelle .rxtn-row{ padding:14px 16px; gap:16px; }
 .rdl-tabelle .rxtn-lang{ font-size:14.5px; width:110px; }
@@ -271,7 +267,7 @@ body{ font-size:15px; line-height:1.5; }
 .rxtec-wrap.rdl-pagina{ font-size:15px; }
 .rxtec-head h1{ font-size:24px; }
 .rxtec-head p{ font-size:15px; }
-.rxtec-badge{ font-size:12.5px; letter-spacing:0; text-transform:none; }
+.rxtec-badge{ font-size:13px; letter-spacing:0; text-transform:none; }
 .rxtec-cmd .rxtec-btn{ font-size:15px; min-height:44px; padding:0 18px; }
 .rxtec-sem{ font-size:14px; }
 .rxtec-sem span{ font-size:14px; }
@@ -362,7 +358,7 @@ body{ font-size:15px; line-height:1.5; }
 .rdcd-tel{ align-items:center; gap:10px; margin:0 0 14px; padding:12px 14px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:12px;
            font-size:15px; line-height:1.45; color:#1E3A8A; }
 .rx-srv-pil.ferma{ background:#FEF2F2; color:#991B1B; border:1px solid #FECACA; }
-#rdcd-b-cartella .rximp-bt .rx-srv-pil,#rximp-b-casella .rx-srv-pil{ font-size:12.5px; letter-spacing:0; text-transform:none; }
+#rdcd-b-cartella .rximp-bt .rx-srv-pil,#rximp-b-casella .rx-srv-pil{ font-size:13px; letter-spacing:0; text-transform:none; }
 .rdcd-dl{ display:grid; grid-template-columns:120px minmax(0,1fr); gap:8px 12px; margin:0 0 14px; font-size:15px; }
 .rdcd-dl dt{ color:#6B7280; font-size:13.5px; font-weight:500; padding-top:2px; }
 .rdcd-dl dd{ margin:0; min-width:0; color:#111827; overflow-wrap:anywhere; }
@@ -383,15 +379,15 @@ body{ font-size:15px; line-height:1.5; }
 .rdcd-reg{ width:100%; border-collapse:collapse; font-size:14.5px; }
 .rdcd-reg th{ font-size:13px; color:#6B7280; font-weight:600; text-align:left; padding:8px; border-bottom:1px solid #E5E7EB; background:#F8FAFC; }
 .rdcd-reg td{ padding:9px 8px; border-bottom:1px solid #F1F5F9; vertical-align:top; }
-.rdcd-reg td small{ display:block; font-size:12.5px; color:#6B7280; margin-top:2px; }
+.rdcd-reg td small{ display:block; font-size:13px; color:#6B7280; margin-top:2px; }
 .rdcd-reg code{ font-size:13px; overflow-wrap:anywhere; }
 .rdcd-es-ok{ color:#15803D; font-weight:600; } .rdcd-es-ko{ color:#B91C1C; font-weight:600; } .rdcd-es-sa,.rdcd-es-pul{ color:#4B5563; font-weight:600; }
 /* Invii del registro: la riga della cartella */
 .rdcd-file-sp{ display:flex !important; flex-direction:column; gap:2px; }
 .rdcd-file-sp[hidden]{ display:none !important; }
 .rxiv-sp.rdcd-fsp{ white-space:normal; align-items:flex-start; padding-top:8px; min-height:44px; line-height:1.35; }
-.rxiv-sp.rdcd-fsp small{ display:block; font-size:12.5px; color:#6B7280; }
-.rdcd-nota-ora{ font-size:12.5px; color:#4B5563; margin-top:6px; max-width:320px; margin-left:auto; text-align:right; }
+.rxiv-sp.rdcd-fsp small{ display:block; font-size:13px; color:#6B7280; }
+.rdcd-nota-ora{ font-size:13px; color:#4B5563; margin-top:6px; max-width:320px; margin-left:auto; text-align:right; }
 /* Tabelle Funzionali: i nomi dei file */
 .rdnf-list{ display:grid; gap:12px; }
 .rdnf-card{ border:1px solid #E5E7EB; border-radius:12px; background:#fff; overflow:hidden; }

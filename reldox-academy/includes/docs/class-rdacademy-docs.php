@@ -52,7 +52,9 @@ class Rdacademy_Docs {
 			return;
 		}
 
-		wp_enqueue_style( self::SEARCH, RDACADEMY_PLUGIN_URL . 'assets/search/rdacademy-search.css', array(), RDACADEMY_VERSION );
+		// 0.1.04A — il foglio comune di famiglia prima dei fogli del prodotto (SPEC-GRAFICA-RELDOX-v5 § 14).
+		wp_register_style( 'reldox-grafica', RDACADEMY_PLUGIN_URL . 'public/css/reldox-grafica.css', array(), RDACADEMY_VERSION );
+		wp_enqueue_style( self::SEARCH, RDACADEMY_PLUGIN_URL . 'assets/search/rdacademy-search.css', array( 'reldox-grafica' ), RDACADEMY_VERSION );
 		wp_enqueue_script( self::SEARCH, RDACADEMY_PLUGIN_URL . 'assets/search/rdacademy-search.js', array(), RDACADEMY_VERSION, true );
 		wp_localize_script( self::SEARCH, 'RdacademySearchI18n', array(
 			'placeholder' => 'Cerca…',
@@ -61,7 +63,7 @@ class Rdacademy_Docs {
 			'countOf'     => '%1$d di %2$d',
 		) );
 
-		wp_enqueue_style( self::HANDLE_CSS, RDACADEMY_PLUGIN_URL . 'assets/docs/docs.css', array(), RDACADEMY_VERSION );
+		wp_enqueue_style( self::HANDLE_CSS, RDACADEMY_PLUGIN_URL . 'assets/docs/docs.css', array( 'reldox-grafica' ), RDACADEMY_VERSION );
 		wp_enqueue_script( self::HANDLE_JS, RDACADEMY_PLUGIN_URL . 'assets/docs/docs.js', array( self::SEARCH ), RDACADEMY_VERSION, true );
 		wp_localize_script( self::HANDLE_JS, 'RdacademyDocsI18n', array(
 			'tocFilterPlaceholder' => 'Filtra le voci dell\'indice…',

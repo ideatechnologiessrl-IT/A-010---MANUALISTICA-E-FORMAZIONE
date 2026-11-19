@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 final class Rdacademy_App_Install {
 
 	const LATI   = array( '180' => 180, '192' => 192, '512' => 512, '512m' => 512 );
-	const COLORE = '#1E3A5F';
+	const COLORE = '#0F2A44';   // 0.1.04A: il gettone --nav della famiglia (SPEC-GRAFICA v5 § 1)
 
 	public static function init(): void {
 		if ( function_exists( 'add_action' ) ) add_action( 'init', array( __CLASS__, 'servi' ), 1 );
@@ -245,9 +245,9 @@ final class Rdacademy_App_Install {
 			. '<button type="button" class="rdacademy-icona-btn" id="rdacademy-icona-btn" aria-expanded="false" aria-controls="rdacademy-icona-box">' . $ico . '<span>' . esc_html( $t( 'icona.btn' ) ) . '</span></button>'
 			. '<div class="rdacademy-icona-box" id="rdacademy-icona-box" hidden>'
 			. '<div class="rdacademy-icona-box-testa"><b>' . esc_html( $t( 'icona.btn' ) ) . '</b>'
-			. '<button type="button" class="rdacademy-icona-x" id="rdacademy-icona-x" aria-label="' . esc_attr( $t( 'icona.chiudi' ) ) . '">✕</button></div>'
+			. '<button type="button" class="rdacademy-icona-x" id="rdacademy-icona-x" aria-label="' . esc_attr( $t( 'icona.chiudi' ) ) . '">' . rdacademy_icona( 'chiudi' ) . '</button></div>'
 			. '<div class="rdacademy-icona-corpo">'
-			. '<svg class="rdacademy-icona-fig" viewBox="0 0 120 150" aria-hidden="true" focusable="false"><rect x="22" y="8" width="76" height="134" rx="12" fill="#fff" stroke="#1E3A5F" stroke-width="5"/><rect x="50" y="17" width="20" height="4" rx="2" fill="#CBD5E1"/><rect x="36" y="34" width="20" height="20" rx="4" fill="#0C6E86"/><rect x="64" y="34" width="20" height="20" rx="4" fill="#E8B23A"/><rect x="36" y="62" width="20" height="20" rx="4" fill="#CBD5E1"/><rect x="64" y="62" width="20" height="20" rx="4" fill="#CBD5E1"/><path d="M60 94v24M50 108l10 10 10-10" fill="none" stroke="#0C6E86" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+			. '<svg class="rdacademy-icona-fig" viewBox="0 0 120 150" aria-hidden="true" focusable="false"><rect x="22" y="8" width="76" height="134" rx="12" fill="#fff" stroke="#0F2A44" stroke-width="5"/><rect x="50" y="17" width="20" height="4" rx="2" fill="#CBD5E1"/><rect x="36" y="34" width="20" height="20" rx="4" fill="#0C6E86"/><rect x="64" y="34" width="20" height="20" rx="4" fill="#E8B23A"/><rect x="36" y="62" width="20" height="20" rx="4" fill="#CBD5E1"/><rect x="64" y="62" width="20" height="20" rx="4" fill="#CBD5E1"/><path d="M60 94v24M50 108l10 10 10-10" fill="none" stroke="#0C6E86" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 			. '<div class="rdacademy-icona-testi">'
 			. '<p class="rdacademy-icona-p" data-per="ios">' . esc_html( $t( 'icona.ios' ) ) . '</p>'
 			. '<p class="rdacademy-icona-p" data-per="ios-altro">' . esc_html( $t( 'icona.ios_safari' ) ) . '</p>'

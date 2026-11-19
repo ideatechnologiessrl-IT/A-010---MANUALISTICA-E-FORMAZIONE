@@ -53,7 +53,7 @@ final class Rdacademy_Imap_Diretta {
 		$fp = @stream_socket_client( $prefisso . $host . ':' . $porta, $errno, $errstr, self::ATTESA, STREAM_CLIENT_CONNECT, $ctx );
 		if ( ! $fp ) {
 			$this->errore = trim( $errstr ) !== '' ? trim( $errstr ) . ' (' . $errno . ')' : 'collegamento non riuscito (' . $errno . ')';
-			$this->registro[] = '✕ ' . $this->errore;
+			$this->registro[] = '× ' . $this->errore;
 			return array( 'ok' => false, 'saluto' => '', 'errore' => $this->errore );
 		}
 		$this->fp = $fp;
@@ -79,7 +79,7 @@ final class Rdacademy_Imap_Diretta {
 			$cifra = @stream_socket_enable_crypto( $this->fp, true, STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT );
 			if ( $cifra !== true ) {
 				$this->errore = 'la cifratura STARTTLS non è partita';
-				$this->registro[] = '✕ ' . $this->errore;
+				$this->registro[] = '× ' . $this->errore;
 				$this->chiudi();
 				return array( 'ok' => false, 'saluto' => $saluto, 'errore' => $this->errore );
 			}
@@ -231,7 +231,7 @@ final class Rdacademy_Imap_Diretta {
 		$r = @fgets( $this->fp, 65536 );
 		if ( $r === false ) {
 			$meta = @stream_get_meta_data( $this->fp );
-			if ( ! empty( $meta['timed_out'] ) ) $this->registro[] = '✕ tempo scaduto (' . self::ATTESA . ' s)';
+			if ( ! empty( $meta['timed_out'] ) ) $this->registro[] = '× tempo scaduto (' . self::ATTESA . ' s)';
 			return null;
 		}
 		$r = rtrim( $r, "\r\n" );

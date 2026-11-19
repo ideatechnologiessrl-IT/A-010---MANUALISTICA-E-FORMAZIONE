@@ -40,7 +40,7 @@ if ( ! isset( $sections ) || ! is_array( $sections ) ) {
 		<aside class="rdacademy-docs-toc" aria-label="Indice della documentazione">
 
 			<details class="rdacademy-docs-toc-accordion" open>
-				<summary>Indice <span style="font-weight:400;color:#646970;font-size:12px">(<?php echo count( $sections ); ?>)</span></summary>
+				<summary>Indice <span class="rdacademy-docs-conta">(<?php echo count( $sections ); ?>)</span></summary>
 
 				<div class="rdacademy-docs-toc-search" id="rdacademy-docs-toc-search-wrap">
 					<?php /* Segnaposto: il componente RdacademySearch.Input monta qui davanti il suo campo */ ?>

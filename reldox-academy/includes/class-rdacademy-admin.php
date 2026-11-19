@@ -73,10 +73,12 @@ class Rdacademy_Admin {
     public function enqueue_assets( string $hook ): void {
         if ( strpos( $hook, self::SLUG ) === false ) return;
 
+        // 0.1.04A — SPEC-GRAFICA-RELDOX-v5 § 14: il foglio comune di famiglia PRIMA dei fogli del prodotto (dipendenza).
+        wp_register_style( 'reldox-grafica', RDACADEMY_PLUGIN_URL . 'public/css/reldox-grafica.css', [], RDACADEMY_VERSION );
         wp_enqueue_style(
             'rdacademy-admin',
             RDACADEMY_PLUGIN_URL . 'admin/css/admin.css',
-            [],
+            [ 'reldox-grafica' ],
             RDACADEMY_VERSION
         );
     }

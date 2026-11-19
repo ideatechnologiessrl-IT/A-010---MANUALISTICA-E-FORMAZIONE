@@ -124,7 +124,8 @@ def componi(uscita, pacchetto, ver_l, sess):
             n = sum(1 for _ in open(p, encoding='utf-8'))
         except (UnicodeDecodeError, OSError):
             n = 0
-        m.append('         %s  %d righe' % (f, n))
+        m.append('         %s  %d righe%s' % (f, n, ' (nella busta; la riga di questo kit si aggiunge dopo la verifica)'
+                                                   if f.endswith('KIT-PROGRESSIVO.txt') else ''))
     gruppi = {}
     for f in aggiunta:
         gruppi[f.split(os.sep)[0]] = gruppi.get(f.split(os.sep)[0], 0) + 1
@@ -132,7 +133,7 @@ def componi(uscita, pacchetto, ver_l, sess):
              ' · '.join('%s %d' % (g, n) for g, n in sorted(gruppi.items()))))
     m.append('ELENCO DELL AREA, DICHIARATO (%d):' % len(area))
     m += ['  ' + f for f in area]
-    m.append('BASELINE %s · stadio %s · installata sì (0.1.01A su reldoxacademy.it il 18/11/2026, con BUG-1)' % (ver, {'A': 'Alfa', 'B': 'Beta', 'G': 'Gold', 'L': 'Live'}[lettera]))
+    m.append('BASELINE %s · stadio %s · ultima installata sul sito: 0.1.03A (reldoxacademy.it, 19/11/2026)' % (ver, {'A': 'Alfa', 'B': 'Beta', 'G': 'Gold', 'L': 'Live'}[lettera]))
     bug = open(os.path.join(REPO, 'docs', 'BUG-FORMAZIONE.md'), encoding='utf-8').readline()
     m.append('         registro BUG: %s' % re.sub(r'^<!--\s*|\s*-->\s*$', '', bug.strip()))
     m += ['```', SEGNO_B]

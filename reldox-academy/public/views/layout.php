@@ -68,10 +68,11 @@ $rx_logo_porta = rdacademy_loghi()['cliente'];   // 0.8.7A (RF-BUG-023) — un p
 // Logo dell AZIENDA in testa al rail (REGOLE § 3.2). ⛔ In RelDox il ripiego era
 // il logo di Idea Technologies: nel guscio e un segnaposto neutro (NUOVO).
 $rx_logo_is_placeholder = ( $rx_brand_logo_url === '' && $rx_logo_mob === '' );
+// 0.1.04A (SPEC-GRAFICA-RELDOX-v5 § 3.3, G16): senza logo caricato il predefinito è quello di Idea Technologies.
 $rx_logo_src = $rx_logo_is_placeholder
-    ? RDACADEMY_PLUGIN_URL . 'public/img/logo-azienda-segnaposto.svg'
+    ? RDACADEMY_PLUGIN_URL . 'public/img/logo/idea-technologies.png'
     : ( $rx_logo_mob !== '' ? $rx_logo_mob : $rx_brand_logo_url );   // 0.8.0A: nella colonna il quadrato
-$rx_logo_alt = $rx_brand_azienda !== '' ? $rx_brand_azienda : 'Logo dell’azienda (da impostare)';
+$rx_logo_alt = $rx_brand_azienda !== '' ? $rx_brand_azienda : ( $rx_logo_is_placeholder ? 'Idea Technologies' : 'Logo dell’azienda' );
 
 // Autorita UNICA su chi e amministratore: la stessa del canale AJAX (§ 3.4).
 $rx_is_admin   = ! empty( $current_user ) && Rdacademy_Router::user_can_admin( $current_user );
@@ -152,7 +153,10 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
     <link rel="icon" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/img/logo/reldox-favicon.svg' ); ?>" type="image/svg+xml">
     <?php /* 0.8.9A (SPEC-GALLERIA-CASSA-MENU § 10) — l'app installabile: manifesto, icona del cliente per iPhone, colore della barra. */ ?>
     <?php if ( class_exists( 'Rdacademy_App_Install' ) ) echo Rdacademy_App_Install::testata_html(); // phpcs:ignore -- composto con esc_* ?>
+    <?php /* 0.1.04A — SPEC-GRAFICA-RELDOX-v5 § 14: il foglio comune di famiglia per PRIMO, identico a quello del nodo; poi i fogli del prodotto. */ ?>
+    <link rel="stylesheet" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/css/reldox-grafica.css' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>">
     <link rel="stylesheet" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/css/app.css' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>">
+    <link rel="stylesheet" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/css/rdacademy-cornice.css' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>">
 
     <style>
         /* RelDox v3.10.1.5.6 (1C.2.k): anti-FOUC per lo spostamento del breadcrumb
@@ -203,11 +207,11 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
 
     <?php if ( ! $rx_integr ) : /* 1.13.0B — l Integratore non ha la colonna */ ?>
     <!-- RelDox v3.11.167 Workspace B1 — RAIL (.rxw-*) -->
-    <nav class="rxw-rail" id="rxwRail" role="navigation" aria-label="Funzioni">
+    <nav class="rail" id="rxwRail" role="navigation" aria-label="Funzioni">
 
-        <a href="<?php echo esc_url( $app_url ); ?>/" class="rxw-logo<?php echo $rx_logo_is_placeholder ? ' rxw-logo-vuoto' : ''; ?>" title="<?php echo esc_attr( $rx_logo_alt ); ?>">
-            <img src="<?php echo esc_url( $rx_logo_src ); ?>" alt="<?php echo esc_attr( $rx_logo_alt ); ?>">
-        </a>
+        <?php /* 0.1.04A — S-1 confermata dall owner (19/11/2026 15:46, chat Formazione F016): in cima nessun logo,
+                 un blocco vuoto di 48px senza collegamento (SPEC-GRAFICA-RELDOX-v5 § 13); il logo sta nella barra in alto. */ ?>
+        <div class="rdacademy-rail-cima" aria-hidden="true"></div>
 
 <?php if ( ! $rxw_is_setup ) : ?>
         <!-- ════════════ RAIL OPERATIVO ════════════ -->
@@ -215,7 +219,7 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
             $is_active = in_array( $page, (array) ( $item['match'] ?? [ $key ] ), true );
         ?>
         <a href="<?php echo esc_url( $item['url'] ); ?>"
-           class="rxw-item<?php echo $is_active ? ' active' : ''; ?>"
+           class="it"
            data-here="<?php echo esc_attr( $item['label'] ); ?>"
            aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php echo $is_active ? ' aria-current="page"' : ''; ?>>
             <?php echo rdacademy_nav_icon( (string) $item['icon'] ); ?>
@@ -227,20 +231,19 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
         <!-- ════════════ RAIL SETUP (contesto pieno) ════════════ -->
 
         <!-- «← Torna»: ripristina lo stato operativo esatto (RP-SETUP-CONTEXT) -->
-        <button type="button" class="rxw-backbtn" id="rxwBack"
-                title="Torna allo stato operativo" aria-label="Torna allo stato operativo" data-here="Torna">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+        <button type="button" class="it rdacademy-it-torna" id="rxwBack"
+                aria-label="Torna allo stato operativo" data-here="Torna">
+            <?php echo rdacademy_icona( 'indietro' ); ?>
             <span class="lab">Torna</span>
         </button>
         <?php if ( ! empty( $setup_personale_items ) ) : ?>
-        <div class="rxw-sep"></div>
-        <div class="rxw-railhd">Personale</div>
+        <div class="sep" aria-hidden="true"></div>
         <?php foreach ( $setup_personale_items as $key => $item ) :
             if ( empty( $item['show'] ) ) continue;
             $is_active = ( $page === $key );
         ?>
         <a href="<?php echo esc_url( $item['url'] ); ?>"
-           class="rxw-item<?php echo $is_active ? ' active' : ''; ?>"
+           class="it"
            data-here="<?php echo esc_attr( $item['label'] ); ?>"
            aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php echo $is_active ? ' aria-current="page"' : ''; ?>>
             <?php echo rdacademy_nav_icon( (string) $item['icon'] ); ?>
@@ -251,14 +254,13 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
 
         <?php if ( $rx_is_admin ) : ?>
         <!-- Gruppo SISTEMA (solo amministratore) -->
-        <div class="rxw-sep"></div>
-        <div class="rxw-railhd">Sistema</div>
+        <div class="sep" aria-hidden="true"></div>
         <?php foreach ( $setup_sistema_items as $key => $item ) :
             if ( empty( $item['show'] ) ) continue;
             $is_active = ( $page === $key );
         ?>
         <a href="<?php echo esc_url( $item['url'] ); ?>"
-           class="rxw-item<?php echo $is_active ? ' active' : ''; ?>"
+           class="it"
            data-here="<?php echo esc_attr( $item['label'] ); ?>"
            aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php echo $is_active ? ' aria-current="page"' : ''; ?>>
             <?php echo rdacademy_nav_icon( (string) $item['icon'] ); ?>
@@ -298,7 +300,7 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
             <div class="rdacademy-mdrawer-testa">
                 <div class="rdacademy-mdrawer-chi"><b><?php echo esc_html( $rdacademy_mio['nome'] ); ?></b><span><?php echo esc_html( $rdacademy_mio['email'] ); ?></span></div>
                 <button type="button" class="rdacademy-mdrawer-x" data-chiudi aria-label="<?php echo esc_attr( $rx_t( 'menu.chiudi' ) ); ?>">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                    <?php echo rdacademy_icona( 'chiudi' ); ?>
                 </button>
             </div>
             <nav class="rdacademy-mdrawer-voci" aria-label="Funzioni">
@@ -322,7 +324,7 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
                 </a>
                 <?php endif; ?>
                 <a href="<?php echo esc_url( $app_url . '/preferenze' ); ?>" class="rdacademy-mvoce<?php echo $page === 'preferenze' ? ' attiva' : ''; ?>">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg><span><?php echo esc_html( $rx_t( 'menu.profilo' ) ); ?></span>
+                    <?php echo rdacademy_icona( 'persona' ); ?><span><?php echo esc_html( $rx_t( 'menu.profilo' ) ); ?></span>
                 </a>
                 <button type="button" class="rdacademy-mvoce rdacademy-mesci" id="rdacademyMEsci">
                     <?php echo rdacademy_nav_icon( 'logout' ); ?><span><?php echo esc_html( $rx_t( 'menu.esci' ) ); ?></span>
@@ -357,7 +359,7 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
 
     <script>
     /* RelDox v3.11.172 Workspace B2 fix1 — barra superiore + SETUP (copiato).
-       L ingresso (⚙) salva l URL operativa corrente; «← Torna» la ripristina
+       L ingresso (ingranaggio) salva l URL operativa corrente; «← Torna» la ripristina
        ESATTA (RP-SETUP-CONTEXT). Il wiring gira su DOMContentLoaded perche
        #rxwGear vive nella topbar, emessa DOPO questo script. Tooltip label a
        comparsa su hover (rail compatto), agganciato al <body>. */
@@ -399,7 +401,7 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
                 var lab = el.getAttribute('data-here');
                 if (!lab){ var s = el.querySelector('.lab'); lab = s ? s.textContent : ''; }
                 if (!lab) return;
-                if (!tip){ tip = document.createElement('div'); tip.className = 'rxw-tip'; document.body.appendChild(tip); }
+                if (!tip){ tip = document.createElement('div'); tip.className = 'tip'; tip.setAttribute('role', 'tooltip'); document.body.appendChild(tip); }
                 tip.textContent = lab;
                 var r = el.getBoundingClientRect();
                 tip.style.top  = Math.round(r.top + r.height / 2) + 'px';
@@ -407,9 +409,11 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
                 tip.classList.add('show');
             }
             function hideTip(){ if (tip) tip.classList.remove('show'); }
-            document.querySelectorAll('.rxw-rail .rxw-item, .rxw-rail .rxw-backbtn').forEach(function(el){
-                el.addEventListener('mouseenter', function(){ showTip(el); });
+            document.querySelectorAll('.rail .it').forEach(function(el){
+                el.addEventListener('mouseenter', function(){ if (window.innerWidth > 700) showTip(el); });
+                el.addEventListener('focus', function(){ if (window.innerWidth > 700) showTip(el); });
                 el.addEventListener('mouseleave', hideTip);
+                el.addEventListener('blur', hideTip);
                 el.addEventListener('click', hideTip);
             });
         }
@@ -424,9 +428,9 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
         <div class="rx-topbar">
             <div class="rx-topbar-left">
                 <?php /* 0.6.13A — CORNICE AL TELEFONO (owner 06/10 13:45): sotto i 768 px la colonna laterale sparisce;
-                         a sinistra ☰ apre il menu con le voci che la persona può vedere. */ ?>
+                         a sinistra il pulsante del menu apre il menu con le voci che la persona può vedere. */ ?>
                 <button type="button" class="rdacademy-mburger" id="rdacademyMBurger" aria-controls="rdacademyMDrawer" aria-expanded="false" aria-label="<?php echo esc_attr( $rx_t( 'menu.apri' ) ); ?>">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                    <?php echo rdacademy_icona( 'griglia' ); ?>
                 </button>
                 <!-- RelDox v3.16.187 BUG-74 variante A: il marchio di PRODOTTO in testa
                      alla topbar, PRIMA del breadcrumb. Il logo del CLIENTE resta sul
@@ -440,8 +444,8 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
                 </a>
                 <?php /* 0.8.0A (owner 17:07) — sopra i 768 px il logo del cliente per tablet e computer, accanto al marchio. */ ?>
                 <?php /* 0.8.1A (RF-BUG-021): sempre nella pagina, nascosto se non c'è logo, così Impostazioni lo aggiorna senza ricaricare. */ ?>
-                <span class="rx-topbar-brand-sep rdacademy-dsep" aria-hidden="true"<?php echo $rx_logo_is_placeholder ? ' hidden' : ''; ?>></span>
-                <img class="rdacademy-dcliente" src="<?php echo esc_url( $rx_logo_is_placeholder ? $rx_logo_src : $rx_logo_comp_bar ); ?>" alt="<?php echo esc_attr( $rx_logo_alt ); ?>" height="32" decoding="async"<?php echo $rx_logo_is_placeholder ? ' hidden' : ''; ?>>
+                <span class="rx-topbar-brand-sep rdacademy-dsep" aria-hidden="true"></span>
+                <img class="rdacademy-dcliente" src="<?php echo esc_url( $rx_logo_is_placeholder ? $rx_logo_src : $rx_logo_comp_bar ); ?>" alt="<?php echo esc_attr( $rx_logo_alt ); ?>" height="32" decoding="async">
                 <span class="rx-topbar-brand-sep" aria-hidden="true"></span>
                 <div id="rx-breadcrumb-slot"></div>
             </div>
@@ -522,8 +526,8 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
                 </div>
                 <?php /* 0.7.0A (owner 14:56) — al telefono il logo del cliente sta DI FIANCO al marchio di RelDoxAcademy
                          (prima, 0.6.13A, era sotto la barra): la copia ottimizzata per la barra, se c'è. */ ?>
-                <img class="rdacademy-mcliente" src="<?php echo esc_url( $rx_logo_is_placeholder ? $rx_logo_src : $rx_logo_tel_bar ); ?>" alt="<?php echo esc_attr( $rx_logo_alt ); ?>" height="32" decoding="async"<?php echo $rx_logo_is_placeholder ? ' hidden' : ''; ?>>
-                <span class="rdacademy-msep" aria-hidden="true"<?php echo $rx_logo_is_placeholder ? ' hidden' : ''; ?>></span>
+                <img class="rdacademy-mcliente" src="<?php echo esc_url( $rx_logo_is_placeholder ? $rx_logo_src : $rx_logo_tel_bar ); ?>" alt="<?php echo esc_attr( $rx_logo_alt ); ?>" height="32" decoding="async">
+                <span class="rdacademy-msep" aria-hidden="true"></span>
                 <?php /* 0.6.13A — al telefono, a destra, il marchio di RelDoxAcademy. */ ?>
                 <a href="<?php echo esc_url( $app_url ); ?>/" class="rdacademy-mbrand" aria-label="<?php echo esc_attr( RDACADEMY_PRODUCT ); ?> — vai al Pannello">
                     <img src="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/img/logo/reldox-symbol-color.svg' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>" alt="" width="28" height="28" decoding="async">

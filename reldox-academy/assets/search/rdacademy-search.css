@@ -1,0 +1,9 @@
+/* rdacademy-search.css — RelDoxAcademy · campo di ricerca riusabile · 0.1.04A · Formazione F016 · 19/11/2026
+   (BUG-2: era chiamato dal codice e assente dal pacchetto). Dopo reldox-grafica.css: solo gettoni del foglio comune.
+   Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale. */
+.rdacademy-search{display:flex;align-items:center;gap:8px;position:relative}
+.rdacademy-search .ico{position:absolute;left:12px;color:var(--dim);width:18px;height:18px;pointer-events:none}
+.rdacademy-search input[type=search]{width:100%;min-height:46px;padding:10px 12px 10px 40px;border:1px solid #CBD3DE;border-radius:9px;font:16px var(--f);background:#fff;color:var(--txt)}
+.rdacademy-search input[type=search]:focus{border-color:var(--brand-2);outline:3px solid #C6EBF4;outline-offset:0}
+.rdacademy-search-conta{font-size:14px;color:var(--dim);white-space:nowrap}
+.rdacademy-search-vuoto{font-size:14px;color:var(--dim);margin:8px 0 0}

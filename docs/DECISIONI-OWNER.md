@@ -4,6 +4,13 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F016 · 19/11/2026
+
+| n. | domanda | scelta dell owner | ora | effetti |
+|---|---|---|---|---|
+| D33 | S-2 della SPEC-GRAFICA v5 § 13 (loghi verso l esterno: logo del prodotto in firma, in testa logo dell azienda o intestazione scritta, mai il logo Idea predefinito né le iniziali) | *«Sì, come la SPEC»* | 15:46 | voce F31: nel codice con le prime email e PDF verso l esterno; al capo famiglia per la tabella del § 13 |
+| D32 | S-1 della SPEC-GRAFICA v5 § 13 (cima della barra laterale senza logo, blocco vuoto di 48px) | *«Sì, cima vuota»* | 15:46 | 0.1.04A: `.rdacademy-rail-cima` in `public/views/layout.php`; al capo famiglia per la tabella del § 13 |
+
 ## F006 · 17/11/2026
 | n. | scelta dell owner | ora | effetti |
 |---|---|---|---|

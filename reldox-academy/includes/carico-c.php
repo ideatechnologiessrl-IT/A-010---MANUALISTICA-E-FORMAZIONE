@@ -137,13 +137,9 @@ unset( $rdacademy_c_azione, $rdacademy_c_def );
  */
 add_action( 'rdacademy_enqueue_frontend_assets', static function () {
 	if ( ! Rdacademy_Auth::is_logged_in() ) return;
-	echo '<link rel="stylesheet" href="' . esc_url( RDACADEMY_PLUGIN_URL . 'public/css/rdacademy-lotto-c.css' ) . '?v=' . esc_attr( RDACADEMY_VERSION ) . '">' . "\n";
-	echo '<script src="' . esc_url( RDACADEMY_PLUGIN_URL . 'public/js/rdacademy-pagine.js' ) . '?v=' . esc_attr( RDACADEMY_VERSION ) . '"></script>' . "\n";
+	/* 0.1.04A (BUG-2): il foglio e lo script delle pagine del lotto non sono nel pacchetto e le pagine sono ancora
+	   «in sviluppo»: non si chiamano. Entreranno con le pagine, scritte sul foglio comune (SPEC-GRAFICA v5 § 14). */
 	echo '<script>window.RDACADEMYC_REST = ' . wp_json_encode( array( 'root' => esc_url_raw( rest_url() ), 'nonce' => wp_create_nonce( 'wp_rest' ) ) ) . ';</script>' . "\n";
 }, 5 );
 
-/* ── Le icone delle viste del lotto (registro unico, REGOLE § 3.1) ── */
-add_filter( 'rdacademy_nav_icons', static function ( array $icons ): array {
-	$icons['user'] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg>';
-	return $icons;
-} );
+/* ── Le icone delle viste del lotto: dal registro di famiglia (rdacademy_icona(), 0.1.04A) ── */

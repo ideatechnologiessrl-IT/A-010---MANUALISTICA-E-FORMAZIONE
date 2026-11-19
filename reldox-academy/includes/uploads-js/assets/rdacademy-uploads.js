@@ -565,7 +565,7 @@
 				queueItem.classList.add('rdacademy-uploads__queue-item--error');
 				fillBar.style.width = '100%';
 				var msg = mapHttpError(resp.status, resp.body);
-				percentLabel.textContent = '✕';
+				percentLabel.textContent = '×';
 				Toast.error(file.name + ': ' + msg);
 				if (typeof self.opts.onError === 'function') {
 					self.opts.onError({ stage: 'upload', status: resp.status, message: msg, body: resp.body }, file);

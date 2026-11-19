@@ -180,7 +180,7 @@ final class Rdacademy_Casella {
 					'Username: l\'indirizzo email completo della casella; Password: quella della casella (la stessa della webmail).',
 					'Salva, poi «Testa» per l\'IMAP e «Prova la spedizione» per l\'SMTP.',
 				),
-				'note'   => '⛔ imaps.aruba.it riceve e basta: nel campo «Server SMTP» va smtps.aruba.it.',
+				'note'   => 'Attenzione: imaps.aruba.it riceve e basta: nel campo «Server SMTP» va smtps.aruba.it.',
 				'url'    => 'https://guide.hosting.aruba.it/email/configurazione-caselle-email/',
 			);
 		}
@@ -545,7 +545,7 @@ final class Rdacademy_Casella {
 
 	/** Il testo da copiare: completo, leggibile, senza segreti. */
 	public static function testo_esito( string $titolo, array $c, array $esito ): string {
-		$seg = array( 'ok' => '✓', 'ko' => '✕', 'avviso' => '!', 'saltato' => '–' );
+		$seg = array( 'ok' => 'OK', 'ko' => '×', 'avviso' => '!', 'saltato' => '–' );
 		$r = array();
 		$r[] = RDACADEMY_PRODUCT . ' ' . RDACADEMY_VERSION . ' — ' . $titolo . ' — ' . wp_date( 'd/m/Y H:i:s' );
 		$r[] = 'SMTP ' . $c['host'] . ':' . $c['porta'] . ' · ' . $c['sicurezza'] . ' · IMAP ' . ( $c['imap_host'] !== '' ? $c['imap_host'] . ':' . $c['imap_porta'] . ' · ' . $c['imap_sicurezza'] : '—' );
@@ -693,7 +693,7 @@ final class Rdacademy_Casella {
 			$m->Body = '<div style="font-family:Arial,sans-serif;font-size:14px;color:#111827;line-height:1.6">'
 				. '<p>Questa è una <strong>prova della casella di servizio</strong> di ' . esc_html( RDACADEMY_PRODUCT ) . '.</p>'
 				. '<p>Se la leggi, la casella <strong>' . esc_html( $c['mittente'] ) . '</strong> spedisce correttamente: da qui partiranno inviti e recuperi delle credenziali.</p>'
-				. '<p style="color:#6B7280;font-size:12px">Spedita il ' . esc_html( wp_date( 'd/m/Y H:i' ) ) . ' da ' . esc_html( home_url() ) . '</p></div>';
+				. '<p style="color:#6B7280;font-size:13px">Spedita il ' . esc_html( wp_date( 'd/m/Y H:i' ) ) . ' da ' . esc_html( home_url() ) . '</p></div>';
 			$m->AltBody = self::testo_da_html( $m->Body );
 			$m->preSend();
 			return $m->getSentMIMEMessage();

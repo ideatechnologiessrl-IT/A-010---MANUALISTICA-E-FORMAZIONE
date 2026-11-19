@@ -152,8 +152,4 @@ add_filter( 'rdacademy_stato_sistema_sorgenti', static function ( array $righe )
 	return $righe;
 } );
 
-/* ── Il foglio della linguetta Database (dal <head> della cornice, solo collegati) ── */
-add_action( 'rdacademy_enqueue_frontend_assets', static function () {
-	if ( ! Rdacademy_Auth::is_logged_in() ) return;
-	echo '<link rel="stylesheet" href="' . esc_url( RDACADEMY_PLUGIN_URL . 'public/css/rdacademy-lotto-d.css' ) . '?v=' . esc_attr( RDACADEMY_VERSION ) . '">' . "\n";
-}, 6 );
+/* ── Il foglio della linguetta Database: 0.1.04A (BUG-2) non si chiama finché la pagina non c è (era assente dal pacchetto). ── */

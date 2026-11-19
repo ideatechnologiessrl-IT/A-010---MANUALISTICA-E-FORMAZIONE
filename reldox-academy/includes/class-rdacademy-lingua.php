@@ -37,7 +37,7 @@ final class Rdacademy_Lingua {
 	const COOKIE     = 'rdacademy_lingua';
 
 	/** Il nome che si legge nelle tendine e accanto alle bandierine. */
-	const NOMI = array( 'it' => '🇮🇹 Italiano', 'en' => '🇬🇧 English', 'de' => '🇩🇪 Deutsch' );
+	const NOMI = array( 'it' => 'Italiano', 'en' => 'English', 'de' => 'Deutsch' );   // 0.1.04A: niente emoji (SPEC-GRAFICA v5 G6)
 
 	/* ===================================================================== *
 	 *  0.8.7A (RF-BUG-025, owner 08/10 09:29-09:38) — IL SET DI PARTENZA DEI TESTI DELLE NOTIFICHE

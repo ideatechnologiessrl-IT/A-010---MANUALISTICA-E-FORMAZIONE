@@ -66,11 +66,7 @@ function rdacademy_icona_tratto( string $k ): string {
 	return $t[ $k ] ?? '';
 }
 
-add_filter( 'rdacademy_nav_icons', static function ( array $icons ): array {
-	$icons['manuali'] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . rdacademy_icona_tratto( 'manuali' ) . '</svg>';
-	$icons['guida']   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6.5A2.5 2.5 0 0 0 4 21.5v-2z"/><path d="M8 7h7M8 11h5"/></svg>';
-	return $icons;
-} );
+/* 0.1.04A — «manuali» e «guida» vengono dal registro di famiglia (rdacademy_nav_icon → guida). */
 
 /* Il foglio della leggibilità, l ultimo del <head> (sovrascrive le misure dei fogli di prima). */
 add_action( 'rdacademy_enqueue_frontend_assets', static function () {

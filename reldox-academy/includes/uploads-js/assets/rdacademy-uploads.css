@@ -448,7 +448,7 @@
 }
 
 .rdacademy-uploads__list-item-meta {
-	font-size: 12px;
+	font-size: 13px;
 	color: var(--rd-up-text-muted);
 	display: flex;
 	gap: 8px;
@@ -462,7 +462,7 @@
 	background: var(--rd-up-border);
 	color: var(--rd-up-text);
 	border-radius: 10px;
-	font-size: 11px;
+	font-size: 13px;
 	font-weight: 500;
 }
 

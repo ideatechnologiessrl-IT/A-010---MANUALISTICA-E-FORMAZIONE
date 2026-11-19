@@ -214,7 +214,7 @@ final class Rdacademy_Password_Mail {
 	/** 0.8.7A — l involucro comune: sfondo, scheda di 560 px, testata dei due loghi, corpo, riserva del collegamento, piede. */
 	private static function involucro( string $L, string $corpo, string $link_riserva, string $piede ): string {
 		$ris = $link_riserva !== ''
-			? '<p style="margin:16px 0 0;font-size:12px;color:#6B7280">' . esc_html( Rdacademy_Lingua::t( 'mail.non_funziona', $L ) ) . '<br><span style="word-break:break-all">' . esc_url( $link_riserva ) . '</span></p>'
+			? '<p style="margin:16px 0 0;font-size:13px;color:#6B7280">' . esc_html( Rdacademy_Lingua::t( 'mail.non_funziona', $L ) ) . '<br><span style="word-break:break-all">' . esc_url( $link_riserva ) . '</span></p>'
 			: '';
 		return '<div lang="' . esc_attr( $L ) . '" style="margin:0;padding:24px 0;background:#F3F4F6;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif">'
 			. '<div style="max-width:560px;margin:0 auto;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden">'
@@ -329,7 +329,7 @@ final class Rdacademy_Password_Mail {
 			. 'style="display:block;width:' . $pw . 'px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none">'
 			. '</td>'
 			. '<td class="rdacademy-mail-filetto" width="1" style="padding:0;vertical-align:middle">'
-			. '<div style="width:1px;height:48px;background:#D1D5DB;line-height:48px;font-size:1px">&nbsp;</div></td>'
+			. '<div style="width:1px;height:48px;background:#D1D5DB;line-height:48px;font-size:0">&nbsp;</div></td>'
 			. '<td class="rdacademy-mail-cliente" style="padding:0 0 0 14px;text-align:left;vertical-align:middle">'
 			. '<img src="' . esc_url( $L['cliente'] ) . '" alt="' . esc_attr( $L['cliente_alt'] ) . '"' . ( $cw > 0 ? ' width="' . $cw . '"' : '' ) . ' height="48" '
 			. 'style="display:block;' . $st_cli . ';border:0;outline:none;text-decoration:none">'
@@ -475,7 +475,7 @@ final class Rdacademy_Password_Mail {
 		$corpo = '<div style="background:#FEF3F2;border:1px solid #FECDCA;border-radius:10px;padding:12px 16px;margin:0 0 16px">'
 			. '<b style="color:#B42318">' . esc_html( Rdacademy_Lingua::t( 'mail.blocco_tit', $L ) ) . '</b></div>'
 			. Rdacademy_Lingua::riempi( Rdacademy_Testi_Notifiche::modello( 'blocco', $L )['testo'], $v, true );
-		$piede = '<div style="padding:14px 28px 20px;border-top:1px solid #F3F4F6;font-size:11.5px;line-height:1.6;color:#6B7280;text-align:center">'
+		$piede = '<div style="padding:14px 28px 20px;border-top:1px solid #F3F4F6;font-size:13px;line-height:1.6;color:#6B7280;text-align:center">'
 			. esc_html( Rdacademy_Lingua::fl( $L, 'mail.automatico', RDACADEMY_PRODUCT ) ) . '</div>';
 		return self::involucro( $L, $corpo, '', $piede );
 	}
@@ -486,14 +486,14 @@ final class Rdacademy_Password_Mail {
 		$m = Rdacademy_Testi_Notifiche::modello( 'reimpostazione', $L );
 		$v = self::valori_reimpostazione( $nome, $login, $link, $L, $uid );
 		$v['pulsante_html'] = self::pulsante( $link, Rdacademy_Lingua::t( 'mail.reimp_btn', $L ),
-			'<p style="margin:0 0 18px;text-align:center;font-size:12.5px;color:#6B7280">' . Rdacademy_Lingua::fl( $L, 'mail.vale_minuti', (int) Rdacademy_Password_Token::MINUTI_REIMPOSTA ) . '</p>' );
+			'<p style="margin:0 0 18px;text-align:center;font-size:13px;color:#6B7280">' . Rdacademy_Lingua::fl( $L, 'mail.vale_minuti', (int) Rdacademy_Password_Token::MINUTI_REIMPOSTA ) . '</p>' );
 		return self::involucro( $L, Rdacademy_Lingua::riempi( $m['testo'], $v, true ), $link, self::piede( $L, false ) );
 	}
 
 	/** Il piede comune a invito e recupero, nella lingua della persona. */
 	private static function piede( string $L, bool $invito ): string {
 		$P = esc_html( RDACADEMY_PRODUCT );
-		return '<div style="padding:14px 28px 20px;border-top:1px solid #F3F4F6;font-size:11.5px;line-height:1.6;color:#6B7280;text-align:center">'
+		return '<div style="padding:14px 28px 20px;border-top:1px solid #F3F4F6;font-size:13px;line-height:1.6;color:#6B7280;text-align:center">'
 			. esc_html( Rdacademy_Lingua::fl( $L, 'mail.automatico', RDACADEMY_PRODUCT ) ) . '<br>'
 			. '<b>' . esc_html( Rdacademy_Lingua::fl( $L, 'mail.mai_password', RDACADEMY_PRODUCT ) ) . '</b>'
 			. ( $invito ? ' ' . esc_html( Rdacademy_Lingua::t( 'mail.non_aspettavi', $L ) ) : '' )
@@ -551,7 +551,7 @@ final class Rdacademy_Password_Mail {
 		$modello = Rdacademy_Testi_Notifiche::modello( 'invito.persona', $L );
 		$v       = self::valori_invito( $nome, $login, $link, $L, $uid );
 		$v['pulsante_html'] = self::pulsante( $link, Rdacademy_Lingua::t( 'mail.attiva', $L ),
-			'<p style="margin:0 0 18px;text-align:center;font-size:12.5px;color:#6B7280">' . Rdacademy_Lingua::fl( $L, 'mail.vale_giorni', $giorni ) . '</p>' );
+			'<p style="margin:0 0 18px;text-align:center;font-size:13px;color:#6B7280">' . Rdacademy_Lingua::fl( $L, 'mail.vale_giorni', $giorni ) . '</p>' );
 		$nota = '';
 		if ( $reinvio ) {
 			$nt   = Rdacademy_Lingua::riempi( Rdacademy_Testi_Notifiche::modello( 'reinvio', $L )['testo'], $v, false );
