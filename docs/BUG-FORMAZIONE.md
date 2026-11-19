@@ -13,7 +13,7 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
 
-### BUG-1 — 18/11/2026 — dopo il wizard il plugin non parte su un WordPress in italiano
+### BUG-1 — ★★★★★ — 18/11/2026 — dopo il wizard il plugin non parte su un WordPress in italiano
 - **Stato**: consegnata (0.1.02A), da chiudere con l esito dell owner sul sito.
 - **Visto**: owner 18/11/2026 14:37, chat Formazione F013, sul sito di RelDoxAcademy con la 0.1.01A: dopo «Scrivi» del wizard, «Avvia il prodotto» porta a una pagina inesistente e «Primo accesso» dice «Non hai il permesso di accedere a questa pagina».
 - **Causa (misurata)**: il wizard cerca in `wp-config.php` la riga inglese «That's all, stop editing»; nel `wp-config` italiano c è «Finito, interrompere le modifiche!», quindi il blocco del database finisce in coda, **dopo** `require_once ABSPATH . 'wp-settings.php'`. WordPress avvia i plugin prima di leggere le credenziali e RelDoxAcademy resta in «solo installazione»: niente `/academy/`, niente «Primo accesso». Rifacendo il wizard, il blocco c è già e la risposta è «già configurato»: il guasto resta. I permalink non c entrano: con la correzione funziona con «Semplice», «Data e nome» e «Nome articolo», senza toccarli.

@@ -1,4 +1,4 @@
-<!-- REGISTRO VIOLAZIONI · 18/11/2026 F013 · aperti 0 · totale 4 · ultimi 7 giorni 4 · primo libero V-5 -->
+<!-- REGISTRO VIOLAZIONI · 19/11/2026 F014 · aperti 0 · totale 5 · ultimi 7 giorni 5 · primo libero V-6 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro VIOLAZIONI della Formazione
@@ -43,6 +43,14 @@ Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti dif
 - **Chi l ha vista**: Claude, rileggendo la conversazione alle 15:24 (conseguenza dello stesso decadimento di V-3).
 - **Rimedio**: risposta di nuovo in italiano; la sessione si chiude e si passa alla chat nuova.
 - **Classe**: lingua.
+- **Ripetizione**: prima della classe.
+
+### V-5 · 19/11/2026 · Formazione F014
+- **Regola violata**: `CLAUDE.md` del nodo, «All unione in `main`» punto 5: le stelle di priorità stanno nell intestazione di ogni bug e punto aperto (owner 18/11/2026 14:44, chat RelDox CRD S718: «questo non deve più accadere per nessuna sorella»); regole del dialogo: risposta ai messaggi che la chiedono.
+- **Che cosa è successo**: in F014 ho letto la regola (messaggio del capo famiglia del 18/11) e ho risposto solo sui registri chiusi; le 23 voci aperte e BUG-1 sono rimaste senza stelle. La sessione si è fermata il 18/11 alle 16:44 e i due messaggi del 19/11 (stelle, nota sulle email) sono rimasti senza risposta.
+- **Chi l ha vista**: owner, 19/11/2026 13:23, chat Formazione F014 (cruscotto: «Nessuna stella. Ha 2 risposte dovute ed è ferma dal 18/11 alle 16:44»).
+- **Rimedio**: colonna «Priorità» nell indice della roadmap, stelle su tutte le 24 voci aperte e su BUG-1; tabella ricomposta (F22-F27 stavano dopo il piede); voce F28 per la nota sulle email; le due risposte in bacheca; da ora a ogni voce nuova la priorità si scrive nella stessa riga.
+- **Classe**: regole di famiglia lette e non applicate.
 - **Ripetizione**: prima della classe.
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
