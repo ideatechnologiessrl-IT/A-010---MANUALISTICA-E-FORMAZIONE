@@ -156,13 +156,35 @@ final class Rdacademy_Stato_Sistema {
 			'access_count'  => $access_count,
 			'mysql_version' => $mysql_version,
 			'version'       => (string) get_option( 'rdacademy_version', '—' ),
-			'installed_at'  => (string) get_option( 'rdacademy_installed_at', '—' ),
+			'installed_at'  => self::ora_sito( (string) get_option( 'rdacademy_installed_at', '—' ) ),
 			'home'          => $home,
 			'app_url'       => home_url( '/' . RDACADEMY_APP_SLUG . '/' ),
 			'domain'        => (string) $domain,
 			'db_sources'    => $db_sources,
 			'ancora'        => class_exists( 'Rdacademy_License_Anchor' ) ? Rdacademy_License_Anchor::state() : '—',
 		);
+	}
+
+	/**
+	 * 0.1.05A (BUG-3) — l ora d installazione si salva in UTC («2026-11-18 14:19:34 UTC»): a schermo e negli
+	 * appunti va nell ora del sito, come in RelDox CRD. Un valore che non è una data resta com è.
+	 */
+	private static function ora_sito( string $utc ): string {
+		$v = trim( preg_replace( '/\s*UTC$/', '', $utc ) );
+		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $v ) ) return $utc;
+		return (string) get_date_from_gmt( $v, 'Y-m-d H:i:s' );
+	}
+
+	/** 0.1.05A (BUG-3) — l esito della guardia della cache a parole, uguale a schermo e negli appunti. */
+	private static function cache_a_parole( string $esito ): string {
+		$m = array( 'verde' => 'sì', 'rosso' => 'no', 'arancio' => 'sì, con un avviso' );
+		return $m[ $esito ] ?? 'non misurabile';
+	}
+
+	/** 0.1.05A (BUG-3) — l ancora di dominio a parole, uguale a schermo e negli appunti. */
+	private static function ancora_a_parole( string $stato ): string {
+		if ( $stato === '—' ) return 'non leggibile';
+		return $stato === Rdacademy_License_Anchor::STATE_NEEDS_RELICENSE ? 'da rinnovare' : 'attiva';
 	}
 
 	/**
@@ -202,10 +224,10 @@ final class Rdacademy_Stato_Sistema {
 			. ' (' . (int) $d['tables_n'] . ' richieste)';
 		$L[] = $pad( 'Utenti:' ) . $n( $d['user_count'] );
 		$L[] = $pad( 'Accessi registrati:' ) . $n( $d['access_count'] );
-		$L[] = $pad( 'Ancora di dominio:' ) . $d['ancora'];
+		$L[] = $pad( 'Ancora di dominio:' ) . self::ancora_a_parole( (string) $d['ancora'] );
 		if ( class_exists( 'Rdacademy_Cache_Guardia' ) ) {   // 1.4.3B — RF-BUG-028: le pagine dell app non memorizzate dalla cache
 			$pc = Rdacademy_Cache_Guardia::prova();
-			$L[] = $pad( 'Cache pagine:' ) . $pc['esito'] . ' · ' . $pc['motivo'];
+			$L[] = $pad( 'Cache pagine:' ) . self::cache_a_parole( (string) $pc['esito'] ) . ' · ' . $pc['motivo'];
 		}
 		$L[] = '';
 		$L[] = 'Database SQL utilizzati:';
@@ -216,7 +238,7 @@ final class Rdacademy_Stato_Sistema {
 				. ' [' . $s['stato'] . ']';
 		}
 		$L[] = '';
-		$L[] = 'Generato il: ' . gmdate( 'Y-m-d H:i:s' ) . ' UTC';
+		$L[] = 'Generato il: ' . current_time( 'Y-m-d H:i:s' );   // 0.1.05A (BUG-3): l ora del sito, come RelDox CRD
 		return implode( "\n", $L );
 	}
 
@@ -236,13 +258,16 @@ final class Rdacademy_Stato_Sistema {
 		$primo = admin_url( 'admin.php?page=' . Rdacademy_Accesso_Emergenza::PAGE_SLUG );
 		?>
 		<div class="wrap reldox-admin-wrap rdacademy-stato">
-			<?php /* 0.1.04A (BUG-2) — l aspetto sta in admin/css/admin.css, dopo il foglio comune (SPEC-GRAFICA-RELDOX-v5 § 14). */ ?>
+			<?php /* 0.1.04A (BUG-2) — l aspetto sta in admin/css/admin.css, dopo il foglio comune (SPEC-GRAFICA-RELDOX-v5 § 14).
+			         0.1.05A (BUG-3) — la pagina come la Stato di RelDox CRD 3.75.07G (owner 19/11/2026 16:20, chat Formazione F017):
+			         testata a fascia, riquadri centrati col bordo di stato, titoli con l icona; le icone sono quelle disegnate del
+			         registro comune, mai emoji (SPEC-GRAFICA v5 G6). */ ?>
 			<?php /* 0.8.10A (RF-BUG-026, owner 08/10 18:58) — LA TESTATA COME RELDOX: gli avvisi di WordPress vanno SOPRA (wp-header-end:
 			         senza, WordPress li infila dopo il primo h1, cioè dentro la testata blu); in testa il LOGO VERO del prodotto, sotto il
 			         nome con le pillole della versione e dello stadio, poi il sottotitolo. Riquadri con l'icona sopra la scritta. */ ?>
 			<hr class="wp-header-end">
 			<div class="reldox-admin-header rdacademy-testata">
-				<img class="rdacademy-testata-logo" src="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/img/logo/reldox-academy-lockup.png' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>" alt="<?php echo esc_attr( RDACADEMY_PRODUCT ); ?>" width="720" height="182">
+				<span class="rdacademy-testata-targa"><img class="rdacademy-testata-logo" src="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/img/logo/reldox-academy-lockup.png' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>" alt="<?php echo esc_attr( RDACADEMY_PRODUCT ); ?>" width="720" height="182"></span>
 				<h1><?php echo esc_html( RDACADEMY_PRODUCT ); ?>
 					<span class="reldox-version">v<?php echo esc_html( RDACADEMY_VERSION_LABEL ); ?></span>
 					<?php
@@ -251,18 +276,18 @@ final class Rdacademy_Stato_Sistema {
 						<span class="reldox-stage"><?php echo esc_html( RDACADEMY_STAGE ); ?></span>
 					<?php endif; ?>
 				</h1>
-				<p>Stato sistema — un prodotto di <?php echo esc_html( RDACADEMY_VENDOR ); ?></p>
+				<p>Corsi on line della famiglia RelDox — Pannello di controllo</p>
 			</div>
 
 			<div class="reldox-status-grid">
 				<div class="reldox-status-card <?php echo $d['db_connected'] ? 'ok' : 'error'; ?>">
-					<div class="card-icon" aria-hidden="true"><?php echo rdacademy_icona( $d['db_connected'] ? 'cilindro' : 'triangolo' ); ?></div>
+					<div class="card-icon card-icon-ok" aria-hidden="true"><?php echo rdacademy_icona( $d['db_connected'] ? 'spunta' : 'triangolo' ); ?></div>
 					<div class="card-title">Database BASE</div>
 					<div class="card-value"><?php echo $d['db_connected'] ? 'Connesso' : 'Errore connessione'; ?></div>
 					<div class="card-sub"><?php echo esc_html( defined( 'RDACADEMY_DB_NAME' ) ? RDACADEMY_DB_NAME : '—' ); ?></div>
 				</div>
 				<div class="reldox-status-card <?php echo $d['tables_ok'] ? 'ok' : 'error'; ?>">
-					<div class="card-icon" aria-hidden="true"><?php echo rdacademy_icona( $d['tables_ok'] ? 'tabella' : 'triangolo' ); ?></div>
+					<div class="card-icon card-icon-ok" aria-hidden="true"><?php echo rdacademy_icona( $d['tables_ok'] ? 'spunta' : 'triangolo' ); ?></div>
 					<div class="card-title">Tabelle DB</div>
 					<div class="card-value"><?php echo $d['tables_ok'] ? 'Installate' : 'Mancanti'; ?></div>
 					<div class="card-sub"><?php echo (int) $d['tables_n']; ?> tabelle richieste<?php echo $d['tables_miss'] ? ' — mancano: ' . esc_html( implode( ', ', $d['tables_miss'] ) ) : ''; ?></div>
@@ -286,7 +311,6 @@ final class Rdacademy_Stato_Sistema {
 					<span>Informazioni installazione</span>
 					<span style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap">
 						<button type="button" id="rdacademy-copy-config" class="button button-primary rdacademy-copia-btn">
-							<?php echo rdacademy_icona( 'copia' ); ?>
 							Copia configurazione
 						</button>
 						<span id="rdacademy-copy-config-done" class="rdacademy-copia-ok" role="status" aria-live="polite">Copiato</span>
@@ -298,7 +322,7 @@ final class Rdacademy_Stato_Sistema {
 				<div id="rdacademy-copy-config-err" class="rdacademy-copia-ko" role="alert" hidden></div>
 				<table class="reldox-info-table">
 					<tr><td>Dominio installazione</td><td><strong><?php echo esc_html( $d['domain'] ); ?></strong> <span class="rdacademy-muted"><?php echo esc_html( $d['home'] ); ?></span></td></tr>
-					<tr><td>Apertura applicazione</td><td><a href="<?php echo esc_url( $d['app_url'] ); ?>" target="_blank" rel="noopener"><strong><?php echo esc_html( $d['app_url'] ); ?></strong></a> <span class="rdacademy-muted">pagina funzionale d apertura</span></td></tr>
+					<tr><td>Apertura applicazione</td><td><a href="<?php echo esc_url( $d['app_url'] ); ?>" target="_blank" rel="noopener"><strong><?php echo esc_html( $d['app_url'] ); ?></strong></a> <span class="rdacademy-muted">pagina funzionale d’apertura</span></td></tr>
 					<tr><td>Versione plugin</td><td><strong><?php echo esc_html( RDACADEMY_VERSION_LABEL ); ?></strong> <span class="rdacademy-muted"><?php echo esc_html( RDACADEMY_STAGE ); ?></span></td></tr>
 					<?php
 					// Diagnostica OPcache/aggiornamento (RelDox): la riga compare SOLO se la
@@ -322,16 +346,16 @@ final class Rdacademy_Stato_Sistema {
 					<tr><td>MySQL</td><td><?php echo esc_html( $d['mysql_version'] ); ?></td></tr>
 					<tr><td>WordPress</td><td><?php echo esc_html( get_bloginfo( 'version' ) ); ?></td></tr>
 					<?php if ( class_exists( 'Rdacademy_Cache_Guardia' ) ) : $rx_pc = Rdacademy_Cache_Guardia::prova(); /* 1.4.3B — RF-BUG-028 */ ?>
-					<tr class="rdacademy-cache-pagine" data-esito="<?php echo esc_attr( $rx_pc['esito'] ); ?>"><td>Pagine dell app non memorizzate dalla cache</td><td><span class="stato<?php echo $rx_pc['esito'] === 'verde' ? '' : ' mod'; ?>"><?php echo $rx_pc['esito'] === 'verde' ? 'sì' : ( $rx_pc['esito'] === 'rosso' ? 'no' : ( $rx_pc['esito'] === 'arancio' ? 'sì, con un avviso' : 'non misurabile' ) ); /* 1.8.0B — RF-BUG-035; 0.1.04A pastiglia di stato (SPEC-GRAFICA § 7) */ ?></span>
+					<tr class="rdacademy-cache-pagine" data-esito="<?php echo esc_attr( $rx_pc['esito'] ); ?>"><td>Pagine dell app non memorizzate dalla cache</td><td><span class="stato<?php echo $rx_pc['esito'] === 'verde' ? '' : ' mod'; ?>"><?php echo esc_html( self::cache_a_parole( (string) $rx_pc['esito'] ) ); /* 1.8.0B — RF-BUG-035; 0.1.04A pastiglia di stato (SPEC-GRAFICA § 7) */ ?></span>
 						<span class="rdacademy-muted"><?php echo esc_html( $rx_pc['motivo'] ); ?></span></td></tr>
 					<?php endif; ?>
-					<tr><td>Ancora di dominio</td><td><?php echo esc_html( $d['ancora'] === Rdacademy_License_Anchor::STATE_NEEDS_RELICENSE ? 'da rinnovare' : 'attiva' ); ?></td></tr>
+					<tr><td>Ancora di dominio</td><td><?php echo esc_html( self::ancora_a_parole( (string) $d['ancora'] ) ); ?></td></tr>
 				</table>
 			</div>
 
 			<?php // RP-VERSIONE-PANNELLO-MINIMO: i DB SQL in uso, in chiaro e in un colpo d occhio. ?>
 			<div class="reldox-info-box">
-				<h3>Database SQL utilizzati</h3>
+				<h3><?php echo rdacademy_icona( 'cilindro' ); ?> Database SQL utilizzati</h3>
 				<div class="rdacademy-scroll">
 				<table class="reldox-info-table rdacademy-db-usati">
 					<tr><td><strong>Sorgente</strong></td><td><strong>Database</strong></td><td><strong>Host</strong></td><td><strong>Stato</strong></td></tr>
@@ -345,18 +369,20 @@ final class Rdacademy_Stato_Sistema {
 					<?php endforeach; ?>
 				</table>
 				</div>
-				<p class="rdacademy-muted" style="margin:10px 0 0">Le sorgenti non provisionate ricadono sul <strong>BASE</strong>: è il comportamento previsto, non un errore.</p>
+				<p class="rdacademy-muted" style="margin:10px 0 0">Una sorgente non configurata non è in uso: i suoi dati stanno sul <strong>BASE</strong>. È il comportamento previsto, non un errore.</p>
 			</div>
 
 			<div class="reldox-info-box">
-				<h3>Credenziali primo accesso</h3>
-				<p>L utente di servizio nasce <strong>senza password nota</strong>: per entrare la prima volta usa
+				<h3><?php echo rdacademy_icona( 'lucchetto' ); ?> Utente di servizio e primo accesso</h3>
+				<p>L’utente di servizio nasce <strong>senza password nota</strong>: per entrare la prima volta usa
 					<a href="<?php echo esc_url( $primo ); ?>"><?php echo esc_html( RDACADEMY_PRODUCT ); ?> › Primo accesso</a>, scegli <code><?php echo esc_html( RDACADEMY_SERVICE_EMAIL ); ?></code>, premi <strong>Crea il collegamento di accesso</strong> e apri il collegamento monouso che compare.</p>
 				<table class="reldox-info-table">
-					<tr><td>Email</td><td><code><?php echo esc_html( RDACADEMY_SERVICE_EMAIL ); ?></code></td></tr>
+					<tr><td>Email</td><td><code><?php echo esc_html( RDACADEMY_SERVICE_EMAIL ); ?></code> · casella di Idea Technologies (assistenza e manutenzione)</td></tr>
 					<tr><td>Password</td><td>nessuna: la scegli dal collegamento monouso (vale <?php echo (int) Rdacademy_Password_Token::MINUTI_REIMPOSTA; ?> minuti, una volta sola)</td></tr>
-					<tr><td>Indirizzo d accesso</td><td><a href="<?php echo esc_url( home_url( '/' . RDACADEMY_APP_SLUG . '/login' ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( home_url( '/' . RDACADEMY_APP_SLUG . '/login' ) ); ?></a></td></tr>
+					<tr><td>Indirizzo d’accesso</td><td><a href="<?php echo esc_url( home_url( '/' . RDACADEMY_APP_SLUG . '/login' ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( home_url( '/' . RDACADEMY_APP_SLUG . '/login' ) ); ?></a></td></tr>
 				</table>
+				<h4 class="rdacademy-sotto">Casella dell’utente di servizio</h4>
+				<p style="margin:0">È la casella di Idea Technologies per l’assistenza e la manutenzione. L’utente di servizio opera solo in <?php echo esc_html( RDACADEMY_PRODUCT ); ?>: non dà accesso a WordPress né alle sue credenziali.</p>
 			</div>
 		</div>
 		<script>

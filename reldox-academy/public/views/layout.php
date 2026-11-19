@@ -151,8 +151,6 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
         elseif ( $page === 'manuali' || strpos( (string) $page, 'manuale-' ) === 0 ) echo ' — ' . esc_html( $rx_t( 'manuali.titolo' ) );   // 1.9.0B
     ?></title>
     <link rel="icon" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/img/logo/reldox-favicon.svg' ); ?>" type="image/svg+xml">
-    <?php /* 0.8.9A (SPEC-GALLERIA-CASSA-MENU § 10) — l'app installabile: manifesto, icona del cliente per iPhone, colore della barra. */ ?>
-    <?php if ( class_exists( 'Rdacademy_App_Install' ) ) echo Rdacademy_App_Install::testata_html(); // phpcs:ignore -- composto con esc_* ?>
     <?php /* 0.1.04A — SPEC-GRAFICA-RELDOX-v5 § 14: il foglio comune di famiglia per PRIMO, identico a quello del nodo; poi i fogli del prodotto. */ ?>
     <link rel="stylesheet" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/css/reldox-grafica.css' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>">
     <link rel="stylesheet" href="<?php echo esc_url( RDACADEMY_PLUGIN_URL . 'public/css/app.css' ); ?>?v=<?php echo esc_attr( RDACADEMY_VERSION ); ?>">

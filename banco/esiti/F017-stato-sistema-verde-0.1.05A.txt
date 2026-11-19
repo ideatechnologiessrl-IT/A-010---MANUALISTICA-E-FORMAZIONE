@@ -1,0 +1,35 @@
+[VERDE] 1 testata a fascia scura coi gettoni della SPEC (gradiente da --nav)
+[VERDE] 1 nome del prodotto in bianco sulla fascia
+[VERDE] 1 distintivo dello stadio scuro, come il distintivo dell edizione del CRD
+[VERDE] 2 riquadri numerici centrati
+[VERDE] 2 bordo superiore verde quando va
+[VERDE] 2 bordo superiore rosso quando non va
+[VERDE] 2 etichetta maiuscola
+[VERDE] 2 spunta di stato su Database e Tabelle, come il CRD
+[VERDE] 3 «Database SQL utilizzati» con l icona del cilindro (SVG del registro, non emoji)
+[VERDE] 3 «Utente di servizio e primo accesso» con l icona del lucchetto
+[VERDE] 4 niente più «Credenziali primo accesso»
+[VERDE] 4 sottosezione «Casella dell’utente di servizio»
+[VERDE] 4 la riga Email dice di chi è la casella
+[VERDE] 5 stati delle sorgenti senza maiuscolo («Non configurata», come il CRD)
+[VERDE] 5 stato «Non configurata»
+[VERDE] 5 nome della sorgente senza il numero davanti
+[VERDE] 5 nota sotto la tabella in italiano, come il CRD
+[VERDE] 6 «Installato il» nell ora del sito
+[VERDE] 6 «Generato il» nell ora del sito, senza «UTC»
+[VERDE] 7 pulsante «Copia configurazione» senza icona, come il CRD
+[VERDE] 8 «Ancora di dominio» nel testo copiato in italiano (attiva / da rinnovare)
+[VERDE] 8 «Cache pagine» nel testo copiato con lo stato a parole, non il colore
+[VERDE] 9 ragione sociale «Idea Technologies srl soc. Uninominale»
+[VERDE] 9 nessun «S.r.l.» nella pagina
+[VERDE] F33 classe dell app installabile tolta
+[VERDE] F33 script che registra il service worker tolto
+[VERDE] F33 nessun richiamo a manifesto o service worker
+[VERDE] a schermo: testata a fascia (linear-gradient(135deg, rgb(15, 42, 68) )
+[VERDE] a schermo: riquadri centrati col bordo di stato
+[VERDE] a schermo: titoli di sezione con l icona disegnata (2)
+[VERDE] negli appunti: niente inglese, niente colori, niente UTC, ragione sociale giusta
+[VERDE] a schermo: sezioni e stati come il CRD
+[VERDE] F33 /academy/manifest.webmanifest non si serve più
+[VERDE] F33 /academy/sw.js non si serve più
+VERDE — 34 su 34

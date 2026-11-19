@@ -1,0 +1,35 @@
+[ROSSO] 1 testata a fascia scura coi gettoni della SPEC (gradiente da --nav)
+[ROSSO] 1 nome del prodotto in bianco sulla fascia
+[ROSSO] 1 distintivo dello stadio scuro, come il distintivo dell edizione del CRD
+[ROSSO] 2 riquadri numerici centrati
+[ROSSO] 2 bordo superiore verde quando va
+[ROSSO] 2 bordo superiore rosso quando non va
+[ROSSO] 2 etichetta maiuscola
+[ROSSO] 2 spunta di stato su Database e Tabelle, come il CRD
+[ROSSO] 3 «Database SQL utilizzati» con l icona del cilindro (SVG del registro, non emoji)
+[ROSSO] 3 «Utente di servizio e primo accesso» con l icona del lucchetto
+[ROSSO] 4 niente più «Credenziali primo accesso»
+[ROSSO] 4 sottosezione «Casella dell’utente di servizio»
+[ROSSO] 4 la riga Email dice di chi è la casella
+[ROSSO] 5 stati delle sorgenti senza maiuscolo («Non configurata», come il CRD)
+[ROSSO] 5 stato «Non configurata»
+[ROSSO] 5 nome della sorgente senza il numero davanti
+[ROSSO] 5 nota sotto la tabella in italiano, come il CRD
+[ROSSO] 6 «Installato il» nell ora del sito
+[ROSSO] 6 «Generato il» nell ora del sito, senza «UTC»
+[ROSSO] 7 pulsante «Copia configurazione» senza icona, come il CRD
+[ROSSO] 8 «Ancora di dominio» nel testo copiato in italiano (attiva / da rinnovare)
+[ROSSO] 8 «Cache pagine» nel testo copiato con lo stato a parole, non il colore
+[ROSSO] 9 ragione sociale «Idea Technologies srl soc. Uninominale»
+[VERDE] 9 nessun «S.r.l.» nella pagina
+[ROSSO] F33 classe dell app installabile tolta
+[ROSSO] F33 script che registra il service worker tolto
+[ROSSO] F33 nessun richiamo a manifesto o service worker — restano: public/views/layout.php, public/js/rdacademy-icona.js, includes/carico-e.php, includes/lotto-e/class-rdacademy-app-install.php
+[ROSSO] a schermo: testata a fascia (none)
+[ROSSO] a schermo: riquadri centrati col bordo di stato
+[ROSSO] a schermo: titoli di sezione con l icona disegnata (1)
+[ROSSO] negli appunti: niente inglese, niente colori, niente UTC, ragione sociale giusta
+[ROSSO] a schermo: sezioni e stati come il CRD
+[ROSSO] F33 /academy/manifest.webmanifest non si serve più
+[ROSSO] F33 /academy/sw.js non si serve più
+ROSSO — 1 su 34

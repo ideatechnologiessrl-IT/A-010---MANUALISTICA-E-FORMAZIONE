@@ -21,10 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once RDACADEMY_PLUGIN_DIR . 'includes/lotto-e/class-rdacademy-schema-e.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/lotto-e/class-rdacademy-testi-notifiche.php';   // i testi delle mail dell account
-require_once RDACADEMY_PLUGIN_DIR . 'includes/lotto-e/class-rdacademy-app-install.php';       // l icona sul telefono
 
 Rdacademy_Testi_Notifiche::init();
-Rdacademy_App_Install::init();   // manifesto, icone dal logo del cliente, service worker minimo
+// 0.1.05A (F33) — tolta l app installabile ereditata dalla base (manifesto, service worker, pulsante «Installa» del browser):
+// owner 19/11/2026 16:35, chat Formazione F017: «togliamola in questo caso non ci serve averla sul phone».
 
 add_action( 'plugins_loaded', static function () {
 	Rdacademy_Provisioning_Guard::provision( 'Rdacademy_Schema_E_V1' );

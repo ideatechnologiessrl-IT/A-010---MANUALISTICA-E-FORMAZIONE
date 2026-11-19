@@ -134,16 +134,17 @@ add_action( 'rdacademy_db_reset_dopo', static function ( array $svuota ) {
 
 /* ── Stato sistema (lotto B): le sorgenti 3-5, solo chiavi di sola lettura ── */
 add_filter( 'rdacademy_stato_sistema_sorgenti', static function ( array $righe ): array {
+	// 0.1.05A (BUG-3) — le parole della Stato sistema di RelDox CRD 3.75.07G (owner 19/11/2026 16:20, chat Formazione F017).
 	$parole = array(
-		'not_configured' => 'NON IN USO · ricade sul BASE',
-		'disabled'       => 'NON IN USO · spenta (provisioning non riuscito)',
-		'unprovisioned'  => 'IN USO · tabelle non ancora sul suo database',
-		'live'           => 'IN USO · tabelle sul suo database',
+		'not_configured' => 'Non configurata',
+		'disabled'       => 'Configurata · non in uso',
+		'unprovisioned'  => 'Configurata · tabelle da preparare',
+		'live'           => 'DB proprio',
 	);
 	foreach ( Rdacademy_Sorgenti::chiavi() as $k ) {
 		$pub     = Rdacademy_DataSource::get_public( $k );
 		$righe[] = array(
-			'label'   => $pub['n'] . ' · ' . $pub['label'],
+			'label'   => $pub['label'],
 			'db_name' => (string) $pub['db_name'],
 			'db_host' => (string) $pub['db_host'],
 			'stato'   => $parole[ $pub['state'] ] ?? $pub['state'],
