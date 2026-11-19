@@ -1,4 +1,4 @@
-<!-- REGISTRO PUNTI APERTI · 19/11/2026 F015 · aperti 24 · con stelle 24 · primo libero F29 -->
+<!-- REGISTRO PUNTI APERTI · 19/11/2026 F015 · aperti 25 · con stelle 25 · primo libero F30 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Roadmap della Manualistica e formazione
@@ -36,5 +36,6 @@
 | F26 | ★★★★★ | **Nessun blocco che fermi il lavoro** (regola di famiglia): controllare in RelDoxAcademy accesso, recupero della password e invii; ogni blocco dopo un numero di errori diventa un BUG e passa a ritardo crescente e avviso all amministratore. Dopo la grafica, una cosa alla volta | `bacheca/reldox-crd/messaggi/2026-11-18-a-tutti-nessun-blocco-che-fermi-il-lavoro.md` (owner 18/11/2026 13:08, chat RelDox CRD S717) | aperta |
 | F27 | ★★★★ | **Registri chiusi all unione** (regola 5 del `CLAUDE.md` del nodo): registro dei chiusi e schede leggibili da `strumenti/voci-fatte-ancora-aperte.py` del nodo (oggi la tabella F<n> dà «voci aperte 0»); il controllo entra nel kit. Prima della prima unione in `main` di RelDoxAcademy | `bacheca/reldox-crd/messaggi/2026-11-18-a-tutti-registri-chiusi-all-unione.md` (owner 18/11/2026 14:44, chat RelDox CRD S718); esito VERDE risposto in F014 | aperta |
 | F28 | ★★ | **Nota «Le email dal vostro dominio aziendale»** (SPF, DKIM, DMARC, casella aziendale collegata) da RelDoxChecks: materiale per il corso dell amministratore, generalizzabile agli altri prodotti che spediscono posta | `bacheca/reldoxchecks/messaggi/2026-11-19-a-formazione-nota-email-dominio-aziendale.md` (owner 19/11/2026 10:10, chat RelDoxChecks S68); presa in carico in F015 | aperta |
+| F29 | ★★★★★ | **Conformità di RelDoxAcademy allo standard di famiglia**: SPEC-GRAFICA v4 intera (gettoni, rail, testata con due loghi, pannello, icone SVG, caratteri), menu wp-admin completi (Licenza d uso), plugin `reldox-academy-diagnostica` con i banchi standard, `REGOLE-RELDOXACADEMY-v1.md` (§ 13). Una cosa alla volta, prima la grafica | owner 19/11/2026 14:33, chat Formazione F015; BUG-2 | aperta |
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
