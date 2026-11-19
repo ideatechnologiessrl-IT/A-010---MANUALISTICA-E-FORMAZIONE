@@ -105,7 +105,9 @@ F016 (19/11/2026), tutto in `main`. **Pacchetto nuovo: 0.1.04A** (`reldox-academ
 - **Misura**: `conformita-grafica.py` CONFORME (C1 sì · C2 sì · 0 · 0 · 0 · 0); banco `banco/F016-banco-grafica.py` ROSSO sulla 0.1.03A, VERDE sulla 0.1.04A (95/95) su WordPress con `wp-config` italiano, aggiornamento e installazione nuova. Limite: il pacchetto della lingua italiana di WordPress non si scarica da qui, wp-admin resta in inglese nel banco.
 - **Owner**: S-1 sì, S-2 sì (D32, D33, 15:46). Al capo famiglia: misura, scelte e richiesta della riga in `comune/USO.md` (`bacheca/formazione/messaggi/2026-11-19-a-reldox-crd-spec-grafica-v5.md`).
 - **BUG-3 ★★★★★ (aperta, owner 19/11/2026 16:20)**: Stato sistema ancora diversa da quella di RelDox CRD 3.75.07G. Le nove differenze sono nella scheda di `docs/BUG-FORMAZIONE.md` (testata a fascia, riquadri, icone dei titoli, primo accesso, tabella dei database, ora, pulsante, testo copiato in italiano, ragione sociale). Si fa alle prossime modifiche, con il banco sulle nove differenze.
-- **Registri**: BUG 3/5 (BUG-2 consegnata 0.1.04A, BUG-1 consegnata 0.1.02A: entrambe da chiudere con l esito sul sito) · punti aperti 28 (nuove F31 ★★★★☆ convergenza v5 e F32 ★★★ indurimento v2, «n su 18») · violazioni 5 · fallimenti 3.
+- **F33 ★★★ (owner 19/11/2026 16:35, D34)**: togliere l app installabile (pulsante «Installa» del browser), nello stesso pacchetto di BUG-3.
+- **Al capo famiglia** (19/11/2026): la Stato sistema del CRD è il modello di famiglia? E le emoji nei suoi titoli (`bacheca/formazione/messaggi/2026-11-19-a-reldox-crd-stato-sistema-modello.md`). BUG-3 si lavora dopo la risposta.
+- **Registri**: BUG 3/5 (BUG-2 consegnata 0.1.04A, BUG-1 consegnata 0.1.02A: entrambe da chiudere con l esito sul sito) · punti aperti 29 (nuove F31 ★★★★☆ convergenza v5 e F32 ★★★ indurimento v2, «n su 18») · violazioni 5 · fallimenti 3.
 - **Kit**: il manifesto ora dice che la riga del kit in `KIT-PROGRESSIVO.txt` si aggiunge dopo la verifica (era la differenza di una riga vista in F016 su K0004 e K0005).
 
 ## §01 — CHE COSA FARE, IN ORDINE

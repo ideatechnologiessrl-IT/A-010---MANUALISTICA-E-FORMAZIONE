@@ -4,6 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F017 · 19/11/2026
+| n. | domanda | scelta dell owner | ora | effetti |
+|---|---|---|---|---|
+| D34 | Pulsante «Installa» nella barra del browser su reldoxacademy.it (app installabile ereditata da RelDoxFood: manifesto e service worker) | *«togliamola in questo caso non ci serve averla sul phone mi sembra eccessivo»* (chat Formazione F017) | 16:35 | voce F33: al prossimo pacchetto si tolgono manifesto, `sw.js`, la registrazione in `rdacademy-icona.js` e le righe in `layout.php`; per una versione `sw.js` resta come script che si cancella da solo, per chi l ha già registrato |
+
 ## F016 · 19/11/2026
 
 | n. | domanda | scelta dell owner | ora | effetti |
