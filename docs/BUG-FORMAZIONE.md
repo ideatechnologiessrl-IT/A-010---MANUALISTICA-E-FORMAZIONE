@@ -1,4 +1,4 @@
-<!-- REGISTRO BUG · 19/11/2026 F016 · aperti 2 · cornice 2/5 · primo libero BUG-3 -->
+<!-- REGISTRO BUG · 19/11/2026 F017 · aperti 3 · cornice 3/5 · primo libero BUG-4 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro BUG della Formazione
@@ -12,6 +12,25 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 ## Schede
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
+
+### BUG-3 — ★★★★★ — 19/11/2026 — Stato sistema diversa da quella di RelDox CRD: la misura dice «conforme» ma l occhio vede un altra pagina
+- **Stato**: aperta.
+- **Visto**: owner 19/11/2026 16:20, chat Formazione F017, schermate affiancate di wp-admin › Stato sistema: RelDox CRD 3.75.07G (www.ideatechnologies.cloud) e RelDoxAcademy 0.1.04A (www.reldoxacademy.it), più il testo di «Copia configurazione». Owner: *«ancora diversità prendi nota per le prossime modifiche e apri il bug»*.
+- **Differenze viste (CRD → Academy)**:
+  1. **Testata**: nel CRD una fascia blu scuro a tutta larghezza, con il logo in bianco, il nome, il distintivo della versione scuro, il distintivo dell edizione («Gold») e il sottotitolo. Da noi c è un riquadro bianco con il logo a colori e un distintivo «Alfa» chiaro.
+  2. **Riquadri numerici**: nel CRD hanno il bordo superiore verde, il contenuto centrato, l icona colorata di stato, l etichetta maiuscola piccola, il valore grande e una riga sotto. Da noi sono allineati a sinistra, con le icone grigie a tratto e nessun bordo di stato.
+  3. **Titoli di sezione**: nel CRD c è un icona davanti al titolo («Database SQL utilizzati», «Utente di servizio…»), da noi no. Nel CRD sembrano **emoji**, che la SPEC-GRAFICA v5 vieta (G6, C5): da noi va l icona SVG del registro comune.
+  4. **Sezione del primo accesso**: nel CRD si chiama «Utente di servizio e primo accesso», ha un testo che spiega e la sottosezione «Casella dell utente di servizio». Da noi si chiama «Credenziali primo accesso».
+  5. **Tabella dei database**: il CRD dà un nome alle sorgenti («Customer Service», «Riserva»), scrive lo stato «Non configurata» e chiude con la nota «Una sorgente non configurata non è in uso e non scrive sul BASE: è il comportamento previsto, non un errore.». Da noi c è «3 · Sorgente 3», «NON IN USO · ricade sul BASE» in maiuscolo e una nota con la parola inglese «provisionate» (`includes/carico-d.php` r.138-139, `class-rdacademy-stato-sistema.php` r.348).
+  6. **Data d installazione**: il CRD dà l ora locale, da noi c è l ora UTC con la scritta «UTC».
+  7. **Pulsante «Copia configurazione»**: da noi ha l icona, nel CRD no (differenza minore, da allineare).
+  8. **Testo copiato**: scrive «Ancora di dominio: active», in inglese, mentre a schermo dice «attiva» (`class-rdacademy-stato-sistema.php` r.205); scrive anche «Cache pagine: arancio», con la parola del semaforo al posto di uno stato.
+  9. **Ragione sociale**: nel sottotitolo e nel testo copiato c è «Idea Technologies S.r.l.» invece di «Idea Technologies srl soc. Uninominale».
+- **Causa**: il banco `banco/F016-banco-grafica.py` e `conformita-grafica.py` misurano solo le regole C1-C6 della SPEC (foglio comune, blu vecchio, testo sotto i 13 px, emoji, finestre del browser). Non confrontano la pagina con quella di riferimento. Nel nodo non c è un modello comune della pagina Stato sistema (`spec/`, `comune/`), quindi «CONFORME» non vuol dire «uguale al CRD».
+- **Rimedio (alle prossime modifiche, dopo l esito di BUG-2)**:
+  - Rifare Stato sistema sul modello del CRD 3.75.07G: testata a fascia, riquadri con bordo di stato, titoli con icona SVG e nessuna emoji, sezione del primo accesso, nomi e note della tabella dei database, ora locale, testo copiato tutto in italiano con la ragione sociale.
+  - Prima, chiedere al capo famiglia se la Stato sistema del CRD è il modello di famiglia e far presente le icone che sembrano emoji.
+  - Banco con un controllo per ognuna delle nove differenze: ROSSO sulla 0.1.04A, VERDE sulla nuova.
 
 ### BUG-2 — ★★★★★ — 19/11/2026 — pagine senza grafica: cinque fogli di stile chiamati dal codice e assenti dal pacchetto; grafica non conforme alla SPEC-GRAFICA v4
 - **Stato**: consegnata (0.1.04A, kit K0007), da chiudere con l esito dell owner sul sito.
