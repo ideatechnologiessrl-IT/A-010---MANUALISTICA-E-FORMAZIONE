@@ -29,7 +29,7 @@ Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti dif
 - **Causa**: il banco `banco/F016-banco-grafica.py` e `conformita-grafica.py` misurano solo le regole C1-C6 della SPEC (foglio comune, blu vecchio, testo sotto i 13 px, emoji, finestre del browser). Non confrontano la pagina con quella di riferimento. Nel nodo non c è un modello comune della pagina Stato sistema (`spec/`, `comune/`), quindi «CONFORME» non vuol dire «uguale al CRD».
 - **Rimedio (alle prossime modifiche, dopo l esito di BUG-2)**:
   - Rifare Stato sistema sul modello del CRD 3.75.07G: testata a fascia, riquadri con bordo di stato, titoli con icona SVG e nessuna emoji, sezione del primo accesso, nomi e note della tabella dei database, ora locale, testo copiato tutto in italiano con la ragione sociale.
-  - Prima, chiedere al capo famiglia se la Stato sistema del CRD è il modello di famiglia e far presente le icone che sembrano emoji.
+  - Prima, chiedere al capo famiglia se la Stato sistema del CRD è il modello di famiglia e far presente le icone che sembrano emoji: **chiesto** il 19/11/2026 (`bacheca/formazione/messaggi/2026-11-19-a-reldox-crd-stato-sistema-modello.md` del nodo; owner 16:34, chat Formazione F017: *«fai notare l anomalia e chiedi conferma a lui»*). Si lavora dopo la risposta.
   - Banco con un controllo per ognuna delle nove differenze: ROSSO sulla 0.1.04A, VERDE sulla nuova.
 
 ### BUG-2 — ★★★★★ — 19/11/2026 — pagine senza grafica: cinque fogli di stile chiamati dal codice e assenti dal pacchetto; grafica non conforme alla SPEC-GRAFICA v4
