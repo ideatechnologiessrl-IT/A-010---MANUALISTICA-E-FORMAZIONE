@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0006 — 0.1.04A — F017
+## MANIFESTO — KIT K0007 — 0.1.04A — F017
 
-PROGRESSIVO K0006   precedente K0005   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0006-0_1_04A-F017.zip · composto il 19/11/2026 15:58
+PROGRESSIVO K0007   precedente K0006   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0007-0_1_04A-F017.zip · composto il 19/11/2026 15:59
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0006-0_1_04-F017.zip
+BUSTA 1  KIT-1-APERTURA-K0007-0_1_04-F017.zip
          reldox-academy-0_1_04.zip  md5 abbca96a31a8915cbf860b3c4c097fea
          95 file · 22 cartelle · 0 cartelle vuote
          MD5-0_1_04.txt  95 righe
          APERTURA-F017.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0006-0_1_04-F017.zip  33 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0006-0_1_04-F017.zip  33 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0007-0_1_04-F017.zip  33 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0007-0_1_04-F017.zip  33 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  309 righe
@@ -28,7 +28,7 @@ BUSTA 3  KIT-3-MISURE-K0006-0_1_04-F017.zip  33 script
          banco/F014-rifai-0.1.03A.sh  39 righe
          banco/F016-banco-grafica.py  146 righe
          banco/F016-rifai-0.1.04A.sh  39 righe
-         banco/KIT-PROGRESSIVO.txt  5 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  6 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -53,7 +53,7 @@ BUSTA 3  KIT-3-MISURE-K0006-0_1_04-F017.zip  33 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0006-0_1_04-F017.zip  60 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 6 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0007-0_1_04-F017.zip  60 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 6 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (33):
   CLAUDE.md
   README.md
@@ -104,7 +104,7 @@ F016 (19/11/2026), tutto in `main`. **Pacchetto nuovo: 0.1.04A** (`reldox-academ
 - **0.1.04A**: foglio comune e registro delle icone copiati identici e caricati per primi; barra laterale comune con cima vuota (S-1); due loghi in testata, Idea Technologies predefinito; Stato sistema e Documentazione sul foglio comune; i fogli e gli script chiamati e assenti scritti (`admin.css`, `docs.*`, `rdacademy-search.*`) o non più chiamati (lotti C e D, pagine ancora «in sviluppo»).
 - **Misura**: `conformita-grafica.py` CONFORME (C1 sì · C2 sì · 0 · 0 · 0 · 0); banco `banco/F016-banco-grafica.py` ROSSO sulla 0.1.03A, VERDE sulla 0.1.04A (95/95) su WordPress con `wp-config` italiano, aggiornamento e installazione nuova. Limite: il pacchetto della lingua italiana di WordPress non si scarica da qui, wp-admin resta in inglese nel banco.
 - **Owner**: S-1 sì, S-2 sì (D32, D33, 15:46). Al capo famiglia: misura, scelte e richiesta della riga in `comune/USO.md` (`bacheca/formazione/messaggi/2026-11-19-a-reldox-crd-spec-grafica-v5.md`).
-- **Registri**: BUG 2/5 (BUG-2 consegnata 0.1.04A, BUG-1 consegnata 0.1.02A: entrambe da chiudere con l esito sul sito) · punti aperti 27 (nuova F31 ★★★★☆ convergenza v5) · violazioni 5 · fallimenti 3.
+- **Registri**: BUG 2/5 (BUG-2 consegnata 0.1.04A, BUG-1 consegnata 0.1.02A: entrambe da chiudere con l esito sul sito) · punti aperti 28 (nuove F31 ★★★★☆ convergenza v5 e F32 ★★★ indurimento v2, «n su 18») · violazioni 5 · fallimenti 3.
 - **Kit**: il manifesto ora dice che la riga del kit in `KIT-PROGRESSIVO.txt` si aggiunge dopo la verifica (era la differenza di una riga vista in F016 su K0004 e K0005).
 
 ## §01 — CHE COSA FARE, IN ORDINE
