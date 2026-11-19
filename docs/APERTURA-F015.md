@@ -6,27 +6,27 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0003 — 0.1.03A — F015
+## MANIFESTO — KIT K0004 — 0.1.03A — F015
 
-PROGRESSIVO K0003   precedente K0002   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0003-0_1_03A-F015.zip · composto il 18/11/2026 15:55
+PROGRESSIVO K0004   precedente K0003   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0004-0_1_03A-F015.zip · composto il 19/11/2026 13:27
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0003-0_1_03-F015.zip
+BUSTA 1  KIT-1-APERTURA-K0004-0_1_03-F015.zip
          reldox-academy-0_1_03.zip  md5 70c5877e8815651a66c5c54fe4b50a6c
          86 file · 18 cartelle · 0 cartelle vuote
          MD5-0_1_03.txt  86 righe
          APERTURA-F015.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0003-0_1_03-F015.zip  31 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0003-0_1_03-F015.zip  27 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0004-0_1_03-F015.zip  31 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0004-0_1_03-F015.zip  27 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  308 righe
          banco/F013-rifai-0.1.01A.sh  36 righe
          banco/F013-rifai-0.1.02A.sh  39 righe
          banco/F014-rifai-0.1.03A.sh  39 righe
-         banco/KIT-PROGRESSIVO.txt  2 righe
+         banco/KIT-PROGRESSIVO.txt  3 righe
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -47,7 +47,7 @@ BUSTA 3  KIT-3-MISURE-K0003-0_1_03-F015.zip  27 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0003-0_1_03-F015.zip  60 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 6 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0004-0_1_03-F015.zip  60 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 6 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (31):
   CLAUDE.md
   README.md
