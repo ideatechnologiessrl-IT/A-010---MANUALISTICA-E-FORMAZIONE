@@ -7,7 +7,7 @@
 ## F017 · 19/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|
-| D34 | Pulsante «Installa» nella barra del browser su reldoxacademy.it (app installabile ereditata da RelDoxFood: manifesto e service worker) | *«togliamola in questo caso non ci serve averla sul phone mi sembra eccessivo»* (chat Formazione F017) | 16:35 | voce F33: al prossimo pacchetto si tolgono manifesto, `sw.js`, la registrazione in `rdacademy-icona.js` e le righe in `layout.php`; per una versione `sw.js` resta come script che si cancella da solo, per chi l ha già registrato |
+| D34 | Pulsante «Installa» nella barra del browser su reldoxacademy.it (app installabile ereditata da RelDoxFood: manifesto e service worker) | *«togliamola in questo caso non ci serve averla sul phone mi sembra eccessivo»* (chat Formazione F017) | 16:35 | voce F33: al prossimo pacchetto si tolgono manifesto, `sw.js`, la registrazione in `rdacademy-icona.js` e le righe in `layout.php`; niente `sw.js` di passaggio: l unico browser che l ha registrato è quello dell owner (16:40, chat Formazione F017: *«solo io ... uindi nessun problema»*), che lo toglie a mano una volta |
 
 ## F016 · 19/11/2026
 
