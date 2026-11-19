@@ -1,0 +1,9 @@
+[VERDE] la riga di RelDoxAcademy è nell elenco dei plugin
+[VERDE] «Stato e assistenza» porta alla pagina Stato sistema
+[VERDE] «Copia configurazione» è nella riga
+[VERDE] il clic non apre il plugin: si resta nell elenco
+[VERDE] dice «Configurazione copiata: incollala in chat.»
+[VERDE] negli appunti il riassunto della configurazione
+[VERDE] lo stesso testo della pagina Stato sistema (a parte l ora e il dettaglio della prova della cache)
+[VERDE] nessuna password nel testo copiato
+VERDE — 8 su 8

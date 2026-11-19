@@ -31,6 +31,38 @@ class Rdacademy_Admin {
         add_action( 'admin_menu',    [ $this, 'register_menu' ] );
         add_action( 'admin_notices', [ $this, 'show_welcome_notice' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+        // 0.1.06A (F17) — regola di famiglia (owner 16/11/2026 08:57, chat RelDox CRD S707; owner 19/11/2026 17:28, chat Formazione F017:
+        // «manca il copia configurazione fuori nella lista dei plugin»): «Stato e assistenza» e «Copia configurazione» anche nella riga
+        // del plugin nell elenco dei plugin, in aggiunta alla pagina «Stato sistema». Modello: RelDox CRD 3.75.08G, Reldox_Admin.
+        add_filter( 'plugin_action_links_' . RDACADEMY_PLUGIN_BASENAME, [ $this, 'collegamenti_riga' ] );
+        add_action( 'admin_footer-plugins.php', [ $this, 'piede_plugin' ] );
+    }
+
+    /** 0.1.06A (F17) — i collegamenti sotto «RelDoxAcademy» nell elenco dei plugin, solo a chi gestisce il sito. */
+    public function collegamenti_riga( $l ): array {
+        $l = (array) $l;
+        if ( ! current_user_can( 'manage_options' ) ) return $l;
+        $u = admin_url( 'admin.php?page=rdacademy' );
+        $l['rdacademy_stato'] = '<a href="' . esc_url( $u ) . '">Stato e assistenza</a>';
+        $l['rdacademy_copia'] = '<a href="' . esc_url( $u ) . '" data-rdacademy-copia-riga>Copia configurazione</a>';
+        return $l;
+    }
+
+    /**
+     * 0.1.06A (F17) — nel piede della pagina dei plugin: il testo di «Copia configurazione», lo stesso della pagina
+     * «Stato sistema» (costruito lato server, senza password), e lo script che lo copia senza aprire il plugin.
+     * Se lo stato non si legge o il browser non lascia copiare, il collegamento apre la pagina «Stato sistema».
+     */
+    public function piede_plugin(): void {
+        if ( ! current_user_can( 'manage_options' ) || ! class_exists( 'Rdacademy_Stato_Sistema' ) ) return;
+        try { $txt = Rdacademy_Stato_Sistema::testo_configurazione(); } catch ( \Throwable $e ) { return; }
+        echo '<textarea id="rdacademy-config-riga" readonly aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">' . esc_textarea( $txt ) . '</textarea>';
+        echo "<script>(function(){var a=document.querySelector('[data-rdacademy-copia-riga]'),t=document.getElementById('rdacademy-config-riga');if(!a||!t)return;"
+            . "a.addEventListener('click',function(e){e.preventDefault();var ok=function(){var m=document.getElementById('rdacademy-copiata');if(!m){m=document.createElement('span');"
+            . "m.id='rdacademy-copiata';m.setAttribute('role','status');m.style.cssText='display:block;margin-top:6px;color:#15803D;font-weight:600;font-size:13px';a.parentNode.parentNode.appendChild(m);}"
+            . "m.textContent='Configurazione copiata: incollala in chat.';};"
+            . "if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t.value).then(ok,function(){location.href=a.href;});}"
+            . "else{t.style.left='0';t.select();try{if(document.execCommand('copy')){ok();}else{location.href=a.href;}}catch(x){location.href=a.href;}t.style.left='-9999px';}});})();</script>";
     }
 
     /**

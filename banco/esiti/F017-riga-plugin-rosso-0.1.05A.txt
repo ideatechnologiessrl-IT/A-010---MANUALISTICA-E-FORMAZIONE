@@ -1,0 +1,4 @@
+[VERDE] la riga di RelDoxAcademy è nell elenco dei plugin
+[ROSSO] «Stato e assistenza» porta alla pagina Stato sistema
+[ROSSO] «Copia configurazione» è nella riga
+ROSSO — 1 su 3
