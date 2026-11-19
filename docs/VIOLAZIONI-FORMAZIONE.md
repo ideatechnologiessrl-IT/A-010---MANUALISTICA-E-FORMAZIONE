@@ -1,4 +1,4 @@
-<!-- REGISTRO VIOLAZIONI · 19/11/2026 F014 · aperti 0 · totale 5 · ultimi 7 giorni 5 · primo libero V-6 -->
+<!-- REGISTRO VIOLAZIONI · 19/11/2026 F017 · aperti 0 · totale 6 · ultimi 7 giorni 6 · primo libero V-7 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro VIOLAZIONI della Formazione
@@ -52,5 +52,13 @@ Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti dif
 - **Rimedio**: colonna «Priorità» nell indice della roadmap, stelle su tutte le 24 voci aperte e su BUG-1; tabella ricomposta (F22-F27 stavano dopo il piede); voce F28 per la nota sulle email; le due risposte in bacheca; da ora a ogni voce nuova la priorità si scrive nella stessa riga.
 - **Classe**: regole di famiglia lette e non applicate.
 - **Ripetizione**: prima della classe.
+
+### V-6 · 19/11/2026 · Formazione F017
+- **Regola violata**: le stelle sulle voci, lette dal cruscotto dell owner (messaggio del capo famiglia `bacheca/reldox-crd/messaggi/2026-11-19-a-tutti-stelle-priorita.md` del nodo): una sola forma per tutto il registro, la sicurezza sempre a ★★★★★ (owner 02/10/2026); le voci chiuse nel registro dei chiusi (`CLAUDE.md` del nodo, «All unione in `main`» punto 5).
+- **Che cosa è successo**: nella roadmap restavano quattro voci chiuse con «—» al posto delle stelle (F1, F2, F16, F20) e la F33 chiusa; F31 aveva «★★★★☆», una forma diversa; F32, che riguarda la sicurezza delle installazioni, aveva ★★★ invece di ★★★★★.
+- **Chi l ha vista**: owner, 19/11/2026 18:14, chat Formazione F017: *«come mai il registro dei Priorità di bug e punti aperti, a stelle non risulta completo? ci sono dei punti che non hanno ancora stelle ?»*.
+- **Rimedio**: le cinque voci chiuse passate intere in `docs/PUNTI-CHIUSI-FORMAZIONE.md`; F31 a ★★★★, F32 a ★★★★★; la roadmap ha solo voci aperte, tutte con stelle.
+- **Classe**: regole di famiglia lette e non applicate.
+- **Ripetizione**: seconda della classe (dopo V-5).
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

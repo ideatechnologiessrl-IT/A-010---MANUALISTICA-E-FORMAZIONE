@@ -15,7 +15,7 @@ Questo repository è della chat **Manualistica e formazione** della famiglia Rel
 | registro | file |
 |---|---|
 | BUG | `docs/BUG-FORMAZIONE.md` |
-| PUNTI APERTI | `docs/ROADMAP.md` (la roadmap stessa, voci F<n>) |
+| PUNTI APERTI | `docs/ROADMAP.md` (la roadmap stessa, voci F<n>, solo aperte e tutte con stelle); chiuse in `docs/PUNTI-CHIUSI-FORMAZIONE.md` |
 | VIOLAZIONI | `docs/VIOLAZIONI-FORMAZIONE.md` |
 | FALLIMENTI | `docs/FALLIMENTI-FORMAZIONE.md` |
 
