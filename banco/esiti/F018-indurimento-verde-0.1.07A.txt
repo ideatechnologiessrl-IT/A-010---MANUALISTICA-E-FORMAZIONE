@@ -1,0 +1,18 @@
+[VERDE] il motore esiste: includes/class-rdacademy-indurimento.php
+[VERDE] classe Rdacademy_Indurimento caricata
+[VERDE] diciotto regole, da A1 ad A18, nell ordine della SPEC v2
+[VERDE] sito nudo: mancano A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A13, A15, A17 (misurate: A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A13, A15, A17)
+[VERDE] sito nudo: A12 e A18 «da verificare a mano», mai «a posto»
+[VERDE] sito nudo: a posto solo A14 e A16 (non richieste fuori da «solo applicazione»): 2
+[VERDE] sito nudo: la riga «Indurimento: 2 su 18 · mancano A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A13, A15, A17 · da verificare a mano A12, A18»
+[VERDE] sito indurito: 16 su 18 a posto (misurate 16)
+[VERDE] sito indurito: la riga «Indurimento: 16 su 18 · da verificare a mano A12, A18»
+[VERDE] solo applicazione: motori non scoraggiati e cache delle pagine attiva → A14 e A16 mancano
+[VERDE] sito che non risponde a se stesso: A3 e A11 non si dichiarano «a posto»
+[VERDE] Copia configurazione: riga «Indurimento:» costruita dal motore (vale anche per la riga del plugin, stesso testo)
+[VERDE] Stato sistema: riquadro «Indurimento dell installazione» con le 18 regole
+[VERDE] il file principale carica il motore
+[VERDE] nessuna emoji nei testi del motore (icone del registro comune)
+
+15 verdi, 0 rossi
+ESITO: VERDE

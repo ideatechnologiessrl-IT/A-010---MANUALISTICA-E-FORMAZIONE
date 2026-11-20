@@ -3,7 +3,7 @@
  * Plugin Name:       RelDoxAcademy
  * Plugin URI:        https://www.ideatechnologies.com
  * Description:       RelDoxAcademy — i corsi on line e i manuali dei prodotti della famiglia RelDox. Prodotto della famiglia RelDox.
- * Version:           0.1.06
+ * Version:           0.1.07
  * Author:            Idea Technologies srl soc. Uninominale
  * Author URI:        https://www.ideatechnologies.com
  * License:           Proprietary
@@ -31,14 +31,14 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'RDACADEMY_VERSION',       '0.1.06' );
+define( 'RDACADEMY_VERSION',       '0.1.07' );
 define( 'RDACADEMY_STAGE',         'Alfa' );   // REGOLE-FAMIGLIA § 9.1: lo stadio lo decide l owner
 // § 9.1 — la lettera dello stadio si scrive ATTACCATA al numero: A=Alfa, B=Beta, G=Gold, L=Live.
 define( 'RDACADEMY_VERSION_LABEL', RDACADEMY_VERSION . ( array( 'Alfa' => 'A', 'Beta' => 'B', 'Gold' => 'G', 'Live' => 'L' )[ RDACADEMY_STAGE ] ?? '' ) );
 // RP-VERSIONE-PANNELLO-MINIMO (copiato da RelDox) — il pacchetto e un NOME breve, la cronaca sta nel CHANGELOG.
-define( 'RDACADEMY_PACKAGE',       '// 0.1.06A | F017 | copia-nella-riga-del-plugin' );
+define( 'RDACADEMY_PACKAGE',       '// 0.1.07A | F018 | indurimento-n-su-18' );
 // 0.8.2A (RF-BUG-022) — la data la scrive il compositore del pacchetto insieme al manifesto, MAI A MANO.
-define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-19' );
+define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-20' );
 define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );
 define( 'RDACADEMY_VENDOR',        'Idea Technologies srl soc. Uninominale' );   // 0.1.05A (BUG-3): la ragione sociale, come nei documenti
 define( 'RDACADEMY_VENDOR_URL',    'https://www.ideatechnologies.com' );
@@ -128,6 +128,7 @@ require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-password-
 require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-imap-diretta.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-casella.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-password-mail.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-indurimento.php';   // 0.1.07A — F32: riga «Indurimento: n su 18» (SPEC-INDURIMENTO v2)
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-admin.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-router.php';
 

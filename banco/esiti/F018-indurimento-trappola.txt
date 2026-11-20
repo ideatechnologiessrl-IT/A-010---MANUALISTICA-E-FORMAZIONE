@@ -1,0 +1,3 @@
+[ROSSO] sito indurito: 16 su 18 a posto (misurate 15)
+[ROSSO] sito indurito: la riga «Indurimento: 15 su 18 · mancano A3 · da verificare a mano A12, A18»
+ESITO: ROSSO

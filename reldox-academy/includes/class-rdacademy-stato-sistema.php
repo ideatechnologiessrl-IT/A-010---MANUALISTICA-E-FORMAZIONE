@@ -229,6 +229,9 @@ final class Rdacademy_Stato_Sistema {
 			$pc = Rdacademy_Cache_Guardia::prova();
 			$L[] = $pad( 'Cache pagine:' ) . self::cache_a_parole( (string) $pc['esito'] ) . ' · ' . $pc['motivo'];
 		}
+		if ( class_exists( 'Rdacademy_Indurimento' ) ) {   // 0.1.07A — F32: SPEC-INDURIMENTO v2 § D, la stessa riga della pagina
+			$L[] = $pad( 'Indurimento:' ) . substr( Rdacademy_Indurimento::riga(), strlen( 'Indurimento: ' ) );
+		}
 		$L[] = '';
 		$L[] = 'Database SQL utilizzati:';
 		foreach ( $d['db_sources'] as $s ) {
@@ -352,6 +355,23 @@ final class Rdacademy_Stato_Sistema {
 					<tr><td>Ancora di dominio</td><td><?php echo esc_html( self::ancora_a_parole( (string) $d['ancora'] ) ); ?></td></tr>
 				</table>
 			</div>
+
+			<?php if ( class_exists( 'Rdacademy_Indurimento' ) ) : $rx_in = Rdacademy_Indurimento::fotografia(); /* 0.1.07A — F32, SPEC-INDURIMENTO v2 */ ?>
+			<div class="reldox-info-box rdacademy-indurimento">
+				<h3><?php echo rdacademy_icona( 'lucchetto' ); ?> Indurimento dell installazione</h3>
+				<p><strong><?php echo esc_html( Rdacademy_Indurimento::riga( $rx_in ) ); ?></strong></p>
+				<div class="rdacademy-scroll">
+				<table class="reldox-info-table">
+					<?php foreach ( Rdacademy_Indurimento::regole() as $rx_id => $rx_titolo ) : $rx_e = $rx_in['esiti'][ $rx_id ]; ?>
+					<tr data-regola="<?php echo esc_attr( $rx_id ); ?>"><td><?php echo esc_html( $rx_id . ' · ' . $rx_titolo ); ?></td>
+						<td><span class="stato<?php echo $rx_e['stato'] === Rdacademy_Indurimento::A_POSTO ? '' : ' mod'; ?>"><?php echo esc_html( $rx_e['stato'] === Rdacademy_Indurimento::A_MANO ? 'da verificare a mano' : $rx_e['stato'] ); ?></span>
+						<span class="rdacademy-muted"><?php echo esc_html( $rx_e['nota'] ); ?></span></td></tr>
+					<?php endforeach; ?>
+				</table>
+				</div>
+				<p class="rdacademy-muted">Sola lettura: la misura si rifà ogni 10 minuti e non cambia niente sul sito.</p>
+			</div>
+			<?php endif; ?>
 
 			<?php // RP-VERSIONE-PANNELLO-MINIMO: i DB SQL in uso, in chiaro e in un colpo d occhio. ?>
 			<div class="reldox-info-box">

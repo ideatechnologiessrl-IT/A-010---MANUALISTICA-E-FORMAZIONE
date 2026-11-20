@@ -1,0 +1,4 @@
+[ROSSO] il motore esiste: includes/class-rdacademy-indurimento.php
+
+0 verdi, 1 rossi
+ESITO: ROSSO
