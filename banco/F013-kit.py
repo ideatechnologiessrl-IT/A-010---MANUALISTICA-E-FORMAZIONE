@@ -65,7 +65,7 @@ def ultimo_k():
 
 
 # ───────────────────────────────────────────────────────────── componi
-def componi(uscita, pacchetto, ver_l, sess):
+def componi(uscita, pacchetto, ver_l, sess, diag=None):
     ver, lettera = ver_l[:-1], ver_l[-1]
     vs = ver.replace('.', '_')
     prec = ultimo_k()
@@ -115,7 +115,8 @@ def componi(uscita, pacchetto, ver_l, sess):
          '         %s  %d righe' % (md5_nome, len(righe)),
          '         APERTURA-%s.md' % sess,
          '         rese: %s' % ', '.join(n for n, _ in rese),
-         '         pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)',
+         ('         pacchetto di diagnostica: %s  md5 %s (F021: secondo pacchetto, stesso numero)' % (os.path.basename(diag), md5(open(diag, 'rb').read()))
+          if diag else '         pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)'),
          'BUSTA 2  %s  %d file — quello che sostituirà l area intera' % (nomi[2], len(area)),
          'BUSTA 3  %s  %d script' % (nomi[3], len(misure))]
     for f in misure:
@@ -148,7 +149,7 @@ def componi(uscita, pacchetto, ver_l, sess):
     open(ap_path, 'w', encoding='utf-8').write(ap)
 
     leggi = lambda f: open(os.path.join(REPO, f), 'rb').read()
-    b1 = zip_da([(os.path.basename(pacchetto), pz), (md5_nome, md5_txt.encode()),
+    b1 = zip_da(([(os.path.basename(diag), open(diag, 'rb').read())] if diag else []) + [(os.path.basename(pacchetto), pz), (md5_nome, md5_txt.encode()),
                  (os.path.basename(apertura_rel), ap.encode())] + rese)
     b2 = zip_da([(f, leggi(f)) for f in area])
     b3 = zip_da([(f, leggi(f)) for f in misure])
@@ -274,7 +275,7 @@ def main():
         sys.exit(__doc__)
     cmd = sys.argv[1]
     if cmd == 'componi':
-        out, prec, k, ver_l, sess = componi(*sys.argv[2:6])
+        out, prec, k, ver_l, sess = componi(*sys.argv[2:7])
         rossi = verifica(out, prec)
         if rossi:
             print('ROSSO: ' + ' | '.join(rossi))

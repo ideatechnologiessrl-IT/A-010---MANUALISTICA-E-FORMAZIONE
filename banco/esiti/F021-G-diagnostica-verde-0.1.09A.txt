@@ -1,0 +1,12 @@
+[VERDE] G0   php -l su 77 file: nessun errore
+[VERDE] G0   lingue it/en/de: stesse chiavi in ogni lingua
+[VERDE] G1   94 file, resti di RelDoxFood: zero
+[VERDE] G1   51 classi tolte, chiamate fuori da class_exists: zero
+[VERDE] G2   metodi della Manutenzione: 38 in RelDoxFood, 38 nella copia
+[VERDE] G2   strumento «Ruoli & recupero accesso» presente in Rdacademy_Maintenance
+[INFO] G2   la prova vera (ruoli, collegamento monouso) gira sul palco
+[VERDE] G10  RDACADEMY_VERSION = 0.1.09 · RDACADEMY_DIAG_VERSION = 0.1.09
+[VERDE] G10  RDACADEMY_STAGE = Alfa · RDACADEMY_DIAG_STAGE = Alfa
+[VERDE] G10  RDACADEMY_PACKAGE = // 0.1.09A | F021 | diagnostica · RDACADEMY_DIAG_PACKAGE = // 0.1.09A | F021 | diagnostica
+[VERDE] G10  intestazione Version: 0.1.09 · 0.1.09
+10 verdi, 0 rossi

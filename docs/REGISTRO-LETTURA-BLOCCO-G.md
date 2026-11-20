@@ -107,3 +107,6 @@ Banchi: `banco/F005-G-banchi-copia.py` (G0, G1, G2, G10). Rosso prima: `banco/es
 | 18/11 12:02 | `reldoxfood/public/js/rdfood-pwd-meter.js` | 188 | TIENI | `770afdf4c3` | letto per intero; il misuratore della password, una copia sola (soglie e parole dal server); senza modifiche oltre al segno |
 | 18/11 15:46 | `reldoxfood/public/css/app.css` | 7451 | COPIA | `c96dd4548c` | F014: intero, 7451 righe; scorso a pezzi per sezioni (titoli e selettori, blocchi da ~500 righe), non riga per riga; nessuno stile di sola ristorazione individuato da togliere |
 | 18/11 15:46 | `reldoxfood/public/css/rdfood-leggibilita.css` | 451 | COPIA | `54ffbc734c` | F014: intero, 451 righe; caricato da carico-e.php |
+| 20/11 15:29 | `reldoxfood-diagnostica/reldoxfood-diagnostica.php` | 75 | TIENI | `3e6fd98cc5` | F021: diagnostica (F29), letto per intero |
+| 20/11 15:29 | `reldoxfood-diagnostica/includes/class-rdfood-banchi-registro.php` | 158 | TIENI | `3184607edd` | F021: diagnostica (F29), letto per intero |
+| 20/11 15:29 | `reldoxfood-diagnostica/includes/class-rdfood-maintenance.php` | 890 | TIENI | `92b384ca22` | F021: diagnostica (F29), letto per intero |
