@@ -12,6 +12,8 @@
 [VERDE] A1 acceso: xmlrpc.php chiuso (403) e solo lui
 [VERDE] A1 acceso: tolta l intestazione X-Pingback, le altre restano
 [VERDE] A1 acceso non tocca l elenco utenti
+[VERDE] A1 acceso: X-Pingback tolta anche quando WordPress la manda con header() (revisione a freddo)
+[VERDE] A1 acceso: le pagine non indicano più xmlrpc.php (EditURI e pingback)
 [VERDE] A2 acceso: all anonimo niente /wp/v2/users
 [VERDE] A2 acceso: le altre rotte restano
 [VERDE] A2 acceso: chi è collegato vede tutto (l editor dei contenuti lavora come prima)
@@ -23,5 +25,5 @@
 [VERDE] dopo il salvataggio la misura si rifà subito
 [VERDE] interruttori solo per A1 e A2 (SPEC § D.2)
 
-24 verdi, 0 rossi
+26 verdi, 0 rossi
 ESITO: VERDE

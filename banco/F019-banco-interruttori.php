@@ -36,6 +36,8 @@ function add_filter( $h, $cb, $p = 10, $n = 1 ) { $GLOBALS['FILTRI'][ $h ][] = $
 function add_action( $h, $cb, $p = 10, $n = 1 ) { return add_filter( $h, $cb, $p, $n ); }
 function is_user_logged_in() { return getenv( 'RDX_TRAPPOLA' ) === '1' ? true : ! empty( $GLOBALS['COLLEGATO'] ); }
 function __return_false() { return false; }
+$GLOBALS['TOLTE'] = array();
+function remove_action( $h, $cb, $p = 10 ) { $GLOBALS['TOLTE'][] = $h . ':' . $cb; return true; }
 final class Rdacademy_Option {
 	public static array $v = array();
 	public static function get( string $k, $d = '' ) { return self::$v[ $k ] ?? $d; }
@@ -90,6 +92,8 @@ esito( Rdacademy_Interruttori::chiude_xmlrpc( true ) && ! Rdacademy_Interruttori
 $h = applica( 'wp_headers', array( 'X-Pingback' => 'https://banco.example/xmlrpc.php', 'X-Altro' => '1' ) );
 esito( ! isset( $h['X-Pingback'] ) && isset( $h['X-Altro'] ), 'A1 acceso: tolta l intestazione X-Pingback, le altre restano' );
 esito( empty( $GLOBALS['FILTRI']['rest_endpoints'] ), 'A1 acceso non tocca l elenco utenti' );
+esito( ! empty( $GLOBALS['FILTRI']['wp'] ) && str_contains( (string) file_get_contents( $fi ), "header_remove( 'X-Pingback' )" ), 'A1 acceso: X-Pingback tolta anche quando WordPress la manda con header() (revisione a freddo)' );
+esito( in_array( 'wp_head:rsd_link', $GLOBALS['TOLTE'], true ) && in_array( 'wp_head:pingback_header', $GLOBALS['TOLTE'], true ), 'A1 acceso: le pagine non indicano più xmlrpc.php (EditURI e pingback)' );
 
 // 2c. A2 acceso
 Rdacademy_Option::$v = array(); $GLOBALS['FILTRI'] = array();

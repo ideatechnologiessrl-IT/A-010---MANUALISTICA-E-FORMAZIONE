@@ -55,6 +55,11 @@ final class Rdacademy_Interruttori {
 		if ( self::acceso( 'A1' ) ) {
 			add_filter( 'xmlrpc_enabled', '__return_false' );
 			add_filter( 'wp_headers', array( __CLASS__, 'senza_pingback' ) );
+			// revisione a freddo F019: X-Pingback WordPress la manda con header() in WP::handle_404(), fuori da wp_headers
+			add_action( 'wp', array( __CLASS__, 'togli_pingback' ), 99 );
+			// e le pagine non indicano più xmlrpc.php (EditURI e pingback nel <head>)
+			remove_action( 'wp_head', 'rsd_link' );
+			remove_action( 'wp_head', 'pingback_header' );
 			if ( self::chiude_xmlrpc( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
 				if ( function_exists( 'status_header' ) ) status_header( 403 );
 				if ( ! headers_sent() ) header( 'Content-Type: text/plain; charset=utf-8' );
@@ -75,6 +80,10 @@ final class Rdacademy_Interruttori {
 		if ( class_exists( 'Rdacademy_Indurimento' ) ) delete_transient( Rdacademy_Indurimento::TRANSITORIO );
 		wp_safe_redirect( admin_url( 'admin.php?page=rdacademy&interruttori=' . ( $ok ? 'salvati' : 'errore' ) . '#rdacademy-indurimento' ) );
 		exit;
+	}
+
+	public static function togli_pingback(): void {
+		if ( ! headers_sent() ) header_remove( 'X-Pingback' );
 	}
 
 	public static function senza_pingback( $h ) {
