@@ -129,6 +129,8 @@ require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-imap-dire
 require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-casella.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/security/class-rdacademy-password-mail.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-indurimento.php';   // 0.1.07A — F32: riga «Indurimento: n su 18» (SPEC-INDURIMENTO v2)
+require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-interruttori.php';   // 0.1.08A — F34: interruttori A1 e A2, spenti di serie (SPEC-INDURIMENTO v2 § D.2)
+add_action( 'plugins_loaded', array( 'Rdacademy_Interruttori', 'init' ), 20 );   // dopo il provisioning (priorità 5): il BASE è pronto; Rdacademy_Interruttori::init
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-admin.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-router.php';
 

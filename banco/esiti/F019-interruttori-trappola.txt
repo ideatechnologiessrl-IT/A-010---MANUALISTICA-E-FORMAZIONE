@@ -1,0 +1,5 @@
+[ROSSO] A2 acceso: all anonimo niente /wp/v2/users
+ESITO: ROSSO
+sabotaggio: add_filter( 'xmlrpc_enabled', '__return_false' ); → 2 rossi
+sabotaggio: add_filter( 'rest_endpoints', array( __CLASS__, 'senza_utenti' ) ); → 2 rossi
+sabotaggio: if ( $ec === 'verde' || $ec === 'arancio' ) → 3 rossi

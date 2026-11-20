@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — interruttori A1 e A2 nella Stato sistema · RelDoxAcademy 0.1.08A</title>
+<style>
+:root{--blu:#0C1B27;--verde:#1a7f4b;--arancio:#b45309;--grigio:#5b6470;--bordo:#dfe3e8;--fondo:#f0f2f5}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--fondo);color:#1d2327}
+.nota{max-width:960px;margin:16px auto 0;padding:10px 14px;background:#fff8e6;border:1px solid #f0d58a;border-radius:6px;font-size:14px}
+.box{max-width:960px;margin:16px auto;background:#fff;border:1px solid var(--bordo);border-radius:8px;overflow:hidden}
+.box h2{margin:0;padding:14px 18px;font-size:18px;border-bottom:1px solid var(--bordo)}
+.box h2 small{font-weight:400;color:var(--grigio);font-size:14px;margin-left:8px}
+table{width:100%;border-collapse:collapse}
+td{padding:10px 18px;border-bottom:1px solid var(--bordo);vertical-align:middle;font-size:15px}
+td.r{width:56px;font-weight:600;color:var(--grigio)}
+td.s{width:150px}
+.p{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600}
+.ok{background:#e6f4ec;color:var(--verde)}.no{background:#fdeee0;color:var(--arancio)}
+.nt{color:var(--grigio);font-size:14px}
+tr.int{background:#f7fafc}
+.sw{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tog{position:relative;width:44px;height:24px;flex:none}
+.tog input{opacity:0;width:0;height:0}
+.tog span{position:absolute;inset:0;background:#c3c9d0;border-radius:24px;transition:.2s;cursor:pointer}
+.tog span:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.tog input:checked+span{background:var(--verde)}
+.tog input:checked+span:before{transform:translateX(20px)}
+.piede{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px;background:#fafbfc}
+button{font:inherit;font-size:15px;padding:8px 16px;border-radius:6px;border:1px solid var(--blu);background:var(--blu);color:#fff;cursor:pointer}
+@media (max-width:640px){td{padding:8px 10px;display:block;border:0}td.r,td.s{width:auto}tr{display:block;border-bottom:1px solid var(--bordo);padding:6px 0}}
+</style>
+</head>
+<body>
+<div class="nota"><strong>Mockup v1 · 20/11/2026 · Formazione F019</strong> — dati inventati. Dove vanno gli interruttori A1 e A2 (SPEC-INDURIMENTO v2 § D.2): nel riquadro che c è già, sotto la regola che chiudono. Niente pagina nuova.</div>
+
+<div class="box">
+  <h2>Indurimento dell installazione <small>7 su 18 · misurato 07:09</small></h2>
+  <form>
+  <table>
+    <tr><td class="r">A1</td><td>XML-RPC spento</td><td class="s"><span class="p no">manca</span></td><td class="nt">xmlrpc.php risponde all elenco dei metodi</td></tr>
+    <tr class="int"><td></td><td colspan="3"><div class="sw"><label class="tog"><input type="checkbox" name="a1"><span></span></label><span><strong>Chiudi XML-RPC</strong> — serve solo a vecchie app e pubblicazioni da fuori; i corsi non lo usano.</span></div></td></tr>
+    <tr><td class="r">A2</td><td>Elenco utenti nascosto agli anonimi</td><td class="s"><span class="p ok">a posto</span></td><td class="nt">codice 401</td></tr>
+    <tr class="int"><td></td><td colspan="3"><div class="sw"><label class="tog"><input type="checkbox" name="a2"><span></span></label><span><strong>Nascondi l elenco utenti a chi non è collegato</strong> — chi è collegato lavora come prima.</span></div></td></tr>
+    <tr><td class="r">A3</td><td>File che dicono la versione</td><td class="s"><span class="p no">manca</span></td><td class="nt">readme.html raggiungibile</td></tr>
+    <tr><td class="r">…</td><td colspan="3" class="nt">le altre 15 regole come oggi</td></tr>
+  </table>
+  <div class="piede"><span class="nt">Di serie spenti. Dopo il salvataggio la misura si rifà subito.</span><button type="button">Salva gli interruttori</button></div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<?php
+/**
+ * Rdacademy_Interruttori — 0.1.08A, voce F34 · Formazione F019 · 20/11/2026
+ * ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
+ *
+ * Gli interruttori A1 e A2 della SPEC-INDURIMENTO-INSTALLAZIONI v2 § D.2 del nodo:
+ *   A1 — XML-RPC chiuso: filtro `xmlrpc_enabled` a false, via l intestazione X-Pingback e xmlrpc.php risponde 403
+ *        (il filtro da solo lascia `system.listMethods` e `system.multicall`, che la regola vuole chiusi);
+ *   A2 — elenco utenti nascosto agli anonimi: filtro `rest_endpoints`, via `/wp/v2/users…` per chi non è collegato.
+ * Spenti di serie, li accende l amministratore (owner 13/11/2026 19:19, chat RelDox CRD S703, (c) «Spento di serie»).
+ * Chi è collegato lavora come prima: nessun blocco del lavoro (CLAUDE.md del nodo, owner 18/11/2026 13:08, S717).
+ * Lo stato vive sul BASE (Rdacademy_Option), mai sul database di WordPress; se il BASE non risponde restano spenti.
+ *
+ * @package RelDox_Base
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+final class Rdacademy_Interruttori {
+
+	const CHIAVI = array(
+		'A1' => 'indurimento_a1_xmlrpc_chiuso',
+		'A2' => 'indurimento_a2_utenti_nascosti',
+	);
+
+	/** Acceso solo se l amministratore l ha acceso; ogni dubbio vale «spento». */
+	public static function acceso( string $regola ): bool {
+		if ( ! isset( self::CHIAVI[ $regola ] ) ) return false;
+		try {
+			return (string) Rdacademy_Option::get( self::CHIAVI[ $regola ], '0' ) === '1';
+		} catch ( \Throwable $e ) {
+			return false;
+		}
+	}
+
+	public static function salva( bool $a1, bool $a2 ): bool {
+		$ok1 = Rdacademy_Option::set( self::CHIAVI['A1'], $a1 ? '1' : '0' );
+		$ok2 = Rdacademy_Option::set( self::CHIAVI['A2'], $a2 ? '1' : '0' );
+		return $ok1 && $ok2;
+	}
+
+	/** Vero se questa richiesta va chiusa: A1 acceso e richiesta a xmlrpc.php. */
+	public static function chiude_xmlrpc( bool $richiesta_xmlrpc ): bool {
+		return $richiesta_xmlrpc && self::acceso( 'A1' );
+	}
+
+	public static function init(): void {
+		if ( self::acceso( 'A1' ) ) {
+			add_filter( 'xmlrpc_enabled', '__return_false' );
+			add_filter( 'wp_headers', array( __CLASS__, 'senza_pingback' ) );
+			if ( self::chiude_xmlrpc( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
+				if ( function_exists( 'status_header' ) ) status_header( 403 );
+				if ( ! headers_sent() ) header( 'Content-Type: text/plain; charset=utf-8' );
+				echo 'XML-RPC chiuso su questo sito.';
+				exit;
+			}
+		}
+		if ( self::acceso( 'A2' ) ) {
+			add_filter( 'rest_endpoints', array( __CLASS__, 'senza_utenti' ) );
+		}
+	}
+
+	public static function senza_pingback( $h ) {
+		if ( is_array( $h ) ) unset( $h['X-Pingback'] );
+		return $h;
+	}
+
+	public static function senza_utenti( $rotte ) {
+		if ( ! is_array( $rotte ) || is_user_logged_in() ) return $rotte;
+		foreach ( array_keys( $rotte ) as $r ) {
+			if ( str_starts_with( (string) $r, '/wp/v2/users' ) ) unset( $rotte[ $r ] );
+		}
+		return $rotte;
+	}
+}

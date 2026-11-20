@@ -1,0 +1,23 @@
+[VERDE] A9 con la cache «verde» → «a posto» (misurato «a posto»)
+[VERDE] A9 con la cache «arancio» → «a posto» (misurato «a posto»)
+[VERDE] A9 con la cache «non misurabile» → «a mano» (misurato «a mano»)
+[VERDE] A9 con la cache «rosso» → «manca» (misurato «manca»)
+[VERDE] il motore esiste: includes/class-rdacademy-interruttori.php
+[VERDE] classe Rdacademy_Interruttori caricata
+[VERDE] di serie A1 e A2 spenti (owner 13/11/2026 19:19: «Spento di serie»)
+[VERDE] spenti: nessun filtro aggiunto
+[VERDE] spenti: xmlrpc.php resta aperto
+[VERDE] salva(A1 sì, A2 no) si rilegge così
+[VERDE] A1 acceso: filtro xmlrpc_enabled → false
+[VERDE] A1 acceso: xmlrpc.php chiuso (403) e solo lui
+[VERDE] A1 acceso: tolta l intestazione X-Pingback, le altre restano
+[VERDE] A1 acceso non tocca l elenco utenti
+[VERDE] A2 acceso: all anonimo niente /wp/v2/users
+[VERDE] A2 acceso: le altre rotte restano
+[VERDE] A2 acceso: chi è collegato vede tutto (l editor dei contenuti lavora come prima)
+[VERDE] A2 acceso non tocca XML-RPC
+[VERDE] il file principale carica e avvia gli interruttori
+[VERDE] A1 e A2 «manca»: la nota dice che si chiudono con l interruttore
+
+20 verdi, 0 rossi
+ESITO: VERDE

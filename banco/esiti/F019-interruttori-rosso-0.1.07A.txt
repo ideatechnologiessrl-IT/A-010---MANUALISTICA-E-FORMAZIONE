@@ -1,0 +1,8 @@
+[VERDE] A9 con la cache «verde» → «a posto» (misurato «a posto»)
+[ROSSO] A9 con la cache «arancio» → «a posto» (misurato «manca»)
+[ROSSO] A9 con la cache «non misurabile» → «a mano» (misurato «manca»)
+[VERDE] A9 con la cache «rosso» → «manca» (misurato «manca»)
+[ROSSO] il motore esiste: includes/class-rdacademy-interruttori.php
+
+2 verdi, 3 rossi
+ESITO: ROSSO

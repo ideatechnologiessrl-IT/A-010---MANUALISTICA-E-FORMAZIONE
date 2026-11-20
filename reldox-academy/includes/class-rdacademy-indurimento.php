@@ -88,7 +88,7 @@ final class Rdacademy_Indurimento {
 		if ( ! is_array( $x ) ) $r['A1'] = self::e( self::A_MANO, 'il sito non risponde a se stesso' );
 		else {
 			$aperto = (int) $x['codice'] === 200 && str_contains( (string) $x['corpo'], 'system.' ) && ! str_contains( (string) $x['corpo'], 'faultCode' );
-			$r['A1'] = $aperto ? self::e( self::MANCA, 'xmlrpc.php risponde all elenco dei metodi' ) : self::e( self::A_POSTO, 'codice ' . (int) $x['codice'] );
+			$r['A1'] = $aperto ? self::e( self::MANCA, 'xmlrpc.php risponde all elenco dei metodi · si chiude con l interruttore A1 nella Stato sistema' ) : self::e( self::A_POSTO, 'codice ' . (int) $x['codice'] );
 		}
 
 		// A2 — elenco utenti agli anonimi.
@@ -97,7 +97,7 @@ final class Rdacademy_Indurimento {
 		else {
 			$lista = (int) $u['codice'] === 200 ? json_decode( (string) $u['corpo'], true ) : null;
 			$r['A2'] = is_array( $lista ) && count( $lista ) > 0
-				? self::e( self::MANCA, '/wp-json/wp/v2/users dà ' . count( $lista ) . ' nomi di accesso' )
+				? self::e( self::MANCA, '/wp-json/wp/v2/users dà ' . count( $lista ) . ' nomi di accesso · si chiude con l interruttore A2 nella Stato sistema' )
 				: self::e( self::A_POSTO, 'codice ' . (int) $u['codice'] );
 		}
 
@@ -152,7 +152,15 @@ final class Rdacademy_Indurimento {
 		// A9 — la guardia della cache del prodotto (due letture senza cookie di una pagina dell app).
 		$pc = $cache();
 		if ( ! is_array( $pc ) ) $r['A9'] = self::e( self::A_MANO, 'guardia della cache non disponibile' );
-		else $r['A9'] = ( $pc['esito'] ?? '' ) === 'verde' ? self::e( self::A_POSTO, (string) ( $pc['motivo'] ?? '' ) ) : self::e( self::MANCA, (string) ( $pc['motivo'] ?? 'pagine dell app memorizzabili' ) );
+		else {
+			// 0.1.08A (BUG-4): «arancio» = nessuna copia servita, il server toglie solo Vary: Cookie → la SPEC A9 è rispettata
+			// («o pagine escluse dalla cache»); «non misurabile» si verifica a mano; «manca» solo con una copia trovata.
+			$ec = (string) ( $pc['esito'] ?? '' );
+			$mc = (string) ( $pc['motivo'] ?? '' );
+			if ( $ec === 'verde' || $ec === 'arancio' ) $r['A9'] = self::e( self::A_POSTO, $mc );
+			elseif ( $ec === 'rosso' ) $r['A9'] = self::e( self::MANCA, $mc !== '' ? $mc : 'pagine dell app memorizzabili' );
+			else $r['A9'] = self::e( self::A_MANO, $mc !== '' ? $mc : 'guardia della cache non misurabile' );
+		}
 
 		// A10 — amministratori: nessun nome di prova o iniziale.
 		$admin = (array) get_users( array( 'role' => 'administrator', 'fields' => array( 'user_login' ) ) );
