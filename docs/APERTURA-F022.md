@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0015 — 0.1.09A — F022
+## MANIFESTO — KIT K0016 — 0.1.09A — F022
 
-PROGRESSIVO K0015   precedente K0014   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0015-0_1_09A-F022.zip · composto il 20/11/2026 15:32
+PROGRESSIVO K0016   precedente K0015   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0016-0_1_09A-F022.zip · composto il 20/11/2026 16:26
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0015-0_1_09-F022.zip
+BUSTA 1  KIT-1-APERTURA-K0016-0_1_09-F022.zip
          reldox-academy-0_1_09.zip  md5 1015fbdca180067067b1aa122fb4835d
          95 file · 22 cartelle · 0 cartelle vuote
          MD5-0_1_09.txt  95 righe
          APERTURA-F022.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: reldox-academy-diagnostica-0_1_09.zip  md5 0fc8acee2a48cddea00360c15d77515d (F021: secondo pacchetto, stesso numero)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0015-0_1_09-F022.zip  39 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0015-0_1_09-F022.zip  58 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0016-0_1_09-F022.zip  39 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0016-0_1_09-F022.zip  58 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  310 righe
@@ -37,7 +37,7 @@ BUSTA 3  KIT-3-MISURE-K0015-0_1_09-F022.zip  58 script
          banco/F019-banco-interruttori.php  128 righe
          banco/F019-rifai-0.1.08A.sh  39 righe
          banco/F021-rifai-0.1.09A.sh  66 righe
-         banco/KIT-PROGRESSIVO.txt  14 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  15 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -78,7 +78,7 @@ BUSTA 3  KIT-3-MISURE-K0015-0_1_09-F022.zip  58 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0015-0_1_09-F022.zip  62 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 8 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0016-0_1_09-F022.zip  62 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 8 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (39):
   CLAUDE.md
   README.md
@@ -136,20 +136,22 @@ F021 (20/11/2026). In `main` resta **0.1.08A** (smoke verde 20/11 09:15). Conseg
 - Banco `banco/F005-G-banchi-copia.py`: rosso 4/6 sulla 0.1.08A (G2, G10), verde 10/10 sulla 0.1.09A; trappola G1 verde.
 - Revisione a freddo: 1 difetto trovato, 1 corretto (R5: `require_once` di `class-rdacademy-admin.php` e `class-rdacademy-password-token.php`).
 - Limite noto: i fogli della Manutenzione copiati hanno testo sotto i 13 px (pagina solo per Idea, non per il cliente); da portare sul foglio comune con le schermate future (F31).
+- **Installata su reldoxacademy.it il 20/11/2026 16:23** (configurazioni incollate 16:23 e 16:24: 0.1.09A, pacchetto giusto). **Manutenzione verificata** dalla schermata dell owner (16:26): riquadro «Ruoli & recupero accesso», utente con due ruoli, registro dei due rientri. **Smoke non ancora dato.**
+- ⛔ **Punto aperto prima dello smoke**: «Indurimento: 8 su 18», **A1 di nuovo «manca»** (stamattina con la 0.1.08A era a posto, 9 su 18). L interruttore si salva nel BASE (`Rdacademy_Option`, `class-rdacademy-interruttori.php` r.43) e nessun hook lo cancella. Chiedere all owner se «Chiudi XML-RPC» è acceso: spento → riaccendere e rimisurare; acceso → BUG-5, la 0.1.09A non va in `main`.
 - Decisioni: D40 (F29, 14:07), D41 (licenza come negli altri prodotti, 14:25).
 - Nodo: chiesto al capo famiglia (`2026-11-20-a-reldox-crd-licenza-d-uso-academy.md`) riferimento, nome del prodotto nella chiave, porte della sola consultazione. Risposte date: copie a ogni aggiornamento (no, F35), manuali RelDoxChecks 1.3.04A-1.3.07A (F36).
 - Registri: BUG 0/5 · punti aperti 28 · violazioni 6 · fallimenti 3.
 
 ## §01 — CHE COSA FARE, IN ORDINE
 0. Manifesto, prova di lettura, apertura del nodo, registri letti in una riga.
-1. Chiedere all owner l esito della 0.1.09A (installare i due zip; smoke: la Manutenzione si apre e mostra utenti e ruoli). Smoke verde → unione in `main` con `novita/`, `prodotti.md`, riga di sicurezza «tocca permessi / nonce / AJAX / query».
+1. Chiedere all owner lo stato dell interruttore «Chiudi XML-RPC» e chiarire A1 (vedi sopra). Poi «ok smoke» → unione in `main` con `novita/`, `prodotti.md`, riga di sicurezza «tocca permessi / nonce / AJAX / query», «Installato da collaudare: nessuna».
 2. Se il capo famiglia ha risposto: licenza d uso come RelDox CRD (mockup v2 sul modello della pagina vera prima del codice). Altrimenti console SQL nella diagnostica.
 3. A ogni consegna «Contesto: ~NN% · soglia kit 70%».
 
 ## §11 — PROMPT PER LA SESSIONE F022
 > Repository `ideatechnologiessrl-IT/A-010---MANUALISTICA-E-FORMAZIONE`, ramo `main`: leggi `CLAUDE.md` e `docs/APERTURA-F022.md`, confronta il manifesto e rispondi alla prova di lettura.
 > Aggancia il nodo `RelDox-Famiglia` e fai l apertura.
-> Chiedimi come è andata la 0.1.09A con la sua diagnostica; poi la licenza d uso se il capo famiglia ha risposto.
+> La 0.1.09A è installata e la Manutenzione funziona: chiedimi dell interruttore XML-RPC, poi smoke e unione in `main`; poi la licenza d uso se il capo famiglia ha risposto.
 > Consegna come kit a quattro buste, ogni voce nuova con le sue stelle. Riga del contesto a ogni consegna; al 70% fermati e componi il kit.
 > Solo italiano, rapporti brevi.
 
