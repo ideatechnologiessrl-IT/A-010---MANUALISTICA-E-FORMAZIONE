@@ -8,6 +8,7 @@
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|
 | D40 | Prossima voce a cinque stelle dopo la 0.1.08A: F26 (nessun blocco) o F29 (standard di famiglia) | *«F29 genera»* (la chat consigliava F26: blocco di 15 minuti dopo 5 password errate) | 14:07 | F29 in lavoro, una cosa alla volta: prima la voce wp-admin «Licenza d uso», mockup v1 `mockup/MOCKUP-LICENZA-D-USO-v1.html`; poi plugin di diagnostica e regole di RelDoxAcademy. F26 resta aperta a ★★★★★ |
+| D41 | Mockup v1 della «Licenza d uso» (installazione propria, senza chiave) | *«importante che mantieni la stessa logica, funzionalità ed impostazione di quella che già esiste in merito alla licenza su gli altri prodotti. In caso di domande chiedi al capo famiglia se vuoi specifiche appropriate»* | 14:25 | mockup v1 superato; licenza come RelDox CRD 3.76.03G (accettazione, contratto PDF, chiave firmata, sola consultazione); specifiche chieste al capo famiglia (`bacheca/formazione/messaggi/2026-11-20-a-reldox-crd-licenza-d-uso-academy.md`); niente codice della licenza fino alla risposta |
 
 ## F020 · 20/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
