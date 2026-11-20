@@ -1,4 +1,4 @@
-<!-- REGISTRO BUG · 20/11/2026 F019 · aperti 1 · cornice 1/5 · primo libero BUG-5 -->
+<!-- REGISTRO BUG · 20/11/2026 F020 · aperti 0 · cornice 0/5 · primo libero BUG-5 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro BUG della Formazione
@@ -10,7 +10,7 @@ Ci va ciò che **è rotto** nei materiali, negli strumenti, nei banchi o nel cod
 Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso commit del primo gesto; nessuna scheda si cancella.
 
 ### BUG-4 — ★★★★★ — 20/11/2026 — Indurimento: A9 «manca» mentre la riga della cache dice «nessuna azione richiesta»
-- **Stato**: consegnata 0.1.08A (20/11/2026 F019, `reldox-academy-0_1_08.zip`), attende lo smoke: correzione nel codice e banco `banco/F019-banco-interruttori.php` (A9 «arancio» → a posto, «non misurabile» → a mano, «rosso» → manca) ROSSO sulla 0.1.07A, VERDE dopo; esce con la 0.1.08A
+- **Stato**: chiusa (0.1.08A, owner 20/11/2026 09:15, chat Formazione F020: *«smoke ok»*, sulla 0.1.08A installata su reldoxacademy.it; configurazioni incollate 09:13 (interruttori spenti) *«Indurimento: 8 su 18 · mancano A1, A3, A4, A6, A11, A13, A15, A17 · da verificare a mano A12, A18»* e 09:14 (A1 acceso) *«Indurimento: 9 su 18 · mancano A3, A4, A6, A11, A13, A15, A17 · da verificare a mano A12, A18»* (D39); A9 non è più fra le regole che mancano con la cache «con un avviso · nessuna copia»). Consegna: correzione nel codice e banco `banco/F019-banco-interruttori.php` ROSSO sulla 0.1.07A, VERDE sulla 0.1.08A (20/11/2026 F019)
 - **Visto**: owner 20/11/2026 07:09, chat Formazione F019, «Copia configurazione» della 0.1.07A su reldoxacademy.it: la riga «Cache pagine» dice *«nessuna copia: due letture diverse, no-store, nessun rinvio · il server davanti al sito toglie Vary: Cookie … nessuna azione richiesta»*, la riga «Indurimento» mette A9 fra le regole che mancano.
 - **Causa**: `includes/class-rdacademy-indurimento.php` r.155 dà «a posto» solo con l esito «verde» della guardia della cache; con l esito «avviso» scrive «manca». La SPEC-INDURIMENTO v2 (A9) chiede `no-store` e, se c è una cache davanti, `Vary: Cookie` **oppure pagine escluse dalla cache**: con due letture diverse e nessuna copia le pagine non vengono servite dalla cache, quindi la regola è rispettata.
 - **Correzione**: A9 «a posto» con l esito «avviso» quando la guardia non trova copie, con la nota del `Vary: Cookie` tolto; resta «manca» solo se trova una copia. Banco: ROSSO sulla 0.1.07A con l esito «avviso», VERDE sulla 0.1.08A; sabotaggio con una copia trovata ROSSO.
