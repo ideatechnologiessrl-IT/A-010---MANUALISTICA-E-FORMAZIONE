@@ -4,6 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F021 · 20/11/2026
+| n. | domanda | scelta dell owner | ora | effetti |
+|---|---|---|---|---|
+| D40 | Prossima voce a cinque stelle dopo la 0.1.08A: F26 (nessun blocco) o F29 (standard di famiglia) | *«F29 genera»* (la chat consigliava F26: blocco di 15 minuti dopo 5 password errate) | 14:07 | F29 in lavoro, una cosa alla volta: prima la voce wp-admin «Licenza d uso», mockup v1 `mockup/MOCKUP-LICENZA-D-USO-v1.html`; poi plugin di diagnostica e regole di RelDoxAcademy. F26 resta aperta a ★★★★★ |
+
 ## F020 · 20/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|
