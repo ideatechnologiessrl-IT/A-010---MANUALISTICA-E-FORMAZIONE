@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0009 — 0.1.06A — F018
+## MANIFESTO — KIT K0010 — 0.1.06A — F018
 
-PROGRESSIVO K0009   precedente K0008   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0009-0_1_06A-F018.zip · composto il 19/11/2026 17:33
+PROGRESSIVO K0010   precedente K0009   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0010-0_1_06A-F018.zip · composto il 20/11/2026 06:17
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0009-0_1_06-F018.zip
-         reldox-academy-0_1_06.zip  md5 44e3aa3a7a8bb86b0a79d216f8f2c747
+BUSTA 1  KIT-1-APERTURA-K0010-0_1_06-F018.zip
+         reldox-academy-0_1_06.zip  md5 9bbe438d48802f90189a7f490097d77c
          93 file · 22 cartelle · 0 cartelle vuote
          MD5-0_1_06.txt  93 righe
          APERTURA-F018.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0009-0_1_06-F018.zip  34 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0009-0_1_06-F018.zip  45 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0010-0_1_06-F018.zip  35 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0010-0_1_06-F018.zip  45 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  309 righe
@@ -32,7 +32,7 @@ BUSTA 3  KIT-3-MISURE-K0009-0_1_06-F018.zip  45 script
          banco/F017-banco-stato-sistema.py  130 righe
          banco/F017-rifai-0.1.05A.sh  39 righe
          banco/F017-rifai-0.1.06A.sh  39 righe
-         banco/KIT-PROGRESSIVO.txt  8 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  9 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -65,8 +65,8 @@ BUSTA 3  KIT-3-MISURE-K0009-0_1_06-F018.zip  45 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0009-0_1_06-F018.zip  60 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 6 · modelli 3 · risorse 26
-ELENCO DELL AREA, DICHIARATO (34):
+BUSTA 4  KIT-4-AGGIUNTA-K0010-0_1_06-F018.zip  60 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 6 · modelli 3 · risorse 26
+ELENCO DELL AREA, DICHIARATO (35):
   CLAUDE.md
   README.md
   docs/ANALISI-TECNICA-RELDOXACADEMY.md
@@ -92,6 +92,7 @@ ELENCO DELL AREA, DICHIARATO (34):
   docs/DECISIONI-OWNER.md
   docs/FALLIMENTI-FORMAZIONE.md
   docs/IRIS-v1.md
+  docs/PUNTI-CHIUSI-FORMAZIONE.md
   docs/REGISTRO-LETTURA-BLOCCO-G.md
   docs/REGISTRO-VERSIONI-MATERIALI.md
   docs/ROADMAP.md
