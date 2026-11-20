@@ -7,6 +7,7 @@
 ## F019 · 20/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|
+| D38 | Mockup degli interruttori A1 e A2 (`mockup/MOCKUP-INTERRUTTORI-A1-A2-v1.html`): nel riquadro dell indurimento della Stato sistema, sotto la regola, pulsante «Salva», niente pagina nuova | *«ok mockup approvato»* | 07:49 | 0.1.08A: interruttori a schermo, salvataggio solo `manage_options` con nonce, la misura si rifà subito |
 | D37 | Esito della 0.1.07A su reldoxacademy.it | configurazione incollata dalla 0.1.07A: *«Indurimento: 7 su 18 · mancano A1, A3, A4, A6, A9, A11, A13, A15, A17 · da verificare a mano A12, A18»* | 07:09 | 0.1.07A in `main`: F32 chiusa e passata in `PUNTI-CHIUSI-FORMAZIONE.md`; `prodotti.md`, `novita/reldoxacademy.md`, riga di sicurezza nello `STATO.md`; BUG-4 (A9 segnata «manca» mentre la riga della cache dice «nessuna azione richiesta») aperto per la 0.1.08A |
 
 ## F017 · 19/11/2026

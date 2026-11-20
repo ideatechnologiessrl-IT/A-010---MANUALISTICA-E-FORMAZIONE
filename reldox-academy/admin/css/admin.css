@@ -63,3 +63,14 @@
   .rdacademy-stato .reldox-info-table:not(.rdacademy-db-usati) td:first-child{width:auto}
   .rdacademy-stato .reldox-info-table:not(.rdacademy-db-usati) tr{display:grid;border-bottom:1px solid var(--line-2);padding:6px 0}
   .rdacademy-stato .reldox-info-table:not(.rdacademy-db-usati) td{border-bottom:0;padding:2px 0}}
+
+/* 0.1.08A — F34: interruttori A1 e A2 nel riquadro dell indurimento (mockup MOCKUP-INTERRUTTORI-A1-A2-v1) */
+.rdacademy-interruttore td{background:#f7fafc}
+.rdacademy-tog{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:14px}
+.rdacademy-tog input{position:absolute;opacity:0;width:1px;height:1px}
+.rdacademy-tog span{position:relative;flex:none;width:44px;height:24px;border-radius:24px;background:#c3c9d0;transition:background .2s}
+.rdacademy-tog span::before{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.rdacademy-tog input:checked+span{background:#1a7f4b}
+.rdacademy-tog input:checked+span::before{transform:translateX(20px)}
+.rdacademy-tog input:focus-visible+span{outline:2px solid #2271b1;outline-offset:2px}
+.rdacademy-interruttori-piede{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}

@@ -113,4 +113,12 @@ Rdacademy_Option::$v = array();
 $m = Rdacademy_Indurimento::misura( $chiedi, $amb( $GLOBALS['SITO'] ) );
 esito( str_contains( $m['esiti']['A1']['nota'], 'interruttore' ) && str_contains( $m['esiti']['A2']['nota'], 'interruttore' ), 'A1 e A2 «manca»: la nota dice che si chiudono con l interruttore' );
 
+/* ---- 4. a schermo (mockup approvato 20/11/2026 07:49): modulo nel riquadro, salvataggio protetto ---- */
+$pag = (string) @file_get_contents( $P . '/includes/class-rdacademy-stato-sistema.php' );
+$mot = (string) @file_get_contents( $fi );
+esito( str_contains( $pag, "wp_nonce_field( 'rdacademy_interruttori' )" ) && str_contains( $pag, 'value="rdacademy_interruttori"' ) && str_contains( $pag, 'Rdacademy_Interruttori::TESTI[ $rx_id ]' ), 'Stato sistema: modulo con nonce e un interruttore sotto A1 e sotto A2' );
+esito( str_contains( $mot, "admin_post_rdacademy_interruttori" ) && str_contains( $mot, "current_user_can( 'manage_options' )" ) && str_contains( $mot, "check_admin_referer( 'rdacademy_interruttori' )" ), 'salvataggio: solo manage_options e nonce verificato' );
+esito( str_contains( $mot, 'delete_transient( Rdacademy_Indurimento::TRANSITORIO )' ), 'dopo il salvataggio la misura si rifà subito' );
+esito( array_keys( Rdacademy_Interruttori::TESTI ) === array( 'A1', 'A2' ), 'interruttori solo per A1 e A2 (SPEC § D.2)' );
+
 fine();

@@ -23,6 +23,12 @@ final class Rdacademy_Interruttori {
 		'A2' => 'indurimento_a2_utenti_nascosti',
 	);
 
+	/** Le scritte sotto la regola, come nel mockup approvato (owner 20/11/2026 07:49, chat Formazione F019). */
+	const TESTI = array(
+		'A1' => array( 'Chiudi XML-RPC', 'serve solo a vecchie app e a pubblicazioni da fuori; i corsi non lo usano.' ),
+		'A2' => array( 'Nascondi l elenco utenti a chi non è collegato', 'chi è collegato lavora come prima.' ),
+	);
+
 	/** Acceso solo se l amministratore l ha acceso; ogni dubbio vale «spento». */
 	public static function acceso( string $regola ): bool {
 		if ( ! isset( self::CHIAVI[ $regola ] ) ) return false;
@@ -45,6 +51,7 @@ final class Rdacademy_Interruttori {
 	}
 
 	public static function init(): void {
+		add_action( 'admin_post_rdacademy_interruttori', array( __CLASS__, 'salva_dal_modulo' ) );
 		if ( self::acceso( 'A1' ) ) {
 			add_filter( 'xmlrpc_enabled', '__return_false' );
 			add_filter( 'wp_headers', array( __CLASS__, 'senza_pingback' ) );
@@ -58,6 +65,16 @@ final class Rdacademy_Interruttori {
 		if ( self::acceso( 'A2' ) ) {
 			add_filter( 'rest_endpoints', array( __CLASS__, 'senza_utenti' ) );
 		}
+	}
+
+	/** Il modulo della Stato sistema: solo chi gestisce il sito, con il nonce; poi la misura si rifà. */
+	public static function salva_dal_modulo(): void {
+		if ( ! current_user_can( 'manage_options' ) ) wp_die( 'Permesso negato.', '', array( 'response' => 403 ) );
+		check_admin_referer( 'rdacademy_interruttori' );
+		$ok = self::salva( ! empty( $_POST['a1'] ), ! empty( $_POST['a2'] ) );
+		if ( class_exists( 'Rdacademy_Indurimento' ) ) delete_transient( Rdacademy_Indurimento::TRANSITORIO );
+		wp_safe_redirect( admin_url( 'admin.php?page=rdacademy&interruttori=' . ( $ok ? 'salvati' : 'errore' ) . '#rdacademy-indurimento' ) );
+		exit;
 	}
 
 	public static function senza_pingback( $h ) {

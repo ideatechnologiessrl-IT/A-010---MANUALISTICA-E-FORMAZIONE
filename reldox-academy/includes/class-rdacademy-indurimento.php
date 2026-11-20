@@ -88,7 +88,7 @@ final class Rdacademy_Indurimento {
 		if ( ! is_array( $x ) ) $r['A1'] = self::e( self::A_MANO, 'il sito non risponde a se stesso' );
 		else {
 			$aperto = (int) $x['codice'] === 200 && str_contains( (string) $x['corpo'], 'system.' ) && ! str_contains( (string) $x['corpo'], 'faultCode' );
-			$r['A1'] = $aperto ? self::e( self::MANCA, 'xmlrpc.php risponde all elenco dei metodi · si chiude con l interruttore A1 nella Stato sistema' ) : self::e( self::A_POSTO, 'codice ' . (int) $x['codice'] );
+			$r['A1'] = $aperto ? self::e( self::MANCA, 'xmlrpc.php risponde all elenco dei metodi · si chiude con l interruttore qui sotto' ) : self::e( self::A_POSTO, 'codice ' . (int) $x['codice'] );
 		}
 
 		// A2 — elenco utenti agli anonimi.
@@ -97,7 +97,7 @@ final class Rdacademy_Indurimento {
 		else {
 			$lista = (int) $u['codice'] === 200 ? json_decode( (string) $u['corpo'], true ) : null;
 			$r['A2'] = is_array( $lista ) && count( $lista ) > 0
-				? self::e( self::MANCA, '/wp-json/wp/v2/users dà ' . count( $lista ) . ' nomi di accesso · si chiude con l interruttore A2 nella Stato sistema' )
+				? self::e( self::MANCA, '/wp-json/wp/v2/users dà ' . count( $lista ) . ' nomi di accesso · si chiude con l interruttore qui sotto' )
 				: self::e( self::A_POSTO, 'codice ' . (int) $u['codice'] );
 		}
 

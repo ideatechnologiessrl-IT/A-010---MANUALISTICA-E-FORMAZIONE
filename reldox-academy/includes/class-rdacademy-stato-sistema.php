@@ -360,16 +360,26 @@ final class Rdacademy_Stato_Sistema {
 			<div class="reldox-info-box rdacademy-indurimento">
 				<h3><?php echo rdacademy_icona( 'lucchetto' ); ?> Indurimento dell installazione</h3>
 				<p><strong><?php echo esc_html( Rdacademy_Indurimento::riga( $rx_in ) ); ?></strong></p>
+				<?php if ( isset( $_GET['interruttori'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification -- solo il messaggio dopo il salvataggio ?>
+				<p class="rdacademy-interruttori-esito"><strong><?php echo $_GET['interruttori'] === 'salvati' ? 'Interruttori salvati: la misura è stata rifatta.' : 'Interruttori non salvati: riprovare.'; // phpcs:ignore ?></strong></p>
+				<?php endif; ?>
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="rdacademy-indurimento">
+				<input type="hidden" name="action" value="rdacademy_interruttori">
+				<?php wp_nonce_field( 'rdacademy_interruttori' ); ?>
 				<div class="rdacademy-scroll">
 				<table class="reldox-info-table">
 					<?php foreach ( Rdacademy_Indurimento::regole() as $rx_id => $rx_titolo ) : $rx_e = $rx_in['esiti'][ $rx_id ]; ?>
 					<tr data-regola="<?php echo esc_attr( $rx_id ); ?>"><td><?php echo esc_html( $rx_id . ' · ' . $rx_titolo ); ?></td>
 						<td><span class="stato<?php echo $rx_e['stato'] === Rdacademy_Indurimento::A_POSTO ? '' : ' mod'; ?>"><?php echo esc_html( $rx_e['stato'] === Rdacademy_Indurimento::A_MANO ? 'da verificare a mano' : $rx_e['stato'] ); ?></span>
 						<span class="rdacademy-muted"><?php echo esc_html( $rx_e['nota'] ); ?></span></td></tr>
+					<?php if ( isset( Rdacademy_Interruttori::TESTI[ $rx_id ] ) ) : // 0.1.08A — F34, mockup MOCKUP-INTERRUTTORI-A1-A2-v1 approvato (owner 20/11/2026 07:49, chat Formazione F019) ?>
+					<tr class="rdacademy-interruttore" data-interruttore="<?php echo esc_attr( $rx_id ); ?>"><td colspan="2"><label class="rdacademy-tog"><input type="checkbox" name="<?php echo esc_attr( strtolower( $rx_id ) ); ?>" value="1"<?php checked( Rdacademy_Interruttori::acceso( $rx_id ) ); ?>><span aria-hidden="true"></span><strong><?php echo esc_html( Rdacademy_Interruttori::TESTI[ $rx_id ][0] ); ?></strong></label> <span class="rdacademy-muted"><?php echo esc_html( Rdacademy_Interruttori::TESTI[ $rx_id ][1] ); ?></span></td></tr>
+					<?php endif; ?>
 					<?php endforeach; ?>
 				</table>
 				</div>
-				<p class="rdacademy-muted">Sola lettura: la misura si rifà ogni 10 minuti e non cambia niente sul sito.</p>
+				<p class="rdacademy-interruttori-piede"><span class="rdacademy-muted">Le regole si leggono e basta; solo gli interruttori A1 e A2 cambiano il sito, e di serie sono spenti. Dopo il salvataggio la misura si rifà subito; poi ogni 10 minuti.</span> <button type="submit" class="button button-primary">Salva gli interruttori</button></p>
+				</form>
 			</div>
 			<?php endif; ?>
 

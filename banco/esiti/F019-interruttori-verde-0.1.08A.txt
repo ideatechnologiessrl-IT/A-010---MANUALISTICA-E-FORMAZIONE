@@ -18,6 +18,10 @@
 [VERDE] A2 acceso non tocca XML-RPC
 [VERDE] il file principale carica e avvia gli interruttori
 [VERDE] A1 e A2 «manca»: la nota dice che si chiudono con l interruttore
+[VERDE] Stato sistema: modulo con nonce e un interruttore sotto A1 e sotto A2
+[VERDE] salvataggio: solo manage_options e nonce verificato
+[VERDE] dopo il salvataggio la misura si rifà subito
+[VERDE] interruttori solo per A1 e A2 (SPEC § D.2)
 
-20 verdi, 0 rossi
+24 verdi, 0 rossi
 ESITO: VERDE
