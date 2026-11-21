@@ -4,6 +4,11 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F022 · 20-21/11/2026
+| n. | domanda | scelta dell owner | ora | effetti |
+|---|---|---|---|---|
+| D42 | 0.1.09A su reldoxacademy.it: A1 «manca» (7 su 18), come procedere | 20/11 16:53 *«Salvo A1, poi smoke ok»*; 21/11 14:31 schermata (interruttore spento), 14:33 configurazione *«Indurimento: 8 su 18 · mancano A3, A4, A6, A8, A11, A13, A15, A17 · da verificare a mano A12, A18»*, 14:34 *«fatto»* | 21/11 14:34 | smoke verde della 0.1.09A (prodotto e diagnostica); BUG-5 respinta; unione in `main`: `novita/reldoxacademy.md`, `prodotti.md`, riga di sicurezza nello `STATO.md`; F29 resta aperta (console SQL, licenza d uso, `REGOLE-RELDOXACADEMY-v1.md`) |
+
 ## F021 · 20/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|

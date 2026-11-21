@@ -1,4 +1,4 @@
-<!-- REGISTRO BUG · 20/11/2026 F022 · aperti 1 · cornice 1/5 · primo libero BUG-6 -->
+<!-- REGISTRO BUG · 21/11/2026 F022 · aperti 0 · cornice 0/5 · primo libero BUG-6 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro BUG della Formazione
@@ -10,11 +10,11 @@ Ci va ciò che **è rotto** nei materiali, negli strumenti, nei banchi o nel cod
 Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso commit del primo gesto; nessuna scheda si cancella.
 
 ### BUG-5 — ★★★★★ — 20/11/2026 — 0.1.09A: «Chiudi XML-RPC» acceso e salvato, ma A1 resta «manca»
-- **Stato**: aperta
+- **Stato**: respinta (non è un difetto). Schermata dell owner 21/11/2026 14:31, chat Formazione F022: l interruttore «Chiudi XML-RPC» era **spento** (la risposta «Salvati, casella spuntata» del 20/11 non corrispondeva alla pagina). Acceso e salvato dall owner (*«fatto»*, 14:34): configurazione delle 14:33 *«Indurimento: 8 su 18 · mancano A3, A4, A6, A8, A11, A13, A15, A17 · da verificare a mano A12, A18»*, A1 a posto; A8 «manca» è atteso finché la diagnostica è sul sito.
 - **Visto**: owner 20/11/2026 16:55, chat Formazione F022, «Copia configurazione» della 0.1.09A su reldoxacademy.it: *«Indurimento: 7 su 18 · mancano A1, A3, A4, A6, A8, A11, A13, A15, A17»*; alla domanda sullo stato dell interruttore: *«Salvati, casella spuntata»*. Con la 0.1.08A, alle 09:14, A1 acceso dava «a posto» (D39).
-- **Causa**: da misurare. Il codice del prodotto è identico alla 0.1.08A salvo numero e pacchetto (`git diff 0bad6d9 2b6d789 -- reldox-academy`: solo `reldox-academy.php`, 3 righe); la misura (`class-rdacademy-indurimento.php` r.86-91) trova `xmlrpc.php` che risponde 200 con l elenco dei metodi, quindi su quella richiesta `Rdacademy_Interruttori::init` non chiude. Unica differenza sul sito: il plugin `reldox-academy-diagnostica`, attivo, che nell elenco dei plugin si carica **prima** del prodotto (`reldox-academy-diagnostica/` precede `reldox-academy/`). A8 «manca» è invece atteso (la diagnostica è sul sito).
-- **Correzione**: da decidere dopo la misura (prima prova: `xmlrpc.php` aperto nel browser, poi diagnostica disattivata e misura rifatta).
-- **Danno**: XML-RPC resta aperto mentre il pannello dice «acceso»; la 0.1.09A non va in `main` finché non è chiuso.
+- **Causa**: nessun difetto: l interruttore non era salvato (schermata delle 14:31); `xmlrpc.php` rispondeva 200 perché A1 era spento. Il codice del prodotto è identico alla 0.1.08A salvo numero e pacchetto; l ipotesi sull ordine di caricamento della diagnostica è caduta.
+- **Correzione**: nessuna. Lezione: chiedere la schermata del riquadro, non una risposta a scelta, quando la pagina può smentirla.
+- **Danno**: nessuno; mezza giornata di unione rimandata.
 
 ### BUG-4 — ★★★★★ — 20/11/2026 — Indurimento: A9 «manca» mentre la riga della cache dice «nessuna azione richiesta»
 - **Stato**: chiusa (0.1.08A, owner 20/11/2026 09:15, chat Formazione F020: *«smoke ok»*, sulla 0.1.08A installata su reldoxacademy.it; configurazioni incollate 09:13 (interruttori spenti) *«Indurimento: 8 su 18 · mancano A1, A3, A4, A6, A11, A13, A15, A17 · da verificare a mano A12, A18»* e 09:14 (A1 acceso) *«Indurimento: 9 su 18 · mancano A3, A4, A6, A11, A13, A15, A17 · da verificare a mano A12, A18»* (D39); A9 non è più fra le regole che mancano con la cache «con un avviso · nessuna copia»). Consegna: correzione nel codice e banco `banco/F019-banco-interruttori.php` ROSSO sulla 0.1.07A, VERDE sulla 0.1.08A (20/11/2026 F019)
