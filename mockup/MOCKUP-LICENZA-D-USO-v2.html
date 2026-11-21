@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup v2 — «Licenza d uso» di RelDoxAcademy, sul modello di RelDox CRD 3.76.03G</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#F0F0F1;color:#111827}
+.nota{max-width:1000px;margin:16px auto 0;padding:12px 16px;background:#FFF8E6;border:1px solid #F0D58A;border-radius:10px;font-size:14.5px}
+.nota b{display:block;margin-bottom:2px}
+.viste{max-width:1000px;margin:12px auto 0;display:flex;flex-wrap:wrap;gap:8px}
+.viste label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid #D1D5DB;border-radius:10px;background:#fff;font-weight:600;cursor:pointer;font-size:15px}
+.viste input{width:18px;height:18px;margin:0}
+.viste label:has(input:checked){border-color:#1F4E79;background:#EEF4FA;color:#1F4E79}
+.wp{max-width:1000px;margin:12px auto 24px;display:grid;grid-template-columns:190px 1fr;background:#fff;border:1px solid #DCDCDE;border-radius:10px;overflow:hidden}
+.wpmenu{background:#1D2327;color:#F0F0F1;padding:10px 0;font-size:14px}
+.wpmenu .t{padding:8px 14px;font-weight:700;color:#fff;background:#2271B1}
+.wpmenu a{display:block;padding:7px 14px 7px 22px;color:#C3C4C7;text-decoration:none}
+.wpmenu a.qui{color:#fff;font-weight:700}
+.main{padding:0 20px 20px;background:#F0F0F1;min-width:0}
+/* — striscia di stato (Reldox_Licenza_Stato::striscia) — */
+.rx-lic{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;border-radius:10px;padding:10px 14px;margin:14px 0 0;font-size:15px}
+.rx-lic svg{flex:none;margin-top:2px}
+.rx-lic .dx{flex:1 1 240px}
+.rx-lic .x{margin-left:auto;border:0;background:transparent;min-width:32px;min-height:32px;font-size:20px;cursor:pointer;color:inherit}
+.rx-lic-man{background:#FFFBEB;border:1px solid #FCD34D;color:#92400E}
+.rx-lic-pre{background:#FFFBEB;border:1px solid #FCD34D;color:#92400E}
+.rx-lic-scad{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B}
+.rx-lic a{color:inherit;font-weight:700}
+/* — la pagina: stesse classi della pagina vera, prefisso rdacadm — */
+.rdacadm{max-width:1000px}
+.rdacadm h1{font-size:24px;font-weight:700;margin:14px 0 4px}
+.rdacadm-sub{color:#4B5563;font-size:15px;margin-bottom:18px}
+.rdacadm-card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:0 20px 18px;margin:0 0 16px}
+.rdacadm-card h2{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;font-size:16px;font-weight:700;margin:0 -20px 14px;padding:14px 20px 12px;border-bottom:1px solid #E5E7EB}
+.rdacadm-hint{font-size:14px;color:#4B5563;margin:-6px 0 12px}
+.rdacadm-kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0 0 14px}
+.rdacadm-kv dt{color:#4B5563;font-weight:600}.rdacadm-kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;border-radius:999px;padding:4px 12px}
+.pill .d{width:8px;height:8px;border-radius:50%}
+.pill.on{background:#DCFCE7;color:#15803D}.pill.on .d{background:#16A34A}
+.pill.warn{background:#FEF3C7;color:#92400E}.pill.warn .d{background:#D97706}
+.pill.off{background:#F3F4F6;color:#4B5563}.pill.off .d{background:#9CA3AF}
+.pill.err{background:#FEE2E2;color:#991B1B}.pill.err .d{background:#DC2626}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;min-width:0}
+.field label{font-size:13.5px;font-weight:600;color:#374151}
+.field input,.field select,.field textarea{padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font:inherit;font-size:15px;min-height:42px;width:100%}
+.field textarea{font:14px/1.5 ui-monospace,Consolas,monospace}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.btn{background:#1F4E79;color:#fff;border:none;border-radius:8px;padding:0 18px;min-height:44px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn.sec{background:#fff;color:#1F4E79;border:1px solid #93A8BF}
+.btn[disabled]{background:#C3CBD8;color:#fff;border-color:#C3CBD8;cursor:not-allowed}
+.cmd{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 6px}
+.perche{font-size:14px;color:#B91C1C;margin:6px 0 0}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:0 0 16px;padding:0;counter-reset:p}
+.steps li{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.steps li b{font-size:15px}
+.steps li b::before{counter-increment:p;content:counter(p);display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#E5E7EB;color:#374151;font-size:13px;margin-right:6px}
+.steps li.fatto{border-color:#86EFAC;background:#F0FDF4}.steps li.fatto b::before{background:#16A34A;color:#fff}
+.steps li.ora{border-color:#93A8BF;box-shadow:0 0 0 2px #DBE4EE}
+.steps .pill{align-self:flex-start;font-size:13px;padding:3px 10px}
+.typesel{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px}
+.typeopt{display:flex;align-items:center;gap:8px;border:1px solid #D1D5DB;border-radius:10px;padding:0 16px;min-height:44px;font-weight:600;color:#374151;background:#fff}
+.typeopt.on{border-color:#1F4E79;background:#EEF4FA;color:#1F4E79}
+.eula{max-height:260px;overflow-y:auto;border:1px solid #E5E7EB;border-radius:10px;padding:14px 16px;background:#FCFDFE}
+.eula .t{font-weight:700}
+.modi{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px}
+.modo{border:1px solid #D1D5DB;border-radius:12px;padding:12px 14px;background:#fff}
+.modo.on{border-color:#1F4E79;background:#EEF4FA}
+.modo .tt{font-weight:700;font-size:15.5px}
+.modo ol{margin:8px 0 0 22px;padding:0;font-size:14.5px}
+.check{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+.check input{margin-top:4px;width:18px;height:18px;flex:none}
+.log{width:100%;border-collapse:collapse;font-size:14px}
+.log th{text-align:left;font-size:13px;font-weight:600;color:#6B7280;padding:8px;border-bottom:1px solid #E5E7EB;background:#F8FAFC}
+.log td{padding:9px 8px;border-bottom:1px solid #F1F5F9;vertical-align:top;overflow-wrap:anywhere}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;overflow-wrap:anywhere}
+.notice{border-radius:10px;padding:12px 14px;margin:0 0 16px;display:flex;gap:10px}
+.n-ok{background:#ECFDF5;border:1px solid #A7F3D0;color:#065F46}
+.n-err{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B}
+.grigio{opacity:.55;pointer-events:none}
+.qui-diverso{outline:3px dashed #D97706;outline-offset:3px;border-radius:12px}
+.diff{max-width:1000px;margin:0 auto 24px;background:#fff;border:1px solid #DCDCDE;border-radius:10px;padding:14px 18px}
+.diff h2{font-size:17px;margin:0 0 8px}
+.diff table{width:100%;border-collapse:collapse;font-size:14.5px}
+.diff td,.diff th{padding:8px;border-bottom:1px solid #E5E7EB;text-align:left;vertical-align:top}
+.diff th{font-size:13.5px;color:#4B5563;background:#F8FAFC}
+.v{display:none}
+body:has(#v1:checked) .v1,body:has(#v2:checked) .v2,body:has(#v3:checked) .v3{display:block}
+body:has(#v1:checked) .v1f,body:has(#v2:checked) .v2f,body:has(#v3:checked) .v3f{display:flex}
+@media (max-width:1100px){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:782px){.wp{grid-template-columns:1fr}.wpmenu{display:flex;flex-wrap:wrap;padding:0}.wpmenu .t{width:100%}.wpmenu a{padding:10px 12px}
+ .grid,.modi{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.main{padding:0 10px 14px}.rdacadm-card{padding:0 14px 14px}.rdacadm-card h2{margin:0 -14px 12px;padding:12px 14px 10px}}
+@media (max-width:600px){.diff thead{display:none}.diff tr{display:block;border-bottom:1px solid #E5E7EB;padding:6px 0}.diff td{display:block;border:0;padding:2px 4px;overflow-wrap:anywhere}.diff td:first-child{font-weight:700}.log thead{display:none}.log tr{display:block;border-bottom:1px solid #E5E7EB;padding:6px 0}.log td{display:block;border:0;padding:2px 4px}.rdacadm-kv{grid-template-columns:1fr}}
+@media (max-width:420px){.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="nota"><b>Mockup v2 · 21/11/2026 · Formazione F023 — dati inventati</b>
+Copia della pagina «Licenza d uso» di RelDox CRD 3.76.03G (stessa logica, stesse sezioni, stesso ordine), col prefisso <code>rdacademy</code> e il prodotto della chiave <code>reldox-academy</code>. Supera il mockup v1 (D41). Scegli la vista qui sotto; i riquadri col bordo tratteggiato arancio sono le sole differenze, elencate in fondo.</div>
+
+<div class="viste" role="radiogroup" aria-label="Vista del mockup">
+  <label><input type="radio" name="v" id="v1" checked> 1 · Oggi: manca la chiave</label>
+  <label><input type="radio" name="v" id="v2"> 2 · Chiave attiva, contratto da firmare</label>
+  <label><input type="radio" name="v" id="v3"> 3 · Canone scaduto: sola consultazione</label>
+</div>
+
+<div class="wp">
+  <nav class="wpmenu" aria-label="Menu wp-admin">
+    <div class="t">RelDoxAcademy</div>
+    <a href="#">Stato sistema</a>
+    <a href="#">Primo accesso</a>
+    <a href="#">Documentazione</a>
+    <a href="#" class="qui">Licenza d uso</a>
+  </nav>
+
+  <div class="main">
+    <!-- STRISCIA: vista 1 -->
+    <div class="rx-lic rx-lic-man v v1f" role="status">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+      <span class="dx"><b>Manca la chiave di licenza:</b> incollala nella pagina <a href="#rd-chiave">Licenza d uso</a>. RelDoxAcademy funziona come oggi.</span>
+      <button class="x" type="button" aria-label="Chiudi fino a domani">×</button>
+    </div>
+    <!-- STRISCIA: vista 2 (preavviso, solo amministratori) -->
+    <div class="rx-lic rx-lic-pre v v2f" role="status">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span class="dx"><b>Il canone finisce il 15/01/2027 (fra 55 giorni).</b> Dopo quella data RelDoxAcademy passa in sola consultazione. <a href="#rd-chiave">Licenza d uso</a></span>
+      <button class="x" type="button" aria-label="Chiudi fino a domani">×</button>
+    </div>
+    <!-- STRISCIA: vista 3 (a tutti, non si chiude) -->
+    <div class="rx-lic rx-lic-scad v v3f" role="status">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <span class="dx"><b>Licenza scaduta — sola consultazione.</b> Chi è iscritto continua a seguire i corsi; per iscrivere persone nuove serve il rinnovo del canone.</span>
+    </div>
+
+    <div class="rdacadm">
+      <h1>Licenza d uso</h1>
+      <div class="rdacadm-sub">Intestatario, contratto (EULA v4), firma e trasmissione a Idea Technologies srl soc. Uninominale · RelDoxAcademy 0.1.10A</div>
+
+      <!-- CHIAVE: in cima, come nel CRD (S708) -->
+      <div class="rdacadm-card" id="rd-chiave">
+        <h2>Chiave di licenza
+          <span class="pill warn v v1f"><span class="d"></span>Manca la chiave</span>
+          <span class="pill warn v v2f"><span class="d"></span>Scade fra 55 giorni</span>
+          <span class="pill err v v3f"><span class="d"></span>Sola consultazione</span>
+        </h2>
+        <p class="rdacadm-hint" style="margin:0 0 12px">La rilascia Idea Technologies a ogni canone; la incolla un amministratore WordPress.</p>
+        <dl class="rdacadm-kv">
+          <dt>Fine del canone</dt><dd><strong class="v v1">—</strong><strong class="v v2">15/01/2027</strong><strong class="v v3">31/10/2026</strong></dd>
+          <dt>Stato</dt><dd><span class="v v1">Manca la chiave</span><span class="v v2">Scade fra 55 giorni</span><span class="v v3">Sola consultazione</span></dd>
+          <dt>Tipo di licenza</dt><dd><span class="v v1">—</span><span class="v v2">Canone</span><span class="v v3">Canone</span></dd>
+          <dt>Prodotto della chiave</dt><dd class="mono">reldox-academy</dd>
+          <dt>Chiave applicata</dt><dd><span class="v v1">nessuna</span><span class="v v2">16/01/2026 · firmata da Idea Technologies · n. 0042</span><span class="v v3">01/11/2025 · firmata da Idea Technologies · n. 0017</span></dd>
+        </dl>
+        <div class="field">
+          <label for="rd-chiave-nuova">Chiave nuova</label>
+          <textarea id="rd-chiave-nuova" rows="3" spellcheck="false" placeholder="Incolla qui la chiave ricevuta da Idea Technologies"></textarea>
+          <p class="rdacadm-hint" style="margin:4px 0 0">La chiave porta la data di fine del canone e non si può modificare: se è alterata RelDoxAcademy la rifiuta e dice perché, qui sopra. Una chiave di un altro prodotto della famiglia viene rifiutata.</p>
+        </div>
+        <button class="btn" type="button">Applica la chiave</button>
+      </div>
+
+      <!-- PERCORSO DEL CONTRATTO: cinque passi -->
+      <ol class="steps" aria-label="Percorso del contratto">
+        <li class="fatto"><b>Intestazione</b><span class="pill on"><span class="d"></span>Completa</span></li>
+        <li class="fatto"><b>Contratto</b><span class="pill on"><span class="d"></span>Generato il 18/11/2026</span></li>
+        <li class="ora"><b>Firma</b><span class="pill off"><span class="d"></span>Da scegliere</span></li>
+        <li><b>Allegato</b><span class="pill off"><span class="d"></span>Da allegare</span></li>
+        <li><b>Trasmissione</b><span class="pill off"><span class="d"></span>Da trasmettere</span></li>
+      </ol>
+
+      <!-- A: INTESTATARIO -->
+      <div class="rdacadm-card">
+        <h2>Dati del Licenziatario (intestatario)</h2>
+        <div class="typesel" role="radiogroup" aria-label="Tipo soggetto">
+          <span class="typeopt on">Azienda / Ente</span><span class="typeopt">Persona fisica</span>
+        </div>
+        <div class="grid">
+          <div class="field"><label>Ragione sociale</label><input value="Formazione Esempio srl"></div>
+          <div class="field"><label>P.IVA</label><input value="01234567890"></div>
+          <div class="field"><label>Legale rappresentante — Nome</label><input value="Mario"></div>
+          <div class="field"><label>Legale rappresentante — Cognome</label><input value="Rossi"></div>
+          <div class="field"><label>Via e civico</label><input value="Via degli Esempi 1"></div>
+          <div class="field"><label>Città</label><input value="Milano"></div>
+          <div class="field"><label>CAP</label><input value="20100"></div>
+          <div class="field"><label>Provincia</label><input value="MI"></div>
+          <div class="field"><label>Nazione</label><input value="Italia"></div>
+          <div class="field"><label>Email o PEC del Licenziatario</label><input value="amministrazione@esempio.it"></div>
+        </div>
+        <div class="cmd v3f v grigio"><button class="btn" type="button" disabled>Salva intestatario</button></div>
+        <p class="perche v v3">Non disponibile: licenza scaduta</p>
+        <div class="cmd v1f v"><button class="btn" type="button">Salva intestatario</button></div>
+        <div class="cmd v2f v"><button class="btn" type="button">Salva intestatario</button></div>
+      </div>
+
+      <!-- B: ANCORA DI DOMINIO (già nel plugin dalla 0.1.01A) -->
+      <div class="rdacadm-card">
+        <h2>Ancora di dominio <span class="pill on"><span class="d"></span>Stesso dominio</span></h2>
+        <dl class="rdacadm-kv">
+          <dt>Dominio registrato:</dt><dd class="mono">corsi.esempio.it</dd>
+          <dt>Dominio corrente:</dt><dd class="mono">corsi.esempio.it</dd>
+          <dt>Registrata il (UTC):</dt><dd>19/11/2026 09:12</dd>
+          <dt>Versione alla registrazione:</dt><dd>0.1.03A</dd>
+        </dl>
+        <p class="rdacadm-hint" style="margin:0">Solo diagnostica: un dominio diverso si segnala, non blocca nulla.</p>
+      </div>
+
+      <!-- C: CONTRATTO -->
+      <div class="rdacadm-card qui-diverso">
+        <h2>Contratto di licenza (EULA v4) <span class="pill off"><span class="d"></span>Testo di Legale</span></h2>
+        <div class="eula" tabindex="0" aria-label="Testo del contratto">
+          <p class="t">Art. 1 — Oggetto</p><p>[Testo della licenza di famiglia v4, alla versione che indica Legale per RelDoxAcademy. Il mockup non lo riproduce.]</p>
+          <p class="t">Art. 2 — …</p><p>[…]</p>
+          <p class="t">Art. 15 — Approvazione specifica (artt. 1341-1342 c.c.)</p><p>[…]</p>
+        </div>
+      </div>
+
+      <!-- D: FIRMA E TRASMISSIONE -->
+      <div class="rdacadm-card">
+        <h2>Firma e trasmissione</h2>
+        <div class="cmd">
+          <button class="btn sec" type="button"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Genera di nuovo e scarica</button>
+        </div>
+        <p class="rdacadm-hint" style="margin:6px 0 12px">Contratto generato il 18/11/2026 · codice del testo A7F3-21C0.</p>
+        <div class="modi" role="radiogroup" aria-label="Modalità di firma">
+          <div class="modo on"><div class="tt">Firma digitale</div><ol><li>Firma il PDF con il tuo dispositivo di firma.</li><li>Allega il file firmato qui sotto.</li></ol></div>
+          <div class="modo"><div class="tt">Firma autografa</div><ol><li>Stampa, firma a mano nei due punti (anche la seconda firma sul documento).</li><li>Scansiona e allega il PDF.</li><li>Spedisci l originale a Idea Technologies.</li></ol></div>
+        </div>
+        <div class="field"><label>Il contratto firmato (PDF, al massimo 10 MB)</label><input type="file" accept="application/pdf"></div>
+        <div class="cmd">
+          <button class="btn" type="button">Allega il contratto firmato</button>
+          <button class="btn" type="button" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Trasmetti a amministrazione@ideatechnologies.com</button>
+        </div>
+        <p class="perche">Prima allega il contratto firmato.</p>
+      </div>
+
+      <!-- E: ACCETTAZIONE NEL PANNELLO -->
+      <div class="rdacadm-card">
+        <h2>Accettazione nel pannello <span class="pill on"><span class="d"></span>Accettata</span></h2>
+        <div class="notice n-ok">Licenza accettata nel pannello.</div>
+        <dl class="rdacadm-kv">
+          <dt>Firmatario:</dt><dd>Mario Rossi</dd>
+          <dt>Per conto di:</dt><dd>Formazione Esempio srl</dd>
+          <dt>Utente WP:</dt><dd>admin-esempio</dd>
+          <dt>Data/ora (UTC):</dt><dd>18/11/2026 10:04</dd>
+          <dt>Versione:</dt><dd>EULA v4</dd>
+          <dt>Articoli approvati:</dt><dd>art. 15 (artt. 1341-1342 c.c.)</dd>
+          <dt>Impronta testo:</dt><dd class="mono">a7f321c0…9e4b</dd>
+        </dl>
+        <p class="rdacadm-hint" style="margin:0">Per l approvazione specifica firma il PDF e allegalo (Firma e trasmissione).</p>
+      </div>
+
+      <!-- F: STORICO -->
+      <div class="rdacadm-card">
+        <h2>Storico <span class="rdacadm-hint" style="font-weight:400;margin:0">si aggiunge e non si cancella</span></h2>
+        <div style="overflow-x:auto">
+        <table class="log">
+          <thead><tr><th>Quando</th><th>Che cosa</th><th>Chi</th><th>Dettaglio</th></tr></thead>
+          <tbody>
+            <tr><td>18/11/2026 10:04</td><td>Accettazione nel pannello</td><td>admin-esempio</td><td>EULA v4</td></tr>
+            <tr><td>18/11/2026 10:06</td><td>Contratto generato e scaricato</td><td>admin-esempio</td><td>A7F3-21C0</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="diff">
+  <h2>Che cosa cambia rispetto a RelDox CRD 3.76.03G</h2>
+  <table>
+    <thead><tr><th>Punto</th><th>RelDox CRD</th><th>RelDoxAcademy</th><th>Fonte</th></tr></thead>
+    <tbody>
+      <tr><td>Prefisso, opzioni, nonce</td><td><span class="mono">reldox_licenza_…</span>, <span class="mono">rlic</span></td><td><span class="mono">rdacademy_licenza_…</span>, <span class="mono">rdlic</span></td><td>capo famiglia 20/11 § 1</td></tr>
+      <tr><td>Prodotto della chiave</td><td><span class="mono">reldox-crd</span></td><td><span class="mono">reldox-academy</span>, stessa chiave pubblica; una chiave di un altro prodotto si rifiuta</td><td>capo famiglia 20/11 § 2</td></tr>
+      <tr><td>Chiavi vere</td><td>da «RelDox Chiavi»</td><td>a banco finché «RelDox Chiavi» non conosce RelDoxAcademy (loro voce 179)</td><td>capo famiglia 20/11 § 2</td></tr>
+      <tr><td>Testo del contratto</td><td>EULA v4 di Legale</td><td>il testo che Legale indica per RelDoxAcademy (riquadro tratteggiato)</td><td>CLAUDE.md del nodo, testi legali</td></tr>
+      <tr><td>Sola consultazione (vista 3)</td><td>comandi che scrivono grigi; posta spenta salvo recupero password; utenti: solo disattivare</td><td>uguale: iscrizioni nuove grigie; chi è iscritto continua; <b>pagine pubbliche dei corsi accese</b></td><td>D-150 così com è</td></tr>
+      <tr><td>Ancora di dominio</td><td>in pagina</td><td>c è già nel plugin dalla 0.1.01A: si mostra, non si rifà</td><td>—</td></tr>
+      <tr><td>Simboli dei pulsanti</td><td>caratteri speciali</td><td>icone SVG (regola di grafica: niente emoji)</td><td>SPEC-GRAFICA</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
