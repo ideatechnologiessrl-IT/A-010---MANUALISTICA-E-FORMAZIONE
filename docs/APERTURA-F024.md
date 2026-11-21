@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0018 — 0.1.10A — F024
+## MANIFESTO — KIT K0019 — 0.1.10A — F024
 
-PROGRESSIVO K0018   precedente K0017   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0018-0_1_10A-F024.zip · composto il 21/11/2026 19:17
+PROGRESSIVO K0019   precedente K0018   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0019-0_1_10A-F024.zip · composto il 21/11/2026 19:18
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0018-0_1_10-F024.zip
+BUSTA 1  KIT-1-APERTURA-K0019-0_1_10-F024.zip
          reldox-academy-0_1_10.zip  md5 d191afb01abb906247201f16b258ae8d
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_10.txt  103 righe
          APERTURA-F024.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
-         pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0018-0_1_10-F024.zip  41 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0018-0_1_10-F024.zip  64 script
+         pacchetto di diagnostica: reldox-academy-diagnostica-0_1_10.zip  md5 19316099242310d89caebb12a7eb733d (F021: secondo pacchetto, stesso numero)
+BUSTA 2  KIT-2-AREA-PROGETTI-K0019-0_1_10-F024.zip  41 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0019-0_1_10-F024.zip  64 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  310 righe
@@ -40,7 +40,7 @@ BUSTA 3  KIT-3-MISURE-K0018-0_1_10-F024.zip  64 script
          banco/F023-banco-licenza.php  101 righe
          banco/F023-porta-licenza.py  189 righe
          banco/F023-rifai-0.1.10A.sh  66 righe
-         banco/KIT-PROGRESSIVO.txt  17 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  18 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -84,7 +84,7 @@ BUSTA 3  KIT-3-MISURE-K0018-0_1_10-F024.zip  64 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0018-0_1_10-F024.zip  63 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 9 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0019-0_1_10-F024.zip  63 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 9 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (41):
   CLAUDE.md
   README.md
