@@ -1,0 +1,22 @@
+  VERDE  A1 gli otto file della licenza ci sono e si leggono (php -l)
+  VERDE  A2 prodotto della chiave `reldox-academy`
+  VERDE  A3 stessa chiave pubblica di Idea Technologies del CRD
+  VERDE  A4 voce «Licenza d uso» nel menu `rdacademy`
+  VERDE  A5 nessun nome del CRD rimasto nel codice (Reldox_, RELDOX_, reldox_licen, page=reldox)
+  VERDE  A6 il plugin carica la licenza e la pagina
+  VERDE  A7 router: sola consultazione prima dei permessi (D-150.3)
+  VERDE  A8 posta: la porta della casella (D-150.9)
+  VERDE  A9 recupero password come posta di accesso; trasmissione del contratto
+  VERDE  A10 striscia nell applicazione
+  VERDE  B1 senza chiave: «senza_chiave», RelDoxAcademy funziona come oggi (D-150.8)
+  VERDE  B2 chiave firmata per `reldox-academy`: valida
+  ROSSO  B3 chiave di RelDox CRD: rifiutata «di un altro prodotto»
+  VERDE  B4 chiave di un altro sito: rifiutata
+  VERDE  B5 chiave alterata: rifiutata
+  VERDE  B6 chiave applicata: «attiva»
+  VERDE  B7 a 30 giorni dalla fine: «preavviso» (60 giorni, D-150.2)
+  VERDE  B8 canone finito: «cessata», sola consultazione
+  VERDE  B9 sola consultazione: lettura e preferenze ammesse, scritture no
+  VERDE  B10 sola consultazione: la posta si spegne, il recupero password esce
+  VERDE  B11 togliere la chiave dal database non riporta a «senza chiave» (memoria della fine)
+ROSSO — 20 su 21 (trappola)

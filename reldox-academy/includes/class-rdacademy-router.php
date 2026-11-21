@@ -346,6 +346,7 @@ class Rdacademy_Router {
             'pwd_set'                  => 'public',
             // Solo autenticazione
             'logout'                   => 'auth',
+            'licenza_striscia_chiudi'  => 'admin',   // F023_LICENZA
             // RelDox 3.17.10 (S273) — BUG-91: l identita viene da me_uid() e il modulo non la porta.
             'me_prefs_get'             => 'auth',
             'me_prefs_save'            => 'auth',
@@ -362,6 +363,15 @@ class Rdacademy_Router {
 
         $required = $capability_map[ $action ] ?? 'admin'; // default admin se non mappata
 
+        // ── 2b. F023_LICENZA — SOLA CONSULTAZIONE A LICENZA CESSATA (D-150.3, D-150.7, D-150.9, D-150.10), come RelDox CRD ──
+        if ( class_exists( 'Rdacademy_Licenza_Stato' ) && ( $required === 'public' || Rdacademy_Auth::get_current_user() ) && Rdacademy_Licenza_Stato::cessata() ) {
+            if ( $action === 'save_user' ) {
+                $rx_lm = Rdacademy_Licenza_Stato::save_user_a_licenza_cessata( (array) $_POST );
+                if ( $rx_lm !== '' ) wp_send_json_error( $rx_lm, 403 );
+            } elseif ( ! Rdacademy_Licenza_Stato::azione_ammessa( $action, (string) $required ) ) {
+                wp_send_json_error( Rdacademy_Licenza_Stato::MESSAGGIO . '.', 403 );
+            }
+        }
         // ── 3. Autenticazione e capability check ──────────────────────────
         $user = null;
         if ( $required !== 'public' ) {
@@ -400,6 +410,7 @@ class Rdacademy_Router {
 
         // ── 5. Dispatch ───────────────────────────────────────────────────
         switch ( $action ) {
+            case 'licenza_striscia_chiudi': $rx_u = Rdacademy_Auth::get_current_user(); Rdacademy_Licenza_Stato::chiudi_striscia( (int) ( $rx_u['id'] ?? 0 ) ); wp_send_json_success( array( 'chiusa' => true ) ); break;   // F023_LICENZA
             case 'login':
                 $this->ajax_login();
                 break;

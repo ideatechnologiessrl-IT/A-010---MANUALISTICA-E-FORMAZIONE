@@ -422,6 +422,8 @@ $setup_sistema_items = (array) apply_filters( 'rdacademy_setup_sistema_items', $
 
     <!-- Main -->
     <main class="rx-main" id="rx-main" role="main">
+        <?php if ( class_exists( 'Rdacademy_Licenza_Stato' ) ) { $rx_lu = Rdacademy_Auth::get_current_user(); echo Rdacademy_Licenza_Stato::striscia( (bool) ( $rx_lu && ( ! empty( $rx_lu['is_backdoor'] ) || Rdacademy_Security::is_admin( (int) $rx_lu['id'] ) ) ), (int) ( $rx_lu['id'] ?? 0 ) ); } // phpcs:ignore — F023_LICENZA ?>
+        <script>/* F023_LICENZA — la X della striscia: chiusa per oggi */document.addEventListener('click',function(e){var x=e.target&&e.target.closest?e.target.closest('[data-rx-lic-chiudi]'):null;if(!x)return;var s=x.closest('.rx-lic');if(s)s.remove();var R=window.RDACADEMY||{},b=new URLSearchParams();b.set('action','rdacademy');b.set('rdacademy_action','licenza_striscia_chiudi');b.set('nonce',R.nonce||'');fetch(R.ajaxUrl,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString(),credentials:'same-origin'}).catch(function(){});});</script>
 
         <div class="rx-topbar">
             <div class="rx-topbar-left">

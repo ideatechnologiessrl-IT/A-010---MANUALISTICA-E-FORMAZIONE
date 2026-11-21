@@ -428,6 +428,7 @@ final class Rdacademy_Casella {
 	 */
 	public static function spedisci( string $a, string $nome_a, string $oggetto, string $corpo_html, array $allegati = array(), array $cc = array(), array $bcc = array() ): array {
 		self::$ultima_risposta = ''; self::$ultimo_mid = '';
+		if ( class_exists( 'Rdacademy_Licenza_Stato' ) ) { $rx_no = Rdacademy_Licenza_Stato::porta_posta(); if ( $rx_no !== '' ) return array( 'success' => false, 'error' => $rx_no ); }   // F023_LICENZA (D-150.9)
 		$e = self::spedisci_motore( $a, $nome_a, $oggetto, $corpo_html, $allegati, $cc, $bcc );
 		if ( class_exists( 'Rdacademy_Spedizioni' ) ) {
 			try {

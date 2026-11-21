@@ -7419,3 +7419,14 @@ table.rx-pif-tbl td.mid{vertical-align:middle}
 .rx-login-profili[hidden] { display: none; }
 .rx-login-profili-t { margin: 0 0 10px; font-size: 15px; line-height: 1.45; color: #1f2933; }
 .rx-login-profili .rx-login-profilo { min-height: 44px; font-size: 16px; margin-top: 8px; }
+
+/* F023_LICENZA — la striscia della licenza, come RelDox CRD 3.76.03G (app.css r.8208) */
+.rx-lic{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:12px 20px;font-size:15.5px;font-weight:600;margin:0 0 12px;border-radius:10px}
+.rx-lic b{font-weight:600}
+.rx-lic svg{width:22px;height:22px;flex:none}
+.rx-lic-scad{background:#FDECEC;color:#B91C1C;border:1px solid #F5C2C2}
+.rx-lic-pre{background:#FDF3E1;color:#9A5B00;border:1px solid #F3DDB4}
+.rx-lic-dx{margin-left:auto;font-weight:500;font-size:14.5px}
+.rx-lic a{color:inherit}
+.rx-lic-x{border:0;background:none;color:inherit;font-size:20px;cursor:pointer;min-width:36px;min-height:36px}
+@media (max-width:640px){.rx-lic{padding:10px 14px}.rx-lic-dx{margin-left:0}}

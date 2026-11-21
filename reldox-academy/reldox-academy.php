@@ -3,7 +3,7 @@
  * Plugin Name:       RelDoxAcademy
  * Plugin URI:        https://www.ideatechnologies.com
  * Description:       RelDoxAcademy — i corsi on line e i manuali dei prodotti della famiglia RelDox. Prodotto della famiglia RelDox.
- * Version:           0.1.09
+ * Version:           0.1.10
  * Author:            Idea Technologies srl soc. Uninominale
  * Author URI:        https://www.ideatechnologies.com
  * License:           Proprietary
@@ -31,14 +31,14 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'RDACADEMY_VERSION',       '0.1.09' );
+define( 'RDACADEMY_VERSION',       '0.1.10' );
 define( 'RDACADEMY_STAGE',         'Alfa' );   // REGOLE-FAMIGLIA § 9.1: lo stadio lo decide l owner
 // § 9.1 — la lettera dello stadio si scrive ATTACCATA al numero: A=Alfa, B=Beta, G=Gold, L=Live.
 define( 'RDACADEMY_VERSION_LABEL', RDACADEMY_VERSION . ( array( 'Alfa' => 'A', 'Beta' => 'B', 'Gold' => 'G', 'Live' => 'L' )[ RDACADEMY_STAGE ] ?? '' ) );
 // RP-VERSIONE-PANNELLO-MINIMO (copiato da RelDox) — il pacchetto e un NOME breve, la cronaca sta nel CHANGELOG.
-define( 'RDACADEMY_PACKAGE',       '// 0.1.09A | F021 | diagnostica' );
+define( 'RDACADEMY_PACKAGE',       '// 0.1.10A | F023 | licenza' );
 // 0.8.2A (RF-BUG-022) — la data la scrive il compositore del pacchetto insieme al manifesto, MAI A MANO.
-define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-20' );
+define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-21' );
 define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );
 define( 'RDACADEMY_VENDOR',        'Idea Technologies srl soc. Uninominale' );   // 0.1.05A (BUG-3): la ragione sociale, come nei documenti
 define( 'RDACADEMY_VENDOR_URL',    'https://www.ideatechnologies.com' );
@@ -133,6 +133,16 @@ require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-interruttori.php';
 add_action( 'plugins_loaded', array( 'Rdacademy_Interruttori', 'init' ), 20 );   // dopo il provisioning (priorità 5): il BASE è pronto; Rdacademy_Interruttori::init
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-admin.php';
 require_once RDACADEMY_PLUGIN_DIR . 'includes/class-rdacademy-router.php';
+// F023_LICENZA — 0.1.10A: la «Licenza d uso» come RelDox CRD 3.76.03G (voce 150), prodotto della chiave `reldox-academy`
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license-validate.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license-testi.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license-pdf.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license-firma.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license-verifica.php';
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-licenza-stato.php';
+if ( class_exists( 'Rdacademy_Licenza_Stato' ) ) { Rdacademy_Licenza_Stato::init(); }
+require_once RDACADEMY_PLUGIN_DIR . 'includes/license/class-rdacademy-license-admin.php';
 
 /*
  * NUOVO — I CARICHI DEI LOTTI B, C, D (SPEC § 4).
@@ -233,6 +243,8 @@ function rdacademy_init() {
 	$admin->init();
 	$router = new Rdacademy_Router();
 	$router->init();
+	$license_admin = new Rdacademy_License_Admin();   // F023_LICENZA
+	$license_admin->init();
 
 	// Rigenera le rewrite rules se necessario dopo l attivazione.
 	// ⛔ CORRETTO RISPETTO A RELDOX: `flush_rewrite_rules()` stava QUI, su

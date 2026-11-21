@@ -119,6 +119,13 @@ final class Rdacademy_Password_Mail {
 	 * @return array{success:bool,error:?string}
 	 */
 	public static function invia_reimpostazione( array $utente, string $token_grezzo ): array {
+		if ( class_exists( 'Rdacademy_Licenza_Stato' ) ) {   // F023_LICENZA — D-150.9: il recupero della password esce anche a licenza cessata
+			return Rdacademy_Licenza_Stato::come_posta_di_accesso( function () use ( $utente, $token_grezzo ) { return self::invia_reimpostazione_motore( $utente, $token_grezzo ); } );
+		}
+		return self::invia_reimpostazione_motore( $utente, $token_grezzo );
+	}
+
+	private static function invia_reimpostazione_motore( array $utente, string $token_grezzo ): array {
 		$link    = self::link_imposta( $token_grezzo );
 		$nome    = trim( (string) ( $utente['first_name'] ?? '' ) );
 		// 0.8.2A — nella lingua della persona (la sua scheda), non di chi preme il pulsante.
@@ -560,6 +567,38 @@ final class Rdacademy_Password_Mail {
 		}
 		return self::involucro( $L, $nota . Rdacademy_Lingua::riempi( $modello['testo'], $v, true ), $link, self::piede( $L, true ) );
 	}
+
+	/**
+	 * F023_LICENZA — Licenza d uso: trasmette il contratto firmato a Idea Technologies (come Reldox_Password_Mail::invia_contratto
+	 * di RelDox CRD 3.76.03G), dalla casella di servizio, col file in allegato. Senza casella non si ripiega: il motivo torna a chi trasmette.
+	 * @param array $allegati [[nome, byte, tipo], …] — i byte in memoria (Rdacademy_Casella li allega senza file su disco)
+	 * @return array{success:bool,error:?string}
+	 */
+	public static function invia_contratto( string $a, array $v, array $allegati ): array {
+		$stato = self::stato();
+		if ( empty( $stato['configurata'] ) ) {
+			return array( 'success' => false, 'error' => (string) ( $stato['motivo'] ?? 'La casella di servizio non è configurata.' ) );
+		}
+		$m  = Rdacademy_License_Testi::modello( 'licenza.trasmissione', 'it' );
+		$mf = Rdacademy_License_Testi::modello( 'licenza.trasmissione_firma', 'it' );
+		$oggetto = Rdacademy_License_Testi::riempi( $m['oggetto'], $v, false );
+		$corpo =
+			'<div style="margin:0;padding:24px 0;background:#F3F4F6;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif">'
+			. '<div style="max-width:560px;margin:0 auto;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden">'
+			. self::testata()
+			. '<div style="padding:18px 28px 26px;font-size:14px;line-height:1.65;color:#111827">'
+			. '<p style="margin:0 0 14px">' . Rdacademy_License_Testi::riempi( $m['testo'], $v, true ) . '</p>'
+			. '<p style="margin:0;padding:12px 16px;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;font-size:13px">'
+			. '<b>' . esc_html( $mf['oggetto'] ) . '</b><br>' . Rdacademy_License_Testi::riempi( rtrim( (string) $mf['testo'] ), $v, true ) . '</p>'
+			. '</div>'
+			. '<div style="padding:14px 28px 20px;border-top:1px solid #F3F4F6;font-size:13px;line-height:1.6;color:#6B7280;text-align:center">'
+			. 'Messaggio automatico di ' . esc_html( defined( 'RDACADEMY_PRODUCT' ) ? RDACADEMY_PRODUCT : 'RelDoxAcademy' ) . ' (Licenza d uso).'
+			. '</div></div></div>';
+		$file = array();
+		foreach ( $allegati as $x ) { $file[] = array( (string) ( $x[0] ?? 'contratto.pdf' ), (string) ( $x[1] ?? '' ), (string) ( $x[2] ?? 'application/pdf' ) ); }
+		return Rdacademy_Casella::spedisci( $a, '', $oggetto, $corpo, $file );
+	}
+
 }
 
 endif;
