@@ -43,13 +43,19 @@ for nome in sorted(os.listdir(SRC)):
         s = s.replace(a, b)
     if nome == 'class-reldox-licenza-stato.php':
         s = sostituisci_una(s, "const PRODOTTO         = 'reldox-crd';", "const PRODOTTO         = 'reldox-academy';   // " + SEGNO + ': capo famiglia 20/11/2026 § 2', nome)
-        s = re.sub(r"const ATTIVITA_ACCESE = array\([^;]*\);", "const ATTIVITA_ACCESE = array( 'rdacademy_backup_daily', 'rdacademy_sorveglianza_sicurezza' );", s, count=1)
+        s = re.sub(r"const ATTIVITA_ACCESE = array\([^;]*\);", "const ATTIVITA_ACCESE = array();   // " + SEGNO + ": RelDoxAcademy oggi non ha attività in calendario (revisione a freddo, difetto 4)", s, count=1)
         s = re.sub(r"const ATTIVITA_SPENTE = array\([^;]*\);", "const ATTIVITA_SPENTE = array();   // " + SEGNO + ": più ogni altra `rdacademy_*` in calendario", s, count=1, flags=re.S)
         s = re.sub(r"const AUTH_SPENTE = array\([^;]*\);", "const AUTH_SPENTE = array();   // " + SEGNO + ": le azioni personali di RelDoxAcademy (preferenze, uscita) restano accese (D-150.7)", s, count=1, flags=re.S)
         s = re.sub(r"const AMMESSE_EXTRA = array\([^;]*\);",
-                   "const AMMESSE_EXTRA = array( 'get_access_log', 'get_user', 'esporta_tutto', 'backup_list', 'backup_run', 'restore_preview', 'tech_check',\n"
-                   "\t\t'db_health', 'db_capacity', 'dbconfig_status', 'spedizioni_csv', 'datasource_get', 'save_user', 'licenza_striscia_chiudi' );   // " + SEGNO,
+                   "const AMMESSE_EXTRA = array( 'get_access_log', 'get_user', 'backup_list', 'backup_run', 'restore_preview', 'tech_check', 'tech_roles',\n"
+                   "\t\t'db_capacity', 'db_panoramica', 'dbconfig_status', 'datasource_get', 'impostazioni_get', 'spedizioni_elenco', 'spedizioni_rifiuti',\n"
+                   "\t\t'save_user', 'licenza_striscia_chiudi' );   // " + SEGNO + ": le letture vere dei carichi di RelDoxAcademy (revisione a freddo, difetto 2)",
                    s, count=1, flags=re.S)
+        s = sostituisci_una(s, "\t\tadd_filter( 'pre_wp_mail', array( __CLASS__, 'porta_wp_mail' ), 1, 2 );\n",
+                            "\t\t// " + SEGNO + ": niente porta su pre_wp_mail: RelDoxAcademy spedisce solo dalla sua casella, la porta sta lì; spegnere wp_mail fermerebbe la posta di tutto il sito (revisione a freddo, difetto 1)\n", nome)
+        s = sostituisci_una(s, "\t\tif ( (int) $cur['id'] === $uid ) return 'Non puoi disattivare te stesso.';\n",
+                            "\t\tif ( (int) $cur['id'] === $uid ) return 'Non puoi disattivare te stesso.';\n"
+                            "\t\tif ( Rdacademy_Security::is_admin( $uid ) && class_exists( 'Rdacademy_Utenti' ) && Rdacademy_Utenti::admin_count( $uid ) === 0 ) return 'Non puoi disattivare l ultimo amministratore attivo.';   // " + SEGNO + " (revisione a freddo, difetto 3)\n", nome)
         s = sostituisci_una(s, "strpos( (string) $h, 'reldox' ) === 0", "strpos( (string) $h, 'rdacademy_' ) === 0", nome)
     if nome == 'class-reldox-license-admin.php':
         s = sostituisci_una(s, "'reldox-crd',   // S615", "'rdacademy',   // " + SEGNO + ": il menu di RelDoxAcademy; S615", nome)

@@ -29,7 +29,9 @@ $admin = leggi_f( "$P/includes/license/class-rdacademy-license-admin.php" );
 prova( 'A2 prodotto della chiave `reldox-academy`', (bool) preg_match( "/const PRODOTTO\s*=\s*'reldox-academy'/", $stato ) );
 prova( 'A3 stessa chiave pubblica di Idea Technologies del CRD', strpos( $stato, 'VkmaHbDE54aHCTm5h9tlR0JJIOuNAxG3aps4HWBVHY8=' ) !== false );
 prova( 'A4 voce «Licenza d uso» nel menu `rdacademy`', (bool) preg_match( "/add_submenu_page\(\s*'rdacademy',[\s\S]{0,400}?'Licenza d uso'/", $admin ) );
-prova( 'A5 nessun nome del CRD rimasto nel codice (Reldox_, RELDOX_, reldox_licen, page=reldox)', $stato !== '' && ! preg_match( '/\bReldox_|\bRELDOX_|reldox_licen|page=reldox/', $stato . $admin ) );
+$tutto = ''; foreach ( $file as $f ) $tutto .= leggi_f( "$P/includes/license/class-rdacademy-$f.php" );
+prova( 'A5 nessun nome del CRD rimasto negli otto file (Reldox_, RELDOX_, reldox_licen, reldox_license, page=reldox)', $stato !== '' && ! preg_match( '/\bReldox_|\bRELDOX_|reldox_licen|page=reldox/', $tutto ) );
+prova( 'A11 nessuna porta su pre_wp_mail: la posta del resto del sito non si ferma', $stato !== '' && ! preg_match( "/add_filter\(\s*'pre_wp_mail'/", $stato ) );
 $princ = leggi_f( "$P/reldox-academy.php" );
 prova( 'A6 il plugin carica la licenza e la pagina', strpos( $princ, "includes/license/class-rdacademy-licenza-stato.php" ) !== false && strpos( $princ, 'new Rdacademy_License_Admin()' ) !== false );
 $router = leggi_f( "$P/includes/class-rdacademy-router.php" );
@@ -79,7 +81,13 @@ if ( $stato !== '' && function_exists( 'sodium_crypto_sign_keypair' ) ) {
 	$GLOBALS['opz'] = array(); $rp->setValue( null, null );
 	$GLOBALS['opz']['rdacademy_licenza_chiave'] = $firma( array( 'prodotto' => 'reldox-academy', 'sito' => 'corsi.esempio.it', 'fine' => '2026-01-31' ) );
 	prova( 'B8 canone finito: «cessata», sola consultazione', $L::stato() === 'cessata' && $L::cessata() );
-	prova( 'B9 sola consultazione: lettura e preferenze ammesse, scritture no', $L::azione_ammessa( 'me_prefs_save', 'auth' ) && $L::azione_ammessa( 'get_access_log', 'admin' ) && ! $L::azione_ammessa( 'invita_utente', 'admin' ) && ! $L::azione_ammessa( 'salva_corso', 'write' ) );
+	// le azioni vere dei carichi: le letture ammesse, le scritture spente
+	$mappa = array(); foreach ( glob( "$P/includes/carico-*.php" ) as $c ) { preg_match_all( "/'([a-z_]+)'\s*=>\s*array\(\s*'(admin|write|auth|public)'/", (string) file_get_contents( $c ), $m, PREG_SET_ORDER ); foreach ( $m as $x ) $mappa[ $x[1] ] = $x[2]; }
+	$letture = array( 'get_access_log', 'impostazioni_get', 'tech_roles', 'db_panoramica', 'spedizioni_elenco', 'spedizioni_rifiuti', 'backup_list', 'get_user' );
+	$ok_l = true; foreach ( $letture as $a ) { if ( ! $L::azione_ammessa( $a, $mappa[ $a ] ?? 'admin' ) ) $ok_l = false; }
+	$scritture = array_diff( array_keys( array_filter( $mappa, function ( $l ) { return $l === 'write' || $l === 'admin'; } ) ), $L::AMMESSE_EXTRA );
+	$ok_s = count( $scritture ) > 0; foreach ( $scritture as $a ) { if ( $L::azione_ammessa( $a, $mappa[ $a ] ) ) $ok_s = false; }
+	prova( 'B9 sola consultazione sulle azioni vere dei carichi: ' . count( $letture ) . ' letture ammesse, ' . count( $scritture ) . ' altre spente; preferenze ammesse', $ok_l && $ok_s && $L::azione_ammessa( 'me_prefs_save', 'auth' ) );
 	prova( 'B10 sola consultazione: la posta si spegne, il recupero password esce', $L::porta_posta() !== '' && $L::come_posta_di_accesso( function () use ( $L ) { return $L::porta_posta(); } ) === '' );
 	$GLOBALS['opz'] = array( 'rdacademy_licenza_memoria' => '2026-01-31' ); $rp->setValue( null, null );
 	prova( 'B11 togliere la chiave dal database non riporta a «senza chiave» (memoria della fine)', $L::stato() !== 'senza_chiave' );

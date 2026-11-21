@@ -45,7 +45,7 @@ final class Rdacademy_Licenza_Stato {
 	const CHIAVI_PUBBLICHE = array( 'VkmaHbDE54aHCTm5h9tlR0JJIOuNAxG3aps4HWBVHY8=' );
 
 	/** Attività automatiche che restano accese a licenza cessata (D-150.5). */
-	const ATTIVITA_ACCESE = array( 'rdacademy_backup_daily', 'rdacademy_sorveglianza_sicurezza' );
+	const ATTIVITA_ACCESE = array();   // F023_LICENZA: RelDoxAcademy oggi non ha attività in calendario (revisione a freddo, difetto 4)
 
 	/** Attività automatiche note che si spengono (più ogni altra `reldox_*` in calendario). */
 	const ATTIVITA_SPENTE = array();   // F023_LICENZA: più ogni altra `rdacademy_*` in calendario
@@ -54,8 +54,9 @@ final class Rdacademy_Licenza_Stato {
 	const AUTH_SPENTE = array();   // F023_LICENZA: le azioni personali di RelDoxAcademy (preferenze, uscita) restano accese (D-150.7)
 
 	/** Azioni di livello «admin» / «write» che restano accese (letture, esportazioni, copia di sicurezza). */
-	const AMMESSE_EXTRA = array( 'get_access_log', 'get_user', 'esporta_tutto', 'backup_list', 'backup_run', 'restore_preview', 'tech_check',
-		'db_health', 'db_capacity', 'dbconfig_status', 'spedizioni_csv', 'datasource_get', 'save_user', 'licenza_striscia_chiudi' );   // F023_LICENZA
+	const AMMESSE_EXTRA = array( 'get_access_log', 'get_user', 'backup_list', 'backup_run', 'restore_preview', 'tech_check', 'tech_roles',
+		'db_capacity', 'db_panoramica', 'dbconfig_status', 'datasource_get', 'impostazioni_get', 'spedizioni_elenco', 'spedizioni_rifiuti',
+		'save_user', 'licenza_striscia_chiudi' );   // F023_LICENZA: le letture vere dei carichi di RelDoxAcademy (revisione a freddo, difetto 2)
 
 	/** @var bool la spedizione in corso è una mail di accesso (recupero della password, D-150.9) */
 	private static $posta_di_accesso = false;
@@ -64,7 +65,7 @@ final class Rdacademy_Licenza_Stato {
 
 	public static function init(): void {
 		add_filter( 'rest_pre_dispatch', array( __CLASS__, 'porta_rest' ), 1, 3 );
-		add_filter( 'pre_wp_mail', array( __CLASS__, 'porta_wp_mail' ), 1, 2 );
+		// F023_LICENZA: niente porta su pre_wp_mail: RelDoxAcademy spedisce solo dalla sua casella, la porta sta lì; spegnere wp_mail fermerebbe la posta di tutto il sito (revisione a freddo, difetto 1)
 		add_action( 'init', array( __CLASS__, 'spegni_attivita' ), 999 );
 	}
 
@@ -240,6 +241,7 @@ final class Rdacademy_Licenza_Stato {
 		$riga = Rdacademy_DB::get_row( "SELECT id, status FROM `{$p}users` WHERE id = ? LIMIT 1", array( $uid ), 'i' );
 		if ( ! $riga ) return 'Utente non trovato.';
 		if ( (int) $cur['id'] === $uid ) return 'Non puoi disattivare te stesso.';
+		if ( Rdacademy_Security::is_admin( $uid ) && class_exists( 'Rdacademy_Utenti' ) && Rdacademy_Utenti::admin_count( $uid ) === 0 ) return 'Non puoi disattivare l ultimo amministratore attivo.';   // F023_LICENZA (revisione a freddo, difetto 3)
 		$c = Rdacademy_DB::get_connection();
 		$c->query( "UPDATE `{$p}users` SET status='" . $st . "', updated_at=NOW() WHERE id=" . $uid );   // Sospeso o Disabilitato (gestione-utenti.php)
 		$c->query( "DELETE FROM `{$p}sessions` WHERE user_id=" . $uid );

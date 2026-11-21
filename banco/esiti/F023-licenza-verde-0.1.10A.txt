@@ -2,7 +2,8 @@
   VERDE  A2 prodotto della chiave `reldox-academy`
   VERDE  A3 stessa chiave pubblica di Idea Technologies del CRD
   VERDE  A4 voce «Licenza d uso» nel menu `rdacademy`
-  VERDE  A5 nessun nome del CRD rimasto nel codice (Reldox_, RELDOX_, reldox_licen, page=reldox)
+  VERDE  A5 nessun nome del CRD rimasto negli otto file (Reldox_, RELDOX_, reldox_licen, reldox_license, page=reldox)
+  VERDE  A11 nessuna porta su pre_wp_mail: la posta del resto del sito non si ferma
   VERDE  A6 il plugin carica la licenza e la pagina
   VERDE  A7 router: sola consultazione prima dei permessi (D-150.3)
   VERDE  A8 posta: la porta della casella (D-150.9)
@@ -16,7 +17,7 @@
   VERDE  B6 chiave applicata: «attiva»
   VERDE  B7 a 30 giorni dalla fine: «preavviso» (60 giorni, D-150.2)
   VERDE  B8 canone finito: «cessata», sola consultazione
-  VERDE  B9 sola consultazione: lettura e preferenze ammesse, scritture no
+  VERDE  B9 sola consultazione sulle azioni vere dei carichi: 8 letture ammesse, 23 altre spente; preferenze ammesse
   VERDE  B10 sola consultazione: la posta si spegne, il recupero password esce
   VERDE  B11 togliere la chiave dal database non riporta a «senza chiave» (memoria della fine)
-VERDE — 21 su 21
+VERDE — 22 su 22

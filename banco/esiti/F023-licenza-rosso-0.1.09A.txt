@@ -2,11 +2,12 @@
   ROSSO  A2 prodotto della chiave `reldox-academy`
   ROSSO  A3 stessa chiave pubblica di Idea Technologies del CRD
   ROSSO  A4 voce «Licenza d uso» nel menu `rdacademy`
-  ROSSO  A5 nessun nome del CRD rimasto nel codice (Reldox_, RELDOX_, reldox_licen, page=reldox)
+  ROSSO  A5 nessun nome del CRD rimasto negli otto file (Reldox_, RELDOX_, reldox_licen, reldox_license, page=reldox)
+  ROSSO  A11 nessuna porta su pre_wp_mail: la posta del resto del sito non si ferma
   ROSSO  A6 il plugin carica la licenza e la pagina
   ROSSO  A7 router: sola consultazione prima dei permessi (D-150.3)
   ROSSO  A8 posta: la porta della casella (D-150.9)
   ROSSO  A9 recupero password come posta di accesso; trasmissione del contratto
   ROSSO  A10 striscia nell applicazione
   ROSSO  B1 la classe dello stato della licenza si carica — manca includes/license/class-rdacademy-licenza-stato.php
-ROSSO — 0 su 11
+ROSSO — 0 su 12
