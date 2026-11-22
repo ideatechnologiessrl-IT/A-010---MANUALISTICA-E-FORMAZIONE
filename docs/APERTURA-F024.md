@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0019 — 0.1.10A — F024
+## MANIFESTO — KIT K0020 — 0.1.10A — F024
 
-PROGRESSIVO K0019   precedente K0018   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0019-0_1_10A-F024.zip · composto il 21/11/2026 19:18
+PROGRESSIVO K0020   precedente K0019   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0020-0_1_10A-F024.zip · composto il 22/11/2026 19:47
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0019-0_1_10-F024.zip
-         reldox-academy-0_1_10.zip  md5 d191afb01abb906247201f16b258ae8d
+BUSTA 1  KIT-1-APERTURA-K0020-0_1_10-F024.zip
+         reldox-academy-0_1_10.zip  md5 17100c84ab9386329d7562b910677411
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_10.txt  103 righe
          APERTURA-F024.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
-         pacchetto di diagnostica: reldox-academy-diagnostica-0_1_10.zip  md5 19316099242310d89caebb12a7eb733d (F021: secondo pacchetto, stesso numero)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0019-0_1_10-F024.zip  41 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0019-0_1_10-F024.zip  64 script
+         pacchetto di diagnostica: reldox-academy-diagnostica-0_1_10.zip  md5 343b85d532cb8fa9fe43fd2bc1df5bf6 (F021: secondo pacchetto, stesso numero)
+BUSTA 2  KIT-2-AREA-PROGETTI-K0020-0_1_10-F024.zip  41 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0020-0_1_10-F024.zip  64 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  310 righe
@@ -40,7 +40,7 @@ BUSTA 3  KIT-3-MISURE-K0019-0_1_10-F024.zip  64 script
          banco/F023-banco-licenza.php  101 righe
          banco/F023-porta-licenza.py  189 righe
          banco/F023-rifai-0.1.10A.sh  66 righe
-         banco/KIT-PROGRESSIVO.txt  18 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  19 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -84,7 +84,7 @@ BUSTA 3  KIT-3-MISURE-K0019-0_1_10-F024.zip  64 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0019-0_1_10-F024.zip  63 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 9 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0020-0_1_10-F024.zip  63 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 9 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (41):
   CLAUDE.md
   README.md
@@ -144,6 +144,7 @@ F023 (21/11/2026).
 - Banco `banco/F023-banco-licenza.php`: rosso 0/11 sulla 0.1.09A, verde 22/22 sulla 0.1.10A, trappola rossa.
 - Da fare: **smoke dell owner** su reldoxacademy.it (installare, aprire «Licenza d uso», incollare una chiave firmata a banco: servono la chiave di prova e il filtro del palco dei banchi, come `banco/S702-4-banco-voce-150.php` del CRD). Allo «smoke ok»: unione in `main`, `novita/`, `prodotti.md`, STATO con «Sicurezza: tocca accesso / permessi / nonce / posta / file».
 - Testo del contratto: oggi l EULA v4 copiata dal CRD; Legale deve dire quale testo vale per RelDoxAcademy → richiesta `FOR-R005` a Legale (non ancora scritta).
+- 22/11/2026, news lette (5): ricevuto CRD-R036 (classifica delle sorelle) con la regola nel `CLAUDE.md`; prova su WordPress 7.2 RC con PHP 8.5.13 (nulla da correggere); RelDoxChecks 1.3.07A in `main` (fonte per F28 e F36), 1.3.08A e 1.3.09A annotate in F36 da scrivere dopo le loro schede novità.
 - Registri: BUG 0/5 · punti aperti 29 · violazioni 6 · fallimenti 3.
 
 ## §01 — CHE COSA FARE, IN ORDINE

@@ -38,7 +38,7 @@ define( 'RDACADEMY_VERSION_LABEL', RDACADEMY_VERSION . ( array( 'Alfa' => 'A', '
 // RP-VERSIONE-PANNELLO-MINIMO (copiato da RelDox) — il pacchetto e un NOME breve, la cronaca sta nel CHANGELOG.
 define( 'RDACADEMY_PACKAGE',       '// 0.1.10A | F023 | licenza' );
 // 0.8.2A (RF-BUG-022) — la data la scrive il compositore del pacchetto insieme al manifesto, MAI A MANO.
-define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-21' );
+define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-22' );
 define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );
 define( 'RDACADEMY_VENDOR',        'Idea Technologies srl soc. Uninominale' );   // 0.1.05A (BUG-3): la ragione sociale, come nei documenti
 define( 'RDACADEMY_VENDOR_URL',    'https://www.ideatechnologies.com' );
