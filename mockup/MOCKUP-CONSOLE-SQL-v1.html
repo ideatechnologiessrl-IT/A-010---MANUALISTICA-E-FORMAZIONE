@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup v1 — «Console SQL» nella diagnostica di RelDoxAcademy</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#F0F0F1;color:#111827}
+.nota{max-width:1000px;margin:16px auto 0;padding:12px 16px;background:#FFF8E6;border:1px solid #F0D58A;border-radius:10px;font-size:14.5px}
+.nota b{display:block;margin-bottom:2px}
+.viste{max-width:1000px;margin:12px auto 0;display:flex;flex-wrap:wrap;gap:8px}
+.viste label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid #D1D5DB;border-radius:10px;background:#fff;font-weight:600;cursor:pointer;font-size:15px}
+.viste input{width:18px;height:18px;margin:0}
+.viste label:has(input:checked){border-color:#1F4E79;background:#EEF4FA;color:#1F4E79}
+.wp{max-width:1000px;margin:12px auto 24px;display:grid;grid-template-columns:190px 1fr;background:#fff;border:1px solid #DCDCDE;border-radius:10px;overflow:hidden}
+.wpmenu{background:#1D2327;color:#F0F0F1;padding:10px 0;font-size:14px}
+.wpmenu .t{padding:8px 14px;font-weight:700;color:#fff;background:#2271B1}
+.wpmenu a{display:block;padding:7px 14px 7px 22px;color:#C3C4C7;text-decoration:none}
+.wpmenu a.qui{color:#fff;font-weight:700}
+.main{padding:0 20px 20px;background:#F0F0F1;min-width:0}
+h1{font-size:24px;font-weight:700;margin:14px 0 4px}
+.sub{color:#4B5563;font-size:15px;margin-bottom:16px}
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:0 20px 18px;margin:0 0 16px}
+.card h2{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;font-size:16px;font-weight:700;margin:0 -20px 14px;padding:14px 20px 12px;border-bottom:1px solid #E5E7EB}
+.hint{font-size:14px;color:#4B5563;margin:-6px 0 12px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;border-radius:999px;padding:4px 12px}
+.pill .d{width:8px;height:8px;border-radius:50%}
+.pill.on{background:#DCFCE7;color:#15803D}.pill.on .d{background:#16A34A}
+.pill.warn{background:#FEF3C7;color:#92400E}.pill.warn .d{background:#D97706}
+.pill.off{background:#F3F4F6;color:#4B5563}.pill.off .d{background:#9CA3AF}
+.pill.err{background:#FEE2E2;color:#991B1B}.pill.err .d{background:#DC2626}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;min-width:0}
+.field label{font-size:13.5px;font-weight:600;color:#374151}
+.field select,.field textarea,.field input[type=text]{padding:8px 10px;border:1px solid #D1D5DB;border-radius:8px;font:inherit;font-size:15px;min-height:42px;width:100%}
+.field textarea{font:14px/1.5 ui-monospace,Consolas,monospace;min-height:110px}
+.dove{font-size:14px;color:#374151;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:8px 12px;margin:-4px 0 14px}
+.dove b{color:#111827}
+.spunta{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:600}
+.spunta input{width:20px;height:20px}
+.btn{background:#1F4E79;color:#fff;border:none;border-radius:8px;padding:0 18px;min-height:44px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn.sec{background:#fff;color:#1F4E79;border:1px solid #93A8BF}
+.btn.ros{background:#B91C1C}
+.btn[disabled]{background:#C3CBD8;color:#fff;cursor:not-allowed}
+.cmd{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 6px}
+.ref{font:14px/1.5 ui-monospace,Consolas,monospace;background:#0F172A;color:#E2E8F0;border-radius:10px;padding:12px 14px;margin:12px 0 0;overflow:auto;white-space:pre-wrap}
+.ref .v{color:#4ADE80}.ref .r{color:#F87171}.ref .i{color:#93C5FD}
+.tab{width:100%;border-collapse:collapse;font-size:14px;margin-top:12px}
+.tab th,.tab td{border-bottom:1px solid #E5E7EB;padding:7px 10px;text-align:left}
+.tab th{background:#F9FAFB;font-weight:700}
+.wrap{overflow:auto}
+.conf{border:1px solid #FECACA;background:#FEF2F2;border-radius:10px;padding:12px 14px;margin-top:12px}
+.conf p{margin:0 0 8px}
+.vista{display:none}
+body:has(#v1:checked) .v1,body:has(#v2:checked) .v2,body:has(#v3:checked) .v3{display:block}
+.legenda{max-width:1000px;margin:0 auto 24px;padding:12px 16px;background:#fff;border:1px solid #E5E7EB;border-radius:10px;font-size:14.5px}
+.legenda ol{margin:6px 0 0;padding-left:20px}
+@media (max-width:820px){.wp{grid-template-columns:1fr}.wpmenu{display:none}}
+@media (max-width:420px){.main{padding:0 12px 16px}h1{font-size:21px}}
+</style>
+</head>
+<body>
+
+<div class="nota"><b>Mockup v1 · 23/11/2026 · Formazione F025 · da approvare prima del codice</b>
+Console SQL nel plugin di diagnostica <code>reldox-academy-diagnostica</code> (solo Idea Technologies, <code>manage_options</code>). Copia della console di RelDoxFood 1.24.11L (<code>class-rdfood-console-sql.php</code>, letta in sola lettura), portata allo standard di famiglia (REGOLE-FAMIGLIA v7, banco standard n. 2). Dati inventati.</div>
+
+<div class="viste" role="radiogroup" aria-label="Viste del mockup">
+ <label><input type="radio" name="v" id="v1" checked> 1 · Lettura</label>
+ <label><input type="radio" name="v" id="v2"> 2 · Scrittura: prova a secco e CONFERMO</label>
+ <label><input type="radio" name="v" id="v3"> 3 · Rifiuti</label>
+</div>
+
+<div class="wp">
+ <nav class="wpmenu" aria-label="Menu wp-admin">
+  <div class="t">RelDoxAcademy</div>
+  <a href="#">Pannello</a><a href="#">Licenza d uso</a><a href="#" class="qui">Manutenzione</a><a href="#">Manutenzione storica</a>
+ </nav>
+ <main class="main">
+  <h1>Manutenzione</h1>
+  <div class="sub">Database e sorgenti · banco standard n. 2 · <code>includes/banchi/class-rdacademy-banco-console-sql.php</code></div>
+
+  <section class="card">
+   <h2>Console SQL su più sorgenti <span class="pill on"><span class="d"></span>Utility</span></h2>
+   <p class="hint">Misure sul database al posto di phpMyAdmin. Sola lettura per difetto. Una istruzione per volta, al massimo 1000 righe.</p>
+
+   <div class="field">
+    <label for="src">Sorgente</label>
+    <select id="src">
+     <option>BASE — verità RelDoxAcademy · academy_base</option>
+     <option>3 · Sorgente 3 · academy_s3 — IN USO</option>
+     <option disabled>4 · Sorgente 4 — non configurata: la console la rifiuta</option>
+     <option disabled>5 · Riserva — spenta: la console la rifiuta</option>
+     <option>WordPress — non è una sorgente di RelDoxAcademy · sola lettura sempre</option>
+    </select>
+   </div>
+   <div class="dove">Colpisce: <b>academy_base</b> su <b>localhost</b> · utente: presente · password: presente (mai mostrata)</div>
+
+   <!-- vista 1 -->
+   <div class="vista v1">
+    <div class="field"><label for="q1">Istruzione</label>
+     <textarea id="q1">SELECT r.name AS ruolo, COUNT(*) AS utenti FROM rdacademy_user_roles ur JOIN rdacademy_roles r ON r.id = ur.role_id GROUP BY r.name</textarea></div>
+    <label class="spunta"><input type="checkbox"> Consenti scrittura (solo BASE e sorgenti IN USO)</label>
+    <div class="cmd"><button class="btn" type="button">Esegui</button><button class="btn sec" type="button">Copia</button><button class="btn sec" type="button">Incolla</button><button class="btn sec" type="button">Pulisci</button></div>
+    <div class="wrap"><table class="tab"><thead><tr><th>ruolo</th><th>utenti</th></tr></thead>
+     <tbody><tr><td>amministratore</td><td>2</td></tr><tr><td>studente</td><td>41</td></tr><tr><td>docente</td><td>3</td></tr></tbody></table></div>
+    <div class="ref"><span class="i">[INFO]</span> SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 4 ms
+<span class="i">[INFO]</span> colonne segrete mascherate: nessuna in questo risultato
+1 verdi, 0 rossi  [Copia esito]</div>
+   </div>
+
+   <!-- vista 2 -->
+   <div class="vista v2">
+    <div class="field"><label for="q2">Istruzione</label>
+     <textarea id="q2">UPDATE rdacademy_users SET status = 'suspended' WHERE email LIKE '%@esempio.it'</textarea></div>
+    <label class="spunta"><input type="checkbox" checked> Consenti scrittura (solo BASE e sorgenti IN USO)</label>
+    <div class="cmd"><button class="btn" type="button">Prova a secco</button><button class="btn sec" type="button">Pulisci</button></div>
+    <div class="ref"><span class="i">[INFO]</span> Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata)
+<span class="i">[INFO]</span> Righe che cambierebbero: 7 · nessun dato scritto</div>
+    <div class="conf">
+     <p>Il CONFERMO vale solo per questa istruzione, su questa sorgente, per 5 minuti; al momento di eseguire le righe si ricontano.</p><p><b>Per scrivere davvero</b> su <b>academy_base @ localhost</b> scrivi CONFERMO e premi «Esegui». Registro append-only sul BASE (mai su WordPress): chi, quando, sorgente, database e host, istruzione, righe, esito; anche i rifiuti.</p>
+     <div class="field" style="max-width:280px;margin:0 0 10px"><label for="c2">Conferma</label><input type="text" id="c2" value="CONFERMO"></div>
+     <button class="btn ros" type="button">Esegui · 7 righe</button>
+    </div>
+   </div>
+
+   <!-- vista 3 -->
+   <div class="vista v3">
+    <div class="field"><label for="q3">Istruzione</label>
+     <textarea id="q3">DROP TABLE rdacademy_users</textarea></div>
+    <label class="spunta"><input type="checkbox" checked> Consenti scrittura (solo BASE e sorgenti IN USO)</label>
+    <div class="cmd"><button class="btn" type="button">Prova a secco</button><button class="btn sec" type="button">Pulisci</button></div>
+    <div class="ref"><span class="r">[ROSSO]</span> «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata.</div>
+    <div class="ref"><span class="r">[ROSSO]</span> Sorgente WordPress: «DELETE» rifiutata. Sul database di WordPress solo lettura, sempre.
+<span class="r">[ROSSO]</span> «SELECT … INTO OUTFILE» rifiutata: la console non scrive file.
+<span class="r">[ROSSO]</span> Commento eseguibile «/*!…*/» rifiutato.
+<span class="r">[ROSSO]</span> EXPLAIN ANALYZE, LOAD_FILE(), INTO, FOR UPDATE, GET_LOCK, SLEEP, BENCHMARK rifiutati.
+<span class="r">[ROSSO]</span> Due istruzioni in una: rifiutata (una per volta).
+<span class="r">[ROSSO]</span> Sorgente 4 non configurata: la console la rifiuta (non ricade sul BASE in silenzio).
+0 verdi, 7 rossi  [Copia esito]</div>
+   </div>
+  </section>
+ </main>
+</div>
+
+<div class="legenda"><b>Che cosa cambia rispetto alla console di RelDoxFood 1.24.11L (da approvare)</b>
+ <ol>
+  <li><b>Scrittura solo per elenco ammesso</b>: INSERT, UPDATE, DELETE, REPLACE (anche dentro WITH); tutto il resto rifiutato dal server, anche con la spunta. Oggi in RelDoxFood con la spunta passa tutto, DROP compreso.</li>
+  <li><b>Scrittura in due tempi</b>: prova a secco (solo InnoDB), poi CONFERMO legato a istruzione, sorgente e scadenza, righe ricontate, registro append-only sul BASE. Oggi si scrive subito, senza registro.</li>
+  <li><b>Letture protette</b>: transazione READ ONLY sempre (WordPress compreso), tempo massimo, rifiuto di <code>/*!…*/</code>, EXPLAIN ANALYZE, LOAD_FILE, INTO OUTFILE/DUMPFILE, FOR UPDATE, GET_LOCK, SLEEP, BENCHMARK. Oggi WITH e INTO passano come lettura.</li>
+  <li><b>Segreti</b>: utente e password della sorgente solo come presenza; colonne segrete note (password, gettoni, chiavi) mascherate nei risultati. Novità.</li>
+  <li><b>Database e host dichiarati sempre</b>, anche nei messaggi d errore (oggi in un ramo mancano).</li>
+  <li><b>Resta uguale</b>: una istruzione per volta, 1000 righe, sorgenti spente non interrogabili.</li>
+  <li><b>Forma comune</b>: banco standard n. 2, area «Database e sorgenti» (nuova nel registro), costanti N/NAT/AREA, riga «N verdi, M rossi» e «Copia esito», banco CLI con trappola.</li>
+ </ol>
+ Dopo l approvazione: banco CLI rosso sulla 0.1.10A e verde sulla nuova, revisione a freddo del codice, smoke dell owner. Revisione a freddo del mockup: 10 difetti trovati, 10 corretti.</div>
+
+</body>
+</html>
