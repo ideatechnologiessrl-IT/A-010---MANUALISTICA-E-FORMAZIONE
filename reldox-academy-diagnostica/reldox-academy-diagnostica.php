@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       RelDoxAcademy Diagnostica
  * Plugin URI:        https://www.ideatechnologies.com
- * Description:       Strumenti di sviluppo e assistenza di RelDoxAcademy (Manutenzione, Manutenzione storica, registro dei banchi). Solo per Idea Technologies.
- * Version:           0.1.10
+ * Description:       Strumenti di sviluppo e assistenza di RelDoxAcademy (Manutenzione, Manutenzione storica, registro dei banchi, Console SQL). Solo per Idea Technologies.
+ * Version:           0.1.11
  * Author:            Idea Technologies S.r.l.
  * Author URI:        https://www.ideatechnologies.com
  * License:           Proprietary
@@ -33,9 +33,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'RDACADEMY_DIAG_VERSION', '0.1.10' );
+define( 'RDACADEMY_DIAG_VERSION', '0.1.11' );
 define( 'RDACADEMY_DIAG_STAGE',   'Alfa' );
-define( 'RDACADEMY_DIAG_PACKAGE', '// 0.1.10A | F023 | licenza' );   // lo scrive il compositore, uguale al prodotto (G10)
+define( 'RDACADEMY_DIAG_PACKAGE', '// 0.1.11A | F026 | console-sql' );   // lo scrive il compositore, uguale al prodotto (G10)
 define( 'RDACADEMY_DIAG_DIR',     plugin_dir_path( __FILE__ ) );
 define( 'RDACADEMY_DIAG_URL',     plugin_dir_url( __FILE__ ) );
 
@@ -69,6 +69,9 @@ function rdacademy_diag_avvio(): void {
 	require_once RDACADEMY_DIAG_DIR . 'includes/class-rdacademy-banchi-registro.php';
 	require_once RDACADEMY_DIAG_DIR . 'includes/class-rdacademy-maintenance.php';
 	Rdacademy_Maintenance::init();
-	// Console SQL (Strumento 5): nella prossima versione. Strumenti 6 e 7 della licenza: tolti (analisi § 12).
+	// 0.1.11A (F026, voce F29): Console SQL, banco standard n. 2 (mockup MOCKUP-CONSOLE-SQL-v1, D45). Strumenti 6 e 7 della licenza: tolti (analisi § 12).
+	require_once RDACADEMY_DIAG_DIR . 'includes/class-rdacademy-console-sql.php';
+	require_once RDACADEMY_DIAG_DIR . 'includes/banchi/class-rdacademy-banco-console-sql.php';
+	Rdacademy_Banco_Console_SQL::init();
 }
 add_action( 'plugins_loaded', 'rdacademy_diag_avvio', 20 );

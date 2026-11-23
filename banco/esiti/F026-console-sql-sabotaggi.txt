@@ -1,0 +1,19 @@
+  ROSSO (giusto)  lettura senza READ ONLY (sessione e transazione) — 42 verdi, 2 rossi
+  ROSSO (giusto)  WordPress scrivibile — 42 verdi, 2 rossi
+  ROSSO (giusto)  spunta ignorata — 38 verdi, 6 rossi
+  ROSSO (giusto)  righe non ricontate — 43 verdi, 1 rossi
+  ROSSO (giusto)  CONFERMO senza scadenza — 43 verdi, 1 rossi
+  ROSSO (giusto)  CONFERMO per qualunque istruzione — 40 verdi, 4 rossi
+  ROSSO (giusto)  conferma non controllata — 40 verdi, 4 rossi
+  ROSSO (giusto)  INTO OUTFILE ammesso — 43 verdi, 1 rossi
+  ROSSO (giusto)  SLEEP ammesso — 43 verdi, 1 rossi
+  ROSSO (giusto)  commento eseguibile ammesso — 43 verdi, 1 rossi
+  ROSSO (giusto)  due istruzioni ammesse — 43 verdi, 1 rossi
+  ROSSO (giusto)  colonne segrete in chiaro — 42 verdi, 2 rossi
+  ROSSO (giusto)  ripiego su sorgente spenta — ?
+  ROSSO (giusto)  registro toccabile — 43 verdi, 1 rossi
+  ROSSO (giusto)  MyISAM ammessa — 43 verdi, 1 rossi
+  ROSSO (giusto)  scrittura senza registro — 43 verdi, 1 rossi
+  ROSSO (giusto)  oltre 1000 righe — 43 verdi, 1 rossi
+
+17 sabotaggi su 17 fanno tornare rosso il banco

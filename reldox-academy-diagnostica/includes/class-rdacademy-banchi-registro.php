@@ -48,10 +48,12 @@ class Rdacademy_Banchi_Registro {
 	/** Le aree della pagina: chiave => [titolo, descrizione]. */
 	const AREE = array(
 		'cat-sistema' => array( 'Sistema e accesso', 'Ruoli, recupero dell accesso, stato dell installazione.' ),
+		'cat-database' => array( 'Database e sorgenti', 'Console SQL sul BASE, sulle sorgenti IN USO e, in sola lettura, su WordPress.' ),
 	);
 
 	const VOCI = array(
 		array( 'q' => '1 ruoli recupero accesso utenti amministratore collegamento monouso password', 'n' => 1, 'nat' => 'util', 'cat' => 'cat-sistema', 'file' => 'includes/class-rdacademy-maintenance.php', 'scheda' => '', 'stato' => 'vivo' ),
+		array( 'q' => '2 console sql database sorgenti base wordpress select lettura scrittura prova a secco confermo registro', 'n' => 2, 'nat' => 'util', 'cat' => 'cat-database', 'file' => 'includes/banchi/class-rdacademy-banco-console-sql.php', 'scheda' => 'F29', 'stato' => 'vivo' ),
 	);
 
 	/** Le voci, con quelle che un prodotto aggiunge dal filtro. */

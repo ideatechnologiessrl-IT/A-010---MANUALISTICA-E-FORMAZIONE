@@ -1,4 +1,4 @@
-<!-- REGISTRO BUG · 21/11/2026 F022 · aperti 0 · cornice 0/5 · primo libero BUG-6 -->
+<!-- REGISTRO BUG · 23/11/2026 F026 · aperti 1 · cornice 1/5 · primo libero BUG-7 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro BUG della Formazione
@@ -26,6 +26,13 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 ## Schede
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
+
+### BUG-6 — ★★★★★ — 23/11/2026 — console SQL della 0.1.11A: la revisione a freddo scrive davvero dove non deve (3 alti, 2 medi)
+- **Stato**: aperta. La 0.1.11A **non va allo smoke** finché non è chiusa; codice sul ramo `sessione/F026`, non in `main`.
+- **Visto**: revisione a freddo, agente separato, Formazione F026, 23/11/2026, su MariaDB 10.11 col banco del palco.
+- **Difetti (misurati)**: ALTO 1 — un nome di funzione fra apici inversi (`` `LOAD_FILE`('/etc/hostname') ``, `` `SLEEP`(1) ``, `` `get_lock` ``) passa il classificatore, perché lo scheletro sostituisce gli identificatori. ALTO 2 — la prova a secco scrive davvero su tabelle MyISAM di un altro database (`UPDATE academy_s3.mi …`) o dietro una vista: il controllo InnoDB guarda solo `DATABASE()` e le tabelle vere. ALTO 3 — dal BASE si scrive su WordPress, su sorgenti spente e su `mysql.*` con `db.tabella` (`UPDATE wp_prova.wp_users …` con CONFERMO: riuscita). MEDIO 1 — segreti aggirabili: alias (`user_pass AS x`), messaggio d errore (`EXTRACTVALUE`), `mysql.user.authentication_string`, `SHOW GRANTS`. MEDIO 2 — banco cieco su questi casi; A5 solo regex; trappola solo su DROP; manca il sabotaggio del registro «avvio».
+- **Rimedio da fare**: vietati controllati anche sull istruzione coi nomi fra apici inversi in chiaro; in scrittura rifiutati i riferimenti `db.tabella` a un database diverso dal corrente, le viste e le tabelle con trigger; in lettura rifiutati lo schema `mysql`, `SHOW GRANTS`/`SHOW CREATE USER`, `USER()`/`CURRENT_USER()`; colonna segreta citata ma non nel risultato col suo nome → risultato scartato; messaggi d errore ripuliti (utente, valori); «authentication» fra le colonne segrete; banco con questi casi, porta AJAX chiamata davvero, sabotaggi per ogni regola nuova. Poi revisione a freddo di nuovo (0 alti, 0 medi).
+- **Banco**: `banco/F026-banco-console-sql.php` (oggi 44/44 verde: è cieco su questi casi, va reso rosso prima del rimedio).
 
 ### BUG-3 — ★★★★★ — 19/11/2026 — Stato sistema diversa da quella di RelDox CRD: la misura dice «conforme» ma l occhio vede un altra pagina
 - **Stato**: chiusa (0.1.05A, owner 19/11/2026 17:28, chat Formazione F017, sulla 0.1.05A installata su reldoxacademy.it: *«smoke ok ma manca il copia configurazione fuori nella lista dei plugin»*).

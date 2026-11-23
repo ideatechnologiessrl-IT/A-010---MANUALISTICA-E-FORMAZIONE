@@ -1,0 +1,10 @@
+  ROSSO  A1 motore e banco della console ci sono e si leggono (php -l)
+  ROSSO  A2 la diagnostica carica motore e banco e avvia il banco
+  ROSSO  A3 registro: area «Database e sorgenti» e voce n. 2 utility col suo file
+  ROSSO  A4 forma comune: costanti N, NAT, AREA, SCHEDA, Q, TITOLO, SCOPO e metodi init/render/esegui/ajax
+  ROSSO  A5 porta AJAX: manage_options e nonce prima di tutto
+  ROSSO  A6 riga finale «N verdi, M rossi» e «Copia esito» nel referto
+  ROSSO  A7 interfaccia del mockup: Prova a secco, CONFERMO, spunta «Consenti scrittura»
+  ROSSO  B0 motore assente: le prove sul database non si possono fare
+
+0 verdi, 8 rossi
