@@ -1,4 +1,4 @@
-<!-- REGISTRO VIOLAZIONI · 19/11/2026 F017 · aperti 0 · totale 6 · ultimi 7 giorni 6 · primo libero V-7 -->
+<!-- REGISTRO VIOLAZIONI · 23/11/2026 F027 · aperti 0 · totale 7 · ultimi 7 giorni 7 · primo libero V-8 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro VIOLAZIONI della Formazione
@@ -12,6 +12,14 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 ## Schede
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
+
+### V-7 · 23/11/2026 · Formazione F027
+- **Regola violata**: i due plugin viaggiano insieme: chi consegna RelDoxAcademy consegna anche RelDoxAcademy Diagnostica, stesso numero (SPEC-MANUTENZIONE v2 § 3, G10; owner 23/11/2026 14:54, chat Formazione F027: *«se mi dai il core non mi puoi non dare RelDoxAcademy Diagnostica · I due plug in viaggiano assieme · Questa è una violazione»*).
+- **Che cosa è successo**: il kit K0026 (0.1.12A) è stato composto e consegnato col solo pacchetto del prodotto; `banco/F027-rifai-0.1.12A.sh` aveva composto anche `reldox-academy-diagnostica-0_1_12.zip`, ma il compositore la ignorava (gli argomenti si fermavano al quinto) e la verifica non la pretendeva. Consegnata a parte solo dopo la segnalazione dell owner (14:53).
+- **Chi l ha vista**: l owner, 23/11/2026 14:53, chat Formazione F027: *«non mi hai consegnato RelDoxAcademy Diagnostica»*.
+- **Rimedio**: `banco/F013-kit.py` prende la diagnostica come argomento e la mette in busta 1 col suo md5 nel manifesto; `verifica` è ROSSA se manca o se l md5 non coincide (K0026 ora rosso); kit **K0027** ricomposto con i due plugin.
+- **Classe**: consegna incompleta.
+- **Ripetizione**: prima della classe.
 
 ### V-1 · 18/11/2026 · Formazione F012
 - **Regola violata**: APERTURA F012 § 11 e § 01 punto 1 — «dopo ogni file il banco: G0 e G1 restano verdi»; si pubblica solo col banco verde.

@@ -6,23 +6,23 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0026 — 0.1.12A — F028
+## MANIFESTO — KIT K0027 — 0.1.12A — F028
 
-PROGRESSIVO K0026   precedente K0025   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0026-0_1_12A-F028.zip · composto il 23/11/2026 14:45
+PROGRESSIVO K0027   precedente K0026   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0027-0_1_12A-F028.zip · composto il 23/11/2026 14:55
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0026-0_1_12-F028.zip
+BUSTA 1  KIT-1-APERTURA-K0027-0_1_12-F028.zip
          reldox-academy-0_1_12.zip  md5 3262681e6f547458dffdb12e41703a4c
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_12.txt  103 righe
          APERTURA-F028.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
-         pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0026-0_1_12-F028.zip  45 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0026-0_1_12-F028.zip  78 script
+         pacchetto di diagnostica: reldox-academy-diagnostica-0_1_12.zip  md5 fb4df9026e214dc65b723b20d29d96d9 (F021: secondo pacchetto, stesso numero)
+BUSTA 2  KIT-2-AREA-PROGETTI-K0027-0_1_12-F028.zip  45 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0027-0_1_12-F028.zip  78 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
-         banco/F013-kit.py  310 righe
+         banco/F013-kit.py  317 righe
          banco/F013-rifai-0.1.01A.sh  36 righe
          banco/F013-rifai-0.1.02A.sh  39 righe
          banco/F014-rifai-0.1.03A.sh  39 righe
@@ -46,7 +46,7 @@ BUSTA 3  KIT-3-MISURE-K0026-0_1_12-F028.zip  78 script
          banco/F027-banco-console-sql.php  344 righe
          banco/F027-rifai-0.1.12A.sh  69 righe
          banco/F027-sabotaggi-console-sql.py  68 righe
-         banco/KIT-PROGRESSIVO.txt  25 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  26 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -98,7 +98,7 @@ BUSTA 3  KIT-3-MISURE-K0026-0_1_12-F028.zip  78 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0026-0_1_12-F028.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0027-0_1_12-F028.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (45):
   CLAUDE.md
   README.md
@@ -162,7 +162,8 @@ F027 (23/11/2026).
 - **BUG-6** (console SQL): banco `banco/F027-banco-console-sql.php` (sezioni G, G bis, H: apici inversi in chiaro, `db.tabella`, viste, trigger, funzioni, sequenze, schema mysql, utente, segreti con alias/UNION/WITH, errori ripuliti, gettone atomico, registro con trigger, porta AJAX chiamata davvero, multisite, interfaccia del mockup) **rosso sulla 0.1.11A 47/23**, motore corretto, **verde 70/70 sulla 0.1.12A**, trappola rossa, **41 sabotaggi su 41**. Insieme F42 (a-e). Pacchetto composto con `banco/F027-rifai-0.1.12A.sh` (plugin 103 file, diagnostica 6 file). Il vecchio banco F026 ora dà 3 rossi per la regola nuova sulle colonne segrete: vale il F027.
 - **Revisione a freddo**: la seconda (sulla prima stesura della 0.1.12A) ha trovato 9 difetti (3 alti, 4 medi, 2 bassi), **9 corretti**. **La terza non è fatta**: mi sono fermato alla soglia del 70% del contesto. La 0.1.12A NON va allo smoke prima: codice sul ramo `sessione/F027`, `main` resta 0.1.10A.
 - Il banco vuole MariaDB locale con l utente `banco`/`banco` (in un ambiente nuovo: `apt-get install mariadb-server`, `mariadbd` avviato a mano).
-- Registri: BUG 1/5 · punti aperti 35 · violazioni 6 · fallimenti 3.
+- **Violazione V-7**: il kit K0026 è uscito senza RelDoxAcademy Diagnostica. Compositore corretto (diagnostica in busta 1, verifica ROSSA senza), kit **K0027** con i due plugin; voce F44 aperta e chiusa. ⛔ I due plugin viaggiano sempre insieme.
+- Registri: BUG 1/5 · punti aperti 35 · violazioni 7 · fallimenti 3.
 
 ## §01 — CHE COSA FARE, IN ORDINE
 0. Manifesto, prova di lettura, apertura del nodo, registri in una riga.
@@ -174,7 +175,7 @@ F027 (23/11/2026).
 > Repository `ideatechnologiessrl-IT/A-010---MANUALISTICA-E-FORMAZIONE`, ramo `sessione/F027`: leggi `CLAUDE.md` e `docs/APERTURA-F028.md`, confronta il manifesto e rispondi alla prova di lettura.
 > Aggancia il nodo `RelDox-Famiglia` e fai l apertura.
 > Fai la nuova revisione a freddo della console SQL; se trova difetti alti o medi, banco prima del motore e poi revisione di nuovo, fino a 0 alti e 0 medi.
-> Consegna come kit a quattro buste, ogni voce nuova con le sue stelle. Riga del contesto a ogni consegna; al 70% fermati e componi il kit.
+> Consegna come kit a quattro buste con i due plugin, RelDoxAcademy e RelDoxAcademy Diagnostica; ogni voce nuova con le sue stelle. Riga del contesto a ogni consegna; al 70% fermati e componi il kit.
 > Solo italiano, rapporti brevi.
 
 *⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*

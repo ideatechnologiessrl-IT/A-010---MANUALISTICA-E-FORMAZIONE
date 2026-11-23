@@ -18,7 +18,8 @@ Il manifesto si ricalcola sulla scatola e si scrive nell APERTURA fra i due segn
 banco/KIT-PROGRESSIVO.txt e cresce di uno a ogni consegna, mai riusato.
 
 uso:
-  python3 -I banco/F013-kit.py componi <uscita> <pacchetto.zip> <versione con lettera> <sessione seguente>
+  python3 -I banco/F013-kit.py componi <uscita> <pacchetto.zip> <versione con lettera> <sessione seguente> <diagnostica.zip>
+      (F027, violazione V-7: il prodotto e RelDoxAcademy Diagnostica viaggiano sempre insieme; senza diagnostica la verifica è ROSSA)
   python3 -I banco/F013-kit.py verifica <kit.zip> <progressivo precedente, es. K0000>
   python3 -I banco/F013-kit.py sabotaggi <kit.zip> <progressivo precedente>   (tutti e cinque devono dare ROSSO)
 """
@@ -209,6 +210,12 @@ def verifica(kit_path, prec, dati=None):
         cattivi = [f for f in b2 if f.endswith(('.py', '.html', '.zip'))]
         if cattivi:
             rossi.append('3: in busta 2 %s' % cattivi[:5])
+    # 4 bis. F027 (V-7): RelDoxAcademy Diagnostica viaggia col prodotto, stesso numero
+    dg = re.search(r'pacchetto di diagnostica: (\S+\.zip)\s+md5 ([0-9a-f]{32})', man)
+    if not dg or dg.group(1) not in b1.namelist():
+        rossi.append('4: RelDoxAcademy Diagnostica assente in busta 1 (i due plugin viaggiano insieme)')
+    elif hashlib.md5(b1.read(dg.group(1))).hexdigest() != dg.group(2):
+        rossi.append('4: md5 della diagnostica non coincide')
     # 4. md5 e conteggi ricalcolati
     pk = re.search(r'^\s+(\S+\.zip)\s+md5 ([0-9a-f]{32})\n\s+(\d+) file', man, re.M)
     if not pk or pk.group(1) not in b1.namelist():
@@ -275,7 +282,7 @@ def main():
         sys.exit(__doc__)
     cmd = sys.argv[1]
     if cmd == 'componi':
-        out, prec, k, ver_l, sess = componi(*sys.argv[2:7])
+        out, prec, k, ver_l, sess = componi(*sys.argv[2:8])
         rossi = verifica(out, prec)
         if rossi:
             print('ROSSO: ' + ' | '.join(rossi))
