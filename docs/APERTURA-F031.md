@@ -2,7 +2,7 @@
 
 # APERTURA F031 — Manualistica e formazione · trentunesima sessione
 
-> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Scritta da Formazione F030, 23/11/2026. Ramo di partenza: `sessione/F030` (= 0.1.15A, console SQL corretta dopo la sesta e la settima revisione a freddo, **manca l ottava revisione: BUG-6 aperto**); `main` = 0.1.10A; **sul sito www.reldoxacademy.it è installata la 0.1.12A** (dal 23/11/2026 15:00). Viaggia nella busta 1 del kit.
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Scritta da Formazione F030, 23/11/2026. Ramo di partenza: `sessione/F030` (= 0.1.15A, console SQL corretta dopo la sesta e la settima revisione a freddo, **manca l ottava revisione: BUG-6 aperto**); `main` = 0.1.10A; **sul sito www.reldoxacademy.it è installata la 0.1.15A** (configurazione dell owner del 23/11/2026 18:39: MySQL 8.0.44, PHP 8.5.13, WordPress 7.1.5; la console SQL non si usa sul sito finché l ottava revisione non dà 0 alti e 0 medi; sul MySQL 8 del sito si può verificare F46 b). Viaggia nella busta 1 del kit.
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
