@@ -3,7 +3,7 @@
  * Rdacademy_Console_SQL — IL MOTORE DELLA CONSOLE SQL (banco standard n. 2, area «Database e sorgenti»).
  * ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
  *
- * RelDoxAcademy 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
+ * RelDoxAcademy 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
  * 23/11/2026 08:39, chat Formazione F025: «ok approvato»). Nasce dalla console di RelDoxFood 1.24.11L
  * (class-rdfood-console-sql.php, letta in sola lettura in F025) portata allo standard di famiglia: banco
  * prima del motore (banco/F026-banco-console-sql.php).
@@ -47,6 +47,12 @@
  *  - errore a metà lettura: ROSSO e nessun dato parziale; ORDER/GROUP BY per posizione rifiutati sulle tabelle con segreti; ROLE_ solo le viste vere.
  *  - (5ª revisione) chiave immutabile anche con «:=» e nomi a tre parti; col valore chiave/valore nel risultato niente HAVING/ORDER/GROUP BY;
  *    posizioni rifiutate anche con OFFSET; SHOW ALL SLAVES/REPLICAS STATUS rifiutate.
+ *  0.1.16A (BUG-6, ottava revisione a freddo F031: 5 alti, 6 medi):
+ *  - nomi con caratteri non ASCII rifiutati (il server li confronta senza distinguere accenti, İ e K; i controlli no);
+ *  - una funzione chiamata col nome fra apici inversi è una chiamata; in lettura niente funzioni memorizzate né viste che citano colonne segrete;
+ *  - chiave/valore: la chiave si lega al valore per database e tabella; il valore mai dentro parentesi (argomento di funzione);
+ *  - ORDER/GROUP BY: nessun numero come voce su tabelle con segreti; registro senza numeri né valori (dallo scheletro);
+ *  - prova a secco: ALTER del contatore solo se è cambiato; referto: maschere chiave/valore dichiarate, «troncato» nella riga finale.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -164,6 +170,8 @@ final class Rdacademy_Console_SQL {
 		$sk = rtrim( $sk );
 		if ( substr( $sk, -1 ) === ';' ) $sk = rtrim( substr( $sk, 0, -1 ) );
 		if ( trim( $sk ) === '' ) return $no( 'Istruzione vuota.' );
+		// F031 (8ª revisione, ALTI 1, 3 e 4): il server confronta i nomi senza distinguere accenti, İ e K; i controlli confrontano in ASCII
+		if ( preg_match( '/[\x80-\xff]/', $sk . implode( '', $ids ) ) ) return $no( 'Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi.' );
 		if ( strpos( $sk, ';' ) !== false ) return $no( 'Due istruzioni in una: rifiutata (una per volta).' );
 		$testa = ltrim( $sk, " \t\r\n(" );
 		$verbo = strtoupper( (string) preg_replace( '/^([A-Za-z_]+).*$/s', '$1', $testa ) );
@@ -204,6 +212,8 @@ final class Rdacademy_Console_SQL {
 			foreach ( $mq[1] as $q ) { $qual[] = strtolower( preg_match( '/^__id(\d+)__$/', $q, $mi ) ? (string) ( $ids[ (int) $mi[1] ] ?? $q ) : $q ); }
 		}
 		preg_match_all( '/([A-Za-z_\x80-\xff][A-Za-z0-9_$\x80-\xff]*)\s*\(/', $sk, $mc );
+		// F031 (8ª revisione, ALTO 4): `nome-strano`() è una chiamata come le altre
+		foreach ( $mc[1] as $ic => $nc ) { if ( preg_match( '/^__id(\d+)__$/', $nc, $mi ) ) $mc[1][ $ic ] = (string) ( $ids[ (int) $mi[1] ] ?? $nc ); }
 		return array( 'ok' => true, 'tipo' => $tipo, 'verbo' => $verbo, 'motivo' => '', 'nomi' => $nomi, 'qualificati' => array_values( array_unique( $qual ) ), 'chiamate' => array_values( array_unique( array_map( 'strtolower', $mc[1] ) ) ) );
 	}
 
@@ -307,7 +317,7 @@ final class Rdacademy_Console_SQL {
 		if ( $res === false ) { $e = self::err( $c ); self::q( $c, 'ROLLBACK' ); return array( 'ok' => false, 'errore' => $e ); }
 		$col = array(); $org = array(); $tab = array(); $dati = array(); $tronco = false; $byte = 0;
 		if ( $res instanceof mysqli_result ) {
-			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); $tab[] = strtolower( (string) ( $f->table ?? '' ) ); }
+			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); $tab[] = (string) ( $f->table ?? '' ) === '' ? '' : strtolower( (string) ( $f->db ?? '' ) . '.' . (string) $f->table ); }
 			$rotto = '';
 			try {
 				while ( $row = $res->fetch_row() ) {
@@ -324,21 +334,21 @@ final class Rdacademy_Console_SQL {
 		}
 		self::q( $c, 'ROLLBACK' );
 		// F028: tabelle chiave/valore — il valore di una chiave segreta si maschera riga per riga; senza la chiave accanto, sempre
-		$kv_citate = array_intersect( array_keys( self::KV ), $nomi );
+		$kv_citate = array_intersect( array_keys( self::KV ), $nomi ); $mascherate = array();
 		foreach ( $col as $i => $nome ) {
 			$o = $org[ $i ] ?? '';
 			if ( isset( self::KV[ $o ] ) ) {
 				// F029 (4ª revisione, ALTO 2): la chiave è quella della stessa tabella del risultato (stesso alias), mai di un altra riga unita
 				$j = false;
 				foreach ( $org as $jj => $oj ) { if ( $oj === self::KV[ $o ] && ( $tab[ $jj ] ?? '' ) !== '' && ( $tab[ $jj ] ?? '' ) === ( $tab[ $i ] ?? '' ) ) { $j = $jj; break; } }
-				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null && self::segreta_kv( $j === false ? null : $r[ $j ], $r[ $i ] ) ) $r[ $i ] = '•••• (mascherata)'; }
+				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null && self::segreta_kv( $j === false ? null : $r[ $j ], $r[ $i ] ) ) { $r[ $i ] = '•••• (mascherata)'; $mascherate[ $nome . ' (valori delle chiavi segrete)' ] = true; } }
 				unset( $r );
 			} elseif ( $kv_citate && ( $o === '' || $o !== strtolower( $nome ) ) ) {
 				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null ) $r[ $i ] = '•••• (mascherata)'; }
-				unset( $r );
+				unset( $r ); $mascherate[ $nome ] = true;
 			}
 		}
-		$mascherate = array();
+		$mascherate = array_keys( $mascherate );
 		foreach ( $col as $i => $nome ) {
 			if ( ! self::segreta( $nome ) && ! self::segreta( $org[ $i ] ?? '' ) ) continue;
 			$mascherate[] = $nome;
@@ -492,9 +502,12 @@ final class Rdacademy_Console_SQL {
 		if ( $tipo === 'scrittura' && in_array( $verbo, array( 'INSERT', 'REPLACE' ), true ) ) {
 			$sk = (string) preg_replace( '/^(\s*(?:INSERT|REPLACE)\s+(?:(?:LOW_PRIORITY|DELAYED|HIGH_PRIORITY|IGNORE)\s+)*(?:INTO\s+)?[A-Za-z0-9_$.\x80-\xff]+\s*)\([^()]*\)/i', '$1( )', $sk );
 		}
-		$t = self::gettoni_sql( $sk );
+		$t = self::gettoni_sql( $sk ); $prof = 0;
 		foreach ( $t as $i => $g ) {
+			if ( $g === '(' ) $prof++; elseif ( $g === ')' ) $prof--;
 			if ( ! in_array( strtolower( $g ), $kv, true ) ) continue;
+			// F031 (8ª revisione, MEDI 1 e 3): dentro una parentesi il valore è l argomento di una funzione, mai una voce né un assegnazione
+			if ( $prof > 0 ) return $tipo === 'scrittura' ? 'Il valore delle tabelle chiave/valore («' . strtolower( $g ) . '») in scrittura si può solo assegnare (' . strtolower( $g ) . ' = …), non usare in espressioni.' : 'Il valore delle tabelle chiave/valore («' . strtolower( $g ) . '») si legge solo così com è (SELECT ' . strtolower( $g ) . ' …), non in espressioni, funzioni o condizioni.';
 			$p = $i - 1;
 			while ( $p >= 1 && $t[ $p ] === '.' ) $p -= 2;
 			$prima = strtolower( $t[ $p ] ?? '' ); $dopo = strtolower( $t[ $i + 1 ] ?? '' );
@@ -513,8 +526,11 @@ final class Rdacademy_Console_SQL {
 	/** F029 (F45 b): ORDER BY / GROUP BY per posizione (ordinano per una colonna segreta senza nominarla). */
 	private static function per_posizione( string $sk ): bool {
 		// F029 (5ª revisione, MEDIO 3): un intero come voce di ORDER/GROUP BY, qualunque cosa venga dopo (OFFSET, ORDER BY NULL…)
-		$sk = (string) preg_replace( '/\bLIMIT\b.*$/is', '', $sk );
-		return (bool) preg_match( '/\b(ORDER|GROUP)\s+BY\s+(?:[^;]*?,\s*)?\d+(?![A-Za-z0-9_$.\x80-\xff])/i', $sk );
+		// F031 (8ª revisione, MEDIO 2): si toglie solo il LIMIT vero in coda (numeri), non un alias «limit»; dopo ORDER/GROUP BY nessun numero,
+		// nemmeno fra parentesi o col segno
+		$sk = (string) preg_replace( '/\bLIMIT\s+\d+(\s*(,|\bOFFSET\b)\s*\d+)?\s*$/i', '', rtrim( $sk, " \t\r\n;" ) );
+		if ( ! preg_match( '/\b(ORDER|GROUP)\s+BY\b(.*)$/is', $sk, $m ) ) return false;
+		return (bool) preg_match( '/(?<![A-Za-z0-9_$.\x80-\xff])\d+(?![A-Za-z0-9_$\x80-\xff])/', $m[2] );
 	}
 
 	private static function tabella_registro(): string { return RDACADEMY_TABLE_PREFIX . self::REGISTRO; }
@@ -550,7 +566,12 @@ final class Rdacademy_Console_SQL {
 	/** Registro append-only sul BASE. false se non si può scrivere (allora non si scrive nemmeno sui dati). */
 	/** F030 (7ª revisione, medio A46): nel registro i valori fra apici diventano «…» (lo legge ogni amministratore dalla console). */
 	private static function senza_valori( string $sql ): string {
-		return (string) preg_replace( array( "/'(?:[^'\\\\]|\\\\.|'')*'/s", '/"(?:[^"\\\\]|\\\\.|"")*"/s', '/\\b0x[0-9a-f]+\\b/i' ), array( "'…'", '"…"', '0x…' ), $sql );
+		// F031 (8ª revisione, MEDIO 4): dallo scheletro (stringhe e commenti già tolti come li legge il server); anche numeri, 0x… e 0b…
+		list( $sk, $ids, $err ) = self::scheletro( $sql );
+		if ( $err !== '' ) return '(istruzione non leggibile: ' . $err . ')';
+		$sk = (string) preg_replace( '/(?<![A-Za-z0-9_$\x80-\xff])(?:0x[0-9a-f]+|0b[01]+|\d+(?:\.\d*)?(?:e[+-]?\d+)?|\.\d+)(?![A-Za-z0-9_$\x80-\xff])/i', '…', str_replace( " '' ", " '…' ", $sk ) );
+		$sk = (string) preg_replace_callback( '/__id(…|\d+)__/', static function ( $m ) { return '`…`'; }, $sk );
+		return trim( (string) preg_replace( '/\s+/', ' ', $sk ) );
 	}
 
 	private static function registra( array $r, array $s, string $tipo, ?int $righe, string $esito, string $msg ): bool {
@@ -635,6 +656,20 @@ final class Rdacademy_Console_SQL {
 			$sc = self::segrete_citate( $c, $cl['nomi'] );
 			if ( $sc ) { $c->close(); $rifiuta( 'Colonne segrete citate (' . implode( ', ', $sc ) . '): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate.' ); return $out; }
 			// 2ª revisione F027, ALTO 1: con UNION, WITH o sottoquery il nome della colonna nel risultato non è più il suo
+			// F031 (8ª revisione, ALTO 5): una funzione o una vista già nel database può leggere una colonna segreta e darle un altro nome
+			$fun = array_values( array_intersect( $cl['chiamate'], self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' ) ) );
+			if ( $fun ) { $c->close(); $rifiuta( 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): la console non le chiama, potrebbero leggere colonne segrete o scrivere.' ); return $out; }
+			$vs = array(); $rv = self::q( $c, 'SELECT LOWER(TABLE_NAME), VIEW_DEFINITION FROM information_schema.VIEWS' );
+			if ( $rv instanceof mysqli_result ) {
+				while ( $x = $rv->fetch_row() ) {
+					if ( ! in_array( (string) $x[0], $cl['nomi'], true ) ) continue;
+					preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', (string) $x[1], $pv );
+					$brutte = array_filter( $pv[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } );
+					if ( trim( (string) $x[1] ) === '' || $brutte || preg_match( '/[\x80-\xff]/', (string) $x[1] ) ) $vs[] = (string) $x[0];
+				}
+				$rv->free();
+			}
+			if ( $vs ) { $c->close(); $rifiuta( 'Viste che leggono colonne segrete o chiave/valore (' . implode( ', ', array_unique( $vs ) ) . '): la console non le legge, le colonne segrete cambierebbero nome.' ); return $out; }
 			list( $skl ) = self::scheletro( $r['sql'] );
 			$ts = array_values( array_intersect( $cl['nomi'], self::tabelle_segrete( $c ) ) );
 			if ( $ts && preg_match( '/\b(UNION|INTERSECT|EXCEPT|WITH|VALUES|LATERAL|JSON_TABLE)\b|\(\s*(SELECT|TABLE)\b/i', $skl ) ) {
@@ -657,7 +692,7 @@ final class Rdacademy_Console_SQL {
 			$riga( 'INFO', $cl['verbo'] . ' su ' . $at . ' · lettura in transazione READ ONLY · tempo massimo ' . self::TEMPO_MAX . ' s · ' . count( $l['dati'] ) . ' righe · ' . $l['ms'] . ' ms' );
 			if ( $l['troncato'] ) $riga( 'INFO', 'Risultato troncato: al massimo ' . self::MAX_RIGHE . ' righe e ' . intdiv( self::MAX_BYTE, 1000000 ) . ' MB.' );
 			$riga( 'INFO', 'Colonne segrete mascherate: ' . ( $l['mascherate'] ? implode( ', ', $l['mascherate'] ) : 'nessuna in questo risultato' ) );
-			$riga( 'VERDE', 'Lettura eseguita su ' . $at . ': ' . count( $l['dati'] ) . ' righe.' );
+			$riga( 'VERDE', 'Lettura eseguita su ' . $at . ': ' . ( $l['troncato'] ? 'solo le prime ' . count( $l['dati'] ) . ' righe, risultato troncato (non è tutto).' : count( $l['dati'] ) . ' righe.' ) );
 			return $out;
 		}
 
@@ -700,7 +735,10 @@ final class Rdacademy_Console_SQL {
 			$ok = self::q( $c, $r['sql'] );
 			$n  = $ok ? self::righe_trovate( $c ) : -1; $e = $ok ? '' : self::err( $c );
 			self::q( $c, 'ROLLBACK' );
-			$ai_ok = self::rimetti_contatori( $c, $ai ); $c->close();
+			// F031 (8ª revisione, MEDIO 5): ALTER solo sulle tabelle il cui contatore è davvero cambiato
+			$ai_dopo = self::contatori( $c, $cl['nomi'] ); $ai_da = array();
+			foreach ( $ai as $ta => $na ) { if ( (int) $na < 0 || ( $ai_dopo[ $ta ] ?? null ) !== $na ) $ai_da[ $ta ] = $na; }
+			$ai_ok = self::rimetti_contatori( $c, $ai_da ); $c->close();
 			if ( ! $ok ) { $rifiuta( 'Prova a secco non riuscita: ' . $e ); return $out; }
 			if ( ! self::registra( $r, $s, 'prova', $n, 'annullata', 'prova a secco' ) ) {
 				$riga( 'ROSSO', 'Registro sul BASE non scrivibile: senza registro non si scrive (' . $at . ').' ); return $out;
@@ -710,7 +748,7 @@ final class Rdacademy_Console_SQL {
 			$out['righe_prova'] = $n; $out['scade'] = $scade;
 			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).' );
 			$riga( 'INFO', self::$blindato ? 'Registro: protetto da trigger contro UPDATE e DELETE.' : 'Registro: protetto solo per nome (il server non concede TRIGGER): la console non lo tocca, il database sì.' );
-			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto' . ( $ai_ok ? ', contatori AUTO_INCREMENT rimessi com erano.' : ' (contatori AUTO_INCREMENT non rimessi: la sorgente non concede ALTER; possono essere avanzati).' ) );
+			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' (trovate dalla condizione, anche se già uguali) · nessun dato scritto' . ( $ai_ok ? ', contatori AUTO_INCREMENT rimessi com erano.' : ' (contatori AUTO_INCREMENT non rimessi: la sorgente non concede ALTER; possono essere avanzati).' ) );
 			$riga( 'INFO', 'Per scrivere davvero su ' . $at . ' scrivi CONFERMO e premi «Esegui» entro ' . intdiv( self::CONFERMO_TTL, 60 ) . ' minuti; vale solo per questa istruzione, su questa sorgente, una volta.' );
 			return $out;
 		}
@@ -740,7 +778,7 @@ final class Rdacademy_Console_SQL {
 		$fatto = self::q( $c, 'COMMIT' ); $e = $fatto ? '' : self::err( $c ); $c->close();
 		if ( ! $fatto ) { $riga( 'ROSSO', 'COMMIT non riuscito su ' . $at . ': ' . $e ); self::registra( $r, $s, 'scrittura', $n, 'errore', $e ); return $out; }
 		self::registra( $r, $s, 'scrittura', $n, 'eseguita', 'scritta' );
-		$riga( 'VERDE', $cl['verbo'] . ' eseguita su ' . $at . ': ' . $n . ' righe scritte; nel registro del BASE.' );
+		$riga( 'VERDE', $cl['verbo'] . ' eseguita su ' . $at . ': ' . $n . ' righe scritte (trovate dalla condizione, anche se già uguali); nel registro del BASE.' );
 		return $out;
 	}
 }

@@ -5,7 +5,7 @@
 # Toglie dal motore della console una regola alla volta (su una copia) e rifà il banco: ognuno deve dire ROSSO.
 # uso:  python3 -I banco/F031-sabotaggi-console-sql.py <reldox-academy-diagnostica> [parte del nome]
 import os, shutil, subprocess, sys, tempfile
-D = sys.argv[1]; BANCO = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'F030-banco-console-sql.php')
+D = sys.argv[1]; BANCO = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'F031-banco-console-sql.php')
 SOLO = sys.argv[2] if len(sys.argv) > 2 else ''
 M = 'includes/class-rdacademy-console-sql.php'; MB = 'includes/banchi/class-rdacademy-banco-console-sql.php'
 SAB = [
@@ -78,17 +78,30 @@ SAB = [
  ('F029 ROLE_ troppo largo', "|ROLE_TABLE_GRANTS|ROLE_COLUMN_GRANTS|ROLE_ROUTINE_GRANTS|ROLE_USAGE_GRANTS)", "|ROLE_[A-Z_]+)"),
  ('F029-r5 chiave cambiabile con «:=»', "|| ! in_array( $tz[ $i + 1 ] ?? '', array( '=', ':=' ), true ) ) continue;", "|| ( $tz[ $i + 1 ] ?? '' ) !== '=' ) continue;"),
  ('F029-r5 HAVING/ORDER BY sul valore chiave/valore', "if ( $kvm === '' && $ts && preg_match( '/\\b(HAVING|", "if ( false && preg_match( '/\\b(HAVING|"),
- ('F029-r5 posizioni con OFFSET ammesse', "(?:[^;]*?,\\s*)?\\d+(?![A-Za-z0-9_$.\\x80-\\xff])/i'", "(?:[^;]*?,\\s*)?\\d+\\s*(?:ASC\\b|DESC\\b)?\\s*(?:,|\\)|$|\\bLIMIT\\b)/i'"),
+ ('F029-r5 posizioni: taglio a ogni parola LIMIT (dal motore F031 la regola è «nessun numero dopo ORDER/GROUP BY»)', "'/\\bLIMIT\\s+\\d+(\\s*(,|\\bOFFSET\\b)\\s*\\d+)?\\s*$/i'", "'/\\bLIMIT\\b.*$/is'"),
  ('F029-r5 INSERT … SET preso per cambio di chiave', "if ( $verbo !== 'UPDATE' ) {", 'if ( false ) {'),
  ('F029-r5 SHOW ALL SLAVES ammesso', '\\bSHOW\\s+(ALL\\s+)?(BINLOG', '\\bSHOW\\s+(BINLOG'),
  ('F030 PROCEDURE ANALYSE ammessa', "'/\\bANALYSE\\b|^(?!\\s*SHOW\\b).*\\bPROCEDURE\\b/is'", "'/NIENTE_ANALYSE/'"),
- ('F030 contatori AUTO_INCREMENT non rimessi', "$ai_ok = self::rimetti_contatori( $c, $ai );", "$ai_ok = true;"),
+ ('F030 contatori AUTO_INCREMENT non rimessi', "$ai_ok = self::rimetti_contatori( $c, $ai_da );", "$ai_ok = true;"),
  ('F030 F46(a) conteggio delle righe cambiate', "if ( is_string( $c->info ) && preg_match(", "if ( false && preg_match("),
  ('F030-r7 ON DUPLICATE KEY UPDATE ammesso', "if ( $kvm === '' && $tsw && preg_match( '/\\bON\\s+DUPLICATE\\b/i', $skw ) )", "if ( false )"),
  ('F030-r7 NATURAL JOIN e USING ammessi', "if ( $kvm === '' && $ts && preg_match( '/\\bNATURAL\\b|", "if ( false && preg_match( '/\\bNATURAL\\b|"),
  ('F030-r7 DISTINCT ammesso', "if ( $kvm === '' && $ts && preg_match( '/\\bDISTINCT(?:ROW)?\\b/i', $skl ) )", "if ( false )"),
  ('F030-r7 valori in chiaro nel registro', "$i = self::senza_valori( (string) ( $r['sql'] ?? '' ) );", "$i = (string) ( $r['sql'] ?? '' );"),
  ('oltre 1000 righe', "if ( count( $dati ) >= self::MAX_RIGHE )", "if ( false )"),
+]
+SAB += [
+ ('F031 nomi non ASCII ammessi', r"if ( preg_match( '/[\x80-\xff]/', $sk . implode( '', $ids ) ) ) return", "if ( false ) return"),
+ ('F031 chiamata fra apici inversi non vista', r"if ( preg_match( '/^__id(\d+)__$/', $nc, $mi ) ) $mc[1][ $ic ]", "if ( false ) $mc[1][ $ic ]"),
+ ('F031 chiave legata solo per alias', "strtolower( (string) ( $f->db ?? '' ) . '.' . (string) $f->table )", "strtolower( (string) $f->table )"),
+ ('F031 funzioni memorizzate chiamate in lettura', "if ( $fun ) { $c->close(); $rifiuta( 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): la console non le chiama", "if ( false ) { $c->close(); $rifiuta( 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): la console non le chiama"),
+ ('F031 viste con colonne segrete lette', "if ( $vs ) {", "if ( false ) {"),
+ ('F031 valore chiave/valore fra parentesi', "if ( $prof > 0 ) return", "if ( false ) return"),
+ ('F031 numeri dopo ORDER BY ammessi', "return (bool) preg_match( '/(?<![A-Za-z0-9_$.\\x80-\\xff])\\d+(?![A-Za-z0-9_$\\x80-\\xff])/', $m[2] );", "return false;"),
+ ('F031 numeri in chiaro nel registro', "'…', str_replace(", "'$0', str_replace("),
+ ('F031 ALTER del contatore sempre', "if ( (int) $na < 0 || ( $ai_dopo[ $ta ] ?? null ) !== $na )", "if ( true )"),
+ ('F031 maschere chiave/valore non dichiarate', "$mascherate[ $nome . ' (valori delle chiavi segrete)' ] = true;", ""),
+ ('F031 troncato taciuto nella riga finale', "( $l['troncato'] ? 'solo le prime '", "( false ? 'solo le prime '"),
 ]
 rossi = 0
 if SOLO: SAB = [v for v in SAB if SOLO in v[0]]
@@ -101,6 +114,7 @@ for voce in SAB:
     if nome.startswith('F028 sql_mode'): s = s.replace("if ( strpos( $dopo, 'ANSI_QUOTES' ) !== false || strpos( $dopo, 'NO_BACKSLASH_ESCAPES' ) !== false )", "if ( false )", 1)
     # F029: difese doppie — la regola F028 e quella F029 che la copre si tolgono insieme
     if nome.startswith('F028 INSERT … SELECT'): s = s.replace("if ( count( $tcur ) > 1 || preg_match( '/\\bJOIN\\b|\\bUSING\\b/i', $skw ) )", "if ( false )", 1).replace("elseif ( in_array( $cl['verbo'], array( 'INSERT', 'REPLACE' ), true ) && ! preg_match(", "elseif ( false && ! preg_match(", 1).replace("if ( $kvm === '' ) $kvm = self::kv_nudo( $skw,", "if ( false ) $kvm = self::kv_nudo( $skw,", 1)
+    if nome.startswith('F029 valore chiave/valore in espressioni (scrittura)'): s = s.replace("if ( $prof > 0 ) return", "if ( false ) return", 1)  # F031: la regola delle parentesi la doppia
     if nome.startswith('F028 espressioni sul valore'): s = s.replace("if ( ! $ok_prima || ! $ok_dopo ) return", "if ( false ) return", 1)
     if nome.startswith('lettura senza READ ONLY'): s = s.replace("'START TRANSACTION READ ONLY'", "'START TRANSACTION'", 1)
     open(p, 'w', encoding='utf-8').write(s)

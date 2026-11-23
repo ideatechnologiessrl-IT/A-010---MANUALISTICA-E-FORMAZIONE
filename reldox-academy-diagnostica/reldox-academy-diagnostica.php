@@ -3,7 +3,7 @@
  * Plugin Name:       RelDoxAcademy Diagnostica
  * Plugin URI:        https://www.ideatechnologies.com
  * Description:       Strumenti di sviluppo e assistenza di RelDoxAcademy (Manutenzione, Manutenzione storica, registro dei banchi, Console SQL). Solo per Idea Technologies.
- * Version:           0.1.15
+ * Version:           0.1.16
  * Author:            Idea Technologies S.r.l.
  * Author URI:        https://www.ideatechnologies.com
  * License:           Proprietary
@@ -33,9 +33,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'RDACADEMY_DIAG_VERSION', '0.1.15' );
+define( 'RDACADEMY_DIAG_VERSION', '0.1.16' );
 define( 'RDACADEMY_DIAG_STAGE',   'Alfa' );
-define( 'RDACADEMY_DIAG_PACKAGE', '// 0.1.15A | F030 | console-sql-bug6-r6' );   // lo scrive il compositore, uguale al prodotto (G10)
+define( 'RDACADEMY_DIAG_PACKAGE', '// 0.1.16A | F031 | console-sql-bug6-r8' );   // lo scrive il compositore, uguale al prodotto (G10)
 define( 'RDACADEMY_DIAG_DIR',     plugin_dir_path( __FILE__ ) );
 define( 'RDACADEMY_DIAG_URL',     plugin_dir_url( __FILE__ ) );
 
