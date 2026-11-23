@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 return array(
 	'pacchetto' => '0.1.13',
 	'etichetta' => '0.1.13A',
-	'creato' => '2026-11-23 15:33',
+	'creato' => '2026-11-23 15:42',
 	'file' => array(
 		'includes/banchi/class-rdacademy-banco-console-sql.php' => 'e4396f8722681fe2760be4bf86353f70',
 		'includes/class-rdacademy-banchi-registro.php' => '7866a8799df022e1715e8a9c1d2ba411',
