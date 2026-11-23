@@ -133,7 +133,7 @@ $root->select_db( 'wp_prova' );
 $root->query( "CREATE TABLE wp_users (ID INT PRIMARY KEY, user_login VARCHAR(60), user_pass VARCHAR(255)) ENGINE=InnoDB" );
 $root->query( "INSERT INTO wp_users VALUES (1,'admin','\$P\$Bsegretissimo')" );
 $root->query( "CREATE TABLE wp_options (option_id INT PRIMARY KEY AUTO_INCREMENT, option_name VARCHAR(191), option_value LONGTEXT) ENGINE=InnoDB" );
-$root->query( "INSERT INTO wp_options (option_name, option_value) VALUES ('blogname','Sito-visibile'),('mailserver_pass','smtp-riservata'),('nonce_salt','sale-riservato'),('wp_mail_smtp','a:1:{s:4:\"pass\";s:9:\"smtp-zzz9\";}'),('opzione_innocua','a:1:{s:8:\"password\";s:6:\"pw-zz8\";}')" );
+$root->query( "INSERT INTO wp_options (option_name, option_value) VALUES ('blogname','Sito-visibile'),('mailserver_pass','smtp-riservata'),('nonce_salt','sale-riservato'),('wp_mail_smtp','a:1:{s:4:\"pass\";s:9:\"smtp-zzz9\";}'),('opzione_innocua','a:1:{s:8:\"password\";s:6:\"pw-zz8\";}'),('auth_key','chiave-auth-riservata')" );
 
 require $fm;
 $C = 'Rdacademy_Console_SQL';
@@ -337,7 +337,7 @@ prova( 'I1 i segreti non si copiano: INSERT/REPLACE … SELECT da tabelle con co
 $no = array();
 foreach ( array( array( 'base', 'SELECT * FROM rdacademy_impostazioni' ), array( 'base', "SELECT valore FROM rdacademy_impostazioni WHERE valore LIKE 'sk-%'" ), array( 'base', 'SELECT chiave, CONCAT(valore) AS v FROM rdacademy_impostazioni' ), array( 'base', 'SELECT UPPER(valore) FROM rdacademy_impostazioni' ), array( 'wordpress', 'SELECT option_name, option_value FROM wp_options' ), array( 'wordpress', 'SELECT * FROM wp_options' ), array( 'wordpress', 'SELECT option_value FROM wp_options' ) ) as $q ) {
 	$j = json_encode( chiedi( array( 'sorgente' => $q[0], 'sql' => $q[1] ) ) );
-	foreach ( array( 'pw-riservata-1', 'RISERVATO-IN-CHIARO', 'smtp-riservata', 'sale-riservato', 'smtp-zzz9', 'pw-zz8' ) as $seg ) { if ( strpos( $j, $seg ) !== false ) { $no[] = $q[1] . ' → ' . $seg; } }
+	foreach ( array( 'pw-riservata-1', 'RISERVATO-IN-CHIARO', 'smtp-riservata', 'sale-riservato', 'smtp-zzz9', 'pw-zz8', 'chiave-auth-riservata' ) as $seg ) { if ( strpos( $j, $seg ) !== false ) { $no[] = $q[1] . ' → ' . $seg; } }
 }
 $x = chiedi( array( 'sql' => 'SELECT * FROM rdacademy_impostazioni' ) ); $j = json_encode( $x );
 $x2 = chiedi( array( 'sorgente' => 'wordpress', 'sql' => 'SELECT option_name, option_value FROM wp_options' ) ); $j2 = json_encode( $x2 );

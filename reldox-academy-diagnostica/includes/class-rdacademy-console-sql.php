@@ -31,6 +31,14 @@
  *  - in scrittura: niente riferimenti a un altro database, niente viste, sequenze, tabelle con trigger, funzioni memorizzate;
  *    se la sorgente è il database di WordPress, solo tabelle col prefisso di RelDoxAcademy;
  *  - gettone del CONFERMO consumato una volta sola nel database (chiave unica), registro con trigger contro UPDATE e DELETE.
+ *  0.1.13A (BUG-6, terza revisione a freddo F028):
+ *  - in scrittura nessuna lettura (SELECT, TABLE) da tabelle con colonne segrete o chiave/valore: i segreti non si copiano;
+ *  - tabelle chiave/valore (impostazioni, wp_options, *meta): il valore di una chiave segreta si maschera riga per riga, il valore
+ *    non si usa in condizioni né in espressioni che ne cambiano il nome; il nome della chiave resta visibile;
+ *  - sessione con sql_mode senza ANSI_QUOTES e NO_BACKSLASH_ESCAPES (lo scheletro legge le stringhe come il server), altrimenti niente;
+ *  - mai INNODB_TRX, INNODB_LOCKS, SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN FOR, EXPLAIN FOR CONNECTION, permessi e ruoli, attese GTID, /*+;
+ *  - tetto anche in byte (MAX_BYTE), lettura senza copia intera in memoria; utente della sorgente mascherato;
+ *  - TABLE, LATERAL, JSON_TABLE come sottoquery; registro: protezione con trigger verificata e dichiarata; attesa dei lucchetti TEMPO_MAX.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,6 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Rdacademy_Console_SQL {
 
 	const MAX_RIGHE    = 1000;
+	const MAX_BYTE     = 5000000;
 	const TEMPO_MAX    = 10;
 	const CONFERMO_TTL = 300;
 	const REGISTRO     = 'console_registro';
@@ -55,16 +64,21 @@ final class Rdacademy_Console_SQL {
 		'/\bANALYZE\b/i'                                       => 'EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione.',
 		'/\bLOAD_FILE\s*\(/i'                                  => 'LOAD_FILE() rifiutata: la console non legge file del server.',
 		'/\bFOR\s+(UPDATE|SHARE)\b|\bLOCK\s+IN\s+SHARE\s+MODE\b/i' => 'FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti.',
-		'/\b(GET_LOCK|RELEASE_LOCK|RELEASE_ALL_LOCKS|MASTER_POS_WAIT|MASTER_GTID_WAIT|SOURCE_POS_WAIT)\s*\(/i' => 'GET_LOCK e funzioni d attesa rifiutate.',
+		'/\b(GET_LOCK|RELEASE_LOCK|RELEASE_ALL_LOCKS|MASTER_POS_WAIT|MASTER_GTID_WAIT|SOURCE_POS_WAIT|WAIT_FOR_EXECUTED_GTID_SET|WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS)\s*\(/i' => 'GET_LOCK e funzioni d attesa rifiutate.',
 		'/\b(SLEEP|BENCHMARK)\s*\(/i'                          => 'SLEEP e BENCHMARK rifiutati: tengono occupato il server.',
 		'/\b(NEXTVAL|SETVAL|LASTVAL)\s*\(|\b(NEXT|PREVIOUS)\s+VALUE\s+FOR\b/i' => 'Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione.',
 		'/\bSHOW\s+(GRANTS|CREATE\s+USER|(FULL\s+)?PROCESSLIST|ENGINES?\b)/i' => 'SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano.',
 		'/\b(USER|CURRENT_USER|SESSION_USER|SYSTEM_USER|CURRENT_ROLE)\s*\(|\bCURRENT_USER\b|\bCURRENT_ROLE\b/i' => 'USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza.',
-		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
+		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES|USER_ATTRIBUTES|SCHEMA_PRIVILEGES|TABLE_PRIVILEGES|COLUMN_PRIVILEGES|ADMINISTRABLE_ROLE_AUTHORIZATIONS|ROLE_[A-Z_]+)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
+		'/\bINNODB_(TRX|LOCKS|LOCK_WAITS)\b|\bDATA_LOCK(S|_WAITS)\b/i' => 'INNODB_TRX, INNODB_LOCKS e simili rifiutate: mostrano le istruzioni delle altre sessioni.',
+		'/\bSHOW\s+(BINLOG|RELAYLOG|BINARY|MASTER|SLAVE|REPLICA|REPLICAS)\b|\bSHOW\s+EXPLAIN\b|\bFOR\s+CONNECTION\b/i' => 'SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN FOR e EXPLAIN FOR CONNECTION rifiutati: istruzioni passate o di altre sessioni.',
 	);
 
 	/** Colonne segrete note: si mascherano nei risultati (nome che contiene uno di questi pezzi). */
-	const SEGRETE = array( 'pass', 'pwd', 'token', 'gettone', 'secret', 'segret', 'api_key', 'apikey', 'activation_key', 'hash', 'salt', 'nonce', '_enc', 'chiave', 'authentication', 'definer', 'grantee' );
+	const SEGRETE = array( 'pass', 'pwd', 'token', 'gettone', 'secret', 'segret', 'api_key', 'apikey', 'activation_key', 'hash', 'salt', 'nonce', '_enc', 'authentication', 'definer', 'grantee', 'db_user' );
+
+	/** Tabelle chiave/valore (F028): colonna del valore => colonna della chiave. */
+	const KV = array( 'valore' => 'chiave', 'option_value' => 'option_name', 'meta_value' => 'meta_key' );
 
 	/** Schemi del server mai toccati dalla console. */
 	const SCHEMI_VIETATI = array( 'mysql', 'performance_schema', 'sys' );
@@ -93,6 +107,9 @@ final class Rdacademy_Console_SQL {
 				$dopo = substr( $sql, $i + 2, 2 );
 				if ( ( $dopo[0] ?? '' ) === '!' || strtoupper( $dopo ) === 'M!' ) {
 					return array( '', $ids, 'Commento eseguibile «/*!…*/» rifiutato.' );
+				}
+				if ( ( $dopo[0] ?? '' ) === '+' ) {
+					return array( '', $ids, 'Suggerimenti «/*+ … */» rifiutati: cambiano tempo massimo e modo del server per l istruzione.' );
 				}
 				$j = strpos( $sql, '*/', $i + 2 );
 				if ( $j === false ) return array( '', $ids, 'Commento non chiuso: istruzione rifiutata.' );
@@ -237,7 +254,22 @@ final class Rdacademy_Console_SQL {
 	private static function apri( array $p ): ?mysqli {
 		if ( ( $p['host'] ?? '' ) === '' || ( $p['name'] ?? '' ) === '' ) return null;   // senza parametri non si apre nulla (mai un ripiego)
 		$r = Rdacademy_DataSource::connetti( $p );
-		return ( ! empty( $r['ok'] ) && $r['connection'] instanceof mysqli ) ? $r['connection'] : null;
+		if ( empty( $r['ok'] ) || ! ( $r['connection'] instanceof mysqli ) ) return null;
+		$c = $r['connection'];
+		// F028: lo scheletro legge stringhe e nomi come un server senza ANSI_QUOTES e NO_BACKSLASH_ESCAPES: la sessione deve essere così
+		$m  = self::colonna( $c, 'SELECT @@SESSION.sql_mode' )[0] ?? '';
+		$mm = array_filter( explode( ',', strtoupper( $m ) ), static function ( $x ) { return $x !== '' && $x !== 'ANSI_QUOTES' && $x !== 'NO_BACKSLASH_ESCAPES' && $x !== 'ANSI'; } );
+		self::q( $c, "SET SESSION sql_mode = '" . $c->real_escape_string( implode( ',', $mm ) ) . "'" );
+		$dopo = strtoupper( self::colonna( $c, 'SELECT @@SESSION.sql_mode' )[0] ?? 'ANSI_QUOTES' );
+		if ( strpos( $dopo, 'ANSI_QUOTES' ) !== false || strpos( $dopo, 'NO_BACKSLASH_ESCAPES' ) !== false ) { $c->close(); return null; }
+		return $c;
+	}
+
+	/** F028: la chiave di una riga chiave/valore è segreta, o il valore ne contiene una (array serializzati, JSON). */
+	private static function segreta_kv( ?string $k, ?string $v ): bool {
+		if ( $k === null ) return true;
+		if ( self::segreta( $k ) || preg_match( '/key|smtp|licen|credenz|credential|privat|auth|secret|segret|session|cookie|cert/i', $k ) ) return true;
+		return $v !== null && (bool) preg_match( '/pass|pwd|secret|segret|token|gettone|api_?key|apikey|privat|BEGIN [A-Z ]*KEY/i', $v );
 	}
 
 	private static function segreta( string $col ): bool {
@@ -250,7 +282,7 @@ final class Rdacademy_Console_SQL {
 	 * Una lettura su una connessione: tempo massimo, transazione READ ONLY, al massimo MAX_RIGHE righe.
 	 * Il server rifiuta da solo ogni scrittura arrivata fin qui (difesa in profondità).
 	 */
-	public static function leggi_su( mysqli $c, string $sql ): array {
+	public static function leggi_su( mysqli $c, string $sql, array $nomi = array() ): array {
 		if ( ! self::q( $c, 'SET SESSION max_statement_time = ' . self::TEMPO_MAX ) ) {
 			self::q( $c, 'SET SESSION MAX_EXECUTION_TIME = ' . ( self::TEMPO_MAX * 1000 ) );
 		}
@@ -258,18 +290,34 @@ final class Rdacademy_Console_SQL {
 			return array( 'ok' => false, 'errore' => 'transazione in sola lettura non aperta: ' . self::err( $c ) );
 		}
 		$t0  = microtime( true );
-		$res = self::q( $c, $sql );
+		// F028: senza copia intera in memoria (MYSQLI_USE_RESULT), tetto in righe e in byte
+		try { $res = $c->query( $sql, MYSQLI_USE_RESULT ); } catch ( mysqli_sql_exception $e ) { $res = false; }
 		if ( $res === false ) { $e = self::err( $c ); self::q( $c, 'ROLLBACK' ); return array( 'ok' => false, 'errore' => $e ); }
-		$col = array(); $org = array(); $dati = array(); $tronco = false;
+		$col = array(); $org = array(); $dati = array(); $tronco = false; $byte = 0;
 		if ( $res instanceof mysqli_result ) {
-			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = (string) ( $f->orgname ?? '' ); }
+			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); }
 			while ( $row = $res->fetch_row() ) {
 				if ( count( $dati ) >= self::MAX_RIGHE ) { $tronco = true; break; }
+				foreach ( $row as $v ) { $byte += strlen( (string) $v ); }
+				if ( $byte > self::MAX_BYTE ) { $tronco = true; break; }
 				$dati[] = $row;
 			}
 			$res->free();
 		}
 		self::q( $c, 'ROLLBACK' );
+		// F028: tabelle chiave/valore — il valore di una chiave segreta si maschera riga per riga; senza la chiave accanto, sempre
+		$kv_citate = array_intersect( array_keys( self::KV ), $nomi );
+		foreach ( $col as $i => $nome ) {
+			$o = $org[ $i ] ?? '';
+			if ( isset( self::KV[ $o ] ) ) {
+				$j = array_search( self::KV[ $o ], $org, true );
+				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null && self::segreta_kv( $j === false ? null : $r[ $j ], $r[ $i ] ) ) $r[ $i ] = '•••• (mascherata)'; }
+				unset( $r );
+			} elseif ( $kv_citate && ( $o === '' || $o !== strtolower( $nome ) ) ) {
+				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null ) $r[ $i ] = '•••• (mascherata)'; }
+				unset( $r );
+			}
+		}
 		$mascherate = array();
 		foreach ( $col as $i => $nome ) {
 			if ( ! self::segreta( $nome ) && ! self::segreta( $org[ $i ] ?? '' ) ) continue;
@@ -295,7 +343,7 @@ final class Rdacademy_Console_SQL {
 	/** Tabelle (di ogni schema visibile) che hanno almeno una colonna segreta. */
 	private static function tabelle_segrete( mysqli $c ): array {
 		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), COLUMN_NAME FROM information_schema.COLUMNS' ); $out = array();
-		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) { if ( self::segreta( (string) $r[1] ) ) $out[ (string) $r[0] ] = true; } $res->free(); }
+		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) { if ( self::segreta( (string) $r[1] ) || isset( self::KV[ strtolower( (string) $r[1] ) ] ) ) $out[ (string) $r[0] ] = true; } $res->free(); }
 		return array_keys( $out );
 	}
 
@@ -341,14 +389,34 @@ final class Rdacademy_Console_SQL {
 		return '';
 	}
 
+	/** F028: il valore di una tabella chiave/valore non si usa in condizioni (sarebbe un oracolo): '' oppure il motivo. */
+	private static function kv_in_condizione( string $sk, array $nomi ): string {
+		$kv = array_values( array_intersect( array_keys( self::KV ), $nomi ) );
+		if ( ! $kv ) return '';
+		if ( ! preg_match( '/\b(WHERE|HAVING|ORDER\s+BY|GROUP\s+BY)\b|\bON\s+(?!DUPLICATE\b)/i', $sk, $m, PREG_OFFSET_CAPTURE ) ) return '';
+		$dopo = substr( $sk, (int) $m[0][1] );
+		foreach ( $kv as $v ) {
+			if ( preg_match( '/\b' . preg_quote( $v, '/' ) . '\b/i', $dopo ) ) return 'Il valore delle tabelle chiave/valore («' . $v . '») non si usa in condizioni, ordinamenti né unioni: filtra per «' . self::KV[ $v ] . '».';
+		}
+		return '';
+	}
+
 	private static function tabella_registro(): string { return RDACADEMY_TABLE_PREFIX . self::REGISTRO; }
 	private static function tabella_gettoni(): string { return RDACADEMY_TABLE_PREFIX . self::GETTONI; }
 
 	/** Append-only anche nel database (F42 c): trigger che rifiutano UPDATE e DELETE. Senza permesso TRIGGER resta la difesa per nome. */
+	public static ?bool $blindato = null;
+
 	private static function blinda( mysqli $c, string $t ): void {
+		$nomi = array();
 		foreach ( array( 'UPDATE' => 'nu', 'DELETE' => 'nd' ) as $ev => $suf ) {
-			self::q( $c, "CREATE TRIGGER IF NOT EXISTS `{$t}_{$suf}` BEFORE $ev ON `$t` FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'append-only'" );
+			$nomi[] = strtolower( "{$t}_{$suf}" );
+			if ( in_array( strtolower( "{$t}_{$suf}" ), self::colonna( $c, "SELECT TRIGGER_NAME FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA = DATABASE() AND EVENT_OBJECT_TABLE = '" . $c->real_escape_string( $t ) . "'" ), true ) ) continue;
+			self::q( $c, "CREATE TRIGGER `{$t}_{$suf}` BEFORE $ev ON `$t` FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'append-only'" );
 		}
+		// F028: sull hosting il permesso TRIGGER può mancare (MySQL 8 col registro binario): si verifica e si dichiara
+		$ci = self::colonna( $c, "SELECT TRIGGER_NAME FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA = DATABASE() AND EVENT_OBJECT_TABLE = '" . $c->real_escape_string( $t ) . "'" );
+		if ( $t === self::tabella_registro() ) self::$blindato = ! array_diff( $nomi, $ci );
 	}
 
 	/** Consuma il gettone una volta sola (F42 a): chiave unica nel BASE, atomica fra due richieste insieme. */
@@ -448,15 +516,17 @@ final class Rdacademy_Console_SQL {
 			// 2ª revisione F027, ALTO 1: con UNION, WITH o sottoquery il nome della colonna nel risultato non è più il suo
 			list( $skl ) = self::scheletro( $r['sql'] );
 			$ts = array_values( array_intersect( $cl['nomi'], self::tabelle_segrete( $c ) ) );
-			if ( $ts && preg_match( '/\b(UNION|INTERSECT|EXCEPT|WITH|VALUES)\b|\(\s*SELECT\b/i', $skl ) ) {
+			if ( $ts && preg_match( '/\b(UNION|INTERSECT|EXCEPT|WITH|VALUES|LATERAL|JSON_TABLE)\b|\(\s*(SELECT|TABLE)\b/i', $skl ) ) {
 				$c->close(); $rifiuta( 'Tabelle con colonne segrete (' . implode( ', ', $ts ) . '): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome).' ); return $out;
 			}
-			$l = self::leggi_su( $c, $r['sql'] );
+			$kvm = self::kv_in_condizione( $skl, $cl['nomi'] );
+			if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }
+			$l = self::leggi_su( $c, $r['sql'], $cl['nomi'] );
 			$c->close();
 			if ( ! $l['ok'] ) { $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $l['errore'] ); return $out; }
 			$out['colonne'] = $l['colonne']; $out['dati'] = $l['dati'];
 			$riga( 'INFO', $cl['verbo'] . ' su ' . $at . ' · lettura in transazione READ ONLY · tempo massimo ' . self::TEMPO_MAX . ' s · ' . count( $l['dati'] ) . ' righe · ' . $l['ms'] . ' ms' );
-			if ( $l['troncato'] ) $riga( 'INFO', 'Risultato troncato a ' . self::MAX_RIGHE . ' righe.' );
+			if ( $l['troncato'] ) $riga( 'INFO', 'Risultato troncato: al massimo ' . self::MAX_RIGHE . ' righe e ' . intdiv( self::MAX_BYTE, 1000000 ) . ' MB.' );
 			$riga( 'INFO', 'Colonne segrete mascherate: ' . ( $l['mascherate'] ? implode( ', ', $l['mascherate'] ) : 'nessuna in questo risultato' ) );
 			$riga( 'VERDE', 'Lettura eseguita su ' . $at . ': ' . count( $l['dati'] ) . ' righe.' );
 			return $out;
@@ -470,9 +540,17 @@ final class Rdacademy_Console_SQL {
 		if ( ! $c ) { $riga( 'ROSSO', 'Connessione non riuscita a ' . $at . '.' ); return $out; }
 		$sc = self::segrete_citate( $c, $cl['nomi'] );
 		if ( $sc ) { $c->close(); $rifiuta( 'Colonne segrete citate (' . implode( ', ', $sc ) . '): la console non le copia né le usa in scrittura.' ); return $out; }
+		list( $skw ) = self::scheletro( $r['sql'] );
+		$tsw = array_values( array_intersect( $cl['nomi'], self::tabelle_segrete( $c ) ) );
+		if ( $tsw && preg_match( '/\b(SELECT|TABLE|LATERAL|JSON_TABLE)\b/i', $skw ) ) { $c->close(); $rifiuta( 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano.' ); return $out; }
+		$kvm = self::kv_in_condizione( $skw, $cl['nomi'] );
+		if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }
 		$mi = self::controlla_scrittura( $c, $cl );
 		if ( $mi !== '' ) { $c->close(); $rifiuta( $mi ); return $out; }
 		self::q( $c, 'SET SESSION max_statement_time = ' . self::TEMPO_MAX );
+		// F028: anche dove max_statement_time non c è (MySQL 8), l attesa dei lucchetti ha il tetto
+		self::q( $c, 'SET SESSION innodb_lock_wait_timeout = ' . self::TEMPO_MAX );
+		self::q( $c, 'SET SESSION lock_wait_timeout = ' . self::TEMPO_MAX );
 		$u  = (int) $r['utente'];
 		$im = self::impronta( $r, $s );
 
@@ -489,6 +567,7 @@ final class Rdacademy_Console_SQL {
 			self::gettone_scrivi( $u, array( 'impronta' => $im, 'righe' => $n, 'scade' => $scade, 'gid' => bin2hex( random_bytes( 16 ) ) ) );
 			$out['righe_prova'] = $n; $out['scade'] = $scade;
 			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).' );
+			$riga( 'INFO', self::$blindato ? 'Registro: protetto da trigger contro UPDATE e DELETE.' : 'Registro: protetto solo per nome (il server non concede TRIGGER): la console non lo tocca, il database sì.' );
 			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto (i contatori AUTO_INCREMENT possono avanzare: è InnoDB).' );
 			$riga( 'INFO', 'Per scrivere davvero su ' . $at . ' scrivi CONFERMO e premi «Esegui» entro ' . intdiv( self::CONFERMO_TTL, 60 ) . ' minuti; vale solo per questa istruzione, su questa sorgente, una volta.' );
 			return $out;
