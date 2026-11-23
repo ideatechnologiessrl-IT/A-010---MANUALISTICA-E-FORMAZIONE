@@ -58,7 +58,7 @@ final class Rdacademy_Console_SQL {
 		'/\b(GET_LOCK|RELEASE_LOCK|RELEASE_ALL_LOCKS|MASTER_POS_WAIT|MASTER_GTID_WAIT|SOURCE_POS_WAIT)\s*\(/i' => 'GET_LOCK e funzioni d attesa rifiutate.',
 		'/\b(SLEEP|BENCHMARK)\s*\(/i'                          => 'SLEEP e BENCHMARK rifiutati: tengono occupato il server.',
 		'/\b(NEXTVAL|SETVAL|LASTVAL)\s*\(|\b(NEXT|PREVIOUS)\s+VALUE\s+FOR\b/i' => 'Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione.',
-		'/\bSHOW\s+(GRANTS|CREATE\s+USER|(FULL\s+)?PROCESSLIST)\b/i' => 'SHOW GRANTS, SHOW CREATE USER e SHOW PROCESSLIST rifiutati: utenti e permessi del server non si mostrano.',
+		'/\bSHOW\s+(GRANTS|CREATE\s+USER|(FULL\s+)?PROCESSLIST|ENGINES?\b)/i' => 'SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano.',
 		'/\b(USER|CURRENT_USER|SESSION_USER|SYSTEM_USER|CURRENT_ROLE)\s*\(|\bCURRENT_USER\b|\bCURRENT_ROLE\b/i' => 'USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza.',
 		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
 	);
@@ -116,7 +116,7 @@ final class Rdacademy_Console_SQL {
 				if ( $c === '`' ) {
 					$ids[] = $val;
 					// in chiaro (BUG-6 ALTO 1): `SLEEP`(1) si giudica come SLEEP(1); un nome con caratteri strani diventa __idN__
-					$out .= preg_match( '/^[A-Za-z0-9_$]+$/', $val ) ? $val : ' __id' . ( count( $ids ) - 1 ) . '__ ';
+					$out .= preg_match( '/^[A-Za-z0-9_$\x80-\xff]+$/', $val ) ? $val : ' __id' . ( count( $ids ) - 1 ) . '__ ';
 				} else { $out .= " '' "; }
 				$i = $j + 1; continue;
 			}
@@ -144,7 +144,7 @@ final class Rdacademy_Console_SQL {
 		foreach ( self::VIETATI_OVUNQUE as $re => $m ) {
 			if ( preg_match( $re, $sk ) ) return $no( $m, $verbo );
 		}
-		preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $sk, $mm0 );
+		preg_match_all( '/[A-Za-z_\x80-\xff][A-Za-z0-9_$\x80-\xff]*/', $sk, $mm0 );
 		$tutti = array_map( 'strtolower', array_merge( $mm0[0], $ids ) );
 		foreach ( self::SCHEMI_VIETATI as $sv ) {
 			if ( ( $sv !== 'sys' && in_array( $sv, $tutti, true ) ) || preg_match( '/\b' . $sv . '\s*\.|\b(FROM|IN)\s+' . $sv . '\b/i', $sk ) || in_array( $sv, array_map( 'strtolower', $ids ), true ) ) {
@@ -167,14 +167,14 @@ final class Rdacademy_Console_SQL {
 		if ( $tipo === 'lettura' && preg_match( '/\bINTO\b/i', $sk ) ) {
 			return $no( '«INTO» in una lettura rifiutato: la console non scrive file né variabili.', $verbo );
 		}
-		preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $sk, $mm );
+		preg_match_all( '/[A-Za-z_\x80-\xff][A-Za-z0-9_$\x80-\xff]*/', $sk, $mm );
 		$nomi = array_values( array_unique( array_map( 'strtolower', array_merge( $mm[0], $ids ) ) ) );
 		// riferimenti qualificati x.y (il primo nome può essere un database): servono in scrittura
 		$qual = array();
-		if ( preg_match_all( '/([A-Za-z0-9_$]+)\s*\.\s*[A-Za-z0-9_$`]/', $sk, $mq ) ) {
+		if ( preg_match_all( '/([A-Za-z0-9_$\x80-\xff]+)\s*\.\s*[A-Za-z0-9_$\x80-\xff`]/', $sk, $mq ) ) {
 			foreach ( $mq[1] as $q ) { $qual[] = strtolower( preg_match( '/^__id(\d+)__$/', $q, $mi ) ? (string) ( $ids[ (int) $mi[1] ] ?? $q ) : $q ); }
 		}
-		preg_match_all( '/([A-Za-z_][A-Za-z0-9_$]*)\s*\(/', $sk, $mc );
+		preg_match_all( '/([A-Za-z_\x80-\xff][A-Za-z0-9_$\x80-\xff]*)\s*\(/', $sk, $mc );
 		return array( 'ok' => true, 'tipo' => $tipo, 'verbo' => $verbo, 'motivo' => '', 'nomi' => $nomi, 'qualificati' => array_values( array_unique( $qual ) ), 'chiamate' => array_values( array_unique( array_map( 'strtolower', $mc[1] ) ) ) );
 	}
 
@@ -230,10 +230,12 @@ final class Rdacademy_Console_SQL {
 
 	private static function err( mysqli $c ): string {
 		// BUG-6 MEDIO 1: niente valori dei dati né utente nei messaggi (tutto ciò che è fra apici diventa «…»)
-		return $c->errno ? '(' . $c->errno . ') ' . (string) preg_replace( array( "/'(?:[^'\\\\]|\\\\.)*'/s", '/"(?:[^"\\\\]|\\\\.)*"/s', '/`[^`]*`@`[^`]*`/' ), array( "'…'", '"…"', '…' ), $c->error ) : 'errore sconosciuto';
+		// dal primo apice in poi si taglia tutto (un apice dentro il valore non lo fa uscire)
+		return $c->errno ? '(' . $c->errno . ') ' . (string) preg_replace( array( '/`[^`]*`@`[^`]*`/', '/[\'"].*$/s' ), array( '…', '«…»' ), $c->error ) : 'errore sconosciuto';
 	}
 
 	private static function apri( array $p ): ?mysqli {
+		if ( ( $p['host'] ?? '' ) === '' || ( $p['name'] ?? '' ) === '' ) return null;   // senza parametri non si apre nulla (mai un ripiego)
 		$r = Rdacademy_DataSource::connetti( $p );
 		return ( ! empty( $r['ok'] ) && $r['connection'] instanceof mysqli ) ? $r['connection'] : null;
 	}
@@ -290,6 +292,13 @@ final class Rdacademy_Console_SQL {
 		return $out;
 	}
 
+	/** Tabelle (di ogni schema visibile) che hanno almeno una colonna segreta. */
+	private static function tabelle_segrete( mysqli $c ): array {
+		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), COLUMN_NAME FROM information_schema.COLUMNS' ); $out = array();
+		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) { if ( self::segreta( (string) $r[1] ) ) $out[ (string) $r[0] ] = true; } $res->free(); }
+		return array_keys( $out );
+	}
+
 	/** Colonne segrete citate per nome (BUG-6 MEDIO 1): alias, espressioni e WHERE le farebbero uscire. */
 	private static function segrete_citate( mysqli $c, array $nomi ): array {
 		$col = self::colonna( $c, 'SELECT DISTINCT COLUMN_NAME FROM information_schema.COLUMNS' );
@@ -320,6 +329,8 @@ final class Rdacademy_Console_SQL {
 		if ( $vie ) return 'Viste, sequenze o tabelle non InnoDB (' . implode( ', ', $vie ) . '): la prova a secco non si può annullare, scrittura rifiutata.';
 		$trg = array_values( array_intersect( $tab, self::colonna( $c, 'SELECT EVENT_OBJECT_TABLE FROM information_schema.TRIGGERS WHERE EVENT_OBJECT_SCHEMA = DATABASE()' ) ) );
 		if ( $trg ) return 'Tabelle con trigger (' . implode( ', ', $trg ) . '): scriverebbero altrove anche nella prova a secco, scrittura rifiutata.';
+		$seq = array_values( array_intersect( $tab, self::colonna( $c, "SELECT TABLE_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND ( COLUMN_DEFAULT LIKE '%nextval%' OR COLUMN_DEFAULT LIKE '%next value%' OR GENERATION_EXPRESSION LIKE '%nextval%' )" ) ) );
+		if ( $seq ) return 'Tabelle con valori da una sequenza (' . implode( ', ', $seq ) . '): la sequenza avanza anche nella prova a secco, scrittura rifiutata.';
 		$fun = array_values( array_intersect( $cl['chiamate'], self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' ) ) );
 		if ( $fun ) return 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): possono scrivere fuori dalla prova a secco, scrittura rifiutata.';
 		$wp = self::parametri( 'wordpress' );
@@ -434,6 +445,12 @@ final class Rdacademy_Console_SQL {
 			if ( ! $c ) { $riga( 'ROSSO', 'Connessione non riuscita a ' . $at . '.' ); return $out; }
 			$sc = self::segrete_citate( $c, $cl['nomi'] );
 			if ( $sc ) { $c->close(); $rifiuta( 'Colonne segrete citate (' . implode( ', ', $sc ) . '): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate.' ); return $out; }
+			// 2ª revisione F027, ALTO 1: con UNION, WITH o sottoquery il nome della colonna nel risultato non è più il suo
+			list( $skl ) = self::scheletro( $r['sql'] );
+			$ts = array_values( array_intersect( $cl['nomi'], self::tabelle_segrete( $c ) ) );
+			if ( $ts && preg_match( '/\b(UNION|INTERSECT|EXCEPT|WITH|VALUES)\b|\(\s*SELECT\b/i', $skl ) ) {
+				$c->close(); $rifiuta( 'Tabelle con colonne segrete (' . implode( ', ', $ts ) . '): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome).' ); return $out;
+			}
 			$l = self::leggi_su( $c, $r['sql'] );
 			$c->close();
 			if ( ! $l['ok'] ) { $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $l['errore'] ); return $out; }
@@ -472,7 +489,7 @@ final class Rdacademy_Console_SQL {
 			self::gettone_scrivi( $u, array( 'impronta' => $im, 'righe' => $n, 'scade' => $scade, 'gid' => bin2hex( random_bytes( 16 ) ) ) );
 			$out['righe_prova'] = $n; $out['scade'] = $scade;
 			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).' );
-			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto.' );
+			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto (i contatori AUTO_INCREMENT possono avanzare: è InnoDB).' );
 			$riga( 'INFO', 'Per scrivere davvero su ' . $at . ' scrivi CONFERMO e premi «Esegui» entro ' . intdiv( self::CONFERMO_TTL, 60 ) . ' minuti; vale solo per questa istruzione, su questa sorgente, una volta.' );
 			return $out;
 		}

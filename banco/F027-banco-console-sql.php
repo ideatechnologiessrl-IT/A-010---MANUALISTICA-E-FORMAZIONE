@@ -65,15 +65,16 @@ define( 'DB_HOST', 'localhost' ); define( 'DB_NAME', 'wp_prova' ); define( 'DB_U
 $GLOBALS['table_prefix'] = 'wp_';
 const PASS_S3 = 'Segreto-S3-banco';
 final class Rdacademy_Sorgenti {
-	const MAPPA = array( 'sorgente_3' => array( 'n' => 3, 'nome' => 'Sorgente 3' ), 'sorgente_4' => array( 'n' => 4, 'nome' => 'Sorgente 4' ), 'riserva' => array( 'n' => 5, 'nome' => 'Riserva' ) );
+	const MAPPA = array( 'sorgente_3' => array( 'n' => 3, 'nome' => 'Sorgente 3' ), 'sorgente_4' => array( 'n' => 4, 'nome' => 'Sorgente 4' ), 'riserva' => array( 'n' => 5, 'nome' => 'Riserva' ), 'sorgente_wp' => array( 'n' => 6, 'nome' => 'Archivio nel database di WordPress' ) );
 	public static function mappa(): array { return self::MAPPA; }
 	public static function nome( string $k ): string { return self::MAPPA[ $k ]['nome'] ?? $k; }
 	public static function numero( string $k ): int { return self::MAPPA[ $k ]['n'] ?? 0; }
 }
 final class Rdacademy_DataSource {
-	public static function state( string $k ): string { return array( 'sorgente_3' => 'live', 'sorgente_4' => 'not_configured', 'riserva' => 'disabled' )[ $k ] ?? 'not_configured'; }
+	public static function state( string $k ): string { return array( 'sorgente_3' => 'live', 'sorgente_4' => 'not_configured', 'riserva' => 'disabled', 'sorgente_wp' => 'live' )[ $k ] ?? 'not_configured'; }
 	public static function connect_params( string $k ): ?array {
 		if ( $k === 'sorgente_3' ) return array( 'host' => 'localhost', 'port' => 3306, 'name' => 'academy_s3', 'user' => 'banco', 'pass' => 'banco', 'charset' => 'utf8mb4', 'pass_finta' => PASS_S3 );
+		if ( $k === 'sorgente_wp' ) return array( 'host' => 'localhost', 'port' => 3306, 'name' => 'wp_prova', 'user' => 'banco', 'pass' => 'banco', 'charset' => 'utf8mb4' );
 		if ( $k === 'riserva' ) return array( 'host' => 'localhost', 'port' => 3306, 'name' => 'academy_base', 'user' => 'banco', 'pass' => 'banco', 'charset' => 'utf8mb4' );
 		return null;
 	}
@@ -105,9 +106,14 @@ $root->query( "CREATE TABLE rdacademy_contr (id INT PRIMARY KEY, v INT) ENGINE=I
 $root->query( "INSERT INTO rdacademy_contr VALUES (1,1)" );
 $root->query( "CREATE TRIGGER rdacademy_contr_au AFTER UPDATE ON rdacademy_contr FOR EACH ROW INSERT INTO rdacademy_vecchia VALUES (NEW.id + 100, 1)" );
 $root->query( "CREATE VIEW rdacademy_vista AS SELECT id, v FROM rdacademy_vecchia" );
+$root->query( "CREATE TABLE `vecchìa` (id INT PRIMARY KEY, v INT) ENGINE=MyISAM" ); $root->query( "INSERT INTO `vecchìa` VALUES (1,1)" );
+$root->query( "CREATE SEQUENCE rdacademy_seq" ); $root->query( "CREATE TABLE rdacademy_cs (id INT NOT NULL DEFAULT NEXT VALUE FOR rdacademy_seq, v INT, PRIMARY KEY (id)) ENGINE=InnoDB" );
+$root->query( "CREATE TABLE rdacademy_tm (id INT PRIMARY KEY AUTO_INCREMENT, v DOUBLE) ENGINE=InnoDB" );
 $root->query( "CREATE FUNCTION rdacademy_f() RETURNS INT MODIFIES SQL DATA BEGIN INSERT INTO rdacademy_vecchia VALUES (99,99); RETURN 1; END" );
 $root->select_db( 'academy_s3' );
 $root->query( "CREATE TABLE mi (id INT PRIMARY KEY, v INT) ENGINE=MyISAM" );
+$root->query( "DROP DATABASE IF EXISTS `archivìo`" ); $root->query( "CREATE DATABASE `archivìo`" ); $root->query( "CREATE TABLE `archivìo`.mi (id INT PRIMARY KEY, v INT) ENGINE=MyISAM" ); $root->query( "INSERT INTO `archivìo`.mi VALUES (1,1)" );
+$root->query( "CREATE TABLE wp_prova.rdacademy_wpx (id INT PRIMARY KEY, v INT) ENGINE=InnoDB" );
 $root->query( "INSERT INTO mi VALUES (1,1)" );
 $root->query( "CREATE TABLE rdacademy_s3_dati (id INT PRIMARY KEY, v INT) ENGINE=InnoDB" );
 $root->query( "INSERT INTO rdacademy_s3_dati VALUES (1,1),(2,1),(3,1)" );
@@ -143,7 +149,7 @@ prova( 'B6 INTO OUTFILE rifiutato anche dentro una scrittura, col suo motivo (la
 
 // ── C. sorgenti ────────────────────────────────────────────────────────────────
 $S = $C::sorgenti();
-prova( 'C1 sorgenti: BASE, le tre del prodotto e WordPress; spente e non configurate dichiarate', isset( $S['base'], $S['sorgente_3'], $S['sorgente_4'], $S['riserva'], $S['wordpress'] ) && $S['sorgente_3']['in_uso'] && ! $S['sorgente_4']['in_uso'] && ! $S['riserva']['in_uso'] && ! $S['wordpress']['scrivibile'] && $S['base']['scrivibile'], json_encode( array_map( function ( $s ) { return $s['stato']; }, $S ) ) );
+prova( 'C1 sorgenti: BASE, quelle del prodotto e WordPress; spente e non configurate dichiarate', isset( $S['base'], $S['sorgente_3'], $S['sorgente_4'], $S['riserva'], $S['wordpress'] ) && $S['sorgente_3']['in_uso'] && ! $S['sorgente_4']['in_uso'] && ! $S['riserva']['in_uso'] && ! $S['wordpress']['scrivibile'] && $S['base']['scrivibile'], json_encode( array_map( function ( $s ) { return $s['stato']; }, $S ) ) );
 $tutto_s = json_encode( $S );
 prova( 'C2 mai una password nell elenco delle sorgenti (solo «presente»)', strpos( $tutto_s, 'banco' ) === false && strpos( $tutto_s, PASS_S3 ) === false && strpos( $tutto_s, 'presente' ) !== false );
 function chiedi( array $r ): array { return Rdacademy_Console_SQL::esegui( $r + array( 'sorgente' => 'base', 'consenti' => false, 'azione' => 'esegui', 'conferma' => '', 'utente' => 7, 'login' => 'idea-tecnico' ) ); }
@@ -281,6 +287,29 @@ prova( 'G12 registro «avvio» non scrivibile: la scrittura confermata non parte
 
 $x = chiedi( array( 'sql' => 'SHOW CREATE VIEW rdacademy_vista' ) );
 prova( 'G13 SHOW CREATE VIEW: il DEFINER (utente@host) non si mostra', count( $x['dati'] ) === 1 && strpos( json_encode( $x['dati'] ), 'banco' ) === false, json_encode( $x['dati'] ) );
+
+
+// ── G bis. revisione a freddo F027 (2ª): UNION/WITH, apici negli errori, nomi accentati, sequenze, SHOW ENGINE, WordPress, tempo ──
+$no = array();
+foreach ( array( array( 'wordpress', 'SELECT 1,2,3 UNION SELECT * FROM wp_users' ), array( 'base', 'SELECT 1,2,3,4 UNION SELECT * FROM rdacademy_users' ), array( 'wordpress', 'WITH t(a,b,c) AS (SELECT * FROM wp_users) SELECT * FROM t' ), array( 'base', "WITH t(a,b,c,d,e,f,g,h,i,j,k) AS (SELECT * FROM information_schema.VIEWS) SELECT c,g FROM t WHERE b = 'academy_base'" ), array( 'wordpress', 'SELECT EXTRACTVALUE(1, CONCAT(0x7e, 0x27, (SELECT c FROM (SELECT 1 a,2 b,3 c UNION SELECT * FROM wp_users LIMIT 1 OFFSET 1) t)))' ) ) as $q ) {
+	$x = chiedi( array( 'sorgente' => $q[0], 'sql' => $q[1] ) ); $j = json_encode( $x ); if ( strpos( $j, 'tok1' ) !== false || strpos( $j, 'segretissimo' ) !== false || strpos( $j, 'banco@' ) !== false || $x['dati'] ) $no[] = $q[1];
+}
+prova( 'G14 segreti non escono con UNION, colonne del WITH, information_schema.VIEWS (DEFINER) e sottoquery', ! $no, implode( ' | ', $no ) );
+$x = chiedi( array( 'sql' => "SELECT EXTRACTVALUE(1, CONCAT(0x7e, 0x27, 'valore-riservato'))" ) );
+prova( 'G15 errore con un apice nel valore: il valore non esce', $x['rossi'] > 0 && strpos( json_encode( $x ), 'valore-riservato' ) === false, testo( $x ) );
+$x = chiedi( array( 'sql' => 'UPDATE archivìo.mi SET v = 9', 'consenti' => true, 'azione' => 'prova' ) );
+$x2 = chiedi( array( 'sql' => 'UPDATE vecchìa SET v = 9', 'consenti' => true, 'azione' => 'prova' ) );
+prova( 'G16 nomi accentati senza apici inversi: altro database e MyISAM rifiutati, niente scritto', $x['rossi'] > 0 && $x2['rossi'] > 0 && (int) uno( 'SELECT v FROM mi', 'archivìo' ) === 1 && (int) uno( 'SELECT v FROM `vecchìa`' ) === 1, testo( $x ) . ' / ' . testo( $x2 ) );
+$x = chiedi( array( 'sql' => 'INSERT INTO rdacademy_cs (v) VALUES (1)', 'consenti' => true, 'azione' => 'prova' ) );
+prova( 'G17 tabella con DEFAULT NEXT VALUE FOR: rifiutata (la sequenza non si annulla)', $x['rossi'] > 0 && (int) uno( 'SELECT NEXT VALUE FOR rdacademy_seq' ) === 1, testo( $x ) );
+$x = chiedi( array( 'sql' => 'SHOW ENGINE INNODB STATUS' ) );
+prova( 'G18 SHOW ENGINE … STATUS rifiutata (utenti e istruzioni delle altre sessioni)', $x['rossi'] > 0 && ! $x['dati'], testo( $x ) );
+$x = chiedi( array( 'sorgente' => 'sorgente_wp', 'sql' => "UPDATE wp_users SET user_login = 'preso'", 'consenti' => true, 'azione' => 'prova' ) );
+$x2 = chiedi( array( 'sorgente' => 'sorgente_wp', 'sql' => 'UPDATE rdacademy_wpx SET v = 1', 'consenti' => true, 'azione' => 'prova' ) );
+prova( 'G19 sorgente nel database di WordPress: wp_users rifiutata, tabelle rdacademy_ ammesse', $x['rossi'] > 0 && stripos( testo( $x ), 'WordPress' ) !== false && $x2['rossi'] === 0 && uno( 'SELECT user_login FROM wp_users', 'wp_prova' ) === 'admin', testo( $x ) . ' / ' . testo( $x2 ) );
+$T = 'INSERT INTO rdacademy_tm (v) SELECT @@max_statement_time';
+chiedi( array( 'sql' => $T, 'consenti' => true, 'azione' => 'prova' ) ); chiedi( array( 'sql' => $T, 'consenti' => true, 'azione' => 'esegui', 'conferma' => 'CONFERMO' ) );
+prova( 'G20 tempo massimo 10 s anche in scrittura, misurato dal server', (float) uno( 'SELECT v FROM rdacademy_tm' ) === 10.0, (string) uno( 'SELECT v FROM rdacademy_tm' ) );
 
 // ── H. la porta AJAX chiamata davvero (manage_options, nonce, multisite) e l interfaccia ──
 final class Fine_Json extends Exception { public $dati; public $ok; public $cod; function __construct( $ok, $d, $c ) { $this->ok = $ok; $this->dati = $d; $this->cod = $c; parent::__construct( 'json' ); } }

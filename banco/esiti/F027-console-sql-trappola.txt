@@ -11,7 +11,7 @@
   VERDE  B4 rifiutate dal server, con o senza spunta (45 casi: DROP…RENAME, GRANT/CREATE/SET/LOAD/CALL/LOCK, INTO, /*!…*/, EXPLAIN ANALYZE, LOAD_FILE, FOR UPDATE, GET_LOCK, SLEEP, BENCHMARK, due istruzioni)
   ROSSO  B5 il rifiuto di DROP dice perché (mai DROP, TRUNCATE, ALTER, MODIFY, RENAME; solo INSERT, UPDATE, DELETE, REPLACE) — «DROP» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
   VERDE  B6 INTO OUTFILE rifiutato anche dentro una scrittura, col suo motivo (la console non scrive file) — «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file.
-  VERDE  C1 sorgenti: BASE, le tre del prodotto e WordPress; spente e non configurate dichiarate — {"base":"in_uso","sorgente_3":"in_uso","sorgente_4":"non_configurata","riserva":"spenta","wordpress":"solo_lettura"}
+  VERDE  C1 sorgenti: BASE, quelle del prodotto e WordPress; spente e non configurate dichiarate — {"base":"in_uso","sorgente_3":"in_uso","sorgente_4":"non_configurata","riserva":"spenta","sorgente_wp":"in_uso","wordpress":"solo_lettura"}
   VERDE  C2 mai una password nell elenco delle sorgenti (solo «presente»)
   VERDE  C3 sorgente 4 non configurata: rifiutata, non ricade sul BASE — [ROSSO] 4 · Sorgente 4 non configurata: la console la rifiuta (non ricade sul BASE in silenzio).
   VERDE  C4 riserva spenta: rifiutata anche se ha parametri — [ROSSO] 5 · Riserva spenta: la console la rifiuta (non ricade sul BASE in silenzio).
@@ -33,7 +33,7 @@
   VERDE  E2 sorgente WordPress: DELETE/UPDATE rifiutati anche con la spunta
   VERDE  E3 senza prova a secco non si scrive, nemmeno con CONFERMO — [ROSSO] Nessuna prova a secco valida per questa istruzione: prima la prova a secco. (academy_base @ localhost)
   VERDE  E4 prova a secco: «righe che cambierebbero: 7», nessun dato scritto — [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
-[INFO] Righe che cambierebbero: 7 · nessun dato scritto.
+[INFO] Righe che cambierebbero: 7 · nessun dato scritto (i contatori AUTO_INCREMENT possono avanzare: è InnoDB).
 [INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
   VERDE  E5 conferma diversa da «CONFERMO» (anche minuscola): rifiutata
   VERDE  E6 il CONFERMO vale solo per l istruzione provata
@@ -43,10 +43,10 @@
   VERDE  E10 CONFERMO scaduto dopo 5 minuti: rifiutato, riga ancora lì — [ROSSO] CONFERMO scaduto (oltre 5 minuti): rifai la prova a secco. (academy_base @ localhost)
   VERDE  E11 righe ricontate: 8 invece di 7 → annullata, niente scritto — [ROSSO] Righe ricontate: 8 invece di 7 della prova a secco → annullata, niente scritto. Rifai la prova. (academy_base @ localhost)
   VERDE  E12 tabella MyISAM: la prova a secco la rifiuta (non si annulla), niente scritto — [ROSSO] Viste, sequenze o tabelle non InnoDB (rdacademy_vecchia (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost)
-  VERDE  E13 il registro non si tocca dalla console (append-only)
+  VERDE  E13 il registro e i gettoni non si toccano dalla console (append-only, per nome: vale anche senza permesso TRIGGER) — [ROSSO] Il registro della console non si tocca dalla console (append-only). (academy_base @ localhost) / [ROSSO] Il registro della console non si tocca dalla console (append-only). (academy_base @ localhost)
   VERDE  E14 il CONFERMO del BASE non vale su un altra sorgente, quello della sorgente 3 sì — [VERDE] UPDATE eseguita su academy_s3 @ localhost: 1 righe scritte; nel registro del BASE.
   VERDE  E15 DROP con la spunta: rifiutato, tabella ancora lì
-  VERDE  F1 registro sul BASE: prove, scritture e rifiuti, con chi, sorgente, database, host, istruzione, righe, esito — {"rifiuto":14,"prova":4,"avvio":3,"scrittura":3}
+  VERDE  F1 registro sul BASE: prove, scritture e rifiuti, con chi, sorgente, database, host, istruzione, righe, esito — {"rifiuto":15,"prova":4,"avvio":3,"scrittura":3}
   VERDE  F2 la scrittura di 7 righe è nel registro con le sue righe e la sua istruzione
   VERDE  F3 mai un registro sul database di WordPress
   VERDE  F4 nessuna password nel registro
@@ -56,13 +56,22 @@
   VERDE  G4 in scrittura rifiutate viste, tabelle con trigger e funzioni memorizzate (scriverebbero fuori dalla prova a secco) — [ROSSO] Viste, sequenze o tabelle non InnoDB (rdacademy_vista (vista)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Tabelle con trigger (rdacademy_contr): scriverebbero altrove anche nella prova a secco, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Funzioni memorizzate (rdacademy_f): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (academy_base @ localhost)
   VERDE  G5 in lettura rifiutati lo schema mysql, performance_schema, SHOW GRANTS/CREATE USER/PROCESSLIST e USER()/CURRENT_USER
   VERDE  G6 segreti non aggirabili: alias, espressioni, WHERE sulla colonna, errore di EXTRACTVALUE, sottoquery
-  VERDE  G7 messaggi d errore ripuliti: niente valori dei dati, niente nome utente — [ROSSO] SELECT su academy_base @ localhost: (1105) XPATH syntax error: '…' / [ROSSO] SELECT su academy_s3 @ localhost: (1146) Table '…' doesn't exist
+  VERDE  G7 messaggi d errore ripuliti: niente valori dei dati, niente nome utente — [ROSSO] Tabelle con colonne segrete (rdacademy_users): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (academy_base @ localhost) / [ROSSO] SELECT su academy_s3 @ localhost: (1146) Table «…»
   VERDE  G8 «authentication» fra le colonne segrete
   VERDE  G9 F42(a) il gettone si consuma una volta sola anche se due richieste l hanno letto insieme — [ROSSO] CONFERMO già usato (o gettone non registrabile sul BASE): rifai la prova a secco. (academy_base @ localhost)
   VERDE  G10 F42(b) WITH … SELECT REPLACE(…) è una lettura — {"ok":true,"tipo":"lettura","verbo":"WITH","motivo":"","nomi":["with","x","as","select","replace"],"qualificati":[],"chiamate":["as","replace"]}
-  VERDE  G11 F42(c) registro append-only anche nel database: trigger contro UPDATE e DELETE — trigger 2, righe 52 → 52
+  VERDE  G11 F42(c) registro append-only anche nel database: trigger contro UPDATE e DELETE — trigger 2, righe 54 → 54
   VERDE  G12 registro «avvio» non scrivibile: la scrittura confermata non parte — [ROSSO] Registro sul BASE non scrivibile: senza registro non si scrive (academy_base @ localhost).
   VERDE  G13 SHOW CREATE VIEW: il DEFINER (utente@host) non si mostra — [["rdacademy_vista","CREATE ALGORITHM=UNDEFINED DEFINER=\u2026 SQL SECURITY DEFINER VIEW `rdacademy_vista` AS select `rdacademy_vecchia`.`id` AS `id`,`rdacademy_vecchia`.`v` AS `v` from `rdacademy_vecchia`","utf8mb4","utf8mb4_general_ci"]]
+  VERDE  G14 segreti non escono con UNION, colonne del WITH, information_schema.VIEWS (DEFINER) e sottoquery
+  VERDE  G15 errore con un apice nel valore: il valore non esce — [ROSSO] SELECT su academy_base @ localhost: (1105) XPATH syntax error: «…»
+  VERDE  G16 nomi accentati senza apici inversi: altro database e MyISAM rifiutati, niente scritto — [ROSSO] Riferimento a un altro database (archivìo): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost) / [ROSSO] Viste, sequenze o tabelle non InnoDB (vecchìa (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  G17 tabella con DEFAULT NEXT VALUE FOR: rifiutata (la sequenza non si annulla) — [ROSSO] Tabelle con valori da una sequenza (rdacademy_cs): la sequenza avanza anche nella prova a secco, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  G18 SHOW ENGINE … STATUS rifiutata (utenti e istruzioni delle altre sessioni) — [ROSSO] SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (academy_base @ localhost)
+  VERDE  G19 sorgente nel database di WordPress: wp_users rifiutata, tabelle rdacademy_ ammesse — [ROSSO] La sorgente è il database di WordPress: in scrittura solo tabelle di RelDoxAcademy (rdacademy_…), non wp_users. (wp_prova @ localhost) / [INFO] Prova a secco su wp_prova @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Righe che cambierebbero: 0 · nessun dato scritto (i contatori AUTO_INCREMENT possono avanzare: è InnoDB).
+[INFO] Per scrivere davvero su wp_prova @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  G20 tempo massimo 10 s anche in scrittura, misurato dal server — 10
   VERDE  H1 porta AJAX vera: senza manage_options risposta 403 e nessuna istruzione arriva al motore
   VERDE  H2 porta AJAX vera: nonce sbagliato rifiutato prima del motore
   VERDE  H3 F42(e) multisite: l amministratore di un sito che non è super amministratore non interroga il server
@@ -70,5 +79,5 @@
   VERDE  H5 porta AJAX vera: UPDATE wp_prova.wp_users dal BASE rifiutato anche con CONFERMO
   VERDE  H6 F42(d) interfaccia del mockup: «Esegui · N righe» al CONFERMO; in scrittura solo «Prova a secco» e «Pulisci»
 
-62 verdi, 1 rossi
+69 verdi, 1 rossi
 TRAPPOLA: il banco ha detto ROSSO sul motore sabotato (DROP tolto) — come deve.
