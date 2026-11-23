@@ -70,6 +70,8 @@ final class Rdacademy_Console_SQL {
 	const VIETATI_OVUNQUE = array(
 		'/\bINTO\s+(OUTFILE|DUMPFILE)\b/i'                     => '«SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file.',
 		'/\bANALYZE\b/i'                                       => 'EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione.',
+		// F030 (6ª revisione a freddo, ALTO): PROCEDURE ANALYSE() mostra Min_value e Max_value di ogni colonna, segrete comprese
+		'/\bANALYSE\b|^(?!\s*SHOW\b).*\bPROCEDURE\b/is'   => 'PROCEDURE ANALYSE() rifiutata: mostra i valori delle colonne, segreti compresi.',
 		'/\bLOAD_FILE\s*\(/i'                                  => 'LOAD_FILE() rifiutata: la console non legge file del server.',
 		'/\bFOR\s+(UPDATE|SHARE)\b|\bLOCK\s+IN\s+SHARE\s+MODE\b/i' => 'FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti.',
 		'/\b(GET_LOCK|RELEASE_LOCK|RELEASE_ALL_LOCKS|MASTER_POS_WAIT|MASTER_GTID_WAIT|SOURCE_POS_WAIT|WAIT_FOR_EXECUTED_GTID_SET|WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS)\s*\(/i' => 'GET_LOCK e funzioni d attesa rifiutate.',
@@ -352,6 +354,40 @@ final class Rdacademy_Console_SQL {
 	}
 
 	/** Prima colonna di una lettura di servizio, in minuscolo. */
+	/** F030 (F46 a): righe trovate dall istruzione, non solo cambiate («Rows matched» di UPDATE): un valore indovinato giusto
+	 *  o sbagliato dà lo stesso numero, quindi il conteggio della prova a secco non è un oracolo d uguaglianza. */
+	private static function righe_trovate( mysqli $c ): int {
+		$n = (int) $c->affected_rows;
+		if ( is_string( $c->info ) && preg_match( '/Rows matched:\s*(\d+)/i', $c->info, $m ) ) $n = (int) $m[1];
+		return $n;
+	}
+
+	/** F030: contatori AUTO_INCREMENT delle tabelle citate (database corrente), letti da SHOW CREATE TABLE (dato vivo anche su MySQL 8). */
+	private static function contatori( mysqli $c, array $nomi ): array {
+		$out = array();
+		// F030 (7ª revisione, medio B32): il nome vero della tabella (con le sue maiuscole), non quello in minuscolo
+		$tab = array(); $res = self::q( $c, 'SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = \'BASE TABLE\'' );
+		if ( $res instanceof mysqli_result ) { while ( $x = $res->fetch_row() ) $tab[] = (string) $x[0]; $res->free(); }
+		foreach ( $tab as $t ) {
+			if ( ! in_array( strtolower( (string) $t ), array_map( 'strtolower', $nomi ), true ) ) continue;
+			$r = $c->query( 'SHOW CREATE TABLE `' . str_replace( '`', '``', $t ) . '`' );
+			if ( ! ( $r instanceof mysqli_result ) ) { $out[ $t ] = -1; continue; }
+			$d = $r->fetch_row(); $r->free();
+			if ( $d && preg_match( '/\bAUTO_INCREMENT\b/i', (string) $d[1] ) ) $out[ $t ] = preg_match( '/\)\s[^)]*\bAUTO_INCREMENT=(\d+)/i', (string) $d[1], $m ) ? (int) $m[1] : 1;
+		}
+		return $out;
+	}
+
+	/** F030: rimette i contatori dopo il ROLLBACK (InnoDB non scende sotto il massimo + 1: le righe altrui restano salve). */
+	private static function rimetti_contatori( mysqli $c, array $ai ): bool {
+		$ok = true;
+		foreach ( $ai as $t => $n ) {
+			if ( (int) $n < 0 ) { $ok = false; continue; }
+			if ( ! self::q( $c, 'ALTER TABLE `' . str_replace( '`', '``', $t ) . '` AUTO_INCREMENT = ' . max( 1, (int) $n ) ) ) $ok = false;
+		}
+		return $ok;
+	}
+
 	private static function colonna( mysqli $c, string $sql ): array {
 		$res = self::q( $c, $sql ); $out = array();
 		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) $out[] = strtolower( (string) $r[0] ); $res->free(); }
@@ -512,6 +548,11 @@ final class Rdacademy_Console_SQL {
 	}
 
 	/** Registro append-only sul BASE. false se non si può scrivere (allora non si scrive nemmeno sui dati). */
+	/** F030 (7ª revisione, medio A46): nel registro i valori fra apici diventano «…» (lo legge ogni amministratore dalla console). */
+	private static function senza_valori( string $sql ): string {
+		return (string) preg_replace( array( "/'(?:[^'\\\\]|\\\\.|'')*'/s", '/"(?:[^"\\\\]|\\\\.|"")*"/s', '/\\b0x[0-9a-f]+\\b/i' ), array( "'…'", '"…"', '0x…' ), $sql );
+	}
+
 	private static function registra( array $r, array $s, string $tipo, ?int $righe, string $esito, string $msg ): bool {
 		$p = self::parametri( 'base' );
 		$c = $p ? self::apri( $p ) : null;
@@ -524,7 +565,7 @@ final class Rdacademy_Console_SQL {
 			$ok = false;
 			if ( $st ) {
 				$q = gmdate( 'Y-m-d H:i:s', self::ora() ); $u = (int) ( $r['utente'] ?? 0 ); $l = substr( (string) ( $r['login'] ?? '' ), 0, 60 );
-				$so = (string) ( $r['sorgente'] ?? '' ); $db = (string) ( $s['db'] ?? '' ); $h = (string) ( $s['host'] ?? '' ); $i = (string) ( $r['sql'] ?? '' );
+				$so = (string) ( $r['sorgente'] ?? '' ); $db = (string) ( $s['db'] ?? '' ); $h = (string) ( $s['host'] ?? '' ); $i = self::senza_valori( (string) ( $r['sql'] ?? '' ) );
 				$m = substr( $msg, 0, 500 );
 				$st->bind_param( 'sissssssiss', $q, $u, $l, $so, $db, $h, $i, $tipo, $righe, $esito, $m );
 				try { $ok = $st->execute(); } catch ( mysqli_sql_exception $e ) { $ok = false; }
@@ -604,6 +645,9 @@ final class Rdacademy_Console_SQL {
 			if ( $kvm === '' && $ts && preg_match( '/\b(HAVING|ORDER\s+BY|GROUP\s+BY)\b/i', $skl ) && ( array_intersect( array_keys( self::KV ), $cl['nomi'] ) || ( preg_match( '/(?:\bSELECT\b|,)\s*(?:(?:DISTINCT|ALL)\s+)?(?:[A-Za-z0-9_$\x80-\xff]+\s*\.\s*)*\*/i', $skl ) && array_intersect( $cl['nomi'], self::tabelle_kv( $c ) ) ) ) ) {
 				$kvm = 'Valore delle tabelle chiave/valore nel risultato: niente HAVING, ORDER BY né GROUP BY (ordinare o filtrare per il valore, anche col suo alias, lo farebbe dedurre).';
 			}
+			// F030 (7ª revisione a freddo, medi D03 e D04): DISTINCT conta i valori uguali, NATURAL JOIN e USING li confrontano senza nominarli
+			if ( $kvm === '' && $ts && preg_match( '/\bNATURAL\b|\bUSING\s*\(/i', $skl ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $ts ) . '): niente NATURAL JOIN né JOIN … USING (confronterebbero i valori senza nominarli), si unisce con ON sulle colonne innocue.';
+			if ( $kvm === '' && $ts && preg_match( '/\bDISTINCT(?:ROW)?\b/i', $skl ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $ts ) . '): niente DISTINCT (il numero di righe direbbe quali valori sono uguali).';
 			if ( $kvm === '' && $ts && self::per_posizione( $skl ) ) $kvm = 'Tabelle con colonne segrete (' . implode( ', ', $ts ) . '): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna.';
 			if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }
 			$l = self::leggi_su( $c, $r['sql'], $cl['nomi'] );
@@ -630,6 +674,8 @@ final class Rdacademy_Console_SQL {
 		if ( $tsw && preg_match( '/\b(SELECT|TABLE|LATERAL|JSON_TABLE)\b/i', $skw ) ) { $c->close(); $rifiuta( 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano.' ); return $out; }
 		$kvm = self::kv_in_condizione( $skw, $cl['nomi'] );
 		if ( $kvm === '' ) $kvm = self::kv_nudo( $skw, $cl['nomi'], 'scrittura', $cl['verbo'] );
+		// F030 (7ª revisione a freddo, medio D02): ON DUPLICATE KEY UPDATE conta 0 o 2 righe secondo il valore che c era
+		if ( $kvm === '' && $tsw && preg_match( '/\bON\s+DUPLICATE\b/i', $skw ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): niente ON DUPLICATE KEY UPDATE (il conteggio direbbe se il valore era già quello); si usa UPDATE … WHERE chiave = ….';
 		if ( $kvm === '' && $tsw ) {
 			// F029 (4ª revisione, ALTO 3; F45 b): con tabelle segrete o chiave/valore una tabella sola, INSERT con le colonne, niente posizioni
 			$tcur = array_values( array_intersect( $cl['nomi'], self::colonna( $c, 'SELECT LOWER(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE()' ) ) );
@@ -648,10 +694,13 @@ final class Rdacademy_Console_SQL {
 		$im = self::impronta( $r, $s );
 
 		if ( $r['azione'] === 'prova' ) {
+			// F030 (6ª revisione a freddo, basso): la prova non lascia effetti, nemmeno sui contatori AUTO_INCREMENT
+			$ai = self::contatori( $c, $cl['nomi'] );
 			if ( ! self::q( $c, 'START TRANSACTION' ) ) { $riga( 'ROSSO', 'Transazione non aperta su ' . $at . ': ' . self::err( $c ) ); $c->close(); return $out; }
 			$ok = self::q( $c, $r['sql'] );
-			$n  = $ok ? (int) $c->affected_rows : -1; $e = $ok ? '' : self::err( $c );
-			self::q( $c, 'ROLLBACK' ); $c->close();
+			$n  = $ok ? self::righe_trovate( $c ) : -1; $e = $ok ? '' : self::err( $c );
+			self::q( $c, 'ROLLBACK' );
+			$ai_ok = self::rimetti_contatori( $c, $ai ); $c->close();
 			if ( ! $ok ) { $rifiuta( 'Prova a secco non riuscita: ' . $e ); return $out; }
 			if ( ! self::registra( $r, $s, 'prova', $n, 'annullata', 'prova a secco' ) ) {
 				$riga( 'ROSSO', 'Registro sul BASE non scrivibile: senza registro non si scrive (' . $at . ').' ); return $out;
@@ -661,7 +710,7 @@ final class Rdacademy_Console_SQL {
 			$out['righe_prova'] = $n; $out['scade'] = $scade;
 			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).' );
 			$riga( 'INFO', self::$blindato ? 'Registro: protetto da trigger contro UPDATE e DELETE.' : 'Registro: protetto solo per nome (il server non concede TRIGGER): la console non lo tocca, il database sì.' );
-			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto (i contatori AUTO_INCREMENT possono avanzare: è InnoDB).' );
+			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto' . ( $ai_ok ? ', contatori AUTO_INCREMENT rimessi com erano.' : ' (contatori AUTO_INCREMENT non rimessi: la sorgente non concede ALTER; possono essere avanzati).' ) );
 			$riga( 'INFO', 'Per scrivere davvero su ' . $at . ' scrivi CONFERMO e premi «Esegui» entro ' . intdiv( self::CONFERMO_TTL, 60 ) . ' minuti; vale solo per questa istruzione, su questa sorgente, una volta.' );
 			return $out;
 		}
@@ -681,7 +730,7 @@ final class Rdacademy_Console_SQL {
 		self::gettone_scrivi( $u, null );
 		if ( ! self::q( $c, 'START TRANSACTION' ) ) { $riga( 'ROSSO', 'Transazione non aperta su ' . $at . ': ' . self::err( $c ) ); $c->close(); return $out; }
 		$ok = self::q( $c, $r['sql'] );
-		$n  = $ok ? (int) $c->affected_rows : -1;
+		$n  = $ok ? self::righe_trovate( $c ) : -1;
 		if ( ! $ok ) { $e = self::err( $c ); self::q( $c, 'ROLLBACK' ); $c->close(); $riga( 'ROSSO', 'Scrittura non riuscita su ' . $at . ': ' . $e ); self::registra( $r, $s, 'scrittura', null, 'errore', $e ); return $out; }
 		if ( $n !== (int) $g['righe'] ) {
 			self::q( $c, 'ROLLBACK' ); $c->close();

@@ -3,7 +3,7 @@
  * Plugin Name:       RelDoxAcademy
  * Plugin URI:        https://www.ideatechnologies.com
  * Description:       RelDoxAcademy — i corsi on line e i manuali dei prodotti della famiglia RelDox. Prodotto della famiglia RelDox.
- * Version:           0.1.14
+ * Version:           0.1.15
  * Author:            Idea Technologies srl soc. Uninominale
  * Author URI:        https://www.ideatechnologies.com
  * License:           Proprietary
@@ -31,12 +31,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'RDACADEMY_VERSION',       '0.1.14' );
+define( 'RDACADEMY_VERSION',       '0.1.15' );
 define( 'RDACADEMY_STAGE',         'Alfa' );   // REGOLE-FAMIGLIA § 9.1: lo stadio lo decide l owner
 // § 9.1 — la lettera dello stadio si scrive ATTACCATA al numero: A=Alfa, B=Beta, G=Gold, L=Live.
 define( 'RDACADEMY_VERSION_LABEL', RDACADEMY_VERSION . ( array( 'Alfa' => 'A', 'Beta' => 'B', 'Gold' => 'G', 'Live' => 'L' )[ RDACADEMY_STAGE ] ?? '' ) );
 // RP-VERSIONE-PANNELLO-MINIMO (copiato da RelDox) — il pacchetto e un NOME breve, la cronaca sta nel CHANGELOG.
-define( 'RDACADEMY_PACKAGE',       '// 0.1.14A | F029 | console-sql-bug6-r4' );
+define( 'RDACADEMY_PACKAGE',       '// 0.1.15A | F030 | console-sql-bug6-r6' );
 // 0.8.2A (RF-BUG-022) — la data la scrive il compositore del pacchetto insieme al manifesto, MAI A MANO.
 define( 'RDACADEMY_PACKAGE_DATE',  '2026-11-23' );
 define( 'RDACADEMY_PRODUCT',       'RelDoxAcademy' );
