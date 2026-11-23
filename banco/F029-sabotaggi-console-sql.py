@@ -47,15 +47,15 @@ SAB = [
  ('F027 registro «avvio» ignorato', "if ( ! self::registra( $r, $s, 'avvio'", "if ( false && ! self::registra( $r, $s, 'avvio'"),
  ('F027 multisite senza super amministratore', "&& ( ! is_multisite() || is_super_admin() )", "", 'B'),
  ('F027 interfaccia: Incolla in scrittura', 'data-f="incolla" data-scrittura="no"', 'data-f="incolla"', 'B'),
- ('F028 INSERT … SELECT dalle tabelle con segreti', "if ( $tsw && preg_match(", "if ( false && preg_match("),
+ ('F028 INSERT … SELECT dalle tabelle con segreti (con le regole F029 che la doppiano)', "if ( $tsw && preg_match(", "if ( false && preg_match("),
  ('F028 chiave/valore senza maschera per riga', "if ( $r[ $i ] !== null && self::segreta_kv(", "if ( false && self::segreta_kv("),
  ('F028 chiave segreta riconosciuta solo per nome di colonna', "|| preg_match( '/key|smtp|licen|credenz|credential|privat|auth|secret|segret|session|cookie|cert/i', $k )", ""),
  ('F028 valore serializzato con segreti non guardato', "return $v !== null && (bool) preg_match(", "return false && (bool) preg_match("),
- ('F028 espressioni sul valore in chiaro', "} elseif ( $kv_citate && (", "} elseif ( false && ("),
+ ('F028 espressioni sul valore in chiaro (con la regola F029 che la doppia)', "} elseif ( $kv_citate && (", "} elseif ( false && ("),
  ('F028 valore usato nelle condizioni', "if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }\n\t\t\t$l", "\n\t\t\t$l"),
  ('F028 sql_mode del server lasciato (né ripulito né controllato)', "self::q( $c, \"SET SESSION sql_mode = '\"", "if(0)self::q( $c, \"SET SESSION sql_mode = '\""),
  ('F028 INNODB_TRX ammessa', "'/\\bINNODB_(TRX|LOCKS|LOCK_WAITS)\\b|\\bDATA_LOCK(S|_WAITS)\\b/i'", "'/NIENTE_TRX/'"),
- ('F028 SHOW BINLOG ed EXPLAIN FOR ammessi', "'/\\bSHOW\\s+(BINLOG|RELAYLOG", "'/NIENTE_BINLOG|\\bSHOW\\s+(BINLOGX|RELAYLOGX"),
+ ('F028 SHOW BINLOG ed EXPLAIN FOR ammessi', "'/\\bSHOW\\s+(ALL\\s+)?(BINLOG|RELAYLOG", "'/NIENTE_BINLOG|\\bSHOW\\s+(ALL\\s+)?(BINLOGX|RELAYLOGX"),
  ('F028 suggerimenti /*+ ammessi', "if ( ( $dopo[0] ?? '' ) === '+' ) {", "if ( false ) {"),
  ('F028 attese GTID ammesse', "|WAIT_FOR_EXECUTED_GTID_SET|WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS", ""),
  ('F028 permessi e ruoli ammessi', "|USER_ATTRIBUTES|SCHEMA_PRIVILEGES|TABLE_PRIVILEGES|COLUMN_PRIVILEGES|ADMINISTRABLE_ROLE_AUTHORIZATIONS|ROLE_TABLE_GRANTS|ROLE_COLUMN_GRANTS|ROLE_ROUTINE_GRANTS|ROLE_USAGE_GRANTS", ""),
@@ -74,6 +74,11 @@ SAB = [
  ('F029 ORDER BY per posizione ammesso', "if ( $kvm === '' && $ts && self::per_posizione( $skl ) )", "if ( false )"),
  ('F029 INSERT senza colonne ammesso', "elseif ( in_array( $cl['verbo'], array( 'INSERT', 'REPLACE' ), true ) && ! preg_match(", "elseif ( false && ! preg_match("),
  ('F029 ROLE_ troppo largo', "|ROLE_TABLE_GRANTS|ROLE_COLUMN_GRANTS|ROLE_ROUTINE_GRANTS|ROLE_USAGE_GRANTS)", "|ROLE_[A-Z_]+)"),
+ ('F029-r5 chiave cambiabile con «:=»', "|| ! in_array( $tz[ $i + 1 ] ?? '', array( '=', ':=' ), true ) ) continue;", "|| ( $tz[ $i + 1 ] ?? '' ) !== '=' ) continue;"),
+ ('F029-r5 HAVING/ORDER BY sul valore chiave/valore', "if ( $kvm === '' && $ts && preg_match( '/\\b(HAVING|", "if ( false && preg_match( '/\\b(HAVING|"),
+ ('F029-r5 posizioni con OFFSET ammesse', "(?:[^;]*?,\\s*)?\\d+(?![A-Za-z0-9_$.\\x80-\\xff])/i'", "(?:[^;]*?,\\s*)?\\d+\\s*(?:ASC\\b|DESC\\b)?\\s*(?:,|\\)|$|\\bLIMIT\\b)/i'"),
+ ('F029-r5 INSERT … SET preso per cambio di chiave', "if ( $verbo !== 'UPDATE' ) {", 'if ( false ) {'),
+ ('F029-r5 SHOW ALL SLAVES ammesso', '\\bSHOW\\s+(ALL\\s+)?(BINLOG', '\\bSHOW\\s+(BINLOG'),
  ('oltre 1000 righe', "if ( count( $dati ) >= self::MAX_RIGHE )", "if ( false )"),
 ]
 rossi = 0
@@ -84,6 +89,9 @@ for voce in SAB:
     if da not in s: print('  NON APPLICATO  ' + nome); shutil.rmtree(t); continue
     s = s.replace(da, a) if 'accentati' in nome else s.replace(da, a, 1)
     if nome.startswith('F028 sql_mode'): s = s.replace("if ( strpos( $dopo, 'ANSI_QUOTES' ) !== false || strpos( $dopo, 'NO_BACKSLASH_ESCAPES' ) !== false )", "if ( false )", 1)
+    # F029: difese doppie — la regola F028 e quella F029 che la copre si tolgono insieme
+    if nome.startswith('F028 INSERT … SELECT'): s = s.replace("if ( count( $tcur ) > 1 || preg_match( '/\\bJOIN\\b|\\bUSING\\b/i', $skw ) )", "if ( false )", 1).replace("elseif ( in_array( $cl['verbo'], array( 'INSERT', 'REPLACE' ), true ) && ! preg_match(", "elseif ( false && ! preg_match(", 1).replace("if ( $kvm === '' ) $kvm = self::kv_nudo( $skw,", "if ( false ) $kvm = self::kv_nudo( $skw,", 1)
+    if nome.startswith('F028 espressioni sul valore'): s = s.replace("if ( ! $ok_prima || ! $ok_dopo ) return", "if ( false ) return", 1)
     if nome.startswith('lettura senza READ ONLY'): s = s.replace("'START TRANSACTION READ ONLY'", "'START TRANSACTION'", 1)
     open(p, 'w', encoding='utf-8').write(s)
     r = subprocess.run(['php', BANCO, c], capture_output=True, text=True)

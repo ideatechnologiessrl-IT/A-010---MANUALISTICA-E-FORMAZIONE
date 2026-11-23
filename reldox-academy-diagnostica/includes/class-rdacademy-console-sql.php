@@ -45,6 +45,8 @@
  *    (niente espressioni né funzioni: niente oracoli) e in scrittura si può solo assegnare; la chiave non si cambia;
  *  - in scrittura, con tabelle segrete o chiave/valore: una tabella sola (niente UPDATE/DELETE su più tabelle né JOIN), INSERT con le colonne;
  *  - errore a metà lettura: ROSSO e nessun dato parziale; ORDER/GROUP BY per posizione rifiutati sulle tabelle con segreti; ROLE_ solo le viste vere.
+ *  - (5ª revisione) chiave immutabile anche con «:=» e nomi a tre parti; col valore chiave/valore nel risultato niente HAVING/ORDER/GROUP BY;
+ *    posizioni rifiutate anche con OFFSET; SHOW ALL SLAVES/REPLICAS STATUS rifiutate.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -77,7 +79,7 @@ final class Rdacademy_Console_SQL {
 		'/\b(USER|CURRENT_USER|SESSION_USER|SYSTEM_USER|CURRENT_ROLE)\s*\(|\bCURRENT_USER\b|\bCURRENT_ROLE\b/i' => 'USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza.',
 		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES|USER_ATTRIBUTES|SCHEMA_PRIVILEGES|TABLE_PRIVILEGES|COLUMN_PRIVILEGES|ADMINISTRABLE_ROLE_AUTHORIZATIONS|ROLE_TABLE_GRANTS|ROLE_COLUMN_GRANTS|ROLE_ROUTINE_GRANTS|ROLE_USAGE_GRANTS)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
 		'/\bINNODB_(TRX|LOCKS|LOCK_WAITS)\b|\bDATA_LOCK(S|_WAITS)\b/i' => 'INNODB_TRX, INNODB_LOCKS e simili rifiutate: mostrano le istruzioni delle altre sessioni.',
-		'/\bSHOW\s+(BINLOG|RELAYLOG|BINARY|MASTER|SLAVE|REPLICA|REPLICAS)\b|\bSHOW\s+EXPLAIN\b|\bFOR\s+CONNECTION\b/i' => 'SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN FOR e EXPLAIN FOR CONNECTION rifiutati: istruzioni passate o di altre sessioni.',
+		'/\bSHOW\s+(ALL\s+)?(BINLOG|RELAYLOG|BINARY|MASTER|SLAVE|SLAVES|REPLICA|REPLICAS)\b|\bSHOW\s+EXPLAIN\b|\bFOR\s+CONNECTION\b/i' => 'SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN FOR e EXPLAIN FOR CONNECTION rifiutati: istruzioni passate o di altre sessioni.',
 	);
 
 	/** Colonne segrete note: si mascherano nei risultati (nome che contiene uno di questi pezzi). */
@@ -363,6 +365,13 @@ final class Rdacademy_Console_SQL {
 		return array_keys( $out );
 	}
 
+	/** F029 (5ª revisione, MEDI 2 e 3): tabelle con una colonna chiave/valore. */
+	private static function tabelle_kv( mysqli $c ): array {
+		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), COLUMN_NAME FROM information_schema.COLUMNS' ); $out = array();
+		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) { if ( isset( self::KV[ strtolower( (string) $r[1] ) ] ) ) $out[ (string) $r[0] ] = true; } $res->free(); }
+		return array_keys( $out );
+	}
+
 	/** Colonne segrete citate per nome (BUG-6 MEDIO 1): alias, espressioni e WHERE le farebbero uscire. */
 	private static function segrete_citate( mysqli $c, array $nomi ): array {
 		$col = self::colonna( $c, 'SELECT DISTINCT COLUMN_NAME FROM information_schema.COLUMNS' );
@@ -432,8 +441,16 @@ final class Rdacademy_Console_SQL {
 	 */
 	private static function kv_nudo( string $sk, array $nomi, string $tipo, string $verbo ): string {
 		$kv = array_values( array_intersect( array_keys( self::KV ), $nomi ) );
-		if ( $tipo === 'scrittura' && preg_match( '/(?:\bSET\b|\bUPDATE\b|,)\s*(?:[A-Za-z0-9_$\x80-\xff]+\s*\.\s*)?(' . implode( '|', self::KV ) . ')\s*=/i', $sk, $mk ) ) {
-			return 'La chiave delle tabelle chiave/valore («' . strtolower( $mk[1] ) . '») non si cambia: rinominarla smaschererebbe il valore.';
+		if ( $tipo === 'scrittura' ) {
+			// F029 (5ª revisione, ALTO 1): «=» e «:=», con qualunque qualificatore; INSERT … SET è una riga nuova (si guarda solo ON DUPLICATE KEY UPDATE)
+			$zona = $sk;
+			if ( $verbo !== 'UPDATE' ) { $pd = preg_match( '/\bON\s+DUPLICATE\s+KEY\s+UPDATE\b/i', $sk, $md, PREG_OFFSET_CAPTURE ) ? (int) $md[0][1] : -1; $zona = $pd < 0 ? '' : substr( $sk, $pd ); }
+			$tz = self::gettoni_sql( $zona );
+			foreach ( $tz as $i => $g ) {
+				if ( ! in_array( strtolower( $g ), array_values( self::KV ), true ) || ! in_array( $tz[ $i + 1 ] ?? '', array( '=', ':=' ), true ) ) continue;
+				$p = $i - 1; while ( $p >= 1 && $tz[ $p ] === '.' ) $p -= 2;
+				if ( in_array( strtolower( $tz[ $p ] ?? '' ), array( 'set', ',', 'update' ), true ) ) return 'La chiave delle tabelle chiave/valore («' . strtolower( $g ) . '») non si cambia: rinominarla smaschererebbe il valore.';
+			}
 		}
 		if ( ! $kv ) return '';
 		if ( $tipo === 'scrittura' && in_array( $verbo, array( 'INSERT', 'REPLACE' ), true ) ) {
@@ -443,10 +460,10 @@ final class Rdacademy_Console_SQL {
 		foreach ( $t as $i => $g ) {
 			if ( ! in_array( strtolower( $g ), $kv, true ) ) continue;
 			$p = $i - 1;
-			if ( $p >= 1 && $t[ $p ] === '.' ) $p -= 2;
+			while ( $p >= 1 && $t[ $p ] === '.' ) $p -= 2;
 			$prima = strtolower( $t[ $p ] ?? '' ); $dopo = strtolower( $t[ $i + 1 ] ?? '' );
 			if ( $tipo === 'scrittura' ) {
-				if ( $dopo === '=' && in_array( $prima, array( 'set', ',', 'update' ), true ) ) continue;
+				if ( in_array( $dopo, array( '=', ':=' ), true ) && in_array( $prima, array( 'set', ',', 'update' ), true ) ) continue;
 				return 'Il valore delle tabelle chiave/valore («' . strtolower( $g ) . '») in scrittura si può solo assegnare (' . strtolower( $g ) . ' = …), non usare in espressioni.';
 			}
 			$ok_prima = in_array( $prima, array( 'select', ',', 'distinct', 'all' ), true );
@@ -459,7 +476,9 @@ final class Rdacademy_Console_SQL {
 
 	/** F029 (F45 b): ORDER BY / GROUP BY per posizione (ordinano per una colonna segreta senza nominarla). */
 	private static function per_posizione( string $sk ): bool {
-		return (bool) preg_match( '/\b(ORDER|GROUP)\s+BY\s+(?:[^;]*?,\s*)?\d+\s*(?:ASC\b|DESC\b)?\s*(?:,|\)|$|\bLIMIT\b|\bHAVING\b|\bWITH\b)/i', $sk );
+		// F029 (5ª revisione, MEDIO 3): un intero come voce di ORDER/GROUP BY, qualunque cosa venga dopo (OFFSET, ORDER BY NULL…)
+		$sk = (string) preg_replace( '/\bLIMIT\b.*$/is', '', $sk );
+		return (bool) preg_match( '/\b(ORDER|GROUP)\s+BY\s+(?:[^;]*?,\s*)?\d+(?![A-Za-z0-9_$.\x80-\xff])/i', $sk );
 	}
 
 	private static function tabella_registro(): string { return RDACADEMY_TABLE_PREFIX . self::REGISTRO; }
@@ -582,6 +601,9 @@ final class Rdacademy_Console_SQL {
 			}
 			$kvm = self::kv_in_condizione( $skl, $cl['nomi'] );
 			if ( $kvm === '' ) $kvm = self::kv_nudo( $skl, $cl['nomi'], 'lettura', $cl['verbo'] );
+			if ( $kvm === '' && $ts && preg_match( '/\b(HAVING|ORDER\s+BY|GROUP\s+BY)\b/i', $skl ) && ( array_intersect( array_keys( self::KV ), $cl['nomi'] ) || ( preg_match( '/(?:\bSELECT\b|,)\s*(?:(?:DISTINCT|ALL)\s+)?(?:[A-Za-z0-9_$\x80-\xff]+\s*\.\s*)*\*/i', $skl ) && array_intersect( $cl['nomi'], self::tabelle_kv( $c ) ) ) ) ) {
+				$kvm = 'Valore delle tabelle chiave/valore nel risultato: niente HAVING, ORDER BY né GROUP BY (ordinare o filtrare per il valore, anche col suo alias, lo farebbe dedurre).';
+			}
 			if ( $kvm === '' && $ts && self::per_posizione( $skl ) ) $kvm = 'Tabelle con colonne segrete (' . implode( ', ', $ts ) . '): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna.';
 			if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }
 			$l = self::leggi_su( $c, $r['sql'], $cl['nomi'] );

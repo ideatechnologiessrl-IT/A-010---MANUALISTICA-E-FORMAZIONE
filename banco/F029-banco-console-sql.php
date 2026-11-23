@@ -3,7 +3,8 @@
  * F029-banco-console-sql.php — RelDoxAcademy · Formazione F029 · 23/11/2026 (nasce dal banco F028)
  * BUG-6, quarta revisione a freddo (F028, sulla 0.1.13A): sezione G quater (J1-J9: «--» seguito da un carattere di controllo,
  * tabelle chiave/valore unite con sé stesse, UPDATE/DELETE su più tabelle, chiave rinominata, errore a metà lettura dato per
- * VERDE e oracolo con EXP, F45 a-b: ROLE_ troppo largo, ORDER BY per posizione e INSERT senza colonne). Rosso sulla 0.1.13A, verde sulla 0.1.14A.
+ * VERDE e oracolo con EXP, F45 a-b: ROLE_ troppo largo, ORDER BY per posizione e INSERT senza colonne). Rosso sulla 0.1.13A.
+ * Quinta revisione a freddo (F029, sulla 0.1.14A): sezione G quinquies (K1-K4). Rosso sulla 0.1.14A del commit a2a151b, verde sulla 0.1.14A finale.
  *
  * (dal banco F028)
  * F028-banco-console-sql.php — (nasce dal banco F027)
@@ -441,6 +442,23 @@ prova( 'J9 F45(b) tabelle con segreti: niente ORDER/GROUP BY per posizione né I
 $x = chiedi( array( 'sql' => "UPDATE rdacademy_impostazioni SET valore = IF(valore LIKE 'sk%', valore, 'x') WHERE chiave = 'ai_api_key'", 'consenti' => true, 'azione' => 'prova' ) );
 $x2 = chiedi( array( 'sql' => "UPDATE rdacademy_impostazioni SET valore = 'Academy-visibile' WHERE chiave = 'titolo'", 'consenti' => true, 'azione' => 'prova' ) );
 prova( 'J10 in scrittura il valore chiave/valore si assegna e basta: «righe che cambierebbero» non diventa un oracolo', $x['rossi'] > 0 && ! isset( $x['righe_prova'] ) && $x2['rossi'] === 0, testo( $x ) . ' / ' . testo( $x2 ) );
+
+// ── G quinquies. revisione a freddo F029 (5ª, sulla 0.1.14A): chiave con := e nome a tre parti, HAVING/ORDER BY sull alias del valore, posizioni con OFFSET, INSERT … SET, SHOW ALL SLAVES ──
+$no = array();
+foreach ( array( "UPDATE rdacademy_impostazioni SET chiave := 'innocua' WHERE id = 1", "UPDATE rdacademy_impostazioni SET academy_base.rdacademy_impostazioni.chiave = 'innocua2' WHERE id = 2", "INSERT INTO rdacademy_impostazioni (id, chiave, valore) VALUES (2, 'z', 'z') ON DUPLICATE KEY UPDATE chiave := 'innocua1'", "UPDATE rdacademy_impostazioni SET valore := 'k1' WHERE chiave = 'titolo'" ) as $i => $q ) {
+	$x = chiedi( array( 'sql' => $q, 'consenti' => true, 'azione' => 'prova' ) );
+	if ( $i < 3 ? $x['rossi'] === 0 : $x['rossi'] > 0 ) $no[] = $q;
+	if ( $i < 3 ) { $x2 = chiedi( array( 'sql' => $q, 'consenti' => true, 'azione' => 'esegui', 'conferma' => 'CONFERMO' ) ); if ( $x2['rossi'] === 0 ) $no[] = $q; }
+}
+prova( 'K1 la chiave non si cambia nemmeno con «:=» o col nome a tre parti; il valore si assegna anche con «:=»', ! $no && (int) uno( "SELECT COUNT(*) FROM rdacademy_impostazioni WHERE chiave IN ('ai_api_key','mail_servizio_password')" ) === 2, implode( ' | ', $no ) );
+$no = array();
+foreach ( array( array( 'base', "SELECT chiave, valore AS x FROM rdacademy_impostazioni HAVING x LIKE 'pw-r%'" ), array( 'wordpress', "SELECT option_name, option_value x FROM wp_options HAVING x LIKE 'smtp%'" ), array( 'base', 'SELECT chiave, valore AS x FROM rdacademy_impostazioni ORDER BY x' ), array( 'base', 'SELECT * FROM rdacademy_impostazioni ORDER BY valore' ), array( 'base', 'SELECT * FROM rdacademy_impostazioni ORDER BY 3 OFFSET 0 ROWS' ), array( 'base', 'SELECT * FROM rdacademy_users ORDER BY 4 DESC OFFSET 0 ROWS' ), array( 'base', 'SELECT * FROM rdacademy_users GROUP BY 4 ORDER BY NULL' ), array( 'base', 'SELECT i.* FROM rdacademy_impostazioni i ORDER BY i.id' ) ) as $q ) { $x = chiedi( array( 'sorgente' => $q[0], 'sql' => $q[1] ) ); if ( $x['rossi'] === 0 || $x['dati'] ) $no[] = $q[1]; }
+$x = chiedi( array( 'sql' => 'SELECT chiave FROM rdacademy_impostazioni ORDER BY chiave' ) ); $x2 = chiedi( array( 'sql' => 'SELECT id, email FROM rdacademy_users ORDER BY email LIMIT 10, 5' ) );
+prova( 'K2 col valore chiave/valore nel risultato niente HAVING, ORDER BY né GROUP BY; posizioni rifiutate anche con OFFSET; ordinare per chiave o colonne innocue sì', ! $no && $x['rossi'] === 0 && $x2['rossi'] === 0, implode( ' | ', $no ) . ' / ' . testo( $x ) . ' / ' . testo( $x2 ) );
+$x = chiedi( array( 'sql' => "INSERT INTO rdacademy_impostazioni SET chiave = 'nuova_k3', valore = 'v'", 'consenti' => true, 'azione' => 'prova' ) );
+prova( 'K3 INSERT … SET su una tabella chiave/valore: è una riga nuova, non un cambio di chiave', $x['rossi'] === 0, testo( $x ) );
+$c = $C::classifica( 'SHOW ALL SLAVES STATUS' ); $c2 = $C::classifica( 'SHOW ALL REPLICAS STATUS' );
+prova( 'K4 SHOW ALL SLAVES/REPLICAS STATUS rifiutate (utente e host della replica)', ! $c['ok'] && ! $c2['ok'], json_encode( array( $c['ok'], $c2['ok'] ) ) );
 
 // ── H. la porta AJAX chiamata davvero (manage_options, nonce, multisite) e l interfaccia ──
 final class Fine_Json extends Exception { public $dati; public $ok; public $cod; function __construct( $ok, $d, $c ) { $this->ok = $ok; $this->dati = $d; $this->cod = $c; parent::__construct( 'json' ); } }
