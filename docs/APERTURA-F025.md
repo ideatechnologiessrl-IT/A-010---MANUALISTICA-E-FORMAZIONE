@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0021 — 0.1.10A — F025
+## MANIFESTO — KIT K0022 — 0.1.10A — F025
 
-PROGRESSIVO K0021   precedente K0020   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0021-0_1_10A-F025.zip · composto il 23/11/2026 07:49
+PROGRESSIVO K0022   precedente K0021   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0022-0_1_10A-F025.zip · composto il 23/11/2026 07:50
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0021-0_1_10-F025.zip
+BUSTA 1  KIT-1-APERTURA-K0022-0_1_10-F025.zip
          reldox-academy-0_1_10.zip  md5 8611aeae198f66fa86be9ad31faed7c6
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_10.txt  103 righe
          APERTURA-F025.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: reldox-academy-diagnostica-0_1_10.zip  md5 655c22fef261f9ab0f057b72a271273d (F021: secondo pacchetto, stesso numero)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0021-0_1_10-F025.zip  42 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0021-0_1_10-F025.zip  64 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0022-0_1_10-F025.zip  42 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0022-0_1_10-F025.zip  64 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  310 righe
@@ -40,7 +40,7 @@ BUSTA 3  KIT-3-MISURE-K0021-0_1_10-F025.zip  64 script
          banco/F023-banco-licenza.php  101 righe
          banco/F023-porta-licenza.py  189 righe
          banco/F023-rifai-0.1.10A.sh  66 righe
-         banco/KIT-PROGRESSIVO.txt  20 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  21 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -84,7 +84,7 @@ BUSTA 3  KIT-3-MISURE-K0021-0_1_10-F025.zip  64 script
          strumenti/copia-con-segno.py  40 righe
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0021-0_1_10-F025.zip  63 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 9 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0022-0_1_10-F025.zip  63 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 9 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (42):
   CLAUDE.md
   README.md
@@ -144,15 +144,16 @@ F024 (23/11/2026).
 - Nodo: scheda in `novita/reldoxacademy.md`, `prodotti.md` a 0.1.10A, `STATO.md` con «Installato da collaudare: nessuna · in main: 0.1.10A» e riga di sicurezza (accesso / permessi / nonce / AJAX / API-REST / query / posta / file). Revisione a freddo: 5 difetti trovati, 5 corretti.
 - Apertura: risposto a FOOD-R002 (voce F37 ★★★); RelDoxChecks 1.4.01A annotata in F36; corretta D43 (rosso 0/12, verde 22/22).
 - Voce nuova **F38 (★)**: togliere `porta_wp_mail` morta in `includes/license/class-rdacademy-licenza-stato.php` (e il commento della r.22) e provare sul sito i passi del contratto.
+- A chiusura: ricevuto CRD-R037 (sei controlli su WordPress 7.2, owner 23/11 07:25) → voce nuova **F39 (★★★)**, entro l 08/12/2026; risposto «ricevuto».
 - Testo del contratto: oggi l EULA v4 copiata dal CRD; la richiesta **FOR-R005** a Legale non è ancora scritta.
 - Sul sito «Indurimento: 8 su 18» (mancano A3, A4, A6, A8, A11, A13, A15, A17): annotato, non toccato.
-- Registri: BUG 0/5 · punti aperti 30 · violazioni 6 · fallimenti 3.
+- Registri: BUG 0/5 · punti aperti 31 · violazioni 6 · fallimenti 3.
 
 ## §01 — CHE COSA FARE, IN ORDINE
 0. Manifesto, prova di lettura, apertura del nodo, registri letti in una riga.
 1. Richiesta FOR-R005 a Legale (quale testo di licenza vale per RelDoxAcademy), con codice e «Ferma il lavoro: no».
 2. Console SQL nella diagnostica e `REGOLE-RELDOXACADEMY-v1.md` (resto di F29); banco rosso → verde, smoke dell owner.
-3. F38 alla prossima versione.
+3. F39 (WordPress 7.2) entro l 08/12; F38 alla prossima versione.
 4. A ogni consegna «Contesto: ~NN% · soglia kit 70%».
 
 ## §11 — PROMPT PER LA SESSIONE F025
