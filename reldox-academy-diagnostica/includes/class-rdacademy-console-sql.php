@@ -3,7 +3,7 @@
  * Rdacademy_Console_SQL — IL MOTORE DELLA CONSOLE SQL (banco standard n. 2, area «Database e sorgenti»).
  * ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
  *
- * RelDoxAcademy 0.1.11A (Formazione F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
+ * RelDoxAcademy 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
  * 23/11/2026 08:39, chat Formazione F025: «ok approvato»). Nasce dalla console di RelDoxFood 1.24.11L
  * (class-rdfood-console-sql.php, letta in sola lettura in F025) portata allo standard di famiglia: banco
  * prima del motore (banco/F026-banco-console-sql.php).
@@ -24,6 +24,13 @@
  *  - registro append-only sul BASE (mai su WordPress): prove, scritture e rifiuti; senza registro non si scrive;
  *  - segreti: utente e password della sorgente solo come presenza; colonne segrete mascherate nei risultati;
  *  - database e host dichiarati in ogni riga del referto, anche negli errori.
+ *  0.1.12A (BUG-6, F42):
+ *  - i nomi fra apici inversi si leggono in chiaro prima dei controlli (`SLEEP`(1) è SLEEP(1));
+ *  - mai lo schema mysql, performance_schema, sys; mai SHOW GRANTS / CREATE USER / PROCESSLIST, USER(), CURRENT_USER;
+ *  - colonne segrete: non si citano (con SELECT * escono mascherate, anche per nome d origine); errori senza valori né utente;
+ *  - in scrittura: niente riferimenti a un altro database, niente viste, sequenze, tabelle con trigger, funzioni memorizzate;
+ *    se la sorgente è il database di WordPress, solo tabelle col prefisso di RelDoxAcademy;
+ *  - gettone del CONFERMO consumato una volta sola nel database (chiave unica), registro con trigger contro UPDATE e DELETE.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,6 +43,7 @@ final class Rdacademy_Console_SQL {
 	const TEMPO_MAX    = 10;
 	const CONFERMO_TTL = 300;
 	const REGISTRO     = 'console_registro';
+	const GETTONI      = 'console_gettoni';
 
 	const LETTURE        = array( 'SELECT', 'SHOW', 'DESCRIBE', 'DESC', 'EXPLAIN', 'WITH' );
 	const SCRITTURE      = array( 'INSERT', 'UPDATE', 'DELETE', 'REPLACE' );
@@ -49,10 +57,17 @@ final class Rdacademy_Console_SQL {
 		'/\bFOR\s+(UPDATE|SHARE)\b|\bLOCK\s+IN\s+SHARE\s+MODE\b/i' => 'FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti.',
 		'/\b(GET_LOCK|RELEASE_LOCK|RELEASE_ALL_LOCKS|MASTER_POS_WAIT|MASTER_GTID_WAIT|SOURCE_POS_WAIT)\s*\(/i' => 'GET_LOCK e funzioni d attesa rifiutate.',
 		'/\b(SLEEP|BENCHMARK)\s*\(/i'                          => 'SLEEP e BENCHMARK rifiutati: tengono occupato il server.',
+		'/\b(NEXTVAL|SETVAL|LASTVAL)\s*\(|\b(NEXT|PREVIOUS)\s+VALUE\s+FOR\b/i' => 'Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione.',
+		'/\bSHOW\s+(GRANTS|CREATE\s+USER|(FULL\s+)?PROCESSLIST)\b/i' => 'SHOW GRANTS, SHOW CREATE USER e SHOW PROCESSLIST rifiutati: utenti e permessi del server non si mostrano.',
+		'/\b(USER|CURRENT_USER|SESSION_USER|SYSTEM_USER|CURRENT_ROLE)\s*\(|\bCURRENT_USER\b|\bCURRENT_ROLE\b/i' => 'USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza.',
+		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
 	);
 
 	/** Colonne segrete note: si mascherano nei risultati (nome che contiene uno di questi pezzi). */
-	const SEGRETE = array( 'pass', 'pwd', 'token', 'gettone', 'secret', 'segret', 'api_key', 'apikey', 'activation_key', 'hash', 'salt', 'nonce', '_enc', 'chiave' );
+	const SEGRETE = array( 'pass', 'pwd', 'token', 'gettone', 'secret', 'segret', 'api_key', 'apikey', 'activation_key', 'hash', 'salt', 'nonce', '_enc', 'chiave', 'authentication', 'definer', 'grantee' );
+
+	/** Schemi del server mai toccati dalla console. */
+	const SCHEMI_VIETATI = array( 'mysql', 'performance_schema', 'sys' );
 
 	/** Il «adesso» del motore (il banco lo sposta per provare la scadenza del CONFERMO). */
 	public static ?int $adesso = null;
@@ -98,7 +113,11 @@ final class Rdacademy_Console_SQL {
 					}
 					$val .= $sql[ $j ]; $j++;
 				}
-				if ( $c === '`' ) { $ids[] = $val; $out .= ' `id` '; } else { $out .= " '' "; }
+				if ( $c === '`' ) {
+					$ids[] = $val;
+					// in chiaro (BUG-6 ALTO 1): `SLEEP`(1) si giudica come SLEEP(1); un nome con caratteri strani diventa __idN__
+					$out .= preg_match( '/^[A-Za-z0-9_$]+$/', $val ) ? $val : ' __id' . ( count( $ids ) - 1 ) . '__ ';
+				} else { $out .= " '' "; }
 				$i = $j + 1; continue;
 			}
 			$out .= $c; $i++;
@@ -125,13 +144,21 @@ final class Rdacademy_Console_SQL {
 		foreach ( self::VIETATI_OVUNQUE as $re => $m ) {
 			if ( preg_match( $re, $sk ) ) return $no( $m, $verbo );
 		}
+		preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $sk, $mm0 );
+		$tutti = array_map( 'strtolower', array_merge( $mm0[0], $ids ) );
+		foreach ( self::SCHEMI_VIETATI as $sv ) {
+			if ( ( $sv !== 'sys' && in_array( $sv, $tutti, true ) ) || preg_match( '/\b' . $sv . '\s*\.|\b(FROM|IN)\s+' . $sv . '\b/i', $sk ) || in_array( $sv, array_map( 'strtolower', $ids ), true ) ) {
+				return $no( 'Lo schema «' . $sv . '» del server non si tocca dalla console (utenti, password, sessioni).', $verbo );
+			}
+		}
 		$tipo = '';
 		if ( in_array( $verbo, self::SCRITTURE, true ) ) {
 			$tipo = 'scrittura';
 		} elseif ( in_array( $verbo, self::LETTURE, true ) ) {
 			$tipo = 'lettura';
-			if ( $verbo === 'WITH' && preg_match( '/\b(INSERT|UPDATE|DELETE|REPLACE)\b/i', $sk, $m ) ) {
-				$tipo = 'scrittura'; $verbo = strtoupper( $m[1] );
+			// REPLACE( è la funzione, non l istruzione (F42 b)
+			if ( $verbo === 'WITH' && preg_match( '/\b(INSERT|UPDATE|DELETE)\b|\b(REPLACE)\b(?!\s*\()/i', $sk, $m ) ) {
+				$tipo = 'scrittura'; $verbo = strtoupper( $m[2] ?? '' ) !== '' ? 'REPLACE' : strtoupper( $m[1] );
 			}
 		}
 		if ( $tipo === '' ) {
@@ -142,7 +169,13 @@ final class Rdacademy_Console_SQL {
 		}
 		preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $sk, $mm );
 		$nomi = array_values( array_unique( array_map( 'strtolower', array_merge( $mm[0], $ids ) ) ) );
-		return array( 'ok' => true, 'tipo' => $tipo, 'verbo' => $verbo, 'motivo' => '', 'nomi' => $nomi );
+		// riferimenti qualificati x.y (il primo nome può essere un database): servono in scrittura
+		$qual = array();
+		if ( preg_match_all( '/([A-Za-z0-9_$]+)\s*\.\s*[A-Za-z0-9_$`]/', $sk, $mq ) ) {
+			foreach ( $mq[1] as $q ) { $qual[] = strtolower( preg_match( '/^__id(\d+)__$/', $q, $mi ) ? (string) ( $ids[ (int) $mi[1] ] ?? $q ) : $q ); }
+		}
+		preg_match_all( '/([A-Za-z_][A-Za-z0-9_$]*)\s*\(/', $sk, $mc );
+		return array( 'ok' => true, 'tipo' => $tipo, 'verbo' => $verbo, 'motivo' => '', 'nomi' => $nomi, 'qualificati' => array_values( array_unique( $qual ) ), 'chiamate' => array_values( array_unique( array_map( 'strtolower', $mc[1] ) ) ) );
 	}
 
 	/* ============================================================= *
@@ -196,7 +229,8 @@ final class Rdacademy_Console_SQL {
 	}
 
 	private static function err( mysqli $c ): string {
-		return $c->errno ? '(' . $c->errno . ') ' . $c->error : 'errore sconosciuto';
+		// BUG-6 MEDIO 1: niente valori dei dati né utente nei messaggi (tutto ciò che è fra apici diventa «…»)
+		return $c->errno ? '(' . $c->errno . ') ' . (string) preg_replace( array( "/'(?:[^'\\\\]|\\\\.)*'/s", '/"(?:[^"\\\\]|\\\\.)*"/s', '/`[^`]*`@`[^`]*`/' ), array( "'…'", '"…"', '…' ), $c->error ) : 'errore sconosciuto';
 	}
 
 	private static function apri( array $p ): ?mysqli {
@@ -224,9 +258,9 @@ final class Rdacademy_Console_SQL {
 		$t0  = microtime( true );
 		$res = self::q( $c, $sql );
 		if ( $res === false ) { $e = self::err( $c ); self::q( $c, 'ROLLBACK' ); return array( 'ok' => false, 'errore' => $e ); }
-		$col = array(); $dati = array(); $tronco = false;
+		$col = array(); $org = array(); $dati = array(); $tronco = false;
 		if ( $res instanceof mysqli_result ) {
-			foreach ( $res->fetch_fields() as $f ) $col[] = (string) $f->name;
+			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = (string) ( $f->orgname ?? '' ); }
 			while ( $row = $res->fetch_row() ) {
 				if ( count( $dati ) >= self::MAX_RIGHE ) { $tronco = true; break; }
 				$dati[] = $row;
@@ -236,25 +270,87 @@ final class Rdacademy_Console_SQL {
 		self::q( $c, 'ROLLBACK' );
 		$mascherate = array();
 		foreach ( $col as $i => $nome ) {
-			if ( ! self::segreta( $nome ) ) continue;
+			if ( ! self::segreta( $nome ) && ! self::segreta( $org[ $i ] ?? '' ) ) continue;
 			$mascherate[] = $nome;
 			foreach ( $dati as &$r ) { if ( $r[ $i ] !== null ) $r[ $i ] = '•••• (mascherata)'; }
 			unset( $r );
 		}
+		foreach ( $dati as &$r ) {
+			foreach ( $r as &$v ) { if ( is_string( $v ) && stripos( $v, 'DEFINER' ) !== false ) $v = (string) preg_replace( '/DEFINER\s*=\s*\S+/i', 'DEFINER=…', $v ); }
+			unset( $v );
+		}
+		unset( $r );
 		return array( 'ok' => true, 'colonne' => $col, 'dati' => $dati, 'troncato' => $tronco, 'mascherate' => $mascherate, 'ms' => (int) round( ( microtime( true ) - $t0 ) * 1000 ) );
 	}
 
-	/** Tabelle non InnoDB del database corrente toccate dall istruzione (la prova a secco non le può annullare). */
-	private static function non_innodb( mysqli $c, array $nomi ): array {
-		$res = self::q( $c, "SELECT TABLE_NAME, ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = 'BASE TABLE' AND ENGINE <> 'InnoDB'" );
-		$out = array();
-		if ( $res instanceof mysqli_result ) {
-			while ( $r = $res->fetch_row() ) { if ( in_array( strtolower( (string) $r[0] ), $nomi, true ) ) $out[] = $r[0] . ' (' . $r[1] . ')'; }
-		}
+	/** Prima colonna di una lettura di servizio, in minuscolo. */
+	private static function colonna( mysqli $c, string $sql ): array {
+		$res = self::q( $c, $sql ); $out = array();
+		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) $out[] = strtolower( (string) $r[0] ); $res->free(); }
 		return $out;
 	}
 
+	/** Colonne segrete citate per nome (BUG-6 MEDIO 1): alias, espressioni e WHERE le farebbero uscire. */
+	private static function segrete_citate( mysqli $c, array $nomi ): array {
+		$col = self::colonna( $c, 'SELECT DISTINCT COLUMN_NAME FROM information_schema.COLUMNS' );
+		return array_values( array_filter( array_intersect( $nomi, $col ), array( __CLASS__, 'segreta' ) ) );
+	}
+
+	/**
+	 * Controlli di una scrittura sul database (BUG-6 ALTI 2 e 3): un motivo di rifiuto, oppure ''.
+	 * La prova a secco annulla solo ciò che è InnoDB, nel database corrente, senza effetti fuori dall istruzione.
+	 */
+	private static function controlla_scrittura( mysqli $c, array $cl ): string {
+		$cur = self::colonna( $c, 'SELECT DATABASE()' )[0] ?? '';
+		if ( $cur === '' ) return 'Nessun database corrente: scrittura rifiutata.';
+		$dbs  = self::colonna( $c, 'SHOW DATABASES' );
+		$altri = array_values( array_diff( array_intersect( $cl['qualificati'], array_merge( $dbs, self::SCHEMI_VIETATI ) ), array( $cur ) ) );
+		if ( $altri ) return 'Riferimento a un altro database (' . implode( ', ', $altri ) . '): in scrittura solo tabelle del database della sorgente, ' . $cur . '.';
+		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), TABLE_TYPE, ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE()' );
+		$tab = array(); $vie = array();
+		if ( $res instanceof mysqli_result ) {
+			while ( $r = $res->fetch_row() ) {
+				if ( ! in_array( (string) $r[0], $cl['nomi'], true ) ) continue;
+				$tab[] = (string) $r[0];
+				if ( $r[1] !== 'BASE TABLE' ) $vie[] = $r[0] . ' (' . ( $r[1] === 'VIEW' ? 'vista' : strtolower( (string) $r[1] ) ) . ')';
+				elseif ( strcasecmp( (string) $r[2], 'InnoDB' ) !== 0 ) $vie[] = $r[0] . ' (' . $r[2] . ')';
+			}
+			$res->free();
+		}
+		if ( $vie ) return 'Viste, sequenze o tabelle non InnoDB (' . implode( ', ', $vie ) . '): la prova a secco non si può annullare, scrittura rifiutata.';
+		$trg = array_values( array_intersect( $tab, self::colonna( $c, 'SELECT EVENT_OBJECT_TABLE FROM information_schema.TRIGGERS WHERE EVENT_OBJECT_SCHEMA = DATABASE()' ) ) );
+		if ( $trg ) return 'Tabelle con trigger (' . implode( ', ', $trg ) . '): scriverebbero altrove anche nella prova a secco, scrittura rifiutata.';
+		$fun = array_values( array_intersect( $cl['chiamate'], self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' ) ) );
+		if ( $fun ) return 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): possono scrivere fuori dalla prova a secco, scrittura rifiutata.';
+		$wp = self::parametri( 'wordpress' );
+		if ( $wp && strtolower( (string) $wp['name'] ) === $cur ) {
+			$fuori = array_values( array_filter( $tab, static function ( $t ) { return strpos( $t, strtolower( RDACADEMY_TABLE_PREFIX ) ) !== 0; } ) );
+			if ( $fuori ) return 'La sorgente è il database di WordPress: in scrittura solo tabelle di RelDoxAcademy (' . RDACADEMY_TABLE_PREFIX . '…), non ' . implode( ', ', $fuori ) . '.';
+		}
+		return '';
+	}
+
 	private static function tabella_registro(): string { return RDACADEMY_TABLE_PREFIX . self::REGISTRO; }
+	private static function tabella_gettoni(): string { return RDACADEMY_TABLE_PREFIX . self::GETTONI; }
+
+	/** Append-only anche nel database (F42 c): trigger che rifiutano UPDATE e DELETE. Senza permesso TRIGGER resta la difesa per nome. */
+	private static function blinda( mysqli $c, string $t ): void {
+		foreach ( array( 'UPDATE' => 'nu', 'DELETE' => 'nd' ) as $ev => $suf ) {
+			self::q( $c, "CREATE TRIGGER IF NOT EXISTS `{$t}_{$suf}` BEFORE $ev ON `$t` FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'append-only'" );
+		}
+	}
+
+	/** Consuma il gettone una volta sola (F42 a): chiave unica nel BASE, atomica fra due richieste insieme. */
+	private static function consuma_gettone( string $gid ): bool {
+		$p = self::parametri( 'base' );
+		$c = $p ? self::apri( $p ) : null;
+		if ( ! $c || $gid === '' ) return false;
+		$t = self::tabella_gettoni();
+		$ok = self::q( $c, "CREATE TABLE IF NOT EXISTS `$t` (gid CHAR(32) NOT NULL, quando DATETIME NOT NULL, PRIMARY KEY (gid)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
+		if ( $ok ) { self::blinda( $c, $t ); $ok = self::q( $c, "INSERT INTO `$t` (gid, quando) VALUES ('" . $c->real_escape_string( $gid ) . "', '" . gmdate( 'Y-m-d H:i:s', self::ora() ) . "')" ); }
+		$c->close();
+		return (bool) $ok;
+	}
 
 	/** Registro append-only sul BASE. false se non si può scrivere (allora non si scrive nemmeno sui dati). */
 	private static function registra( array $r, array $s, string $tipo, ?int $righe, string $esito, string $msg ): bool {
@@ -264,6 +360,7 @@ final class Rdacademy_Console_SQL {
 		$t = self::tabella_registro();
 		$ok = self::q( $c, "CREATE TABLE IF NOT EXISTS `$t` (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, quando DATETIME NOT NULL, utente BIGINT UNSIGNED NOT NULL DEFAULT 0, login VARCHAR(60) NOT NULL DEFAULT '', sorgente VARCHAR(40) NOT NULL DEFAULT '', db_nome VARCHAR(64) NOT NULL DEFAULT '', db_host VARCHAR(255) NOT NULL DEFAULT '', istruzione MEDIUMTEXT NOT NULL, tipo VARCHAR(12) NOT NULL, righe INT NULL, esito VARCHAR(20) NOT NULL, messaggio VARCHAR(500) NOT NULL DEFAULT '', PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
 		if ( $ok ) {
+			self::blinda( $c, $t );
 			$st = $c->prepare( "INSERT INTO `$t` (quando, utente, login, sorgente, db_nome, db_host, istruzione, tipo, righe, esito, messaggio) VALUES (?,?,?,?,?,?,?,?,?,?,?)" );
 			$ok = false;
 			if ( $st ) {
@@ -335,6 +432,8 @@ final class Rdacademy_Console_SQL {
 		if ( $cl['tipo'] === 'lettura' ) {
 			$c = self::apri( (array) self::parametri( $k ) );
 			if ( ! $c ) { $riga( 'ROSSO', 'Connessione non riuscita a ' . $at . '.' ); return $out; }
+			$sc = self::segrete_citate( $c, $cl['nomi'] );
+			if ( $sc ) { $c->close(); $rifiuta( 'Colonne segrete citate (' . implode( ', ', $sc ) . '): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate.' ); return $out; }
 			$l = self::leggi_su( $c, $r['sql'] );
 			$c->close();
 			if ( ! $l['ok'] ) { $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $l['errore'] ); return $out; }
@@ -349,11 +448,13 @@ final class Rdacademy_Console_SQL {
 		// ── scrittura ───────────────────────────────────────────
 		if ( ! $s['scrivibile'] ) { $rifiuta( 'Sorgente WordPress: «' . $cl['verbo'] . '» rifiutata. Sul database di WordPress solo lettura, sempre.' ); return $out; }
 		if ( empty( $r['consenti'] ) ) { $rifiuta( 'Scrittura non consentita: spunta «Consenti scrittura» (solo BASE e sorgenti IN USO).' ); return $out; }
-		if ( in_array( strtolower( self::tabella_registro() ), $cl['nomi'], true ) ) { $rifiuta( 'Il registro della console non si tocca dalla console (append-only).' ); return $out; }
+		if ( array_intersect( array( strtolower( self::tabella_registro() ), strtolower( self::tabella_gettoni() ) ), $cl['nomi'] ) ) { $rifiuta( 'Il registro della console non si tocca dalla console (append-only).' ); return $out; }
 		$c = self::apri( (array) self::parametri( $k ) );
 		if ( ! $c ) { $riga( 'ROSSO', 'Connessione non riuscita a ' . $at . '.' ); return $out; }
-		$mi = self::non_innodb( $c, $cl['nomi'] );
-		if ( $mi ) { $c->close(); $rifiuta( 'Tabelle non InnoDB (' . implode( ', ', $mi ) . '): la prova a secco non si può annullare, scrittura rifiutata.' ); return $out; }
+		$sc = self::segrete_citate( $c, $cl['nomi'] );
+		if ( $sc ) { $c->close(); $rifiuta( 'Colonne segrete citate (' . implode( ', ', $sc ) . '): la console non le copia né le usa in scrittura.' ); return $out; }
+		$mi = self::controlla_scrittura( $c, $cl );
+		if ( $mi !== '' ) { $c->close(); $rifiuta( $mi ); return $out; }
 		self::q( $c, 'SET SESSION max_statement_time = ' . self::TEMPO_MAX );
 		$u  = (int) $r['utente'];
 		$im = self::impronta( $r, $s );
@@ -368,7 +469,7 @@ final class Rdacademy_Console_SQL {
 				$riga( 'ROSSO', 'Registro sul BASE non scrivibile: senza registro non si scrive (' . $at . ').' ); return $out;
 			}
 			$scade = self::ora() + self::CONFERMO_TTL;
-			self::gettone_scrivi( $u, array( 'impronta' => $im, 'righe' => $n, 'scade' => $scade ) );
+			self::gettone_scrivi( $u, array( 'impronta' => $im, 'righe' => $n, 'scade' => $scade, 'gid' => bin2hex( random_bytes( 16 ) ) ) );
 			$out['righe_prova'] = $n; $out['scade'] = $scade;
 			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).' );
 			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' · nessun dato scritto.' );
@@ -382,6 +483,9 @@ final class Rdacademy_Console_SQL {
 		if ( ! $g ) { $c->close(); $rifiuta( 'Nessuna prova a secco valida per questa istruzione: prima la prova a secco.' ); return $out; }
 		if ( (int) $g['scade'] < self::ora() ) { self::gettone_scrivi( $u, null ); $c->close(); $rifiuta( 'CONFERMO scaduto (oltre ' . intdiv( self::CONFERMO_TTL, 60 ) . ' minuti): rifai la prova a secco.' ); return $out; }
 		if ( ! hash_equals( (string) $g['impronta'], $im ) ) { $c->close(); $rifiuta( 'Il CONFERMO vale solo per l istruzione e la sorgente della prova a secco: rifai la prova.' ); return $out; }
+		if ( ! self::consuma_gettone( (string) ( $g['gid'] ?? '' ) ) ) {
+			self::gettone_scrivi( $u, null ); $c->close(); $rifiuta( 'CONFERMO già usato (o gettone non registrabile sul BASE): rifai la prova a secco.' ); return $out;
+		}
 		if ( ! self::registra( $r, $s, 'avvio', (int) $g['righe'], 'in_corso', 'scrittura confermata' ) ) {
 			$c->close(); $riga( 'ROSSO', 'Registro sul BASE non scrivibile: senza registro non si scrive (' . $at . ').' ); return $out;
 		}

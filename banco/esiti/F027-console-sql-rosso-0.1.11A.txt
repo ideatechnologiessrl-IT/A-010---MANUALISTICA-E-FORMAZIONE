@@ -2,7 +2,7 @@
   VERDE  A2 la diagnostica carica motore e banco e avvia il banco
   VERDE  A3 registro: area «Database e sorgenti» e voce n. 2 utility col suo file
   VERDE  A4 forma comune: costanti N, NAT, AREA, SCHEDA, Q, TITOLO, SCOPO e metodi init/render/esegui/ajax
-  VERDE  A5 porta AJAX: manage_options e nonce prima di tutto
+  ROSSO  A5 porta AJAX: permesso (manage_options; su multisite super amministratore) e nonce prima di tutto (provati davvero in H1-H3)
   VERDE  A6 riga finale «N verdi, M rossi» e «Copia esito» nel referto
   VERDE  A7 interfaccia del mockup: Prova a secco, CONFERMO, spunta «Consenti scrittura»
   VERDE  B1 il motore si carica (classe Rdacademy_Console_SQL)
@@ -43,10 +43,10 @@
   VERDE  E10 CONFERMO scaduto dopo 5 minuti: rifiutato, riga ancora lì — [ROSSO] CONFERMO scaduto (oltre 5 minuti): rifai la prova a secco. (academy_base @ localhost)
   VERDE  E11 righe ricontate: 8 invece di 7 → annullata, niente scritto — [ROSSO] Righe ricontate: 8 invece di 7 della prova a secco → annullata, niente scritto. Rifai la prova. (academy_base @ localhost)
   VERDE  E12 tabella MyISAM: la prova a secco la rifiuta (non si annulla), niente scritto — [ROSSO] Tabelle non InnoDB (rdacademy_vecchia (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost)
-  VERDE  E13 il registro non si tocca dalla console (append-only)
+  ROSSO  E13 il registro e i gettoni non si toccano dalla console (append-only, per nome: vale anche senza permesso TRIGGER) — [ROSSO] Il registro della console non si tocca dalla console (append-only). (academy_base @ localhost) / [ROSSO] Prova a secco non riuscita: (1146) Table 'academy_base.rdacademy_console_gettoni' doesn't exist (academy_base @ localhost)
   VERDE  E14 il CONFERMO del BASE non vale su un altra sorgente, quello della sorgente 3 sì — [VERDE] UPDATE eseguita su academy_s3 @ localhost: 1 righe scritte; nel registro del BASE.
   VERDE  E15 DROP con la spunta: rifiutato, tabella ancora lì
-  VERDE  F1 registro sul BASE: prove, scritture e rifiuti, con chi, sorgente, database, host, istruzione, righe, esito — {"rifiuto":14,"prova":4,"avvio":3,"scrittura":3}
+  VERDE  F1 registro sul BASE: prove, scritture e rifiuti, con chi, sorgente, database, host, istruzione, righe, esito — {"rifiuto":15,"prova":4,"avvio":3,"scrittura":3}
   VERDE  F2 la scrittura di 7 righe è nel registro con le sue righe e la sua istruzione
   VERDE  F3 mai un registro sul database di WordPress
   VERDE  F4 nessuna password nel registro
@@ -70,8 +70,9 @@
   ROSSO  G8 «authentication» fra le colonne segrete
   ROSSO  G9 F42(a) il gettone si consuma una volta sola anche se due richieste l hanno letto insieme — [VERDE] UPDATE eseguita su academy_base @ localhost: 1 righe scritte; nel registro del BASE.
   ROSSO  G10 F42(b) WITH … SELECT REPLACE(…) è una lettura — {"ok":true,"tipo":"scrittura","verbo":"REPLACE","motivo":"","nomi":["with","x","as","select","replace"]}
-  ROSSO  G11 F42(c) registro append-only anche nel database: trigger contro UPDATE e DELETE — trigger 0, righe 38 → 0
+  ROSSO  G11 F42(c) registro append-only anche nel database: trigger contro UPDATE e DELETE — trigger 0, righe 39 → 0
   VERDE  G12 registro «avvio» non scrivibile: la scrittura confermata non parte — [ROSSO] Registro sul BASE non scrivibile: senza registro non si scrive (academy_base @ localhost).
+  ROSSO  G13 SHOW CREATE VIEW: il DEFINER (utente@host) non si mostra — [["rdacademy_vista","CREATE ALGORITHM=UNDEFINED DEFINER=`banco`@`localhost` SQL SECURITY DEFINER VIEW `rdacademy_vista` AS select `rdacademy_vecchia`.`id` AS `id`,`rdacademy_vecchia`.`v` AS `v` from `rdacademy_vecchia`","utf8mb4","utf8mb4_general_ci"]]
   VERDE  H1 porta AJAX vera: senza manage_options risposta 403 e nessuna istruzione arriva al motore
   VERDE  H2 porta AJAX vera: nonce sbagliato rifiutato prima del motore
   ROSSO  H3 F42(e) multisite: l amministratore di un sito che non è super amministratore non interroga il server
@@ -79,4 +80,4 @@
   ROSSO  H5 porta AJAX vera: UPDATE wp_prova.wp_users dal BASE rifiutato anche con CONFERMO
   ROSSO  H6 F42(d) interfaccia del mockup: «Esegui · N righe» al CONFERMO; in scrittura solo «Prova a secco» e «Pulisci»
 
-48 verdi, 14 rossi
+46 verdi, 17 rossi

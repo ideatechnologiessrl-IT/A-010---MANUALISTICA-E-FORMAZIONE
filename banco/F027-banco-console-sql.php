@@ -53,7 +53,7 @@ $reg = leggi_f( "$D/includes/class-rdacademy-banchi-registro.php" );
 prova( 'A3 registro: area «Database e sorgenti» e voce n. 2 utility col suo file', (bool) preg_match( "/'cat-database'\s*=>\s*array\(\s*'Database e sorgenti'/", $reg ) && (bool) preg_match( "/'n'\s*=>\s*2,\s*'nat'\s*=>\s*'util',\s*'cat'\s*=>\s*'cat-database',\s*'file'\s*=>\s*'includes\/banchi\/class-rdacademy-banco-console-sql\.php'/", $reg ) );
 $banco = leggi_f( $fb );
 prova( 'A4 forma comune: costanti N, NAT, AREA, SCHEDA, Q, TITOLO, SCOPO e metodi init/render/esegui/ajax', $banco !== '' && ! array_diff( array( 'N', 'NAT', 'AREA', 'SCHEDA', 'Q', 'TITOLO', 'SCOPO' ), array_filter( array( 'N', 'NAT', 'AREA', 'SCHEDA', 'Q', 'TITOLO', 'SCOPO' ), function ( $c ) use ( $banco ) { return (bool) preg_match( "/const $c\s*=/", $banco ); } ) ) && (bool) preg_match( '/function init\(.*function render\(.*function esegui\(.*function ajax\(/s', $banco ) );
-prova( 'A5 porta AJAX: manage_options e nonce prima di tutto', (bool) preg_match( "/function ajax\(\)[^{]*\{\s*if \( ! current_user_can\( 'manage_options' \) \)[\s\S]{0,200}check_ajax_referer\(/", $banco ) );
+prova( 'A5 porta AJAX: permesso (manage_options; su multisite super amministratore) e nonce prima di tutto (provati davvero in H1-H3)', (bool) preg_match( "/function ajax\(\)[^{]*\{\s*if \( ! self::puo\(\) \)[\s\S]{0,250}check_ajax_referer\(/", $banco ) && (bool) preg_match( "/function puo\(\)[^{]*\{\s*return current_user_can\( 'manage_options' \) && \( ! is_multisite\(\) \|\| is_super_admin\(\) \);/", $banco ) );
 prova( 'A6 riga finale «N verdi, M rossi» e «Copia esito» nel referto', strpos( $banco, ' verdi, ' ) !== false && strpos( $banco, 'Copia esito' ) !== false );
 prova( 'A7 interfaccia del mockup: Prova a secco, CONFERMO, spunta «Consenti scrittura»', strpos( $banco, 'Prova a secco' ) !== false && strpos( $banco, 'CONFERMO' ) !== false && strpos( $banco, 'Consenti scrittura' ) !== false );
 
@@ -210,7 +210,8 @@ prova( 'E11 righe ricontate: 8 invece di 7 → annullata, niente scritto', $x['r
 $x = chiedi( array( 'sql' => 'UPDATE rdacademy_vecchia SET v = 9', 'consenti' => true, 'azione' => 'prova' ) );
 prova( 'E12 tabella MyISAM: la prova a secco la rifiuta (non si annulla), niente scritto', $x['rossi'] > 0 && (int) $root->query( 'SELECT SUM(v) FROM rdacademy_vecchia' )->fetch_row()[0] === 3, testo( $x ) );
 $x = chiedi( array( 'sql' => 'DELETE FROM rdacademy_console_registro', 'consenti' => true, 'azione' => 'prova' ) );
-prova( 'E13 il registro non si tocca dalla console (append-only)', $x['rossi'] > 0 );
+$x2 = chiedi( array( 'sql' => "INSERT INTO `rdacademy_console_gettoni` (gid, quando) VALUES ('x', NOW())", 'consenti' => true, 'azione' => 'prova' ) );
+prova( 'E13 il registro e i gettoni non si toccano dalla console (append-only, per nome: vale anche senza permesso TRIGGER)', $x['rossi'] > 0 && stripos( testo( $x ), 'append-only' ) !== false && stripos( testo( $x2 ), 'append-only' ) !== false, testo( $x ) . ' / ' . testo( $x2 ) );
 $S3 = 'UPDATE rdacademy_s3_dati SET v = 2 WHERE id = 1';
 chiedi( array( 'sorgente' => 'sorgente_3', 'sql' => $S3, 'consenti' => true, 'azione' => 'prova' ) );
 $x = chiedi( array( 'sorgente' => 'sorgente_3', 'sql' => $S3, 'consenti' => true, 'azione' => 'esegui', 'conferma' => 'CONFERMO' ) );
@@ -242,7 +243,7 @@ $W = "UPDATE wp_prova . wp_users SET user_login = 'preso' WHERE ID = 1";
 $x = chiedi( array( 'sql' => $W, 'consenti' => true, 'azione' => 'prova' ) );
 $x2 = chiedi( array( 'sql' => $W, 'consenti' => true, 'azione' => 'esegui', 'conferma' => 'CONFERMO' ) );
 $x3 = chiedi( array( 'sql' => 'DELETE FROM mysql.nessuna_tabella', 'consenti' => true, 'azione' => 'prova' ) );
-prova( 'G3 dal BASE niente scrittura su WordPress né su mysql.* con db.tabella, nemmeno con CONFERMO', $x['rossi'] > 0 && $x2['rossi'] > 0 && uno( 'SELECT user_login FROM wp_users', 'wp_prova' ) === 'admin' && stripos( testo( $x ), 'altro database' ) !== false && stripos( testo( $x3 ), 'altro database' ) !== false, testo( $x ) . ' / ' . testo( $x3 ) );
+prova( 'G3 dal BASE niente scrittura su WordPress né su mysql.* con db.tabella, nemmeno con CONFERMO', $x['rossi'] > 0 && $x2['rossi'] > 0 && uno( 'SELECT user_login FROM wp_users', 'wp_prova' ) === 'admin' && stripos( testo( $x ), 'altro database' ) !== false && $x3['rossi'] > 0 && stripos( testo( $x3 ), 'mysql' ) !== false, testo( $x ) . ' / ' . testo( $x3 ) );
 $x = chiedi( array( 'sql' => 'UPDATE rdacademy_vista SET v = 7', 'consenti' => true, 'azione' => 'prova' ) );
 $x2 = chiedi( array( 'sql' => 'UPDATE rdacademy_contr SET v = 2', 'consenti' => true, 'azione' => 'prova' ) );
 $x3 = chiedi( array( 'sql' => "UPDATE rdacademy_users SET status = 'z' WHERE id = rdacademy_f()", 'consenti' => true, 'azione' => 'prova' ) );
@@ -277,6 +278,9 @@ $root->select_db( 'academy_base' ); $root->query( 'RENAME TABLE rdacademy_consol
 $x = chiedi( array( 'sql' => $B, 'consenti' => true, 'azione' => 'esegui', 'conferma' => 'CONFERMO' ) );
 $root->query( 'DROP VIEW rdacademy_console_registro' ); $root->query( 'RENAME TABLE rdacademy_console_registro_v TO rdacademy_console_registro' );
 prova( 'G12 registro «avvio» non scrivibile: la scrittura confermata non parte', $x['rossi'] > 0 && uno( 'SELECT status FROM rdacademy_users WHERE id = 2' ) === $st2 && $st2 !== 'g12', testo( $x ) );
+
+$x = chiedi( array( 'sql' => 'SHOW CREATE VIEW rdacademy_vista' ) );
+prova( 'G13 SHOW CREATE VIEW: il DEFINER (utente@host) non si mostra', count( $x['dati'] ) === 1 && strpos( json_encode( $x['dati'] ), 'banco' ) === false, json_encode( $x['dati'] ) );
 
 // ── H. la porta AJAX chiamata davvero (manage_options, nonce, multisite) e l interfaccia ──
 final class Fine_Json extends Exception { public $dati; public $ok; public $cod; function __construct( $ok, $d, $c ) { $this->ok = $ok; $this->dati = $d; $this->cod = $c; parent::__construct( 'json' ); } }

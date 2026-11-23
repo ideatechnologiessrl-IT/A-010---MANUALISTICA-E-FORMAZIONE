@@ -1,0 +1,74 @@
+  VERDE  A1 motore e banco della console ci sono e si leggono (php -l)
+  VERDE  A2 la diagnostica carica motore e banco e avvia il banco
+  VERDE  A3 registro: area «Database e sorgenti» e voce n. 2 utility col suo file
+  VERDE  A4 forma comune: costanti N, NAT, AREA, SCHEDA, Q, TITOLO, SCOPO e metodi init/render/esegui/ajax
+  VERDE  A5 porta AJAX: permesso (manage_options; su multisite super amministratore) e nonce prima di tutto (provati davvero in H1-H3)
+  VERDE  A6 riga finale «N verdi, M rossi» e «Copia esito» nel referto
+  VERDE  A7 interfaccia del mockup: Prova a secco, CONFERMO, spunta «Consenti scrittura»
+  VERDE  B1 il motore si carica (classe Rdacademy_Console_SQL)
+  VERDE  B2 letture riconosciute (9 casi, anche con «;» in una stringa o in un commento)
+  VERDE  B3 le quattro scritture ammesse riconosciute, anche dentro WITH
+  VERDE  B4 rifiutate dal server, con o senza spunta (45 casi: DROP…RENAME, GRANT/CREATE/SET/LOAD/CALL/LOCK, INTO, /*!…*/, EXPLAIN ANALYZE, LOAD_FILE, FOR UPDATE, GET_LOCK, SLEEP, BENCHMARK, due istruzioni)
+  ROSSO  B5 il rifiuto di DROP dice perché (mai DROP, TRUNCATE, ALTER, MODIFY, RENAME; solo INSERT, UPDATE, DELETE, REPLACE) — «DROP» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+  VERDE  B6 INTO OUTFILE rifiutato anche dentro una scrittura, col suo motivo (la console non scrive file) — «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file.
+  VERDE  C1 sorgenti: BASE, le tre del prodotto e WordPress; spente e non configurate dichiarate — {"base":"in_uso","sorgente_3":"in_uso","sorgente_4":"non_configurata","riserva":"spenta","wordpress":"solo_lettura"}
+  VERDE  C2 mai una password nell elenco delle sorgenti (solo «presente»)
+  VERDE  C3 sorgente 4 non configurata: rifiutata, non ricade sul BASE — [ROSSO] 4 · Sorgente 4 non configurata: la console la rifiuta (non ricade sul BASE in silenzio).
+  VERDE  C4 riserva spenta: rifiutata anche se ha parametri — [ROSSO] 5 · Riserva spenta: la console la rifiuta (non ricade sul BASE in silenzio).
+  VERDE  C5 sorgente sconosciuta: rifiutata
+  VERDE  D1 lettura sul BASE: 10 righe, «academy_base @ localhost», READ ONLY dichiarato, riga «1 verdi, 0 rossi» — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 10 righe · 0 ms
+[INFO] Colonne segrete mascherate: api_token
+[VERDE] Lettura eseguita su academy_base @ localhost: 10 righe.
+  VERDE  D2 colonna segreta (api_token) mascherata e dichiarata
+  VERDE  D3 WordPress in lettura: user_pass mascherata — [INFO] SELECT su wp_prova @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: user_pass
+[VERDE] Lettura eseguita su wp_prova @ localhost: 1 righe.
+  VERDE  D4 al massimo 1000 righe, troncamento dichiarato
+  VERDE  D5 tempo massimo 10 s e transazione in sola lettura, misurati dal server — [["10.000000","1"]]
+  VERDE  D6 difesa in profondità: anche un UPDATE passato a leggi_su() lo rifiuta il server (READ ONLY) — (1792) Cannot execute statement in a READ ONLY transaction
+  VERDE  D7 lettura sulla sorgente 3 IN USO: dichiara academy_s3 @ localhost — [INFO] SELECT su academy_s3 @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_s3 @ localhost: 1 righe.
+  VERDE  E1 senza la spunta una scrittura è rifiutata — [ROSSO] Scrittura non consentita: spunta «Consenti scrittura» (solo BASE e sorgenti IN USO). (academy_base @ localhost)
+  VERDE  E2 sorgente WordPress: DELETE/UPDATE rifiutati anche con la spunta
+  VERDE  E3 senza prova a secco non si scrive, nemmeno con CONFERMO — [ROSSO] Nessuna prova a secco valida per questa istruzione: prima la prova a secco. (academy_base @ localhost)
+  VERDE  E4 prova a secco: «righe che cambierebbero: 7», nessun dato scritto — [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Righe che cambierebbero: 7 · nessun dato scritto.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  E5 conferma diversa da «CONFERMO» (anche minuscola): rifiutata
+  VERDE  E6 il CONFERMO vale solo per l istruzione provata
+  VERDE  E7 il CONFERMO vale solo per chi ha fatto la prova
+  VERDE  E8 CONFERMO giusto: 7 righe scritte davvero, «academy_base @ localhost» — [VERDE] UPDATE eseguita su academy_base @ localhost: 7 righe scritte; nel registro del BASE.
+  VERDE  E9 il CONFERMO si usa una volta sola
+  VERDE  E10 CONFERMO scaduto dopo 5 minuti: rifiutato, riga ancora lì — [ROSSO] CONFERMO scaduto (oltre 5 minuti): rifai la prova a secco. (academy_base @ localhost)
+  VERDE  E11 righe ricontate: 8 invece di 7 → annullata, niente scritto — [ROSSO] Righe ricontate: 8 invece di 7 della prova a secco → annullata, niente scritto. Rifai la prova. (academy_base @ localhost)
+  VERDE  E12 tabella MyISAM: la prova a secco la rifiuta (non si annulla), niente scritto — [ROSSO] Viste, sequenze o tabelle non InnoDB (rdacademy_vecchia (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  E13 il registro non si tocca dalla console (append-only)
+  VERDE  E14 il CONFERMO del BASE non vale su un altra sorgente, quello della sorgente 3 sì — [VERDE] UPDATE eseguita su academy_s3 @ localhost: 1 righe scritte; nel registro del BASE.
+  VERDE  E15 DROP con la spunta: rifiutato, tabella ancora lì
+  VERDE  F1 registro sul BASE: prove, scritture e rifiuti, con chi, sorgente, database, host, istruzione, righe, esito — {"rifiuto":14,"prova":4,"avvio":3,"scrittura":3}
+  VERDE  F2 la scrittura di 7 righe è nel registro con le sue righe e la sua istruzione
+  VERDE  F3 mai un registro sul database di WordPress
+  VERDE  F4 nessuna password nel registro
+  VERDE  G1 nomi di funzione fra apici inversi rifiutati come in chiaro (LOAD_FILE, SLEEP, GET_LOCK, BENCHMARK, NEXTVAL)
+  VERDE  G2 dal BASE la prova a secco non tocca un altro database (MyISAM di academy_s3, anche fra apici inversi) — [ROSSO] Riferimento a un altro database (academy_s3): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost) / [ROSSO] Riferimento a un altro database (academy_s3): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost)
+  VERDE  G3 dal BASE niente scrittura su WordPress né su mysql.* con db.tabella, nemmeno con CONFERMO — [ROSSO] Riferimento a un altro database (wp_prova): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost) / [ROSSO] Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (academy_base @ localhost)
+  VERDE  G4 in scrittura rifiutate viste, tabelle con trigger e funzioni memorizzate (scriverebbero fuori dalla prova a secco) — [ROSSO] Viste, sequenze o tabelle non InnoDB (rdacademy_vista (vista)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Tabelle con trigger (rdacademy_contr): scriverebbero altrove anche nella prova a secco, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Funzioni memorizzate (rdacademy_f): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  G5 in lettura rifiutati lo schema mysql, performance_schema, SHOW GRANTS/CREATE USER/PROCESSLIST e USER()/CURRENT_USER
+  VERDE  G6 segreti non aggirabili: alias, espressioni, WHERE sulla colonna, errore di EXTRACTVALUE, sottoquery
+  VERDE  G7 messaggi d errore ripuliti: niente valori dei dati, niente nome utente — [ROSSO] SELECT su academy_base @ localhost: (1105) XPATH syntax error: '…' / [ROSSO] SELECT su academy_s3 @ localhost: (1146) Table '…' doesn't exist
+  VERDE  G8 «authentication» fra le colonne segrete
+  VERDE  G9 F42(a) il gettone si consuma una volta sola anche se due richieste l hanno letto insieme — [ROSSO] CONFERMO già usato (o gettone non registrabile sul BASE): rifai la prova a secco. (academy_base @ localhost)
+  VERDE  G10 F42(b) WITH … SELECT REPLACE(…) è una lettura — {"ok":true,"tipo":"lettura","verbo":"WITH","motivo":"","nomi":["with","x","as","select","replace"],"qualificati":[],"chiamate":["as","replace"]}
+  VERDE  G11 F42(c) registro append-only anche nel database: trigger contro UPDATE e DELETE — trigger 2, righe 52 → 52
+  VERDE  G12 registro «avvio» non scrivibile: la scrittura confermata non parte — [ROSSO] Registro sul BASE non scrivibile: senza registro non si scrive (academy_base @ localhost).
+  VERDE  G13 SHOW CREATE VIEW: il DEFINER (utente@host) non si mostra — [["rdacademy_vista","CREATE ALGORITHM=UNDEFINED DEFINER=\u2026 SQL SECURITY DEFINER VIEW `rdacademy_vista` AS select `rdacademy_vecchia`.`id` AS `id`,`rdacademy_vecchia`.`v` AS `v` from `rdacademy_vecchia`","utf8mb4","utf8mb4_general_ci"]]
+  VERDE  H1 porta AJAX vera: senza manage_options risposta 403 e nessuna istruzione arriva al motore
+  VERDE  H2 porta AJAX vera: nonce sbagliato rifiutato prima del motore
+  VERDE  H3 F42(e) multisite: l amministratore di un sito che non è super amministratore non interroga il server
+  VERDE  H4 porta AJAX vera: una lettura arriva al motore e torna coi dati
+  VERDE  H5 porta AJAX vera: UPDATE wp_prova.wp_users dal BASE rifiutato anche con CONFERMO
+  VERDE  H6 F42(d) interfaccia del mockup: «Esegui · N righe» al CONFERMO; in scrittura solo «Prova a secco» e «Pulisci»
+
+62 verdi, 1 rossi
+TRAPPOLA: il banco ha detto ROSSO sul motore sabotato (DROP tolto) — come deve.

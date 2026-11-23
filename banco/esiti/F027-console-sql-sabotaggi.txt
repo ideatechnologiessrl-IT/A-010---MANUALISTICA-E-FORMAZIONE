@@ -1,0 +1,37 @@
+  ROSSO (giusto)  lettura senza READ ONLY (sessione e transazione) — 61 verdi, 2 rossi
+  ROSSO (giusto)  WordPress scrivibile — 61 verdi, 2 rossi
+  ROSSO (giusto)  spunta ignorata — 57 verdi, 6 rossi
+  ROSSO (giusto)  righe non ricontate — 62 verdi, 1 rossi
+  ROSSO (giusto)  CONFERMO senza scadenza — 62 verdi, 1 rossi
+  ROSSO (giusto)  CONFERMO per qualunque istruzione — 59 verdi, 4 rossi
+  ROSSO (giusto)  conferma non controllata — 59 verdi, 4 rossi
+  ROSSO (giusto)  INTO OUTFILE ammesso — 62 verdi, 1 rossi
+  ROSSO (giusto)  SLEEP ammesso — 61 verdi, 2 rossi
+  ROSSO (giusto)  commento eseguibile ammesso — 62 verdi, 1 rossi
+  ROSSO (giusto)  due istruzioni ammesse — 62 verdi, 1 rossi
+  ROSSO (giusto)  colonne segrete in chiaro — 61 verdi, 2 rossi
+  ROSSO (giusto)  ripiego su sorgente spenta — ?
+  ROSSO (giusto)  registro toccabile — 62 verdi, 1 rossi
+  ROSSO (giusto)  MyISAM ammessa — 61 verdi, 2 rossi
+  ROSSO (giusto)  scrittura senza registro — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 apici inversi non in chiaro — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 sequenze ammesse — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 SHOW GRANTS ammesso — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 USER() ammesso — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 schema mysql ammesso — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 REPLACE() preso per scrittura — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 colonne segrete citabili in lettura — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 errori con i valori — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 DEFINER in chiaro — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 altro database ammesso — 60 verdi, 3 rossi
+  ROSSO (giusto)  F027 viste ammesse — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 trigger ammessi — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 funzioni memorizzate ammesse — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 gettone riusabile — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 registro senza trigger — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 registro «avvio» ignorato — 62 verdi, 1 rossi
+  ROSSO (giusto)  F027 multisite senza super amministratore — 61 verdi, 2 rossi
+  ROSSO (giusto)  F027 interfaccia: Incolla in scrittura — 62 verdi, 1 rossi
+  ROSSO (giusto)  oltre 1000 righe — 62 verdi, 1 rossi
+
+35 sabotaggi su 35 fanno tornare rosso il banco
