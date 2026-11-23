@@ -135,7 +135,10 @@ def componi(uscita, pacchetto, ver_l, sess, diag=None):
              ' · '.join('%s %d' % (g, n) for g, n in sorted(gruppi.items()))))
     m.append('ELENCO DELL AREA, DICHIARATO (%d):' % len(area))
     m += ['  ' + f for f in area]
-    m.append('BASELINE %s · stadio %s · ultima installata sul sito: 0.1.03A (reldoxacademy.it, 19/11/2026)' % (ver, {'A': 'Alfa', 'B': 'Beta', 'G': 'Gold', 'L': 'Live'}[lettera]))
+    # F029: l ultima installata si legge da banco/INSTALLATA-SUL-SITO.txt (prima era scritta fissa: 0.1.03A)
+    fi = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'INSTALLATA-SUL-SITO.txt')
+    inst = open(fi, encoding='utf-8').read().strip() if os.path.isfile(fi) else 'non dichiarata (manca banco/INSTALLATA-SUL-SITO.txt)'
+    m.append('BASELINE %s · stadio %s · ultima installata sul sito: %s' % (ver, {'A': 'Alfa', 'B': 'Beta', 'G': 'Gold', 'L': 'Live'}[lettera], inst))
     bug = open(os.path.join(REPO, 'docs', 'BUG-FORMAZIONE.md'), encoding='utf-8').readline()
     m.append('         registro BUG: %s' % re.sub(r'^<!--\s*|\s*-->\s*$', '', bug.strip()))
     m += ['```', SEGNO_B]
