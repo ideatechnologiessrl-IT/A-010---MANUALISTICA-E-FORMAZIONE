@@ -1,0 +1,29 @@
+<p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
+
+# Decisioni chiuse della Formazione
+
+> ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Creato in Formazione F031, 23/11/2026, secondo `spec/REGOLE-FAMIGLIA-RELDOX-v9.md` § 10 ter del nodo (owner 23/11/2026, chat RelDox CRD S745: *«Sì, a tutte (consigliata)»*; richiesta CRD-R045, voce F47).
+
+⛔ **Si legge per primo, prima dell APERTURA.** Una decisione qui dentro **non si riapre, non si riverifica e non si richiede all owner**, anche se una riga di un registro o dell APERTURA dice ancora «da fare»: quella riga è sbagliata e si toglie. Quando l owner dice che una cosa è già decisa, nello stesso commit si aggiunge la riga qui e si tolgono le righe che la contraddicono. Le citazioni intere stanno in `docs/DECISIONI-OWNER.md` (numero D fra parentesi).
+
+Controllo, dal nodo: `python3 -I strumenti/decisioni-chiuse.py <A-010> --aperti <A-010>/docs/ROADMAP.md <A-010>/docs/BUG-FORMAZIONE.md` — VERDE all apertura e prima di scrivere ogni APERTURA nuova.
+
+| n | che cosa | decisione dell owner (data, ora, chat) | parole spia |
+|---|---|---|---|
+| C1 | RelDoxAcademy vive in questo repository e in questa chat: niente repository né chat nuovi (D6) | *«RelDoxAcademy è e sarà un tuo prodotto quindi non si crea nessun nnuovo repository»* — 15/11/2026 16:09, chat Formazione F001 | repository nuovo per RelDoxAcademy · chat nuova per RelDoxAcademy |
+| C2 | Una sola RelDoxAcademy sul nostro server, su un sito suo con infrastruttura dedicata; non un plugin presso il cliente, non dentro il sito istituzionale (D9, D20 che supera D18) | *«RelDoxAcademy: B (accesso sul nostro server)»* — 15/11/2026 17:02, chat Formazione F001; *«ok avrai il tuo sito indipendente con un'infrastruttura totalmente dedicata a te»* — 16/11/2026 16:56, chat Formazione F001 | dove installare RelDoxAcademy · Academy nel sito istituzionale · Academy presso il cliente |
+| C3 | Nessun attestato a fine corso: resta solo il registro di completamento (D4) | *«No»* — 15/11/2026, fra le 14:15 e le 15:33, chat Formazione F001 | attestato a fine corso · testo dell attestato |
+| C4 | I corsi sono compresi nel canone del prodotto (D3) | *«Compresi nel canone»* — 15/11/2026, fra le 14:15 e le 15:33, chat Formazione F001 | prezzo dei corsi · corsi a pagamento · come si pagano i corsi |
+| C5 | Nome tecnico `rdacademy`; il pulsante «Corsi» è un pezzo comune di famiglia (D14) | *«va bene il nome tecnico proposto, `rdacademy` · il pulsante «Corsi» diventa un pezzo comune, uguale per tutti i prodotti»* — 15/11/2026 19:21, chat Formazione F001 | nome tecnico del prodotto · scegliere il segno |
+| C6 | L owner controlla le lezioni con RelDoxAcademy attiva: non si chiede l approvazione lezione per lezione, le correzioni sono versioni nuove (D25, D27) | *«riesco a darti un check solo dopo che è attiva eventuali modifiche le vediamo dopo come in un qualsiasi corso»* — 17/11/2026 12:01, chat Formazione F002 | approvazione lezione per lezione · approvare ogni lezione |
+| C7 | RelDoxAcademy è una copia indipendente e funzionante: dai prodotti non si toglie nulla finché tutto non è in linea sull Academy (D28) | *«tu duplichi tutto in reldoxaccademy e nulla si toglie dai prodotti»* — 17/11/2026 15:08, chat Formazione F005 | togliere la manualistica dai prodotti · togliere i manuali dai plugin |
+| C8 | Manuale e codice distinti: la Formazione non entra mai nel codice dei prodotti (D29) | *«Tu non entri mai nel codice»* — 17/11/2026 15:10, chat Formazione F005 | correggere il codice di RelDoxFood · cambiare il codice dei prodotti |
+| C9 | Mail di servizio dell Academy: `academy@reldox.it` (D31) | *«academy@reldox.it»* — 17/11/2026 15:58, chat Formazione F006 | mail di servizio dell Academy · domanda 3 del § 15 |
+| C10 | Grafica: cima della barra laterale vuota (S-1) e loghi verso l esterno come la SPEC-GRAFICA v5 § 13 (S-2) (D32, D33) | *«Sì, cima vuota»*, *«Sì, come la SPEC»* — 19/11/2026 15:46, chat Formazione F016 | logo in cima alla barra laterale · S-1 della SPEC-GRAFICA · S-2 della SPEC-GRAFICA |
+| C11 | Nessuna app installabile sul telefono: manifesto e service worker tolti (D34) | *«togliamola in questo caso non ci serve averla sul phone mi sembra eccessivo»* — 19/11/2026 16:35, chat Formazione F017 | app installabile · service worker · pulsante «Installa» |
+| C12 | «Licenza d uso» con la stessa logica, funzionalità e impostazione degli altri prodotti; le specifiche si chiedono al capo famiglia, non all owner (D41, D43) | *«importante che mantieni la stessa logica, funzionalità ed impostazione di quella che già esiste»* — 20/11/2026 14:25, chat Formazione F021; *«approvato mockup genera»* — 21/11/2026 19:05, chat Formazione F023 | mockup della Licenza d uso · impostazione della pagina della licenza |
+| C13 | Smoke della 0.1.10A chiuso: passo 4 (chiave valida) solo a banco (D44) | *«B — solo a banco, chiudo qui»* — 23/11/2026 06:31, chat Formazione F024 | passo 4 dello smoke · chiave valida sul sito · costante di prova nel wp-config |
+| C14 | Mockup v1 della «Console SQL» della diagnostica approvato (D45) | *«ok approvato»* — 23/11/2026 08:39, chat Formazione F025 | mockup della Console SQL · approvazione del mockup della console |
+| C15 | I due plugin viaggiano sempre insieme: RelDoxAcademy e RelDoxAcademy Diagnostica, stesso numero, nello stesso kit (V-7) | *«se mi dai il core non mi puoi non dare RelDoxAcademy Diagnostica · I due plug in viaggiano assieme»* — 23/11/2026 14:54, chat Formazione F027 | consegnare la diagnostica a parte · diagnostica in un secondo momento |
+
+*⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale*
