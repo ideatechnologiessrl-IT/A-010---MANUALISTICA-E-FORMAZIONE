@@ -1,4 +1,4 @@
-<!-- REGISTRO FALLIMENTI · 18/11/2026 F013 · aperti 3 · primo libero F013-F2 -->
+<!-- REGISTRO FALLIMENTI · 23/11/2026 F030 · aperti 4 · primo libero F030-F2 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro FALLIMENTI della Formazione
@@ -26,6 +26,13 @@ Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti dif
 - **Rimedio**: F013 fa **solo** il pacchetto installabile 0.1.01A: chiude i file mancanti (quelli lunghi ridotti all essenziale), lo zip, e lo dà all owner per l installazione su `reldoxacademy.it`. Il resto della copia riprende dopo, guidato da ciò che si vede sul sito.
 - **Regola che ne esce**: prima di copiare un file ci si chiede se serve all installazione; il prompt della sessione dopo sta in 5 righe, senza sigle interne.
 - **Dove entra**: `CLAUDE.md` (regola «Prima la funzionalità») e APERTURA F013, nello stesso commit.
+
+### F030-F1 — 23/11/2026 — la riga «Registri» del nodo tenuta a mano: terza violazione della stessa classe
+- **Che cosa è successo**: terza violazione della classe «regole di famiglia lette e non applicate» (V-5 e V-6 sulle stelle lette dal cruscotto, V-8 sulla riga «Registri» del nodo ferma a 36 punti aperti mentre i file ne avevano 37); l ha vista l owner dal cruscotto delle sorelle (23/11/2026 18:30, chat Formazione F030).
+- **Causa (misurata)**: la riga «Registri» si scriveva a mano e nessun controllo la confrontava coi registri; le sessioni che non scrivono nel nodo (F029) la lasciavano indietro.
+- **Rimedio**: `strumenti/riga-registri.py` conta i quattro registri nei file e scrive la riga; riga del nodo riallineata.
+- **Regola**: la riga «Registri» del nodo non si scrive a mano: si copia dall uscita di `python3 -I strumenti/riga-registri.py . <nodo>/bacheca/formazione/STATO.md`, che deve essere VERDE a ogni consegna e prima di ogni pubblicazione sul nodo; le voci nate su un ramo di sessione si contano dal ramo, con la nota nella riga.
+- **Dove entra**: nell APERTURA di ogni sessione (§ 01 punto 0 e chiusura) e nel `CLAUDE.md` di A-010 («I quattro registri»), nello stesso commit.
 
 ### F013-F1 — 18/11/2026 — zip dichiarato installabile, provato solo su un WordPress in inglese
 - **Che cosa è successo**: ho consegnato la 0.1.01A come «si installa e funziona», provata da zip sul WordPress di prova; sul sito dell owner, in italiano, il plugin dopo il wizard non parte (BUG-1). Owner 18/11/2026 14:37, chat Formazione F013.

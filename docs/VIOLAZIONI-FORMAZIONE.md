@@ -1,4 +1,4 @@
-<!-- REGISTRO VIOLAZIONI · 23/11/2026 F027 · aperti 0 · totale 7 · ultimi 7 giorni 7 · primo libero V-8 -->
+<!-- REGISTRO VIOLAZIONI · 23/11/2026 F030 · aperti 0 · totale 8 · ultimi 7 giorni 8 · primo libero V-9 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro VIOLAZIONI della Formazione
@@ -12,6 +12,14 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 ## Schede
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
+
+### V-8 · 23/11/2026 · Formazione F030
+- **Regola violata**: `CLAUDE.md` di A-010, «I quattro registri»: la riga di testa di ogni registro e la riga «Registri: …» in testa a `bacheca/formazione/STATO.md` del nodo si aggiornano a ogni cambio (owner 17/11/2026 18:35, chat RelDox CRD S714); SPEC-REGISTRI v2 del nodo.
+- **Che cosa è successo**: la F029 ha aperto la voce F46 (punti aperti da 36 a 37, sul ramo `sessione/F029`) e non ha aggiornato la riga «Registri» del nodo, rimasta a «punti aperti 36 (con stelle 36)»; la F030 l ha letta all apertura senza confrontarla coi file. Misura del 23/11/2026, F030: sul ramo `sessione/F030` 37 punti aperti (tutti con stelle) e 1 bug aperto (BUG-6); su `main` di A-010 33 punti e 0 bug, perché F42, F43, F45 e F46 sono nate sui rami di sessione e il prodotto non è ancora unito in `main` dalla 0.1.10A.
+- **Chi l ha vista**: l owner, 23/11/2026 18:30, chat Formazione F030, dal cruscotto delle sorelle («Aree grigie da controllare»: 37 nello STATO, 33 nei file, −4).
+- **Rimedio**: riga «Registri» del nodo riallineata alla misura (`strumenti/riga-registri.py`, nuovo, che la calcola dai file e dice ROSSO se nel nodo è diversa), con la nota sul ramo; a R-D la parte del cruscotto che legge solo `main`.
+- **Classe**: regole di famiglia lette e non applicate.
+- **Ripetizione**: terza della classe (dopo V-5 e V-6): apre il fallimento **F030-F1**.
 
 ### V-7 · 23/11/2026 · Formazione F027
 - **Regola violata**: i due plugin viaggiano insieme: chi consegna RelDoxAcademy consegna anche RelDoxAcademy Diagnostica, stesso numero (SPEC-MANUTENZIONE v2 § 3, G10; owner 23/11/2026 14:54, chat Formazione F027: *«se mi dai il core non mi puoi non dare RelDoxAcademy Diagnostica · I due plug in viaggiano assieme · Questa è una violazione»*).

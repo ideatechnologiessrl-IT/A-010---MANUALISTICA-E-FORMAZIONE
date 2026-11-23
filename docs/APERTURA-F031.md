@@ -189,11 +189,13 @@ F030 (23/11/2026).
 - **Settima revisione a freddo** (sulla prima stesura della 0.1.15A, 135 test): 0 alti, 5 medi, 1 basso, tutti corretti (ON DUPLICATE KEY UPDATE, DISTINCT, NATURAL JOIN/USING, contatori con maiuscole, valori in chiaro nel registro, SHOW PROCEDURE STATUS con più spazi).
 - Banco `banco/F030-banco-console-sql.php`: rosso sulla 0.1.14A 95/3, rosso sulla 0.1.15A prima stesura 98/6, **verde 104/104**, trappola rossa. Sabotaggi: 76/76 fino a L3; **i 4 sabotaggi di L4-L8 sono scritti in `banco/F030-sabotaggi-console-sql.py` ma non eseguiti**.
 - Pacchetti con `banco/F030-rifai-0.1.15A.sh`. Il registro della console ora conserva l istruzione con i valori fra apici come «…».
+- **Dopo il kit K0030** (richiamo dell owner 18:30, cruscotto): violazione **V-8** (riga «Registri» del nodo ferma a 36), fallimento **F030-F1** con `strumenti/riga-registri.py` (nuovo: busta 3 conta un file in più del manifesto), riga del nodo riallineata, messaggio a R-D sul cruscotto che legge solo `main` (FOR-R006); CRD-R045 (decisioni chiuse) preso in carico come voce **F47 (★★★★)**, da fare per prima.
 - Banco: MariaDB locale, utente `banco`/`banco` (`apt-get install -y mariadb-server`, `mariadbd --user=mysql`). ⛔ Mai due banchi della console insieme sullo stesso MariaDB; la revisione su database suoi (`rev8_*`). Il primo agente della sesta si è fermato leggendo il banco: all agente di revisione non dare la cartella `banco/`, chiedergli test di conformità scritti da zero.
 
 ## §01 — CHE COSA FARE, IN ORDINE
-0. Manifesto, prova di lettura, apertura del nodo, registri in una riga.
-1. Eseguire `python3 -I banco/F030-sabotaggi-console-sql.py reldox-academy-diagnostica` (80 sabotaggi, tutti rossi).
+0. Manifesto, prova di lettura, apertura del nodo, registri in una riga; `python3 -I strumenti/riga-registri.py . <nodo>/bacheca/formazione/STATO.md` VERDE (fallimento F030-F1), anche alla chiusura.
+1. **F47**: `docs/DECISIONI-CHIUSE.md` e controllo `strumenti/decisioni-chiuse.py` del nodo (CRD-R045).
+1 bis. Eseguire `python3 -I banco/F030-sabotaggi-console-sql.py reldox-academy-diagnostica` (80 sabotaggi, tutti rossi).
 2. **BUG-6**: ottava revisione a freddo sulla 0.1.15A (agente nuovo, test di conformità scritti da zero, database `rev8_*`); se trova alti o medi: banco rosso, motore, verde, revisione di nuovo fino a 0 e 0. Poi pagina guardata in WordPress e smoke dell owner; con «ok smoke» unione, `novita/`, `prodotti.md`, riga «Sicurezza: tocca query e permessi», BUG-6, F42, F45 chiusi (F46 resta per la parte MySQL 8).
 3. F43 nella versione dopo la console; F40 a RelDoxFood; F41; F39 entro l 08/12; F38 alla prossima versione.
 4. A ogni consegna «Contesto: ~NN% · soglia kit 70%».

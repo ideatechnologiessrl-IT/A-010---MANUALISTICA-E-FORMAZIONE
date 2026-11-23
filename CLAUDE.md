@@ -19,7 +19,7 @@ Questo repository è della chat **Manualistica e formazione** della famiglia Rel
 | VIOLAZIONI | `docs/VIOLAZIONI-FORMAZIONE.md` |
 | FALLIMENTI | `docs/FALLIMENTI-FORMAZIONE.md` |
 
-Si leggono all apertura (regole dei fallimenti, ultime 5 violazioni, bug aperti, voci aperte) e lo si dice all owner in una riga «Registri letti: …»; si scrivono **subito**, nello stesso commit del primo gesto; nessuna scheda si cancella; la riga di testa di ogni registro e la riga «Registri: …» in testa a `bacheca/formazione/STATO.md` del nodo si aggiornano a ogni cambio. *(owner 17/11/2026 18:35, chat RelDox CRD S714)*
+Si leggono all apertura (regole dei fallimenti, ultime 5 violazioni, bug aperti, voci aperte) e lo si dice all owner in una riga «Registri letti: …»; si scrivono **subito**, nello stesso commit del primo gesto; nessuna scheda si cancella; la riga di testa di ogni registro e la riga «Registri: …» in testa a `bacheca/formazione/STATO.md` del nodo si aggiornano a ogni cambio. *(owner 17/11/2026 18:35, chat RelDox CRD S714)* ⛔ La riga «Registri» del nodo **non si scrive a mano**: si copia dall uscita di `python3 -I strumenti/riga-registri.py . <nodo>/bacheca/formazione/STATO.md`, che deve essere VERDE a ogni consegna e prima di ogni pubblicazione sul nodo; le voci nate sul ramo di sessione si contano dal ramo. *(fallimento F030-F1, 23/11/2026)*
 
 ## Dove sta ogni cosa
 | cartella | contenuto |
