@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0033 — 0.1.18A — F033
+## MANIFESTO — KIT K0034 — 0.1.18A — F033
 
-PROGRESSIVO K0033   precedente K0032   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0033-0_1_18A-F033.zip · composto il 24/11/2026 13:23
+PROGRESSIVO K0034   precedente K0033   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0034-0_1_18A-F033.zip · composto il 24/11/2026 13:24
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0033-0_1_18-F033.zip
+BUSTA 1  KIT-1-APERTURA-K0034-0_1_18-F033.zip
          reldox-academy-0_1_18.zip  md5 76fa266369f28ff0ee77848fefb41a0a
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_18.txt  103 righe
          APERTURA-F033.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: reldox-academy-diagnostica-0_1_18.zip  md5 c837006914cceb0ce3c637a072ea8b1d (F021: secondo pacchetto, stesso numero)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0033-0_1_18-F033.zip  51 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0033-0_1_18-F033.zip  119 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0034-0_1_18-F033.zip  51 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0034-0_1_18-F033.zip  119 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  320 righe
@@ -63,7 +63,7 @@ BUSTA 3  KIT-3-MISURE-K0033-0_1_18-F033.zip  119 script
          banco/F032-rifai-0.1.18A.sh  69 righe
          banco/F032-sabotaggi-console-sql.py  148 righe
          banco/INSTALLATA-SUL-SITO.txt  1 righe
-         banco/KIT-PROGRESSIVO.txt  32 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  33 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -139,7 +139,7 @@ BUSTA 3  KIT-3-MISURE-K0033-0_1_18-F033.zip  119 script
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
          strumenti/riga-registri.py  65 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0033-0_1_18-F033.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0034-0_1_18-F033.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (51):
   CLAUDE.md
   README.md
@@ -212,7 +212,7 @@ F032 (24/11/2026).
 - Controprova con le prove dei due revisori sul motore corretto: nona 32 riproduzioni su 42 non più presenti (restano i 10 bassi e dubbi); decima 515 prove, 0 non superate.
 - Regole nuove del motore, da dire all owner allo smoke: i nomi che cominciano con una cifra o contengono `$` sono rifiutati; un numero va staccato dalla parola che segue; la console legge solo il database della sorgente scelta (più `information_schema`); non legge viste sopra altre viste, funzioni o colonne generate; istruzioni al massimo di 20.000 byte; in INSERT fra parentesi dopo la tabella solo l elenco delle colonne.
 - Pacchetti con `banco/F032-rifai-0.1.18A.sh`. Banco: MariaDB locale, utente `banco`/`banco` (`apt-get update`, `apt-get install -y mariadb-server php-mysql`, `mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld`, `mariadbd --user=mysql`; si spegne fra un giro e l altro: riaccenderlo). ⛔ Mai due banchi della console insieme sullo stesso MariaDB. All agente di revisione: il plugin di diagnostica, il mockup, gli estratti delle regole e i soli sostituti di WordPress (dal segno «WordPress finto» al segno «il palco» del banco F032, con database `rev11_*`), mai la cartella `banco/` né le cartelle delle revisioni precedenti.
-- La riga «Registri» del nodo dice ancora 38: va riscritta da `strumenti/riga-registri.py` prima di pubblicare (41 punti aperti: nate F49, F50 e F51). In F032 sul nodo non è stato pubblicato nulla.
+- La riga «Registri» del nodo dice ancora 38: va riscritta da `strumenti/riga-registri.py` prima di pubblicare è stata riscritta e pubblicata in F032 (42 punti aperti: nate F49, F50, F51, F52). Risposto «ricevuto» a CRD-R048 (SPEC-API v9: voce F52 ★★).
 
 ## §01 — CHE COSA FARE, IN ORDINE
 0. Decisioni chiuse, manifesto, prova di lettura, apertura del nodo, registri in una riga; `python3 -I strumenti/riga-registri.py . <nodo>/bacheca/formazione/STATO.md` VERDE dopo aver riscritto la riga, anche alla chiusura.
