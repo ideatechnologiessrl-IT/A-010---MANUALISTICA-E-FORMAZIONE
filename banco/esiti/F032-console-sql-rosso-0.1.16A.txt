@@ -1,0 +1,226 @@
+  VERDE  A1 motore e banco della console ci sono e si leggono (php -l)
+  VERDE  A2 la diagnostica carica motore e banco e avvia il banco
+  VERDE  A3 registro: area «Database e sorgenti» e voce n. 2 utility col suo file
+  VERDE  A4 forma comune: costanti N, NAT, AREA, SCHEDA, Q, TITOLO, SCOPO e metodi init/render/esegui/ajax
+  VERDE  A5 porta AJAX: permesso (manage_options; su multisite super amministratore) e nonce prima di tutto (provati davvero in H1-H3)
+  VERDE  A6 riga finale «N verdi, M rossi» e «Copia esito» nel referto
+  VERDE  A7 interfaccia del mockup: Prova a secco, CONFERMO, spunta «Consenti scrittura»
+  VERDE  B1 il motore si carica (classe Rdacademy_Console_SQL)
+  VERDE  B2 letture riconosciute (9 casi, anche con «;» in una stringa o in un commento)
+  VERDE  B3 le quattro scritture ammesse riconosciute, anche dentro WITH
+  VERDE  B4 rifiutate dal server, con o senza spunta (45 casi: DROP…RENAME, GRANT/CREATE/SET/LOAD/CALL/LOCK, INTO, /*!…*/, EXPLAIN ANALYZE, LOAD_FILE, FOR UPDATE, GET_LOCK, SLEEP, BENCHMARK, due istruzioni)
+  VERDE  B5 il rifiuto di DROP dice perché (mai DROP, TRUNCATE, ALTER, MODIFY, RENAME; solo INSERT, UPDATE, DELETE, REPLACE) — «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata.
+  VERDE  B6 INTO OUTFILE rifiutato anche dentro una scrittura, col suo motivo (la console non scrive file) — «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file.
+  VERDE  C1 sorgenti: BASE, quelle del prodotto e WordPress; spente e non configurate dichiarate — {"base":"in_uso","sorgente_3":"in_uso","sorgente_4":"non_configurata","riserva":"spenta","sorgente_wp":"in_uso","wordpress":"solo_lettura"}
+  VERDE  C2 mai una password nell elenco delle sorgenti (solo «presente»)
+  VERDE  C3 sorgente 4 non configurata: rifiutata, non ricade sul BASE — [ROSSO] 4 · Sorgente 4 non configurata: la console la rifiuta (non ricade sul BASE in silenzio).
+  VERDE  C4 riserva spenta: rifiutata anche se ha parametri — [ROSSO] 5 · Riserva spenta: la console la rifiuta (non ricade sul BASE in silenzio).
+  VERDE  C5 sorgente sconosciuta: rifiutata
+  VERDE  D1 lettura sul BASE: 10 righe, «academy_base @ localhost», READ ONLY dichiarato, riga «1 verdi, 0 rossi» — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 10 righe · 0 ms
+[INFO] Colonne segrete mascherate: api_token
+[VERDE] Lettura eseguita su academy_base @ localhost: 10 righe.
+  VERDE  D2 colonna segreta (api_token) mascherata e dichiarata
+  VERDE  D3 WordPress in lettura: user_pass mascherata — [INFO] SELECT su wp_prova @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: user_pass
+[VERDE] Lettura eseguita su wp_prova @ localhost: 1 righe.
+  VERDE  D4 al massimo 1000 righe, troncamento dichiarato
+  VERDE  D5 tempo massimo 10 s e transazione in sola lettura, misurati dal server — [["10.000000","1"]]
+  VERDE  D6 difesa in profondità: anche un UPDATE passato a leggi_su() lo rifiuta il server (READ ONLY) — (1792) Cannot execute statement in a READ ONLY transaction
+  VERDE  D7 lettura sulla sorgente 3 IN USO: dichiara academy_s3 @ localhost — [INFO] SELECT su academy_s3 @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_s3 @ localhost: 1 righe.
+  VERDE  E1 senza la spunta una scrittura è rifiutata — [ROSSO] Scrittura non consentita: spunta «Consenti scrittura» (solo BASE e sorgenti IN USO). (academy_base @ localhost)
+  VERDE  E2 sorgente WordPress: DELETE/UPDATE rifiutati anche con la spunta
+  VERDE  E3 senza prova a secco non si scrive, nemmeno con CONFERMO — [ROSSO] Nessuna prova a secco valida per questa istruzione: prima la prova a secco. (academy_base @ localhost)
+  VERDE  E4 prova a secco: «righe che cambierebbero: 7», nessun dato scritto — [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 7 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  E5 conferma diversa da «CONFERMO» (anche minuscola): rifiutata
+  VERDE  E6 il CONFERMO vale solo per l istruzione provata
+  VERDE  E7 il CONFERMO vale solo per chi ha fatto la prova
+  VERDE  E8 CONFERMO giusto: 7 righe scritte davvero, «academy_base @ localhost» — [VERDE] UPDATE eseguita su academy_base @ localhost: 7 righe scritte (trovate dalla condizione, anche se già uguali); nel registro del BASE.
+  VERDE  E9 il CONFERMO si usa una volta sola
+  VERDE  E10 CONFERMO scaduto dopo 5 minuti: rifiutato, riga ancora lì — [ROSSO] CONFERMO scaduto (oltre 5 minuti): rifai la prova a secco. (academy_base @ localhost)
+  VERDE  E11 righe ricontate: 8 invece di 7 → annullata, niente scritto — [ROSSO] Righe ricontate: 8 invece di 7 della prova a secco → annullata, niente scritto. Rifai la prova. (academy_base @ localhost)
+  VERDE  E12 tabella MyISAM: la prova a secco la rifiuta (non si annulla), niente scritto — [ROSSO] Viste, sequenze o tabelle non InnoDB (rdacademy_vecchia (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  E13 il registro e i gettoni non si toccano dalla console (append-only, per nome: vale anche senza permesso TRIGGER) — [ROSSO] Il registro della console non si tocca dalla console (append-only). (academy_base @ localhost) / [ROSSO] Il registro della console non si tocca dalla console (append-only). (academy_base @ localhost)
+  VERDE  E14 il CONFERMO del BASE non vale su un altra sorgente, quello della sorgente 3 sì — [VERDE] UPDATE eseguita su academy_s3 @ localhost: 1 righe scritte (trovate dalla condizione, anche se già uguali); nel registro del BASE.
+  VERDE  E15 DROP con la spunta: rifiutato, tabella ancora lì
+  VERDE  F1 registro sul BASE: prove, scritture e rifiuti, con chi, sorgente, database, host, istruzione, righe, esito — {"rifiuto":15,"prova":4,"avvio":3,"scrittura":3}
+  VERDE  F2 la scrittura di 7 righe è nel registro con le sue righe e la sua istruzione (F030: i valori fra apici come «…»)
+  VERDE  F3 mai un registro sul database di WordPress
+  VERDE  F4 nessuna password nel registro
+  VERDE  G1 nomi di funzione fra apici inversi rifiutati come in chiaro (LOAD_FILE, SLEEP, GET_LOCK, BENCHMARK, NEXTVAL)
+  VERDE  G2 dal BASE la prova a secco non tocca un altro database (MyISAM di academy_s3, anche fra apici inversi) — [ROSSO] Riferimento a un altro database (academy_s3): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost) / [ROSSO] Riferimento a un altro database (academy_s3): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost)
+  VERDE  G3 dal BASE niente scrittura su WordPress né su mysql.* con db.tabella, nemmeno con CONFERMO — [ROSSO] Riferimento a un altro database (wp_prova): in scrittura solo tabelle del database della sorgente, academy_base. (academy_base @ localhost) / [ROSSO] Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (academy_base @ localhost)
+  VERDE  G4 in scrittura rifiutate viste, tabelle con trigger e funzioni memorizzate (scriverebbero fuori dalla prova a secco) — [ROSSO] Viste, sequenze o tabelle non InnoDB (rdacademy_vista (vista)): la prova a secco non si può annullare, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Tabelle con trigger (rdacademy_contr): scriverebbero altrove anche nella prova a secco, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Funzioni memorizzate (rdacademy_f): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  G5 in lettura rifiutati lo schema mysql, performance_schema, SHOW GRANTS/CREATE USER/PROCESSLIST e USER()/CURRENT_USER
+  VERDE  G6 segreti non aggirabili: alias, espressioni, WHERE sulla colonna, errore di EXTRACTVALUE, sottoquery
+  VERDE  G7 messaggi d errore ripuliti: niente valori dei dati, niente nome utente — [ROSSO] Tabelle con colonne segrete (rdacademy_users): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (academy_base @ localhost) / [ROSSO] SELECT su academy_s3 @ localhost: (1146) Table «…»
+  VERDE  G8 «authentication» fra le colonne segrete
+  VERDE  G9 F42(a) il gettone si consuma una volta sola anche se due richieste l hanno letto insieme — [ROSSO] CONFERMO già usato (o gettone non registrabile sul BASE): rifai la prova a secco. (academy_base @ localhost)
+  VERDE  G10 F42(b) WITH … SELECT REPLACE(…) è una lettura — {"ok":true,"tipo":"lettura","verbo":"WITH","motivo":"","nomi":["with","x","as","select","replace"],"qualificati":[],"chiamate":["as","replace"]}
+  VERDE  G11 F42(c) registro append-only anche nel database: trigger contro UPDATE e DELETE — trigger 2, righe 54 → 54
+  VERDE  G12 registro «avvio» non scrivibile: la scrittura confermata non parte — [ROSSO] Registro sul BASE non scrivibile: senza registro non si scrive (academy_base @ localhost).
+  VERDE  G13 SHOW CREATE VIEW: il DEFINER (utente@host) non si mostra — [["rdacademy_vista","CREATE ALGORITHM=UNDEFINED DEFINER=\u2026 SQL SECURITY DEFINER VIEW `rdacademy_vista` AS select `rdacademy_vecchia`.`id` AS `id`,`rdacademy_vecchia`.`v` AS `v` from `rdacademy_vecchia`","utf8mb4","utf8mb4_general_ci"]]
+  VERDE  G14 segreti non escono con UNION, colonne del WITH, information_schema.VIEWS (DEFINER) e sottoquery
+  VERDE  G15 errore con un apice nel valore: il valore non esce — [ROSSO] SELECT su academy_base @ localhost: (1105) XPATH syntax error: «…»
+  VERDE  G16 nomi accentati senza apici inversi: altro database e MyISAM rifiutati, niente scritto — [ROSSO] Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (academy_base @ localhost) / [ROSSO] Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (academy_base @ localhost)
+  VERDE  G17 tabella con DEFAULT NEXT VALUE FOR: rifiutata (la sequenza non si annulla) — [ROSSO] Tabelle con valori da una sequenza (rdacademy_cs): la sequenza avanza anche nella prova a secco, scrittura rifiutata. (academy_base @ localhost)
+  VERDE  G18 SHOW ENGINE … STATUS rifiutata (utenti e istruzioni delle altre sessioni) — [ROSSO] SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (academy_base @ localhost)
+  VERDE  G19 sorgente nel database di WordPress: wp_users rifiutata, tabelle rdacademy_ ammesse — [ROSSO] La sorgente è il database di WordPress: in scrittura solo tabelle di RelDoxAcademy (rdacademy_…), non wp_users. (wp_prova @ localhost) / [INFO] Prova a secco su wp_prova @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 0 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su wp_prova @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  G20 tempo massimo 10 s anche in scrittura, misurato dal server — 10
+  VERDE  I1 i segreti non si copiano: INSERT/REPLACE … SELECT da tabelle con colonne segrete rifiutate, niente scritto
+  VERDE  I2 tabelle chiave/valore: il valore di una chiave segreta mascherato riga per riga, il nome della chiave e i valori innocui visibili
+  VERDE  I3 tabelle chiave/valore: il valore non si usa nelle condizioni (non diventa un oracolo) — [ROSSO] Il valore delle tabelle chiave/valore («valore») non si usa in condizioni, ordinamenti né unioni: filtra per «chiave». (academy_base @ localhost) / [ROSSO] Il valore delle tabelle chiave/valore («option_value») non si usa in condizioni, ordinamenti né unioni: filtra per «option_name». (wp_prova @ localhost)
+  VERDE  I4 server con ANSI_QUOTES e NO_BACKSLASH_ESCAPES: la sessione della console li toglie, niente file né password — [ROSSO] SELECT su academy_base @ localhost: (1054) Unknown column «…» / [INFO] SELECT su wp_prova @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su wp_prova @ localhost: 1 righe.
+  VERDE  I5 information_schema.INNODB_TRX rifiutata (istruzioni delle altre sessioni) — [ROSSO] INNODB_TRX, INNODB_LOCKS e simili rifiutate: mostrano le istruzioni delle altre sessioni. (academy_base @ localhost)
+  VERDE  I6 rifiutati dal server: INNODB_LOCKS e simili, SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN/ANALYZE FOR, EXPLAIN FOR CONNECTION, permessi e ruoli, attese GTID, suggerimenti /*+
+  VERDE  I7 tetto in byte: un risultato di 20 MB si tronca sotto i 6 MB e lo dichiara — 5000251 byte
+  VERDE  I8 utente della sorgente: solo come presenza (db_user mascherato) — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: db_user, db_pass_enc
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe.
+  VERDE  I9 MySQL 8: TABLE e LATERAL nelle sottoquery su tabelle con segreti rifiutati dalla console (non dal server) — [ROSSO] Tabelle con colonne segrete (wp_users): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (wp_prova @ localhost) / [ROSSO] Tabelle con colonne segrete (wp_users): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (wp_prova @ localhost)
+  VERDE  I10 registro: la prova a secco dichiara se è protetto da trigger o solo per nome — [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 0 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  I11 in scrittura anche l attesa dei lucchetti ha il tetto di 10 s (vale anche su MySQL 8, dove max_statement_time non c è) — 10
+  VERDE  J1 «--» seguito da un carattere di controllo (\x01-\x1f, \x7f): istruzione rifiutata, niente password né file — passano: 
+  VERDE  J2 caratteri di controllo rifiutati anche in scrittura e dal classificatore; tab, a capo e spazio restano ammessi — [ROSSO] Caratteri di controllo nell istruzione rifiutati (ammessi solo spazio, tab e a capo). (academy_base @ localhost) / [true,true]
+  VERDE  J3 tabelle chiave/valore unite con sé stesse: ogni valore resta legato alla chiave della sua riga (mascherato se segreto), i valori innocui visibili
+  VERDE  J4 UPDATE e DELETE su più tabelle con tabelle segrete o chiave/valore: rifiutati, niente copiato —  / [["n1","n1","n1","n1"]]
+  VERDE  J5 la chiave di una tabella chiave/valore non si cambia (rinominarla smaschererebbe il valore)
+  VERDE  J6 errore durante la lettura (a metà dei dati): ROSSO e nessun dato parziale — [ROSSO] SELECT su academy_base @ localhost: errore durante la lettura, nessun dato mostrato: (1690) DOUBLE value is out of range in «…» / 0 righe
+  VERDE  J7 il valore delle tabelle chiave/valore si legge solo così com è (niente espressioni: non diventa un oracolo), con o senza alias —  / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: v (valori delle chiavi segrete)
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe.
+  VERDE  J8 F45(a) «role_name» è una colonna qualunque; ROLE_TABLE_GRANTS resta rifiutata — ["","Tabelle di sistema con utenti e permessi rifiutate."]
+  VERDE  J9 F45(b) tabelle con segreti: niente ORDER/GROUP BY per posizione né INSERT senza elenco di colonne; con le colonne innocue sì — [ROSSO] Tabelle con colonne segrete (rdacademy_users): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (academy_base @ localhost) / [ROSSO] Tabelle con colonne segrete o chiave/valore (rdacademy_users): INSERT e REPLACE con l elenco delle colonne (senza, si scriverebbero le colonne segrete). (academy_base @ localhost) / [INFO] Prova a secco su academy_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 1 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  J10 in scrittura il valore chiave/valore si assegna e basta: «righe che cambierebbero» non diventa un oracolo — [ROSSO] Il valore delle tabelle chiave/valore («valore») in scrittura si può solo assegnare (valore = …), non usare in espressioni. (academy_base @ localhost) / [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 1 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  K1 la chiave non si cambia nemmeno con «:=» o col nome a tre parti; il valore si assegna anche con «:=»
+  VERDE  K2 col valore chiave/valore nel risultato niente HAVING, ORDER BY né GROUP BY; posizioni rifiutate anche con OFFSET; ordinare per chiave o colonne innocue sì —  / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 0 righe.
+  VERDE  K3 INSERT … SET su una tabella chiave/valore: è una riga nuova, non un cambio di chiave — [INFO] Prova a secco su academy_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 1 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  K4 SHOW ALL SLAVES/REPLICAS STATUS rifiutate (utente e host della replica) — [false,false]
+  VERDE  L1 PROCEDURE ANALYSE() rifiutata ovunque: Min_value e Max_value mostrerebbero i valori segreti; le letture ordinarie restano —  / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe.
+  VERDE  L2 la prova a secco non lascia effetti: AUTO_INCREMENT di nuovo com era dopo l annullamento — tm 2 → 2 · users 11 → 11 · [INFO] Prova a secco su academy_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 3 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  L3 F46(a) la prova a secco conta le righe trovate: valore indovinato giusto o sbagliato danno lo stesso numero (niente oracolo d uguaglianza) — [1,1,1]
+  VERDE  L4 ON DUPLICATE KEY UPDATE su una tabella chiave/valore rifiutato (il conteggio 0/2 direbbe se il valore è giusto) — [ROSSO] Tabelle con colonne segrete o chiave/valore (rdacademy_impostazioni): niente ON DUPLICATE KEY UPDATE (il conteggio direbbe se il valore era già quello); si usa UPDATE … WHERE chiave = …. (academy_base @ localhost)
+  VERDE  L5 DISTINCT e DISTINCTROW rifiutati sulle tabelle chiave/valore (il numero di righe direbbe se due valori sono uguali)
+  VERDE  L6 NATURAL JOIN e JOIN … USING rifiutati sulle tabelle chiave/valore o con segreti (confronterebbero i valori senza nominarli)
+  VERDE  L7 contatori rimessi anche per le tabelle con maiuscole nel nome, e il referto dice il vero — 3 → 3 · [INFO] Prova a secco su academy_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 1 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  L8 il registro non conserva in chiaro i valori scritti fra apici (ogni amministratore lo legge): resta l istruzione, il valore diventa «…» — in chiaro 0 · istruzioni registrate 51
+  VERDE  L9 SHOW PROCEDURE STATUS e SHOW CREATE PROCEDURE ammessi con qualunque spaziatura; PROCEDURE ANALYSE resta rifiutata — [true,true,true,false]
+  VERDE  H1 porta AJAX vera: senza manage_options risposta 403 e nessuna istruzione arriva al motore
+  VERDE  H2 porta AJAX vera: nonce sbagliato rifiutato prima del motore
+  VERDE  H3 F42(e) multisite: l amministratore di un sito che non è super amministratore non interroga il server
+  VERDE  H4 porta AJAX vera: una lettura arriva al motore e torna coi dati
+  VERDE  H5 porta AJAX vera: UPDATE wp_prova.wp_users dal BASE rifiutato anche con CONFERMO
+  VERDE  H6 F42(d) interfaccia del mockup: «Esegui · N righe» al CONFERMO; in scrittura solo «Prova a secco» e «Pulisci»
+  VERDE  M1 (alto) tabelle di sistema vietate scritte con İ o K: rifiutate come col nome in ASCII
+  VERDE  M2 (alto) chiave/valore: la tabella gemella di un altro database (stesso nome o stesso alias) non smaschera il valore — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: valore (valori delle chiavi segrete)
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: valore (valori delle chiavi segrete)
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe.
+  VERDE  M3 (alto) tabelle con maiuscole accentate: niente segreti con UNION, niente prova a secco su MyISAM — [ROSSO] Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (academy_base @ localhost) / [ROSSO] Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (academy_base @ localhost)
+  VERDE  M4 (alto) funzioni memorizzate col nome fra apici inversi o con İ: la prova a secco le rifiuta, niente scritto — [ROSSO] Funzioni memorizzate (rdacademy-g): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (academy_base @ localhost) / [ROSSO] Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (academy_base @ localhost)
+  VERDE  M5 (alto) una vista o una funzione che rinomina una colonna segreta non la mostra; la vista innocua si legge — [ROSSO] Viste che leggono colonne segrete o chiave/valore (rdacademy_v_ut): la console non le legge, le colonne segrete cambierebbero nome. (academy_base @ localhost) / [ROSSO] Funzioni memorizzate (rdacademy_fleggi): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (academy_base @ localhost) / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 2 righe.
+  VERDE  M6 (medio) chiave/valore in lettura: il valore non entra come argomento di una funzione (oracolo NULL, errore, tempo)
+  VERDE  M7 (medio) prova a secco: «, valore =» dentro una funzione non è un assegnazione (oracolo d uguaglianza) — [ROSSO] Il valore delle tabelle chiave/valore («valore») in scrittura si può solo assegnare (valore = …), non usare in espressioni. (academy_base @ localhost)
+  VERDE  M8 (medio) ORDER BY e GROUP BY per posizione rifiutati anche con parentesi, segno o alias «limit»; ORDER BY id LIMIT 5 resta —  / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 5 righe.
+  VERDE  M9 (medio) registro: nessun valore digitato in chiaro (numeri, 0b…, apostrofo in un commento) — 0 righe coi valori
+  VERDE  M10 (medio) prova a secco senza INSERT: nessun ALTER TABLE sulla tabella (CREATE_TIME fermo) — [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 1 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  VERDE  M11 (medio) referto vero: valori chiave/valore mascherati dichiarati; riga finale di una lettura troncata dice «troncato» — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: valore (valori delle chiavi segrete)
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe. / Lettura eseguita su academy_base @ localhost: solo le prime 1000 righe, risultato troncato (non è tutto).
+  ROSSO  N1 (alto) nome fra apici inversi attaccato a UNION o alla tabella: nessun segreto in chiaro (BASE, wp_users, wp_options) — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1000 righe · 2 ms
+[INFO] Risultato troncato: al massimo 1000 righe e 5 MB.
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: solo le prime 1000 righe, risultato troncato (non è tutto). / [INFO] SELECT su wp_prova @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su wp_prova @ localhost: 2 righe. / [INFO] SELECT su wp_prova @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 7 righe · 1 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su wp_prova @ localhost: 7 righe.
+  ROSSO  N2 (alto) scritture con l apice inverso attaccato: niente su WordPress, su un altro database, su MyISAM, da tabelle con segreti, con trigger — ["preso","1","1","1"] / [INFO] Prova a secco su academy_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).
+[INFO] Registro: protetto da trigger contro UPDATE e DELETE.
+[INFO] Righe che cambierebbero: 1 (trovate dalla condizione, anche se già uguali) · nessun dato scritto, contatori AUTO_INCREMENT rimessi com erano.
+[INFO] Per scrivere davvero su academy_base @ localhost scrivi CONFERMO e premi «Esegui» entro 5 minuti; vale solo per questa istruzione, su questa sorgente, una volta.
+  ROSSO  N3 (alto) INTO OUTFILE, INTO @v, lucchetti e SLEEP attaccati a un nome fra apici inversi: rifiutati, nessun file scritto — SELECT a FROM rdacademy_note WHERE a=`a`INTO OUTFILE '/tmp/f032-n3-459.txt' | SELECT a FROM rdacademy_note WHERE a=`a`LOCK IN SHARE MODE · file scritto
+  ROSSO  N4 (alto) nomi che cominciano con una cifra o con $ e numeri attaccati a una parola: rifiutati, nessun segreto, nessuna scrittura su MyISAM — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 2 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 2 righe. / [ROSSO] Colonne segrete citate (password): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (academy_base @ localhost) / righe in 9antica 1
+  ROSSO  N5 (alto) information_schema.PROCESSLIST con un alias attaccato: rifiutata — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 2 righe. / [ROSSO] Tabelle di sistema con utenti e permessi rifiutate. (academy_base @ localhost)
+  ROSSO  N6 (alto) vista sopra una vista, vista che chiama una funzione, colonna generata da una segreta: il segreto non esce; la vista innocua si legge — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe.
+  ROSSO  N7 (medio) oracoli per incollatura: HAVING e ORDER BY attaccati a un nome fra apici inversi o a un numero rifiutati — SELECT option_name, option_value v FROM wp_options HAVING`v`LIKE 'smtp%' | SELECT * FROM rdacademy_users ORDER BY`id`*0,4 | SELECT * FROM rdacademy_users WHERE id>0.0ORDER BY 4 | SELECT chiave, valore v FROM rdacademy_impostazioni ORDER BY`v`
+  ROSSO  N8 (medio) istruzione lunghissima: rifiutata (i controlli non si spengono) — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 13 ms
+[INFO] Colonne segrete mascherate: api_token
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe.
+  ROSSO  N9 (medio) ogni rifiuto è nel registro: byte non UTF-8 nell istruzione, sorgente lunghissima, login non UTF-8 — registro: 211 → 211 → 211 → 211
+  ROSSO  N10 (medio) lettura da un altro database rifiutata (il referto dichiarerebbe il database sbagliato); information_schema e il proprio database restano — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 30 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 30 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 3 righe.
+  ROSSO  N11 (medio) registro: nessun numero incollato in chiaro e nessun nome fuso col suo alias — 2 righe
+  VERDE  N12 istruzioni innocue con apici inversi, numeri con esponente ed esadecimali restano ammesse — [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 1 righe. / [INFO] SELECT su academy_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms
+[INFO] Colonne segrete mascherate: nessuna in questo risultato
+[VERDE] Lettura eseguita su academy_base @ localhost: 2 righe.
+
+116 verdi, 11 rossi

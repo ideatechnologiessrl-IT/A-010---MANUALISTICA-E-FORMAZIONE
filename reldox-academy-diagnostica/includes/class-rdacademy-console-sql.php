@@ -3,7 +3,7 @@
  * Rdacademy_Console_SQL — IL MOTORE DELLA CONSOLE SQL (banco standard n. 2, area «Database e sorgenti»).
  * ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
  *
- * RelDoxAcademy 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
+ * RelDoxAcademy 0.1.17A (Formazione F032: BUG-6, nona revisione a freddo). 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
  * 23/11/2026 08:39, chat Formazione F025: «ok approvato»). Nasce dalla console di RelDoxFood 1.24.11L
  * (class-rdfood-console-sql.php, letta in sola lettura in F025) portata allo standard di famiglia: banco
  * prima del motore (banco/F026-banco-console-sql.php).
@@ -53,6 +53,14 @@
  *  - chiave/valore: la chiave si lega al valore per database e tabella; il valore mai dentro parentesi (argomento di funzione);
  *  - ORDER/GROUP BY: nessun numero come voce su tabelle con segreti; registro senza numeri né valori (dallo scheletro);
  *  - prova a secco: ALTER del contatore solo se è cambiato; referto: maschere chiave/valore dichiarate, «troncato» nella riga finale.
+ *  0.1.17A (BUG-6, nona revisione a freddo F032: 6 alti, 5 medi):
+ *  - un nome fra apici inversi nello scheletro sta sempre fra due spazi (`id`UNION è «id UNION» anche per i controlli);
+ *  - rifiutati: numeri attaccati a una parola (1.0UNION, 1e1UNION), nomi che cominciano con una cifra, «$» e «\» fuori dalle stringhe,
+ *    istruzioni oltre MAX_ISTRUZIONE byte;
+ *  - in lettura niente tabelle di un altro database (il referto dichiara un database solo); information_schema resta;
+ *  - viste: non si leggono quelle che poggiano su un altra vista, chiamano una funzione memorizzata o leggono una colonna generata da
+ *    una segreta; le tabelle con una colonna generata da una segreta non si leggono;
+ *  - registro: ogni campo ripulito e accorciato prima di scrivere (byte non UTF-8, sorgente o login lunghi); il rifiuto non registrato si dichiara.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -63,6 +71,7 @@ final class Rdacademy_Console_SQL {
 
 	const MAX_RIGHE    = 1000;
 	const MAX_BYTE     = 5000000;
+	const MAX_ISTRUZIONE = 20000;
 	const TEMPO_MAX    = 10;
 	const CONFERMO_TTL = 300;
 	const REGISTRO     = 'console_registro';
@@ -149,7 +158,8 @@ final class Rdacademy_Console_SQL {
 				if ( $c === '`' ) {
 					$ids[] = $val;
 					// in chiaro (BUG-6 ALTO 1): `SLEEP`(1) si giudica come SLEEP(1); un nome con caratteri strani diventa __idN__
-					$out .= preg_match( '/^[A-Za-z0-9_$\x80-\xff]+$/', $val ) ? $val : ' __id' . ( count( $ids ) - 1 ) . '__ ';
+					// F032 (9ª revisione, ALTI 1-3 e 5): sempre fra due spazi, altrimenti `id`UNION diventa «idUNION» e UNION sparisce dai controlli
+					$out .= preg_match( '/^[A-Za-z0-9_$\x80-\xff]+$/', $val ) ? ' ' . $val . ' ' : ' __id' . ( count( $ids ) - 1 ) . '__ ';
 				} else { $out .= " '' "; }
 				$i = $j + 1; continue;
 			}
@@ -164,6 +174,8 @@ final class Rdacademy_Console_SQL {
 	public static function classifica( string $sql ): array {
 		$no = static function ( string $m, string $v = '' ): array { return array( 'ok' => false, 'tipo' => 'rifiuto', 'verbo' => $v, 'motivo' => $m, 'nomi' => array() ); };
 		// F029 (4ª revisione, ALTO 1): «--» seguito da un carattere di controllo è un commento per il server e non per lo scheletro
+		// F032 (9ª revisione, MEDIO 2): oltre il limite di PCRE i controlli tornano NULL e non fermano più nulla
+		if ( strlen( $sql ) > self::MAX_ISTRUZIONE ) return $no( 'Istruzione troppo lunga (' . strlen( $sql ) . ' byte, al massimo ' . self::MAX_ISTRUZIONE . '): rifiutata.' );
 		if ( preg_match( '/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/', $sql ) ) return $no( 'Caratteri di controllo nell istruzione rifiutati (ammessi solo spazio, tab e a capo).' );
 		list( $sk, $ids, $err ) = self::scheletro( $sql );
 		if ( $err !== '' ) return $no( $err );
@@ -172,6 +184,15 @@ final class Rdacademy_Console_SQL {
 		if ( trim( $sk ) === '' ) return $no( 'Istruzione vuota.' );
 		// F031 (8ª revisione, ALTI 1, 3 e 4): il server confronta i nomi senza distinguere accenti, İ e K; i controlli confrontano in ASCII
 		if ( preg_match( '/[\x80-\xff]/', $sk . implode( '', $ids ) ) ) return $no( 'Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi.' );
+		// F032 (9ª revisione, ALTO 4 e dubbio 1): il server legge «1.0UNION» come numero e parola, «9tabella» e «$tabella» come nomi; i controlli no
+		if ( strpos( $sk, '$' ) !== false || strpos( $sk, '\\' ) !== false ) return $no( '«$» e «\\» fuori dalle stringhe rifiutati: i controlli non leggerebbero l istruzione come il server.' );
+		foreach ( $ids as $idn ) { if ( preg_match( '/^[0-9]|\$/', $idn ) ) return $no( 'Nomi che cominciano con una cifra o contengono «$» rifiutati: i controlli non li riconoscerebbero come il server.' ); }
+		if ( preg_match_all( '/(?<![A-Za-z0-9_$])(?:0x[0-9a-f]+|0b[01]+|(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?)/i', $sk, $mn, PREG_OFFSET_CAPTURE ) ) {
+			foreach ( $mn[0] as $nm ) {
+				$dopo = $sk[ $nm[1] + strlen( $nm[0] ) ] ?? '';
+				if ( $dopo !== '' && preg_match( '/[A-Za-z0-9_.]/', $dopo ) ) return $no( 'Numero attaccato a una parola («' . substr( $nm[0], 0, 12 ) . $dopo . '…») o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.' );
+			}
+		}
 		if ( strpos( $sk, ';' ) !== false ) return $no( 'Due istruzioni in una: rifiutata (una per volta).' );
 		$testa = ltrim( $sk, " \t\r\n(" );
 		$verbo = strtoupper( (string) preg_replace( '/^([A-Za-z_]+).*$/s', '$1', $testa ) );
@@ -528,7 +549,8 @@ final class Rdacademy_Console_SQL {
 		// F029 (5ª revisione, MEDIO 3): un intero come voce di ORDER/GROUP BY, qualunque cosa venga dopo (OFFSET, ORDER BY NULL…)
 		// F031 (8ª revisione, MEDIO 2): si toglie solo il LIMIT vero in coda (numeri), non un alias «limit»; dopo ORDER/GROUP BY nessun numero,
 		// nemmeno fra parentesi o col segno
-		$sk = (string) preg_replace( '/\bLIMIT\s+\d+(\s*(,|\bOFFSET\b)\s*\d+)?\s*$/i', '', rtrim( $sk, " \t\r\n;" ) );
+		$sk = preg_replace( '/\bLIMIT\s+\d+(\s*(,|\bOFFSET\b)\s*\d+)?\s*$/i', '', rtrim( $sk, " \t\r\n;" ) );
+		if ( $sk === null ) return true; // F032 (9ª revisione, MEDIO 2): se il controllo non si può fare, si rifiuta
 		if ( ! preg_match( '/\b(ORDER|GROUP)\s+BY\b(.*)$/is', $sk, $m ) ) return false;
 		return (bool) preg_match( '/(?<![A-Za-z0-9_$.\x80-\xff])\d+(?![A-Za-z0-9_$\x80-\xff])/', $m[2] );
 	}
@@ -566,12 +588,20 @@ final class Rdacademy_Console_SQL {
 	/** Registro append-only sul BASE. false se non si può scrivere (allora non si scrive nemmeno sui dati). */
 	/** F030 (7ª revisione, medio A46): nel registro i valori fra apici diventano «…» (lo legge ogni amministratore dalla console). */
 	private static function senza_valori( string $sql ): string {
+		if ( strlen( $sql ) > self::MAX_ISTRUZIONE ) return '(istruzione di ' . strlen( $sql ) . ' byte, troppo lunga: non trascritta)';
 		// F031 (8ª revisione, MEDIO 4): dallo scheletro (stringhe e commenti già tolti come li legge il server); anche numeri, 0x… e 0b…
 		list( $sk, $ids, $err ) = self::scheletro( $sql );
 		if ( $err !== '' ) return '(istruzione non leggibile: ' . $err . ')';
-		$sk = (string) preg_replace( '/(?<![A-Za-z0-9_$\x80-\xff])(?:0x[0-9a-f]+|0b[01]+|\d+(?:\.\d*)?(?:e[+-]?\d+)?|\.\d+)(?![A-Za-z0-9_$\x80-\xff])/i', '…', str_replace( " '' ", " '…' ", $sk ) );
+		$sk = (string) preg_replace( '/(?<![A-Za-z0-9_$\x80-\xff])(?:0x[0-9a-f]+|0b[01]+|\d+(?:\.\d*)?(?:e[+-]?\d+)?|\.\d+)/i', '… ', str_replace( " '' ", " '…' ", $sk ) );
 		$sk = (string) preg_replace_callback( '/__id(…|\d+)__/', static function ( $m ) { return '`…`'; }, $sk );
 		return trim( (string) preg_replace( '/\s+/', ' ', $sk ) );
+	}
+
+	/** F032 (9ª revisione, MEDIO 3): un campo del registro è sempre UTF-8 valido e della misura della colonna, altrimenti la riga non si scrive. */
+	private static function pulito( string $t, int $max ): string {
+		if ( ! preg_match( '//u', $t ) ) $t = (string) preg_replace( '/[^\x20-\x7e\t\r\n]/', '?', $t );
+		$t = (string) preg_replace( '/[\x{10000}-\x{10FFFF}]/u', '?', $t );
+		return function_exists( 'mb_substr' ) ? mb_substr( $t, 0, $max, 'UTF-8' ) : (string) preg_replace( '/^(.{0,' . $max . '}).*$/su', '$1', $t );
 	}
 
 	private static function registra( array $r, array $s, string $tipo, ?int $righe, string $esito, string $msg ): bool {
@@ -582,12 +612,12 @@ final class Rdacademy_Console_SQL {
 		$ok = self::q( $c, "CREATE TABLE IF NOT EXISTS `$t` (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, quando DATETIME NOT NULL, utente BIGINT UNSIGNED NOT NULL DEFAULT 0, login VARCHAR(60) NOT NULL DEFAULT '', sorgente VARCHAR(40) NOT NULL DEFAULT '', db_nome VARCHAR(64) NOT NULL DEFAULT '', db_host VARCHAR(255) NOT NULL DEFAULT '', istruzione MEDIUMTEXT NOT NULL, tipo VARCHAR(12) NOT NULL, righe INT NULL, esito VARCHAR(20) NOT NULL, messaggio VARCHAR(500) NOT NULL DEFAULT '', PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" );
 		if ( $ok ) {
 			self::blinda( $c, $t );
-			$st = $c->prepare( "INSERT INTO `$t` (quando, utente, login, sorgente, db_nome, db_host, istruzione, tipo, righe, esito, messaggio) VALUES (?,?,?,?,?,?,?,?,?,?,?)" );
-			$ok = false;
+			$st = false; $ok = false;
+			try { $st = $c->prepare( "INSERT INTO `$t` (quando, utente, login, sorgente, db_nome, db_host, istruzione, tipo, righe, esito, messaggio) VALUES (?,?,?,?,?,?,?,?,?,?,?)" ); } catch ( mysqli_sql_exception $e ) { $st = false; }
 			if ( $st ) {
-				$q = gmdate( 'Y-m-d H:i:s', self::ora() ); $u = (int) ( $r['utente'] ?? 0 ); $l = substr( (string) ( $r['login'] ?? '' ), 0, 60 );
-				$so = (string) ( $r['sorgente'] ?? '' ); $db = (string) ( $s['db'] ?? '' ); $h = (string) ( $s['host'] ?? '' ); $i = self::senza_valori( (string) ( $r['sql'] ?? '' ) );
-				$m = substr( $msg, 0, 500 );
+				$q = gmdate( 'Y-m-d H:i:s', self::ora() ); $u = (int) ( $r['utente'] ?? 0 ); $l = self::pulito( (string) ( $r['login'] ?? '' ), 60 );
+				$so = self::pulito( (string) ( $r['sorgente'] ?? '' ), 40 ); $db = self::pulito( (string) ( $s['db'] ?? '' ), 64 ); $h = self::pulito( (string) ( $s['host'] ?? '' ), 255 ); $i = self::pulito( self::senza_valori( (string) ( $r['sql'] ?? '' ) ), self::MAX_ISTRUZIONE );
+				$m = self::pulito( $msg, 500 ); $tipo = self::pulito( $tipo, 12 ); $esito = self::pulito( $esito, 20 );
 				$st->bind_param( 'sissssssiss', $q, $u, $l, $so, $db, $h, $i, $tipo, $righe, $esito, $m );
 				try { $ok = $st->execute(); } catch ( mysqli_sql_exception $e ) { $ok = false; }
 				$st->close();
@@ -632,15 +662,15 @@ final class Rdacademy_Console_SQL {
 		$S = self::sorgenti();
 		$k = (string) $r['sorgente'];
 		if ( ! isset( $S[ $k ] ) ) {
-			$riga( 'ROSSO', 'Sorgente «' . $k . '» sconosciuta: rifiutata.' );
-			self::registra( $r, array(), 'rifiuto', null, 'rifiutata', 'sorgente sconosciuta' );
+			$riga( 'ROSSO', 'Sorgente «' . self::pulito( $k, 40 ) . '» sconosciuta: rifiutata.' );
+			if ( ! self::registra( $r, array(), 'rifiuto', null, 'rifiutata', 'sorgente sconosciuta' ) ) $riga( 'INFO', 'Attenzione: questo rifiuto non è stato scritto nel registro della console (registro non raggiungibile).' );
 			return $out;
 		}
 		$s  = $S[ $k ];
 		$at = $s['db'] . ' @ ' . $s['host'];
 		$rifiuta = static function ( string $m ) use ( $riga, $r, $s, $at ) {
 			$riga( 'ROSSO', $m . ( $s['db'] !== '' ? ' (' . $at . ')' : '' ) );
-			self::registra( $r, $s, 'rifiuto', null, 'rifiutata', $m );
+			if ( ! self::registra( $r, $s, 'rifiuto', null, 'rifiutata', $m ) ) $riga( 'INFO', 'Attenzione: questo rifiuto non è stato scritto nel registro della console (registro non raggiungibile).' );
 		};
 		if ( ! $s['in_uso'] ) {
 			$rifiuta( $s['etichetta'] . ( $s['stato'] === 'spenta' ? ' spenta' : ' non configurata' ) . ': la console la rifiuta (non ricade sul BASE in silenzio).' );
@@ -659,17 +689,35 @@ final class Rdacademy_Console_SQL {
 			// F031 (8ª revisione, ALTO 5): una funzione o una vista già nel database può leggere una colonna segreta e darle un altro nome
 			$fun = array_values( array_intersect( $cl['chiamate'], self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' ) ) );
 			if ( $fun ) { $c->close(); $rifiuta( 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): la console non le chiama, potrebbero leggere colonne segrete o scrivere.' ); return $out; }
-			$vs = array(); $rv = self::q( $c, 'SELECT LOWER(TABLE_NAME), VIEW_DEFINITION FROM information_schema.VIEWS' );
-			if ( $rv instanceof mysqli_result ) {
-				while ( $x = $rv->fetch_row() ) {
-					if ( ! in_array( (string) $x[0], $cl['nomi'], true ) ) continue;
-					preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', (string) $x[1], $pv );
-					$brutte = array_filter( $pv[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } );
-					if ( trim( (string) $x[1] ) === '' || $brutte || preg_match( '/[\x80-\xff]/', (string) $x[1] ) ) $vs[] = (string) $x[0];
+			// F032 (9ª revisione, MEDIO 4): una lettura da un altro database uscirebbe col referto del database della sorgente
+			$cur   = self::colonna( $c, 'SELECT DATABASE()' )[0] ?? '';
+			// con SHOW il database si nomina senza punto (SHOW TABLES FROM altro, SHOW COLUMNS FROM t IN altro)
+			$altri = array_values( array_diff( array_intersect( $cl['verbo'] === 'SHOW' ? $cl['nomi'] : $cl['qualificati'], array_merge( self::colonna( $c, 'SHOW DATABASES' ), self::SCHEMI_VIETATI ) ), array( $cur, 'information_schema' ) ) );
+			if ( $altri ) { $c->close(); $rifiuta( 'Riferimento a un altro database (' . implode( ', ', $altri ) . '): la console legge solo il database della sorgente scelta, ' . $cur . ' (e information_schema); per un altro database si sceglie la sua sorgente.' ); return $out; }
+			// F032 (9ª revisione, ALTO 6): una colonna generata da una segreta la ripete con un altro nome; una vista sopra un altra vista o
+			// sopra una funzione nasconde la colonna segreta dietro due nomi
+			$gen = array(); $rg = self::q( $c, "SELECT LOWER(TABLE_NAME), GENERATION_EXPRESSION FROM information_schema.COLUMNS WHERE GENERATION_EXPRESSION IS NOT NULL AND GENERATION_EXPRESSION <> ''" );
+			if ( $rg instanceof mysqli_result ) {
+				while ( $x = $rg->fetch_row() ) {
+					preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', (string) $x[1], $pg );
+					if ( preg_match( '/[\x80-\xff]/', (string) $x[1] ) || array_filter( $pg[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } ) ) $gen[ (string) $x[0] ] = true;
 				}
-				$rv->free();
+				$rg->free();
 			}
-			if ( $vs ) { $c->close(); $rifiuta( 'Viste che leggono colonne segrete o chiave/valore (' . implode( ', ', array_unique( $vs ) ) . '): la console non le legge, le colonne segrete cambierebbero nome.' ); return $out; }
+			$tg = array_values( array_intersect( $cl['nomi'], array_keys( $gen ) ) );
+			if ( $tg ) { $c->close(); $rifiuta( 'Tabelle con una colonna generata da una colonna segreta (' . implode( ', ', $tg ) . '): la console non le legge, la colonna generata ripeterebbe il segreto con un altro nome.' ); return $out; }
+			$rout = self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' );
+			$vs = array(); $viste = array(); $rv = self::q( $c, 'SELECT LOWER(TABLE_NAME), VIEW_DEFINITION FROM information_schema.VIEWS' );
+			if ( $rv instanceof mysqli_result ) { while ( $x = $rv->fetch_row() ) $viste[] = array( (string) $x[0], (string) $x[1] ); $rv->free(); }
+			$nv = array_column( $viste, 0 );
+			foreach ( $viste as $x ) {
+				if ( ! in_array( $x[0], $cl['nomi'], true ) ) continue;
+				preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $x[1], $pv );
+				$brutte = array_filter( $pv[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } );
+				$pvl    = array_map( 'strtolower', $pv[0] );
+				if ( trim( $x[1] ) === '' || $brutte || preg_match( '/[\x80-\xff]/', $x[1] ) || array_intersect( $pvl, array_diff( $nv, array( $x[0] ) ) ) || array_intersect( $pvl, $rout ) || array_intersect( $pvl, array_keys( $gen ) ) ) $vs[] = $x[0];
+			}
+			if ( $vs ) { $c->close(); $rifiuta( 'Viste che leggono colonne segrete o chiave/valore, altre viste, funzioni memorizzate o colonne generate (' . implode( ', ', array_unique( $vs ) ) . '): la console non le legge, le colonne segrete cambierebbero nome.' ); return $out; }
 			list( $skl ) = self::scheletro( $r['sql'] );
 			$ts = array_values( array_intersect( $cl['nomi'], self::tabelle_segrete( $c ) ) );
 			if ( $ts && preg_match( '/\b(UNION|INTERSECT|EXCEPT|WITH|VALUES|LATERAL|JSON_TABLE)\b|\(\s*(SELECT|TABLE)\b/i', $skl ) ) {
