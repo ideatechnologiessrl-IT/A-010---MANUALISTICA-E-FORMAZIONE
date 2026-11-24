@@ -1,4 +1,4 @@
-<!-- REGISTRO FALLIMENTI · 23/11/2026 F030 · aperti 4 · primo libero F030-F2 -->
+<!-- REGISTRO FALLIMENTI · 24/11/2026 F033 · aperti 5 · primo libero F033-F2 -->
 <p><img src="../risorse/logo/reldox-lockup-color.svg" alt="RelDox" width="240"></p>
 
 # Registro FALLIMENTI della Formazione
@@ -12,6 +12,13 @@ Si legge all apertura di ogni sessione (§ 5), si scrive subito, nello stesso co
 ## Schede
 
 Nessuna scheda al 18/11/2026: nelle sessioni F001-F008 non risultano scritti difetti né errori di metodo (verificato sulle aperture e sui registri di `docs/`). Niente schede inventate per riempire (§ 6.1).
+
+### F033-F1 — 24/11/2026 — quasi tre ore e nessuna versione consegnabile: attese lunghe non dichiarate, ordine sbagliato, token bruciati
+- **Che cosa è successo**: owner 24/11/2026 16:15, chat Formazione F033: *«pesima chat qusi 3 ore di lavorazione mal impostata e mia hai bruciato un sacco di token per non avere un risultatoconcreto»*; la chat è ferma per almeno due giorni. La F033 ha chiuso con la 0.1.19A sul ramo, **senza controprova e senza dodicesima revisione a freddo**: nulla da installare, la console resta ferma sul sito.
+- **Causa (misurata)**: (1) due attese lunghe lanciate senza dirle prima all owner: revisione a freddo 49 minuti (agente da circa 370.000 token) e sabotaggi circa un ora (123 sabotaggi, un banco intero ciascuno); l owner ha chiesto alle 16:00 «a che punto sei» senza averne notizia; (2) ordine sbagliato: i sabotaggi, che non decidono la consegna, sono stati eseguiti **prima** della dodicesima revisione, che la decide; (3) il motore 0.1.19A è stato affidato a un secondo agente pesante mentre la sessione aspettava, senza un tetto di tempo; (4) costo dei due agenti mai dichiarato all owner.
+- **Rimedio**: kit K0037 con il lavoro fatto (rimedio degli 8 alti e medi, banco 136/136) e prompt della F034 che mette la dodicesima revisione **prima** e i sabotaggi **per ultimi, una volta sola**, con le durate scritte.
+- **Regola che ne esce**: (a) ogni attesa oltre 10 minuti (revisione a freddo, sabotaggi, agente di sviluppo) si dice all owner **prima** di lanciarla, con durata e costo stimati, e lui sceglie se farla ora; (b) in una sessione si fa prima ciò che decide la consegna (revisione a freddo con 0 alti e 0 medi), poi il resto; i sabotaggi una volta sola, in fondo; (c) un solo agente pesante per sessione, se non lo chiede l owner; (d) un rapporto breve all owner almeno ogni 30 minuti di lavoro senza consegne.
+- **Dove entra**: `CLAUDE.md` di A-010, «Regole di sempre»; nello stesso commit.
 
 ### F011-F1 — 18/11/2026 — domanda su un dettaglio di un plugin che ancora non funziona
 - **Che cosa è successo**: a fine F011 ho chiesto all owner se rendere automatico il controllo delle mail rifiutate, mentre RelDoxAcademy non è ancora installabile.
