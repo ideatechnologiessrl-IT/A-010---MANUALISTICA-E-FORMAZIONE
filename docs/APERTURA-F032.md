@@ -201,6 +201,7 @@ F031 (23/11/2026).
 - Banco `banco/F031-banco-console-sql.php` (sezione M, M1-M11): rosso sulla 0.1.15A 104/11, **verde sulla 0.1.16A 115/115**, trappola rossa; sabotaggi in `banco/esiti/F031-console-sql-sabotaggi.txt`.
 - Regole nuove del motore, da dire all owner allo smoke: i nomi con accenti o lettere speciali sono rifiutati (nelle stringhe fra apici no); la console non chiama funzioni memorizzate e non legge viste che citano colonne segrete.
 - Pacchetti con `banco/F031-rifai-0.1.16A.sh`. Banco: MariaDB locale, utente `banco`/`banco` (`apt-get update`, `apt-get install -y mariadb-server`, `mariadbd --user=mysql`). ⛔ Mai due banchi della console insieme sullo stesso MariaDB. All agente di revisione: il plugin di diagnostica, il mockup, gli estratti delle regole e i soli sostituti di WordPress (righe 82-111 del banco, con database `rev9_*`), mai la cartella `banco/`.
+- **Richiamo dal cruscotto del 24/11/2026 11:21** («Aree grigie»: 39 dichiarati, 33 nei file): riga e file coincidono (ramo `sessione/F031` 38 punti + BUG-6; `main` 33 e 0), il cruscotto legge `main`. Nessuna violazione; scritto a R-D il seguito di FOR-R006 (`2026-11-24-a-r-d-cruscotto-registri-ramo-di-sessione.md`), che resta aperta. Letti i messaggi di RelDoxChecks sui manuali 1.4.06A e 1.4.07A (informativi: materia della voce F24; la riga «15 minuti» non è nei nostri materiali).
 - La riga «Registri» del nodo va riscritta da `strumenti/riga-registri.py` prima di pubblicare (38 punti aperti: chiusa F47, nata F48).
 
 ## §01 — CHE COSA FARE, IN ORDINE
