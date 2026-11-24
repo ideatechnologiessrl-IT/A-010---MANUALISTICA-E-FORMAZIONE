@@ -3,7 +3,7 @@
  * Rdacademy_Console_SQL — IL MOTORE DELLA CONSOLE SQL (banco standard n. 2, area «Database e sorgenti»).
  * ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
  *
- * RelDoxAcademy 0.1.18A (Formazione F032: BUG-6, decima revisione a freddo). 0.1.17A (Formazione F032: BUG-6, nona revisione a freddo). 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
+ * RelDoxAcademy 0.1.19A (Formazione F033: BUG-6, undicesima revisione a freddo). 0.1.18A (Formazione F032: BUG-6, decima revisione a freddo). 0.1.17A (Formazione F032: BUG-6, nona revisione a freddo). 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
  * 23/11/2026 08:39, chat Formazione F025: «ok approvato»). Nasce dalla console di RelDoxFood 1.24.11L
  * (class-rdfood-console-sql.php, letta in sola lettura in F025) portata allo standard di famiglia: banco
  * prima del motore (banco/F026-banco-console-sql.php).
@@ -63,6 +63,20 @@
  *  - registro: ogni campo ripulito e accorciato prima di scrivere (byte non UTF-8, sorgente o login lunghi); il rifiuto non registrato si dichiara.
  *  0.1.18A (BUG-6, decima revisione a freddo F032: 1 alto):
  *  - INSERT e REPLACE: subito dopo il nome della tabella fra parentesi va l elenco delle colonne, mai «(VALUES …)» né «(SELECT …)».
+ *  0.1.19A (BUG-6, undicesima revisione a freddo F033: 3 alti, 5 medi):
+ *  - chiave/valore: il valore si lega alla chiave VERA della riga, letta prima di ogni maschera (un alias sulla colonna della chiave non
+ *    lo smaschera); gli alias si confrontano come il server, maiuscole e minuscole distinte (il valore mai alla chiave di un altro alias);
+ *  - INSERT e REPLACE su tabelle con colonne segrete o chiave/valore: l elenco delle colonne non può essere vuoto («()» sono tutte le colonne);
+ *  - tabelle con colonne segrete o chiave/valore: niente suggerimenti d indice (USE/FORCE/IGNORE INDEX), in lettura e in scrittura; nelle SELECT
+ *    il motore esclude da sé (IGNORE INDEX, dichiarato nel referto) ogni indice che contiene una colonna segreta o il valore chiave/valore e
+ *    controlla col piano del server (EXPLAIN) che non venga usato: ordine delle righe, LIMIT/OFFSET e tetti non seguono i valori segreti;
+ *    le tabelle la cui chiave primaria contiene una colonna segreta non si leggono con SELECT; vale anche attraverso una vista;
+ *  - registro senza numeri: nei rifiuti il verbo è solo la prima parola, nessun messaggio cita numeri dell istruzione, i numeri si tolgono
+ *    anche dopo «$» o dopo un byte non ASCII;
+ *  - viste: non si leggono quelle che leggono tabelle di un altro database (information_schema compreso);
+ *  - scrittura: tempo massimo dell istruzione TEMPO_SCRITTURA secondi (meno di TEMPO_MAX) e risposta entro TEMPO_MAX secondi, annullamento
+ *    compreso: oltre, la console risponde ROSSO, non conferma nulla e lascia la connessione (il server annulla la transazione);
+ *  - tetto in byte contato DOPO le maschere (la risposta non cambia con la lunghezza di un valore segreto).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,6 +89,8 @@ final class Rdacademy_Console_SQL {
 	const MAX_BYTE     = 5000000;
 	const MAX_ISTRUZIONE = 20000;
 	const TEMPO_MAX    = 10;
+	/** F033 (R11-7): tetto dell istruzione in scrittura, più basso: l annullamento di ciò che è già scritto dura quanto la scrittura e più. */
+	const TEMPO_SCRITTURA = 3;
 	const CONFERMO_TTL = 300;
 	const REGISTRO     = 'console_registro';
 	const GETTONI      = 'console_gettoni';
@@ -113,6 +129,9 @@ final class Rdacademy_Console_SQL {
 	/** Il «adesso» del motore (il banco lo sposta per provare la scadenza del CONFERMO). */
 	public static ?int $adesso = null;
 
+	/** F033 (R11-7): il banco può solo ACCORCIARE il tempo di risposta di una scrittura (mai allungarlo oltre TEMPO_MAX). */
+	public static ?float $risposta_entro = null;
+
 	/** @var array<int,array> gettoni quando WordPress non c è */
 	private static array $gettoni = array();
 
@@ -124,11 +143,14 @@ final class Rdacademy_Console_SQL {
 
 	/**
 	 * Lo scheletro: stringhe, identificatori fra apici inversi e commenti diventano spazi.
-	 * Restituisce [scheletro, identificatori fra apici inversi, errore].
+	 * Restituisce [scheletro, identificatori fra apici inversi, errore, posizioni (F033)].
 	 */
 	public static function scheletro( string $sql ): array {
 		$out = ''; $ids = array(); $n = strlen( $sql ); $i = 0;
+		// F033 (R11-4): $fine[k] = posizione nell istruzione subito dopo ciò che ha dato il byte k dello scheletro (serve a inserire IGNORE INDEX)
+		$fine = array();
 		while ( $i < $n ) {
+			for ( $k = count( $fine ), $kn = strlen( $out ); $k < $kn; $k++ ) $fine[] = $i;
 			$c = $sql[ $i ]; $d = $i + 1 < $n ? $sql[ $i + 1 ] : '';
 			if ( $c === '/' && $d === '*' ) {
 				$dopo = substr( $sql, $i + 2, 2 );
@@ -167,7 +189,8 @@ final class Rdacademy_Console_SQL {
 			}
 			$out .= $c; $i++;
 		}
-		return array( $out, $ids, '' );
+		for ( $k = count( $fine ), $kn = strlen( $out ); $k < $kn; $k++ ) $fine[] = $i;
+		return array( $out, $ids, '', $fine );
 	}
 
 	/**
@@ -192,12 +215,14 @@ final class Rdacademy_Console_SQL {
 		if ( preg_match_all( '/(?<![A-Za-z0-9_$])(?:0x[0-9a-f]+|0b[01]+|(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?)/i', $sk, $mn, PREG_OFFSET_CAPTURE ) ) {
 			foreach ( $mn[0] as $nm ) {
 				$dopo = $sk[ $nm[1] + strlen( $nm[0] ) ] ?? '';
-				if ( $dopo !== '' && preg_match( '/[A-Za-z0-9_.]/', $dopo ) ) return $no( 'Numero attaccato a una parola («' . substr( $nm[0], 0, 12 ) . $dopo . '…») o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.' );
+				if ( $dopo !== '' && preg_match( '/[A-Za-z0-9_.]/', $dopo ) ) return $no( /* F033 (R11-5): il messaggio va nel registro, quindi non cita il numero */ 'Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.' );
 			}
 		}
 		if ( strpos( $sk, ';' ) !== false ) return $no( 'Due istruzioni in una: rifiutata (una per volta).' );
 		$testa = ltrim( $sk, " \t\r\n(" );
-		$verbo = strtoupper( (string) preg_replace( '/^([A-Za-z_]+).*$/s', '$1', $testa ) );
+		// F033 (R11-5): il verbo è solo la prima parola (lettere, al massimo 20); se l istruzione comincia con altro, nessun verbo:
+		// il verbo finisce nei messaggi di rifiuto e quindi nel registro, dove non devono arrivare numeri né valori
+		$verbo = preg_match( '/^[A-Za-z_]+/', $testa, $mv ) ? strtoupper( substr( $mv[0], 0, 20 ) ) : '';
 		if ( in_array( $verbo, self::SEMPRE_VIETATE, true ) ) {
 			return $no( '«' . $verbo . '» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata.', $verbo );
 		}
@@ -222,7 +247,7 @@ final class Rdacademy_Console_SQL {
 			}
 		}
 		if ( $tipo === '' ) {
-			return $no( '«' . ( $verbo !== '' ? $verbo : substr( $testa, 0, 12 ) ) . '» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.', $verbo );
+			return $no( ( $verbo !== '' ? '«' . $verbo . '» non ammessa' : 'Istruzione non ammessa (non comincia con una parola)' ) . ': in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.', $verbo );
 		}
 		// F032 (10ª revisione, ALTO 1): «INSERT INTO t (VALUES (…))» e «(SELECT …)» sono la sorgente, non l elenco delle colonne: scriverebbero tutte le colonne
 		if ( in_array( $verbo, array( 'INSERT', 'REPLACE' ), true ) && preg_match( '/^\s*(?:INSERT|REPLACE)\s+(?:(?:LOW_PRIORITY|DELAYED|HIGH_PRIORITY|IGNORE)\s+)*(?:INTO\s+)?[A-Za-z0-9_]+(?:\s*\.\s*[A-Za-z0-9_]+)*\s*\(\s*(?:VALUES?\b|SELECT\b|TABLE\b|WITH\b|\()/i', $sk ) ) {
@@ -342,51 +367,56 @@ final class Rdacademy_Console_SQL {
 		// F028: senza copia intera in memoria (MYSQLI_USE_RESULT), tetto in righe e in byte
 		try { $res = $c->query( $sql, MYSQLI_USE_RESULT ); } catch ( mysqli_sql_exception $e ) { $res = false; }
 		if ( $res === false ) { $e = self::err( $c ); self::q( $c, 'ROLLBACK' ); return array( 'ok' => false, 'errore' => $e ); }
-		$col = array(); $org = array(); $tab = array(); $dati = array(); $tronco = false; $byte = 0;
+		$col = array(); $org = array(); $tab = array(); $dati = array(); $tronco = false; $byte = 0; $mascherate = array();
 		if ( $res instanceof mysqli_result ) {
-			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); $tab[] = (string) ( $f->table ?? '' ) === '' ? '' : strtolower( (string) ( $f->db ?? '' ) . '.' . (string) $f->table ); }
+			// F033 (R11-2): la tabella di ogni colonna si confronta come la confronta il server, maiuscole e minuscole distinte («O» e «o» sono due righe)
+			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); $tab[] = (string) ( $f->table ?? '' ) === '' ? '' : (string) ( $f->db ?? '' ) . '.' . (string) $f->table; }
+			// F028: tabelle chiave/valore — il valore di una chiave segreta si maschera riga per riga; senza la chiave accanto, sempre
+			// F033 (R11-8): le maschere si decidono sulle colonne PRIMA di leggere e si mettono riga per riga, così il tetto in byte conta ciò che esce
+			$kv_citate = array_intersect( array_keys( self::KV ), $nomi ); $piano = array(); $segr = array();
+			foreach ( $col as $i => $nome ) {
+				$o = $org[ $i ] ?? '';
+				if ( isset( self::KV[ $o ] ) ) {
+					// F029 (4ª revisione, ALTO 2): la chiave è quella della stessa tabella del risultato (stesso alias), mai di un altra riga unita
+					$j = false;
+					foreach ( $org as $jj => $oj ) { if ( $oj === self::KV[ $o ] && ( $tab[ $jj ] ?? '' ) !== '' && ( $tab[ $jj ] ?? '' ) === ( $tab[ $i ] ?? '' ) ) { $j = $jj; break; } }
+					$piano[ $i ] = array( 'kv', $j );
+				} elseif ( $kv_citate && ( $o === '' || $o !== strtolower( $nome ) ) ) {
+					$piano[ $i ] = array( 'tutto', false ); $mascherate[ $nome ] = true;
+				}
+			}
+			foreach ( $col as $i => $nome ) {
+				if ( ! self::segreta( $nome ) && ! self::segreta( $org[ $i ] ?? '' ) ) continue;
+				$segr[ $i ] = $nome;
+			}
 			$rotto = '';
 			try {
-				while ( $row = $res->fetch_row() ) {
+				while ( $r = $res->fetch_row() ) {
 					if ( count( $dati ) >= self::MAX_RIGHE ) { $tronco = true; break; }
-					foreach ( $row as $v ) { $byte += strlen( (string) $v ); }
+					// F033 (R11-1): la chiave VERA della riga, com è arrivata dal server, prima di ogni maschera (un alias sulla chiave la maschera)
+					$vera = $r;
+					foreach ( $piano as $i => $pm ) {
+						$j = $pm[1];
+						if ( $pm[0] === 'kv' ) {
+							if ( $r[ $i ] !== null && self::segreta_kv( $j === false ? null : $vera[ $j ], $vera[ $i ] ) ) { $r[ $i ] = '•••• (mascherata)'; $mascherate[ $col[ $i ] . ' (valori delle chiavi segrete)' ] = true; }
+						} elseif ( $r[ $i ] !== null ) { $r[ $i ] = '•••• (mascherata)'; }
+					}
+					foreach ( $segr as $i => $nome ) { if ( $r[ $i ] !== null ) $r[ $i ] = '•••• (mascherata)'; }
+					foreach ( $r as &$v ) { if ( is_string( $v ) && stripos( $v, 'DEFINER' ) !== false ) $v = (string) preg_replace( '/DEFINER\s*=\s*\S+/i', 'DEFINER=…', $v ); }
+					unset( $v );
+					// F033 (R11-8): i byte si contano DOPO le maschere: la risposta non cambia con la lunghezza di un valore segreto
+					foreach ( $r as $v ) { $byte += strlen( (string) $v ); }
 					if ( $byte > self::MAX_BYTE ) { $tronco = true; break; }
-					$dati[] = $row;
+					$dati[] = $r;
 				}
 				// F029 (4ª revisione, MEDIO 2): un errore a metà (tempo massimo, EXP…) non è una lettura riuscita con dati parziali
 				if ( ! $tronco && $c->errno ) $rotto = self::err( $c );
 			} catch ( mysqli_sql_exception $e ) { $rotto = self::err( $c ); if ( $rotto === 'errore sconosciuto' ) $rotto = '(' . (int) $e->getCode() . ') errore durante la lettura'; }
 			try { $res->free(); } catch ( mysqli_sql_exception $e ) { /* resto del risultato scartato */ }
 			if ( $rotto !== '' ) { self::q( $c, 'ROLLBACK' ); return array( 'ok' => false, 'errore' => 'errore durante la lettura, nessun dato mostrato: ' . $rotto ); }
+			$mascherate = array_merge( array_keys( $mascherate ), array_values( $segr ) );
 		}
 		self::q( $c, 'ROLLBACK' );
-		// F028: tabelle chiave/valore — il valore di una chiave segreta si maschera riga per riga; senza la chiave accanto, sempre
-		$kv_citate = array_intersect( array_keys( self::KV ), $nomi ); $mascherate = array();
-		foreach ( $col as $i => $nome ) {
-			$o = $org[ $i ] ?? '';
-			if ( isset( self::KV[ $o ] ) ) {
-				// F029 (4ª revisione, ALTO 2): la chiave è quella della stessa tabella del risultato (stesso alias), mai di un altra riga unita
-				$j = false;
-				foreach ( $org as $jj => $oj ) { if ( $oj === self::KV[ $o ] && ( $tab[ $jj ] ?? '' ) !== '' && ( $tab[ $jj ] ?? '' ) === ( $tab[ $i ] ?? '' ) ) { $j = $jj; break; } }
-				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null && self::segreta_kv( $j === false ? null : $r[ $j ], $r[ $i ] ) ) { $r[ $i ] = '•••• (mascherata)'; $mascherate[ $nome . ' (valori delle chiavi segrete)' ] = true; } }
-				unset( $r );
-			} elseif ( $kv_citate && ( $o === '' || $o !== strtolower( $nome ) ) ) {
-				foreach ( $dati as &$r ) { if ( $r[ $i ] !== null ) $r[ $i ] = '•••• (mascherata)'; }
-				unset( $r ); $mascherate[ $nome ] = true;
-			}
-		}
-		$mascherate = array_keys( $mascherate );
-		foreach ( $col as $i => $nome ) {
-			if ( ! self::segreta( $nome ) && ! self::segreta( $org[ $i ] ?? '' ) ) continue;
-			$mascherate[] = $nome;
-			foreach ( $dati as &$r ) { if ( $r[ $i ] !== null ) $r[ $i ] = '•••• (mascherata)'; }
-			unset( $r );
-		}
-		foreach ( $dati as &$r ) {
-			foreach ( $r as &$v ) { if ( is_string( $v ) && stripos( $v, 'DEFINER' ) !== false ) $v = (string) preg_replace( '/DEFINER\s*=\s*\S+/i', 'DEFINER=…', $v ); }
-			unset( $v );
-		}
-		unset( $r );
 		return array( 'ok' => true, 'colonne' => $col, 'dati' => $dati, 'troncato' => $tronco, 'mascherate' => $mascherate, 'ms' => (int) round( ( microtime( true ) - $t0 ) * 1000 ) );
 	}
 
@@ -550,6 +580,21 @@ final class Rdacademy_Console_SQL {
 		return '';
 	}
 
+	/**
+	 * F033 (R11-6): una vista che legge tabelle di un altro database (information_schema compreso) farebbe uscire i suoi dati col referto
+	 * del database della sorgente. Il server scrive la definizione con i nomi fra apici inversi e le tabelle sempre con il loro database.
+	 */
+	private static function vista_fuori_db( string $def, string $suo, array $tutti_db ): bool {
+		$id = '`((?:[^`]|``)*)`';
+		// 1) dopo FROM e JOIN: `database`.`tabella`
+		if ( preg_match_all( '/\b(?:from|join)\s+[(\s]*' . $id . '\s*\.\s*`/i', $def, $m ) ) { foreach ( $m[1] as $d ) { if ( strtolower( $d ) !== $suo ) return true; } }
+		// 2) nomi a tre parti: `database`.`tabella`.`colonna`
+		if ( preg_match_all( '/' . $id . '\s*\.\s*' . $id . '\s*\.\s*`/', $def, $m ) ) { foreach ( $m[1] as $d ) { if ( strtolower( $d ) !== $suo ) return true; } }
+		// 3) qualunque nome qualificato che comincia con un altro database visibile
+		if ( preg_match_all( '/' . $id . '\s*\.\s*`/', $def, $m ) ) { foreach ( $m[1] as $d ) { if ( strtolower( $d ) !== $suo && in_array( strtolower( $d ), $tutti_db, true ) ) return true; } }
+		return false;
+	}
+
 	/** F029 (F45 b): ORDER BY / GROUP BY per posizione (ordinano per una colonna segreta senza nominarla). */
 	private static function per_posizione( string $sk ): bool {
 		// F029 (5ª revisione, MEDIO 3): un intero come voce di ORDER/GROUP BY, qualunque cosa venga dopo (OFFSET, ORDER BY NULL…)
@@ -560,6 +605,122 @@ final class Rdacademy_Console_SQL {
 		if ( ! preg_match( '/\b(ORDER|GROUP)\s+BY\b(.*)$/is', $sk, $m ) ) return false;
 		return (bool) preg_match( '/(?<![A-Za-z0-9_$.\x80-\xff])\d+(?![A-Za-z0-9_$\x80-\xff])/', $m[2] );
 	}
+
+	/* ── F033 (R11-4): l ordine delle righe non segue un indice su una colonna segreta ───────────── */
+
+	const SUGGERIMENTI = '/\b(USE|FORCE|IGNORE)\s+(INDEX|KEY)\b/i';
+
+	/** Parole che dopo il nome di una tabella non sono il suo alias. */
+	const DOPO_TABELLA = array( 'where', 'group', 'having', 'order', 'limit', 'join', 'inner', 'cross', 'left', 'right', 'natural', 'straight_join', 'on', 'using', 'use', 'force', 'ignore', 'for', 'procedure', 'union', 'intersect', 'except', 'window', 'offset', 'fetch', 'lock', 'into', 'partition', 'set', 'as' );
+
+	/**
+	 * Indici del database corrente che contengono una colonna segreta o il valore chiave/valore: il server, leggendo lungo uno di essi,
+	 * darebbe le righe nell ordine dei segreti (e LIMIT, GROUP_CONCAT, il tetto delle righe sceglierebbero secondo quell ordine).
+	 * @return array{0:?array<string,array<int,string>>,1:array<string,bool>} [tabella => indici da escludere, tabelle la cui chiave primaria è segreta]; [null, …] se non si leggono
+	 */
+	private static function indici_segreti( mysqli $c ): array {
+		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), INDEX_NAME, COLUMN_NAME, NON_UNIQUE FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE()' );
+		if ( ! ( $res instanceof mysqli_result ) ) return array( null, array() );
+		$ign = array(); $pk = array(); $unici = array(); $chv = array();
+		while ( $x = $res->fetch_row() ) {
+			$t = (string) $x[0];
+			// senza nome di colonna (indice su un espressione, MySQL 8) non si sa che cosa ordina: si esclude
+			$seg = $x[2] === null || self::segreta( (string) $x[2] ) || isset( self::KV[ strtolower( (string) $x[2] ) ] );
+			if ( strtoupper( (string) $x[1] ) === 'PRIMARY' ) { $pk[ $t ] = true; if ( $seg ) $chv[ $t ] = true; continue; }
+			if ( $seg ) { $ign[ $t ][ (string) $x[1] ] = true; if ( (int) $x[3] === 0 ) $unici[ $t ] = true; }
+		}
+		$res->free();
+		// senza chiave primaria InnoDB ordina le righe lungo il primo indice unico: se è segreto, è come una chiave primaria segreta
+		foreach ( $unici as $t => $v ) { if ( empty( $pk[ $t ] ) ) $chv[ $t ] = true; }
+		foreach ( $ign as $t => $ii ) $ign[ $t ] = array_map( 'strval', array_keys( $ii ) );
+		return array( $ign, $chv );
+	}
+
+	/**
+	 * Riscrive la SELECT aggiungendo «IGNORE INDEX (…)» dopo ogni tabella (e il suo alias) che ha indici da escludere.
+	 * Se una forma del FROM sfugge, non importa: dopo si controlla il piano del server (piano_pulito) e si rifiuta.
+	 * @return array{0:string,1:array<int,string>} [istruzione da eseguire, «indice su tabella» esclusi]
+	 */
+	private static function senza_indici_segreti( string $sql, array $ign ): array {
+		list( $sk, , $err, $fine ) = self::scheletro( $sql );
+		if ( $err !== '' || ! preg_match_all( '/[A-Za-z0-9_]+|\S/', $sk, $m, PREG_OFFSET_CAPTURE ) ) return array( $sql, array() );
+		$t = $m[0]; $n = count( $t ); $ins = array(); $fatti = array();
+		$parola = static function ( int $i ) use ( $t ): string { return isset( $t[ $i ] ) ? strtolower( $t[ $i ][0] ) : ''; };
+		$dopo   = static function ( int $i ) use ( $t, $fine ): int { return (int) ( $fine[ $t[ $i ][1] + strlen( $t[ $i ][0] ) - 1 ] ?? 0 ); };
+		$apici  = static function ( int $i ) use ( $dopo, $sql ): bool { $d = $dopo( $i ); return $d > 0 && $sql[ $d - 1 ] === '`'; };
+		for ( $i = 0; $i < $n; $i++ ) {
+			$nome = $parola( $i );
+			if ( ! isset( $ign[ $nome ] ) || $parola( $i + 1 ) === '.' ) continue;                 // «tabella.colonna» non è la tabella nel FROM
+			$p = $parola( $i - 1 ) === '.' ? $i - 3 : $i - 1;                                       // «database.tabella»
+			if ( ! in_array( $parola( $p ), array( 'from', 'join', 'straight_join', ',', '(' ), true ) ) continue;
+			$j = $i + 1;
+			if ( $parola( $j ) === 'partition' && $parola( $j + 1 ) === '(' ) { while ( $j < $n && $t[ $j ][0] !== ')' ) $j++; $j++; }
+			if ( $parola( $j ) === 'as' && ! $apici( $j ) ) $j++;
+			if ( $j < $n && preg_match( '/^[A-Za-z0-9_]+$/', $t[ $j ][0] ) && ( $apici( $j ) || ! in_array( $parola( $j ), self::DOPO_TABELLA, true ) ) ) $j++;   // l alias
+			$ins[ $dopo( $j - 1 ) ] = ' IGNORE INDEX (' . implode( ', ', array_map( static function ( $x ) { return '`' . str_replace( '`', '``', $x ) . '`'; }, $ign[ $nome ] ) ) . ') ';
+			foreach ( $ign[ $nome ] as $ix ) $fatti[ $ix . ' su ' . $nome ] = true;
+		}
+		krsort( $ins );
+		foreach ( $ins as $pos => $txt ) $sql = substr( $sql, 0, $pos ) . $txt . substr( $sql, $pos );
+		return array( $sql, array_keys( $fatti ) );
+	}
+
+	/**
+	 * Il piano del server (EXPLAIN, che non esegue la SELECT): true se non usa nessuno degli indici da escludere, false se ne usa uno,
+	 * null se il piano non si può leggere (in $errore il perché): allora non si esegue.
+	 */
+	private static function piano_pulito( mysqli $c, string $sql, array $ign, string &$errore = '' ): ?bool {
+		self::q( $c, 'SET SESSION max_statement_time = ' . self::TEMPO_MAX ) || self::q( $c, 'SET SESSION MAX_EXECUTION_TIME = ' . ( self::TEMPO_MAX * 1000 ) );
+		$res = self::q( $c, 'EXPLAIN ' . $sql );
+		if ( ! ( $res instanceof mysqli_result ) ) { $errore = self::err( $c ); return null; }
+		$vietati = array();
+		foreach ( $ign as $ii ) { foreach ( $ii as $ix ) $vietati[ strtolower( (string) $ix ) ] = true; }
+		$ok = true; $letto = false;
+		while ( $x = $res->fetch_assoc() ) {
+			$x = array_change_key_case( $x, CASE_LOWER );
+			if ( ! array_key_exists( 'key', $x ) ) { $letto = false; break; }   // piano in un altra forma (albero, JSON): non si sa leggere
+			$letto = true;
+			foreach ( explode( ',', strtolower( (string) $x['key'] ) ) as $k ) { if ( isset( $vietati[ trim( $k ) ] ) ) $ok = false; }
+		}
+		$res->free();
+		if ( ! $letto ) { $errore = 'piano del server non leggibile'; return null; }
+		return $ok;
+	}
+
+	/* ── F033 (R11-7): una scrittura risponde entro un tempo dichiarato ───────────────────────── */
+
+	/** Secondi entro cui la console risponde a una scrittura, annullamento compreso: TEMPO_MAX (il banco può solo accorciarli). */
+	private static function risposta_entro(): float {
+		$t = (float) self::TEMPO_MAX;
+		return ( self::$risposta_entro !== null && self::$risposta_entro > 0 && self::$risposta_entro < $t ) ? (float) self::$risposta_entro : $t;
+	}
+
+	private static function secondi( float $s ): string { return rtrim( rtrim( number_format( $s, 1, ',', '' ), '0' ), ',' ); }
+
+	/**
+	 * Esegue l istruzione in scrittura aspettando la risposta al massimo fino a $entro. Il server ferma l istruzione a TEMPO_SCRITTURA
+	 * secondi, ma prima di rispondere annulla ciò che aveva già scritto, e questo non ha tetto: se la risposta non arriva in tempo la
+	 * console smette di aspettare. Chi chiama allora lascia la connessione senza COMMIT: il server annulla la transazione.
+	 * @return array{0:bool,1:bool} [riuscita, scaduta]
+	 */
+	private static function scrivi_su( mysqli $c, string $sql, float $entro ): array {
+		if ( ! defined( 'MYSQLI_ASYNC' ) || ! function_exists( 'mysqli_poll' ) || ! method_exists( $c, 'reap_async_query' ) ) return array( (bool) self::q( $c, $sql ), false );
+		try { $inviata = $c->query( $sql, MYSQLI_ASYNC ); } catch ( mysqli_sql_exception $e ) { $inviata = false; }
+		if ( $inviata === false ) return array( false, false );
+		while ( true ) {
+			$resto = $entro - microtime( true );
+			if ( $resto <= 0 ) return array( false, true );
+			$le = array( $c ); $er = array( $c ); $ri = array( $c );
+			$pronte = @mysqli_poll( $le, $er, $ri, (int) $resto, (int) ( ( $resto - (int) $resto ) * 1000000 ) );
+			if ( $pronte === false ) return array( false, true );
+			if ( $pronte > 0 ) break;
+		}
+		try { $res = $c->reap_async_query(); } catch ( mysqli_sql_exception $e ) { $res = false; }
+		if ( $res instanceof mysqli_result ) $res->free();
+		return array( $res !== false, false );
+	}
+
+	private static function lascia( mysqli $c ): void { try { @$c->close(); } catch ( Throwable $e ) { /* connessione già persa */ } }
 
 	private static function tabella_registro(): string { return RDACADEMY_TABLE_PREFIX . self::REGISTRO; }
 	private static function tabella_gettoni(): string { return RDACADEMY_TABLE_PREFIX . self::GETTONI; }
@@ -598,7 +759,8 @@ final class Rdacademy_Console_SQL {
 		// F031 (8ª revisione, MEDIO 4): dallo scheletro (stringhe e commenti già tolti come li legge il server); anche numeri, 0x… e 0b…
 		list( $sk, $ids, $err ) = self::scheletro( $sql );
 		if ( $err !== '' ) return '(istruzione non leggibile: ' . $err . ')';
-		$sk = (string) preg_replace( '/(?<![A-Za-z0-9_$\x80-\xff])(?:0x[0-9a-f]+|0b[01]+|\d+(?:\.\d*)?(?:e[+-]?\d+)?|\.\d+)/i', '… ', str_replace( " '' ", " '…' ", $sk ) );
+		// F033 (R11-5): un numero dopo «$» o dopo un byte non ASCII («$4829», «€4829») è un numero anche lui
+		$sk = (string) preg_replace( '/(?<![A-Za-z0-9_])(?:0x[0-9a-f]+|0b[01]+|\d+(?:\.\d*)?(?:e[+-]?\d+)?|\.\d+)/i', '… ', str_replace( " '' ", " '…' ", $sk ) );
 		$sk = (string) preg_replace_callback( '/__id(…|\d+)__/', static function ( $m ) { return '`…`'; }, $sk );
 		return trim( (string) preg_replace( '/\s+/', ' ', $sk ) );
 	}
@@ -713,17 +875,19 @@ final class Rdacademy_Console_SQL {
 			$tg = array_values( array_intersect( $cl['nomi'], array_keys( $gen ) ) );
 			if ( $tg ) { $c->close(); $rifiuta( 'Tabelle con una colonna generata da una colonna segreta (' . implode( ', ', $tg ) . '): la console non le legge, la colonna generata ripeterebbe il segreto con un altro nome.' ); return $out; }
 			$rout = self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' );
-			$vs = array(); $viste = array(); $rv = self::q( $c, 'SELECT LOWER(TABLE_NAME), VIEW_DEFINITION FROM information_schema.VIEWS' );
-			if ( $rv instanceof mysqli_result ) { while ( $x = $rv->fetch_row() ) $viste[] = array( (string) $x[0], (string) $x[1] ); $rv->free(); }
+			$vs = array(); $viste = array(); $rv = self::q( $c, 'SELECT LOWER(TABLE_NAME), VIEW_DEFINITION, LOWER(TABLE_SCHEMA) FROM information_schema.VIEWS' );
+			if ( $rv instanceof mysqli_result ) { while ( $x = $rv->fetch_row() ) $viste[] = array( (string) $x[0], (string) $x[1], (string) $x[2] ); $rv->free(); }
+			// F033 (R11-6): i database che il server mostra, per riconoscere una vista che legge fuori dal suo
+			$tutti_db = array_merge( self::colonna( $c, 'SHOW DATABASES' ), self::SCHEMI_VIETATI, array( 'information_schema' ) );
 			$nv = array_column( $viste, 0 );
 			foreach ( $viste as $x ) {
 				if ( ! in_array( $x[0], $cl['nomi'], true ) ) continue;
 				preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $x[1], $pv );
 				$brutte = array_filter( $pv[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } );
 				$pvl    = array_map( 'strtolower', $pv[0] );
-				if ( trim( $x[1] ) === '' || $brutte || preg_match( '/[\x80-\xff]/', $x[1] ) || array_intersect( $pvl, array_diff( $nv, array( $x[0] ) ) ) || array_intersect( $pvl, $rout ) || array_intersect( $pvl, array_keys( $gen ) ) ) $vs[] = $x[0];
+				if ( trim( $x[1] ) === '' || $brutte || preg_match( '/[\x80-\xff]/', $x[1] ) || array_intersect( $pvl, array_diff( $nv, array( $x[0] ) ) ) || array_intersect( $pvl, $rout ) || array_intersect( $pvl, array_keys( $gen ) ) || self::vista_fuori_db( $x[1], $x[2], $tutti_db ) ) $vs[] = $x[0];
 			}
-			if ( $vs ) { $c->close(); $rifiuta( 'Viste che leggono colonne segrete o chiave/valore, altre viste, funzioni memorizzate o colonne generate (' . implode( ', ', array_unique( $vs ) ) . '): la console non le legge, le colonne segrete cambierebbero nome.' ); return $out; }
+			if ( $vs ) { $c->close(); $rifiuta( 'Viste che leggono colonne segrete o chiave/valore, altre viste, funzioni memorizzate, colonne generate o tabelle di un altro database (' . implode( ', ', array_unique( $vs ) ) . '): la console non le legge (le colonne segrete cambierebbero nome; i dati di un altro database uscirebbero col nome di questo).' ); return $out; }
 			list( $skl ) = self::scheletro( $r['sql'] );
 			$ts = array_values( array_intersect( $cl['nomi'], self::tabelle_segrete( $c ) ) );
 			if ( $ts && preg_match( '/\b(UNION|INTERSECT|EXCEPT|WITH|VALUES|LATERAL|JSON_TABLE)\b|\(\s*(SELECT|TABLE)\b/i', $skl ) ) {
@@ -738,13 +902,36 @@ final class Rdacademy_Console_SQL {
 			if ( $kvm === '' && $ts && preg_match( '/\bNATURAL\b|\bUSING\s*\(/i', $skl ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $ts ) . '): niente NATURAL JOIN né JOIN … USING (confronterebbero i valori senza nominarli), si unisce con ON sulle colonne innocue.';
 			if ( $kvm === '' && $ts && preg_match( '/\bDISTINCT(?:ROW)?\b/i', $skl ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $ts ) . '): niente DISTINCT (il numero di righe direbbe quali valori sono uguali).';
 			if ( $kvm === '' && $ts && self::per_posizione( $skl ) ) $kvm = 'Tabelle con colonne segrete (' . implode( ', ', $ts ) . '): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna.';
+			// F033 (R11-4): con un suggerimento d indice l ordine delle righe seguirebbe l indice sulla colonna segreta
+			if ( $kvm === '' && $ts && preg_match( self::SUGGERIMENTI, $skl ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $ts ) . '): niente suggerimenti d indice (USE, FORCE, IGNORE INDEX): l ordine delle righe seguirebbe un indice su una colonna segreta. Gli indici sulle colonne segrete li esclude già la console.';
 			if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }
-			$l = self::leggi_su( $c, $r['sql'], $cl['nomi'] );
+			// F033 (R11-4): gli indici che contengono una colonna segreta (o il valore chiave/valore) si escludono dalla SELECT, e il piano
+			// del server lo conferma: così ordine delle righe, LIMIT/OFFSET, GROUP_CONCAT e tetti non dipendono dai valori segreti
+			$sql_letta = $r['sql']; $esclusi = array();
+			// anche una vista innocua può poggiare su una tabella con un indice segreto: si guardano le tabelle che la sua definizione nomina
+			$larghi = $cl['nomi'];
+			foreach ( $viste as $x ) { if ( in_array( $x[0], $cl['nomi'], true ) && preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $x[1], $pv ) ) $larghi = array_merge( $larghi, array_map( 'strtolower', $pv[0] ) ); }
+			if ( $cl['verbo'] === 'SELECT' && ( $ts || array_intersect( $cl['nomi'], $nv ) ) ) {
+				list( $ign, $chv ) = self::indici_segreti( $c );
+				if ( $ign === null ) { $c->close(); $rifiuta( 'Indici del database non leggibili (information_schema.STATISTICS): senza sapere quali indici stanno sulle colonne segrete la console non legge le tabelle con segreti (' . implode( ', ', $ts ) . ').' ); return $out; }
+				$tc = array_values( array_intersect( array_keys( $chv ), $larghi ) );
+				if ( $tc ) { $c->close(); $rifiuta( 'Tabelle la cui chiave primaria (o l indice unico che ne fa le veci) contiene una colonna segreta (' . implode( ', ', $tc ) . '): le righe uscirebbero nell ordine dei segreti, la console non le legge con SELECT, nemmeno attraverso una vista (SHOW e DESCRIBE restano).' ); return $out; }
+				$ign = array_intersect_key( $ign, array_flip( $larghi ) );
+				if ( $ign ) {
+					list( $sql_letta, $esclusi ) = self::senza_indici_segreti( $r['sql'], $ign );
+					$ep = ''; $pp = self::piano_pulito( $c, $sql_letta, $ign, $ep );
+					if ( $pp === null && $sql_letta !== $r['sql'] ) { $sql_letta = $r['sql']; $esclusi = array(); $pp = self::piano_pulito( $c, $sql_letta, $ign, $ep ); }
+					if ( $pp === null ) { $c->close(); $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $ep ); return $out; }
+					if ( $pp === false ) { $c->close(); $rifiuta( 'Il server leggerebbe lungo un indice su una colonna segreta (' . implode( ', ', array_map( static function ( $t, $ii ) { return implode( ', ', $ii ) . ' di ' . $t; }, array_keys( $ign ), $ign ) ) . ') e la console non è riuscita a escluderlo: le righe uscirebbero nell ordine dei segreti. Scrivi le tabelle nel FROM in modo semplice (FROM tabella [AS alias] [JOIN tabella …]); una vista sopra queste tabelle non si può correggere da qui: si legge la tabella.' ); return $out; }
+				}
+			}
+			$l = self::leggi_su( $c, $sql_letta, $cl['nomi'] );
 			$c->close();
 			if ( ! $l['ok'] ) { $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $l['errore'] ); return $out; }
 			$out['colonne'] = $l['colonne']; $out['dati'] = $l['dati'];
 			$riga( 'INFO', $cl['verbo'] . ' su ' . $at . ' · lettura in transazione READ ONLY · tempo massimo ' . self::TEMPO_MAX . ' s · ' . count( $l['dati'] ) . ' righe · ' . $l['ms'] . ' ms' );
 			if ( $l['troncato'] ) $riga( 'INFO', 'Risultato troncato: al massimo ' . self::MAX_RIGHE . ' righe e ' . intdiv( self::MAX_BYTE, 1000000 ) . ' MB.' );
+			if ( $esclusi ) $riga( 'INFO', 'Indici su colonne segrete esclusi dalla console (IGNORE INDEX: ' . implode( ', ', $esclusi ) . ') su ' . $at . ': l ordine e la scelta delle righe non seguono i valori segreti.' );
 			$riga( 'INFO', 'Colonne segrete mascherate: ' . ( $l['mascherate'] ? implode( ', ', $l['mascherate'] ) : 'nessuna in questo risultato' ) );
 			$riga( 'VERDE', 'Lettura eseguita su ' . $at . ': ' . ( $l['troncato'] ? 'solo le prime ' . count( $l['dati'] ) . ' righe, risultato troncato (non è tutto).' : count( $l['dati'] ) . ' righe.' ) );
 			return $out;
@@ -767,15 +954,19 @@ final class Rdacademy_Console_SQL {
 		if ( $kvm === '' && $tsw && preg_match( '/\bON\s+DUPLICATE\b/i', $skw ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): niente ON DUPLICATE KEY UPDATE (il conteggio direbbe se il valore era già quello); si usa UPDATE … WHERE chiave = ….';
 		if ( $kvm === '' && $tsw ) {
 			// F029 (4ª revisione, ALTO 3; F45 b): con tabelle segrete o chiave/valore una tabella sola, INSERT con le colonne, niente posizioni
+				// F033 (R11-3): «()» per il server sono TUTTE le colonne: dopo la parentesi deve venire un nome di colonna
 			$tcur = array_values( array_intersect( $cl['nomi'], self::colonna( $c, 'SELECT LOWER(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE()' ) ) );
 			if ( count( $tcur ) > 1 || preg_match( '/\bJOIN\b|\bUSING\b/i', $skw ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): in scrittura una tabella sola, niente UPDATE o DELETE su più tabelle (copierebbero i valori).';
-			elseif ( in_array( $cl['verbo'], array( 'INSERT', 'REPLACE' ), true ) && ! preg_match( '/^\s*(?:INSERT|REPLACE)\s+(?:(?:LOW_PRIORITY|DELAYED|HIGH_PRIORITY|IGNORE)\s+)*(?:INTO\s+)?[A-Za-z0-9_$.\x80-\xff]+\s*(?:\(|SET\b)/i', $skw ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): INSERT e REPLACE con l elenco delle colonne (senza, si scriverebbero le colonne segrete).';
+			elseif ( in_array( $cl['verbo'], array( 'INSERT', 'REPLACE' ), true ) && ! preg_match( '/^\s*(?:INSERT|REPLACE)\s+(?:(?:LOW_PRIORITY|DELAYED|HIGH_PRIORITY|IGNORE)\s+)*(?:INTO\s+)?[A-Za-z0-9_$.\x80-\xff]+\s*(?:\(\s*[A-Za-z_]|SET\b)/i', $skw ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete).';
 			elseif ( self::per_posizione( $skw ) ) $kvm = 'Tabelle con colonne segrete (' . implode( ', ', $tsw ) . '): niente ORDER BY per posizione.';
+			// F033 (R11-4): con un suggerimento d indice UPDATE e DELETE … LIMIT sceglierebbero le righe nell ordine dei segreti
+			elseif ( preg_match( self::SUGGERIMENTI, $skw ) ) $kvm = 'Tabelle con colonne segrete o chiave/valore (' . implode( ', ', $tsw ) . '): niente suggerimenti d indice (USE, FORCE, IGNORE INDEX) in scrittura: le righe si sceglierebbero lungo un indice su una colonna segreta.';
 		}
 		if ( $kvm !== '' ) { $c->close(); $rifiuta( $kvm ); return $out; }
 		$mi = self::controlla_scrittura( $c, $cl );
 		if ( $mi !== '' ) { $c->close(); $rifiuta( $mi ); return $out; }
-		self::q( $c, 'SET SESSION max_statement_time = ' . self::TEMPO_MAX );
+		// F033 (R11-7): tetto più basso per l istruzione in scrittura (il server, fermandola, annulla ciò che ha già scritto: dura altrettanto e più)
+		self::q( $c, 'SET SESSION max_statement_time = ' . self::TEMPO_SCRITTURA );
 		// F028: anche dove max_statement_time non c è (MySQL 8), l attesa dei lucchetti ha il tetto
 		self::q( $c, 'SET SESSION innodb_lock_wait_timeout = ' . self::TEMPO_MAX );
 		self::q( $c, 'SET SESSION lock_wait_timeout = ' . self::TEMPO_MAX );
@@ -786,9 +977,19 @@ final class Rdacademy_Console_SQL {
 			// F030 (6ª revisione a freddo, basso): la prova non lascia effetti, nemmeno sui contatori AUTO_INCREMENT
 			$ai = self::contatori( $c, $cl['nomi'] );
 			if ( ! self::q( $c, 'START TRANSACTION' ) ) { $riga( 'ROSSO', 'Transazione non aperta su ' . $at . ': ' . self::err( $c ) ); $c->close(); return $out; }
-			$ok = self::q( $c, $r['sql'] );
-			$n  = $ok ? self::righe_trovate( $c ) : -1; $e = $ok ? '' : self::err( $c );
-			self::q( $c, 'ROLLBACK' );
+			// F033 (R11-7): la risposta si aspetta fino a TEMPO_MAX secondi, annullamento compreso; oltre, niente gettone e si lascia la connessione
+			$entro = microtime( true ) + self::risposta_entro(); $n = -1; $e = '';
+			list( $ok, $scaduta ) = self::scrivi_su( $c, $r['sql'], $entro );
+			if ( ! $scaduta ) {
+				$n  = $ok ? self::righe_trovate( $c ) : -1; $e = $ok ? '' : self::err( $c ) . ( in_array( (int) $c->errno, array( 1969, 3024, 1317 ), true ) ? ' — in scrittura l istruzione ha al massimo ' . self::TEMPO_SCRITTURA . ' s: restringila con WHERE o dividila in più passi' : '' );
+				// anche l annullamento di un istruzione riuscita sta dentro lo stesso tempo
+				list( , $scaduta ) = self::scrivi_su( $c, 'ROLLBACK', $entro );
+			}
+			if ( $scaduta ) {
+				self::lascia( $c );
+				$rifiuta( 'Prova a secco fermata: il server non ha risposto entro ' . self::secondi( self::risposta_entro() ) . ' s (istruzione troppo pesante, o annullamento ancora in corso sul server). Nessun dato scritto: la transazione non è confermata e il server la annulla; i contatori AUTO_INCREMENT possono essere avanzati. Restringi l istruzione con WHERE o dividila in più passi.' );
+				return $out;
+			}
 			// F031 (8ª revisione, MEDIO 5): ALTER solo sulle tabelle il cui contatore è davvero cambiato
 			$ai_dopo = self::contatori( $c, $cl['nomi'] ); $ai_da = array();
 			foreach ( $ai as $ta => $na ) { if ( (int) $na < 0 || ( $ai_dopo[ $ta ] ?? null ) !== $na ) $ai_da[ $ta ] = $na; }
@@ -800,7 +1001,7 @@ final class Rdacademy_Console_SQL {
 			$scade = self::ora() + self::CONFERMO_TTL;
 			self::gettone_scrivi( $u, array( 'impronta' => $im, 'righe' => $n, 'scade' => $scade, 'gid' => bin2hex( random_bytes( 16 ) ) ) );
 			$out['righe_prova'] = $n; $out['scade'] = $scade;
-			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata).' );
+			$riga( 'INFO', 'Prova a secco su ' . $at . ': ' . $cl['verbo'] . ' in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura ' . self::TEMPO_SCRITTURA . ' s, risposta entro ' . self::secondi( self::risposta_entro() ) . ' s (annullamento compreso).' );
 			$riga( 'INFO', self::$blindato ? 'Registro: protetto da trigger contro UPDATE e DELETE.' : 'Registro: protetto solo per nome (il server non concede TRIGGER): la console non lo tocca, il database sì.' );
 			$riga( 'INFO', 'Righe che cambierebbero: ' . $n . ' (trovate dalla condizione, anche se già uguali) · nessun dato scritto' . ( $ai_ok ? ', contatori AUTO_INCREMENT rimessi com erano.' : ' (contatori AUTO_INCREMENT non rimessi: la sorgente non concede ALTER; possono essere avanzati).' ) );
 			$riga( 'INFO', 'Per scrivere davvero su ' . $at . ' scrivi CONFERMO e premi «Esegui» entro ' . intdiv( self::CONFERMO_TTL, 60 ) . ' minuti; vale solo per questa istruzione, su questa sorgente, una volta.' );
@@ -821,11 +1022,19 @@ final class Rdacademy_Console_SQL {
 		}
 		self::gettone_scrivi( $u, null );
 		if ( ! self::q( $c, 'START TRANSACTION' ) ) { $riga( 'ROSSO', 'Transazione non aperta su ' . $at . ': ' . self::err( $c ) ); $c->close(); return $out; }
-		$ok = self::q( $c, $r['sql'] );
+		$entro = microtime( true ) + self::risposta_entro();
+		list( $ok, $scaduta ) = self::scrivi_su( $c, $r['sql'], $entro );
+		if ( $scaduta ) {
+			// F033 (R11-7): nessun COMMIT è partito: lasciando la connessione il server annulla la transazione
+			self::lascia( $c );
+			$m = 'Scrittura fermata: il server non ha risposto entro ' . self::secondi( self::risposta_entro() ) . ' s. Niente scritto: la transazione non ha avuto COMMIT e il server la annulla. Restringi l istruzione o dividila, poi rifai la prova a secco.';
+			$riga( 'ROSSO', $m . ' (' . $at . ')' ); self::registra( $r, $s, 'scrittura', null, 'annullata', $m ); return $out;
+		}
 		$n  = $ok ? self::righe_trovate( $c ) : -1;
 		if ( ! $ok ) { $e = self::err( $c ); self::q( $c, 'ROLLBACK' ); $c->close(); $riga( 'ROSSO', 'Scrittura non riuscita su ' . $at . ': ' . $e ); self::registra( $r, $s, 'scrittura', null, 'errore', $e ); return $out; }
 		if ( $n !== (int) $g['righe'] ) {
-			self::q( $c, 'ROLLBACK' ); $c->close();
+			// F033 (R11-7): anche questo annullamento sta nel tempo di risposta; se non finisce si lascia la connessione (nessun COMMIT: il server annulla)
+			list( , $sc ) = self::scrivi_su( $c, 'ROLLBACK', $entro ); if ( $sc ) self::lascia( $c ); else $c->close();
 			$m = 'Righe ricontate: ' . $n . ' invece di ' . (int) $g['righe'] . ' della prova a secco → annullata, niente scritto. Rifai la prova.';
 			$riga( 'ROSSO', $m . ' (' . $at . ')' ); self::registra( $r, $s, 'scrittura', $n, 'annullata', $m ); return $out;
 		}
