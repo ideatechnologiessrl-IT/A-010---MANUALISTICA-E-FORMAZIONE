@@ -3,7 +3,7 @@
  * Rdacademy_Console_SQL — IL MOTORE DELLA CONSOLE SQL (banco standard n. 2, area «Database e sorgenti»).
  * ⛔ Documento riservato · non divulgabile — Idea Technologies srl soc. Uninominale.
  *
- * RelDoxAcademy 0.1.17A (Formazione F032: BUG-6, nona revisione a freddo). 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
+ * RelDoxAcademy 0.1.18A (Formazione F032: BUG-6, decima revisione a freddo). 0.1.17A (Formazione F032: BUG-6, nona revisione a freddo). 0.1.16A (Formazione F031: BUG-6, ottava revisione a freddo). 0.1.14A (Formazione F029: BUG-6, quarta revisione a freddo). 0.1.12A (Formazione F027: BUG-6 e F42, dalla revisione a freddo F026; prima 0.1.11A, F026, voce F29). Mockup MOCKUP-CONSOLE-SQL-v1 approvato (D45, owner
  * 23/11/2026 08:39, chat Formazione F025: «ok approvato»). Nasce dalla console di RelDoxFood 1.24.11L
  * (class-rdfood-console-sql.php, letta in sola lettura in F025) portata allo standard di famiglia: banco
  * prima del motore (banco/F026-banco-console-sql.php).
@@ -61,6 +61,8 @@
  *  - viste: non si leggono quelle che poggiano su un altra vista, chiamano una funzione memorizzata o leggono una colonna generata da
  *    una segreta; le tabelle con una colonna generata da una segreta non si leggono;
  *  - registro: ogni campo ripulito e accorciato prima di scrivere (byte non UTF-8, sorgente o login lunghi); il rifiuto non registrato si dichiara.
+ *  0.1.18A (BUG-6, decima revisione a freddo F032: 1 alto):
+ *  - INSERT e REPLACE: subito dopo il nome della tabella fra parentesi va l elenco delle colonne, mai «(VALUES …)» né «(SELECT …)».
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -221,6 +223,10 @@ final class Rdacademy_Console_SQL {
 		}
 		if ( $tipo === '' ) {
 			return $no( '«' . ( $verbo !== '' ? $verbo : substr( $testa, 0, 12 ) ) . '» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.', $verbo );
+		}
+		// F032 (10ª revisione, ALTO 1): «INSERT INTO t (VALUES (…))» e «(SELECT …)» sono la sorgente, non l elenco delle colonne: scriverebbero tutte le colonne
+		if ( in_array( $verbo, array( 'INSERT', 'REPLACE' ), true ) && preg_match( '/^\s*(?:INSERT|REPLACE)\s+(?:(?:LOW_PRIORITY|DELAYED|HIGH_PRIORITY|IGNORE)\s+)*(?:INTO\s+)?[A-Za-z0-9_]+(?:\s*\.\s*[A-Za-z0-9_]+)*\s*\(\s*(?:VALUES?\b|SELECT\b|TABLE\b|WITH\b|\()/i', $sk ) ) {
+			return $no( '«' . $verbo . ' … (VALUES …)» o «(SELECT …)» subito dopo il nome della tabella rifiutata: fra parentesi lì va l elenco delle colonne (' . $verbo . ' INTO tabella (colonne) VALUES (…)).', $verbo );
 		}
 		if ( $tipo === 'lettura' && preg_match( '/\bINTO\b/i', $sk ) ) {
 			return $no( '«INTO» in una lettura rifiutato: la console non scrive file né variabili.', $verbo );

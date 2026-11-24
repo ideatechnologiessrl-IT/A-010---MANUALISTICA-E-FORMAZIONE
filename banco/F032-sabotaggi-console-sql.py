@@ -104,6 +104,7 @@ SAB = [
  ('F032 vista sopra una colonna generata letta', " || array_intersect( $pvl, array_keys( $gen ) )", ""),
  ('F032 registro: campi non ripuliti', "if ( ! preg_match( '//u', $t ) ) $t = (string) preg_replace( '/[^\\x20-\\x7e\\t\\r\\n]/', '?', $t );", ""),
  ('F032 registro: campi non accorciati', "mb_substr( $t, 0, $max, 'UTF-8' )", "$t"),
+ ('F032 INSERT con «(VALUES …)» al posto delle colonne ammesso', "*\\s*\\(\\s*(?:VALUES?\\b|SELECT\\b|TABLE\\b|WITH\\b|\\()/i', $sk ) ) {", "*NIENTE_VALUES_FRA_PARENTESI/i', $sk ) ) {"),
  ('F032 registro: numeri incollati in chiaro', "|\\.\\d+)/i', '… '", "|\\.\\d+)(?![A-Za-z0-9_$])/i', '…'"),
 ]
 SAB += [

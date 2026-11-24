@@ -2,6 +2,7 @@
 /**
  * F032-banco-console-sql.php — RelDoxAcademy · Formazione F032 · 24/11/2026 (nasce dal banco F031)
  * Nona revisione a freddo (F032, sulla 0.1.16A: 6 alti, 5 medi): sezione N (N1-N12). Rosso sulla 0.1.16A, verde sulla 0.1.17A.
+ * Decima revisione a freddo (F032, sulla 0.1.17A: 1 alto): N13. Rosso sulla 0.1.17A, verde sulla 0.1.18A.
  *
  * (dal banco F031)
  * F031-banco-console-sql.php — RelDoxAcademy · Formazione F031 · 23/11/2026 (nasce dal banco F030)
@@ -654,6 +655,10 @@ $n = (int) uno( "SELECT COUNT(*) FROM rdacademy_console_registro WHERE istruzion
 prova( 'N11 (medio) registro: nessun numero incollato in chiaro e nessun nome fuso col suo alias', $n === 0, $n . ' righe' );
 $x = chiedi( array( 'sql' => 'SELECT `id`, `email` FROM `rdacademy_users` WHERE `id` = 1' ) ); $x2 = chiedi( array( 'sql' => 'SELECT `n`.`a` FROM `academy_base`.`rdacademy_note` `n` WHERE 1.5e3 > 1 AND 0x41 = 0x41 AND .5 < 1 LIMIT 1' ) ); $x3 = chiedi( array( 'sql' => 'SELECT id, email FROM rdacademy_users WHERE id IN (1,2) ORDER BY id DESC LIMIT 2' ) );
 prova( 'N12 istruzioni innocue con apici inversi, numeri con esponente ed esadecimali restano ammesse', $x['rossi'] === 0 && count( $x['dati'] ) === 1 && $x2['rossi'] === 0 && count( $x2['dati'] ) === 1 && $x3['rossi'] === 0 && count( $x3['dati'] ) === 2, testo( $x ) . ' / ' . testo( $x2 ) . ' / ' . testo( $x3 ) );
+// decima revisione a freddo (F032, sulla 0.1.17A: 1 alto)
+due_tempi( array( 'sql' => "INSERT INTO rdacademy_riservati (VALUES (500,'ZQX-intruso'))" ) ); due_tempi( array( 'sql' => "REPLACE INTO rdacademy_impostazioni (VALUES (900,'mail_servizio_password','ZQX-kv'))" ) ); due_tempi( array( 'sql' => "INSERT INTO rdacademy_riservati ((VALUES (501,'ZQX-intruso')))" ) ); due_tempi( array( 'sql' => "INSERT INTO rdacademy_riservati (SELECT 502,'ZQX-intruso')" ) );
+list( $x, $x2 ) = due_tempi( array( 'sql' => "INSERT INTO rdacademy_note (a, b) VALUES ('n13-a', 'n13-b')" ) );
+prova( 'N13 (alto) INSERT e REPLACE con la sorgente fra parentesi al posto dell elenco delle colonne («(VALUES …)», «(SELECT …)»): niente scritto nelle colonne segrete; l INSERT con le colonne resta', (int) uno( "SELECT COUNT(*) FROM rdacademy_riservati WHERE password LIKE 'ZQX%'" ) === 0 && (int) uno( "SELECT COUNT(*) FROM rdacademy_impostazioni WHERE valore LIKE 'ZQX%'" ) === 0 && $x['rossi'] === 0 && $x2['rossi'] === 0 && (int) uno( "SELECT COUNT(*) FROM rdacademy_note WHERE a = 'n13-a'" ) === 1, 'righe ZQX: ' . uno( "SELECT COUNT(*) FROM rdacademy_riservati WHERE password LIKE 'ZQX%'" ) . ' e ' . uno( "SELECT COUNT(*) FROM rdacademy_impostazioni WHERE valore LIKE 'ZQX%'" ) . ' / ' . testo( $x ) . ' / ' . testo( $x2 ) );
 
 
 fine();

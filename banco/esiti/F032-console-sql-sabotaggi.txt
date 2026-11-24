@@ -1,0 +1,108 @@
+  ROSSO (giusto)  lettura senza READ ONLY (sessione e transazione) — 126 verdi, 2 rossi
+  ROSSO (giusto)  WordPress scrivibile — 126 verdi, 2 rossi
+  ROSSO (giusto)  spunta ignorata — 122 verdi, 6 rossi
+  ROSSO (giusto)  righe non ricontate — 127 verdi, 1 rossi
+  ROSSO (giusto)  CONFERMO senza scadenza — 127 verdi, 1 rossi
+  ROSSO (giusto)  CONFERMO per qualunque istruzione — 124 verdi, 4 rossi
+  ROSSO (giusto)  conferma non controllata — 124 verdi, 4 rossi
+  ROSSO (giusto)  INTO OUTFILE ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  SLEEP ammesso — 125 verdi, 3 rossi
+  ROSSO (giusto)  commento eseguibile ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  due istruzioni ammesse — 127 verdi, 1 rossi
+  ROSSO (giusto)  colonne segrete in chiaro — 125 verdi, 3 rossi
+  ROSSO (giusto)  ripiego su sorgente spenta — 126 verdi, 2 rossi
+  ROSSO (giusto)  registro toccabile — 127 verdi, 1 rossi
+  ROSSO (giusto)  MyISAM ammessa — 126 verdi, 2 rossi
+  ROSSO (giusto)  scrittura senza registro — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 apici inversi non in chiaro — 124 verdi, 4 rossi
+  ROSSO (giusto)  F027 sequenze ammesse — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 SHOW GRANTS ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 USER() ammesso — 127 verdi, 1 rossi
+  VERDE (CIECO)   F027 schema mysql ammesso — 128 verdi, 0 rossi
+  ROSSO (giusto)  F027 REPLACE() preso per scrittura — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 colonne segrete citabili in lettura — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 errori con i valori — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 UNION e WITH ammessi su tabelle con segreti — 125 verdi, 3 rossi
+  ROSSO (giusto)  F027 nomi accentati non letti — 123 verdi, 5 rossi
+  ROSSO (giusto)  F027 sequenze di DEFAULT ammesse — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 SHOW ENGINE ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 prefisso nel database di WordPress ignorato — 126 verdi, 2 rossi
+  ROSSO (giusto)  F027 tempo massimo solo in lettura — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 DEFINER in chiaro — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 altro database ammesso — 123 verdi, 5 rossi
+  ROSSO (giusto)  F027 viste ammesse — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 trigger ammessi — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 funzioni memorizzate ammesse — 126 verdi, 2 rossi
+  ROSSO (giusto)  F027 gettone riusabile — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 registro senza trigger — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 registro «avvio» ignorato — 127 verdi, 1 rossi
+  ROSSO (giusto)  F027 multisite senza super amministratore — 126 verdi, 2 rossi
+  ROSSO (giusto)  F027 interfaccia: Incolla in scrittura — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 INSERT … SELECT dalle tabelle con segreti (con le regole F029 che la doppiano) — 119 verdi, 9 rossi
+  ROSSO (giusto)  F028 chiave/valore senza maschera per riga — 124 verdi, 4 rossi
+  ROSSO (giusto)  F028 chiave segreta riconosciuta solo per nome di colonna — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 valore serializzato con segreti non guardato — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 espressioni sul valore in chiaro (con la regola F029 che la doppia) — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 valore usato nelle condizioni — 119 verdi, 9 rossi
+  ROSSO (giusto)  F028 sql_mode del server lasciato (né ripulito né controllato) — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 INNODB_TRX ammessa — 126 verdi, 2 rossi
+  ROSSO (giusto)  F028 SHOW BINLOG ed EXPLAIN FOR ammessi — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 suggerimenti /*+ ammessi — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 attese GTID ammesse — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 permessi e ruoli ammessi — 126 verdi, 2 rossi
+  ROSSO (giusto)  F028 senza tetto in byte — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 utente della sorgente in chiaro — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 TABLE nelle sottoquery ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 registro protetto non dichiarato — 127 verdi, 1 rossi
+  ROSSO (giusto)  F028 attesa dei lucchetti senza tetto — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029 caratteri di controllo ammessi — 126 verdi, 2 rossi
+  ROSSO (giusto)  F029 chiave/valore legati a una chiave di un altra tabella unita — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029 UPDATE/DELETE su più tabelle ammessi — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029 chiave rinominabile — 124 verdi, 4 rossi
+  ROSSO (giusto)  F029 errore a metà lettura dato per VERDE — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029 valore chiave/valore in espressioni (lettura) — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029 valore chiave/valore in espressioni (scrittura) — 125 verdi, 3 rossi
+  ROSSO (giusto)  F029 ORDER BY per posizione ammesso — 124 verdi, 4 rossi
+  ROSSO (giusto)  F029 INSERT senza colonne ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029 ROLE_ troppo largo — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029-r5 chiave cambiabile con «:=» — 125 verdi, 3 rossi
+  ROSSO (giusto)  F029-r5 HAVING/ORDER BY sul valore chiave/valore — 126 verdi, 2 rossi
+  ROSSO (giusto)  F029-r5 posizioni: taglio a ogni parola LIMIT (dal motore F031 la regola è «nessun numero dopo ORDER/GROUP BY») — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029-r5 INSERT … SET preso per cambio di chiave — 127 verdi, 1 rossi
+  ROSSO (giusto)  F029-r5 SHOW ALL SLAVES ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F030 PROCEDURE ANALYSE ammessa — 126 verdi, 2 rossi
+  ROSSO (giusto)  F030 contatori AUTO_INCREMENT non rimessi — 126 verdi, 2 rossi
+  ROSSO (giusto)  F030 F46(a) conteggio delle righe cambiate — 127 verdi, 1 rossi
+  ROSSO (giusto)  F030-r7 ON DUPLICATE KEY UPDATE ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F030-r7 NATURAL JOIN e USING ammessi — 127 verdi, 1 rossi
+  ROSSO (giusto)  F030-r7 DISTINCT ammesso — 127 verdi, 1 rossi
+  NON APPLICATO  F030-r7 valori in chiaro nel registro
+  ROSSO (giusto)  oltre 1000 righe — 126 verdi, 2 rossi
+  ROSSO (giusto)  F032 nome fra apici inversi senza spazi attorno — 122 verdi, 6 rossi
+  ROSSO (giusto)  F032 numero attaccato a una parola ammesso — 126 verdi, 2 rossi
+  ROSSO (giusto)  F032 «$» e «\» fuori dalle stringhe ammessi — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 nomi che cominciano con una cifra ammessi — 126 verdi, 2 rossi
+  ROSSO (giusto)  F032 istruzione lunghissima ammessa — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 lettura da un altro database ammessa — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 SHOW … FROM un altro database ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 tabelle con colonna generata da una segreta lette — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 vista sopra un altra vista letta — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 vista che chiama una funzione letta — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 vista sopra una colonna generata letta — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 registro: campi non ripuliti — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 registro: campi non accorciati — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 INSERT con «(VALUES …)» al posto delle colonne ammesso — 127 verdi, 1 rossi
+  ROSSO (giusto)  F032 registro: numeri incollati in chiaro — 127 verdi, 1 rossi
+  ROSSO (giusto)  F031 nomi non ASCII ammessi — 124 verdi, 4 rossi
+  ROSSO (giusto)  F031 chiamata fra apici inversi non vista — 127 verdi, 1 rossi
+  VERDE (CIECO)   F031 chiave legata solo per alias — 128 verdi, 0 rossi
+  ROSSO (giusto)  F031 funzioni memorizzate chiamate in lettura — 127 verdi, 1 rossi
+  ROSSO (giusto)  F031 viste con colonne segrete lette — 126 verdi, 2 rossi
+  ROSSO (giusto)  F031 valore chiave/valore fra parentesi — 126 verdi, 2 rossi
+  ROSSO (giusto)  F031 numeri dopo ORDER BY ammessi — 124 verdi, 4 rossi
+  NON APPLICATO  F031 numeri in chiaro nel registro
+  ROSSO (giusto)  F031 ALTER del contatore sempre — 127 verdi, 1 rossi
+  ROSSO (giusto)  F031 maschere chiave/valore non dichiarate — 127 verdi, 1 rossi
+  ROSSO (giusto)  F031 troncato taciuto nella riga finale — 127 verdi, 1 rossi
+
+102 sabotaggi su 106 fanno tornare rosso il banco
