@@ -14,6 +14,10 @@ imposta è sempre delle 4 buste … le sorelle che generano codice devono rispet
   busta 3 MISURE     banco/ e strumenti/: script, banchi, esiti
   busta 4 AGGIUNTA   mockup, materiali (corsi, fonti, glossario, manuali, modelli), risorse
 
+F033 (CRD-R049, REGOLE-FAMIGLIA v10 § 10 quater; owner 24/11/2026 13:40, chat RelDox CRD S748): a ogni kit il PROMPT COMPLETO della
+sessione seguente, preso dal § 11 dell APERTURA: file PROMPT-F<nnn>.md nella busta 1 e accanto al kit; la verifica è ROSSA se manca,
+se è diverso dall APERTURA o se non è completo.
+
 Il manifesto si ricalcola sulla scatola e si scrive nell APERTURA fra i due segni MANIFESTO; il progressivo K sta in
 banco/KIT-PROGRESSIVO.txt e cresce di uno a ogni consegna, mai riusato.
 
@@ -21,7 +25,7 @@ uso:
   python3 -I banco/F013-kit.py componi <uscita> <pacchetto.zip> <versione con lettera> <sessione seguente> <diagnostica.zip>
       (F027, violazione V-7: il prodotto e RelDoxAcademy Diagnostica viaggiano sempre insieme; senza diagnostica la verifica è ROSSA)
   python3 -I banco/F013-kit.py verifica <kit.zip> <progressivo precedente, es. K0000>
-  python3 -I banco/F013-kit.py sabotaggi <kit.zip> <progressivo precedente>   (tutti e cinque devono dare ROSSO)
+  python3 -I banco/F013-kit.py sabotaggi <kit.zip> <progressivo precedente>   (tutti e sette devono dare ROSSO)
 """
 import hashlib, io, os, re, sys, zipfile, subprocess, tempfile, datetime
 
@@ -56,6 +60,25 @@ def zip_da(file_e_dati):
         for nome, dati in file_e_dati:
             z.writestr(zipfile.ZipInfo(nome, (2026, 1, 1, 0, 0, 0)), dati)
     return buf.getvalue()
+
+
+def prompt_di(ap):
+    """F033 (CRD-R049, REGOLE-FAMIGLIA v10 § 10 quater): il prompt completo della sessione seguente è il blocco citato («> »)
+    del § 11 dell APERTURA; lo stesso testo va nel file PROMPT-F<nnn>.md e nel messaggio di consegna. Vuoto = manca."""
+    i = ap.find('\n## §11')
+    if i < 0:
+        return ''
+    righe = []
+    for r in ap[i:].splitlines()[2:]:
+        if r.startswith('>'):
+            righe.append(r[2:] if r.startswith('> ') else r[1:])
+        elif righe:
+            break
+    return '\n'.join(righe).strip() + '\n' if righe else ''
+
+
+PROMPT_MINIMO = ('Repository', 'ramo', '`main`', 'installat', 'CLAUDE.md', 'DECISIONI-CHIUSE.md', 'APERTURA-', 'RelDox-Famiglia',
+                 'apertura-nodo.py', 'decisioni-chiuse.py', 'registri', 'allegare')
 
 
 def ultimo_k():
@@ -115,6 +138,7 @@ def componi(uscita, pacchetto, ver_l, sess, diag=None):
          '         %d file · %d cartelle · 0 cartelle vuote' % (len(voci), len(cartelle)),
          '         %s  %d righe' % (md5_nome, len(righe)),
          '         APERTURA-%s.md' % sess,
+         '         PROMPT-%s.md  (prompt completo della sessione seguente; anche accanto al kit)' % sess,
          '         rese: %s' % ', '.join(n for n, _ in rese),
          ('         pacchetto di diagnostica: %s  md5 %s (F021: secondo pacchetto, stesso numero)' % (os.path.basename(diag), md5(open(diag, 'rb').read()))
           if diag else '         pacchetto di diagnostica: assente (non ancora scritto, banco G10 rosso)'),
@@ -153,7 +177,11 @@ def componi(uscita, pacchetto, ver_l, sess, diag=None):
     open(ap_path, 'w', encoding='utf-8').write(ap)
 
     leggi = lambda f: open(os.path.join(REPO, f), 'rb').read()
-    b1 = zip_da(([(os.path.basename(diag), open(diag, 'rb').read())] if diag else []) + [(os.path.basename(pacchetto), pz), (md5_nome, md5_txt.encode()),
+    prompt = prompt_di(ap)
+    if not prompt:
+        sys.exit('ROSSO: nell APERTURA manca il prompt completo del § 11 (REGOLE-FAMIGLIA v10 § 10 quater)')
+    prompt_nome = 'PROMPT-%s.md' % sess
+    b1 = zip_da([(prompt_nome, prompt.encode('utf-8'))] + ([(os.path.basename(diag), open(diag, 'rb').read())] if diag else []) + [(os.path.basename(pacchetto), pz), (md5_nome, md5_txt.encode()),
                  (os.path.basename(apertura_rel), ap.encode())] + rese)
     b2 = zip_da([(f, leggi(f)) for f in area])
     b3 = zip_da([(f, leggi(f)) for f in misure])
@@ -162,6 +190,7 @@ def componi(uscita, pacchetto, ver_l, sess, diag=None):
     os.makedirs(uscita, exist_ok=True)
     out = os.path.join(uscita, kit_nome)
     open(out, 'wb').write(kit)
+    open(os.path.join(uscita, prompt_nome), 'w', encoding='utf-8').write(prompt)   # accanto al kit, da allegare alla chat nuova
     return out, 'K%04d' % prec, k, ver + lettera, sess
 
 
@@ -242,6 +271,25 @@ def verifica(kit_path, prec, dati=None):
     pl = ap[ap.find('## PROVA DI LETTURA'):]
     if ap.find('## PROVA DI LETTURA') < 0 or len(re.findall(r'^\d\. .*r\.\d+', pl, re.M)) < 3:
         rossi.append('5: prova di lettura assente o con meno di tre domande su riga')
+    # 11. F033 (CRD-R049): il prompt completo, nella busta 1 e accanto al kit, uguale al § 11 dell APERTURA
+    atteso_p = prompt_di(ap)
+    pn = 'PROMPT-%s.md' % sess
+    if not atteso_p:
+        rossi.append('11: nell APERTURA manca il prompt del § 11')
+    else:
+        if pn not in b1.namelist():
+            rossi.append('11: %s assente nella busta 1 (un kit senza prompt non è consegnato)' % pn)
+        elif b1.read(pn).decode('utf-8') != atteso_p:
+            rossi.append('11: %s diverso dal prompt dell APERTURA' % pn)
+        manca = [x for x in PROMPT_MINIMO if x not in atteso_p]
+        if manca:
+            rossi.append('11: prompt non completo, mancano: %s' % ', '.join(manca))
+        if not dati:
+            accanto = os.path.join(os.path.dirname(os.path.abspath(kit_path)), pn)
+            if not os.path.isfile(accanto):
+                rossi.append('11: %s assente accanto al kit' % pn)
+            elif open(accanto, encoding='utf-8').read() != atteso_p:
+                rossi.append('11: %s accanto al kit diverso dal prompt dell APERTURA' % pn)
     # 9. progressivo che cresce
     if int(k[1:]) <= int(prec[1:]):
         rossi.append('9: progressivo %s non maggiore del precedente %s' % (k, prec))
@@ -275,9 +323,16 @@ def sabota(kit_path, modo):
                 d = t.encode('utf-8')
             voci.append((f, d))
         m[n1] = zip_da(voci)
+    elif modo in ('prompt', 'prompt-diverso'):
+        b1 = zipfile.ZipFile(io.BytesIO(m[n1]))
+        m[n1] = zip_da([(f, b1.read(f) + (b'riga in piu\n' if f.startswith('PROMPT-') else b'')) for f in b1.namelist()
+                        if not (modo == 'prompt' and f.startswith('PROMPT-'))])
     elif modo == 'progressivo':
         prec = k
     return zip_da(list(m.items())), prec
+
+
+MODI = ('busta', 'canonico', 'conteggio', 'progressivo', 'elenco', 'prompt', 'prompt-diverso')
 
 
 def main():
@@ -290,7 +345,7 @@ def main():
         if rossi:
             print('ROSSO: ' + ' | '.join(rossi))
             sys.exit(1)
-        for modo in ('busta', 'canonico', 'conteggio', 'progressivo', 'elenco'):
+        for modo in MODI:
             dati, p = sabota(out, modo)
             if not verifica(None, p, dati):
                 print('ROSSO: il controllo resta verde col sabotaggio «%s»' % modo)
@@ -298,15 +353,16 @@ def main():
         with open(REGISTRO_K, 'a', encoding='utf-8') as f:
             f.write('%s  %s  %s  %s  %s\n' % (k, ver_l, sess, os.path.basename(out),
                                               datetime.datetime.now().strftime('%d/%m/%Y %H:%M')))
-        print('VERDE: %s · %s byte · md5 %s · 5 sabotaggi tutti rossi · progressivo %s registrato'
-              % (out, os.path.getsize(out), md5(open(out, 'rb').read()), k))
+        print('VERDE: %s · %s byte · md5 %s · %d sabotaggi tutti rossi · progressivo %s registrato'
+              % (out, os.path.getsize(out), md5(open(out, 'rb').read()), len(MODI), k))
+        print('PROMPT: %s (accanto al kit e nella busta 1; lo stesso testo va per intero nel messaggio di consegna)' % os.path.join(os.path.dirname(out), 'PROMPT-%s.md' % sess))
     elif cmd == 'verifica':
         rossi = verifica(sys.argv[2], sys.argv[3])
         print('ROSSO: ' + ' | '.join(rossi) if rossi else 'VERDE')
         sys.exit(1 if rossi else 0)
     elif cmd == 'sabotaggi':
         tutti_rossi = True
-        for modo in ('busta', 'canonico', 'conteggio', 'progressivo', 'elenco'):
+        for modo in MODI:
             dati, p = sabota(sys.argv[2], modo)
             r = verifica(None, p, dati)
             print('[%s] sabotaggio %-11s → %s' % ('ROSSO' if r else 'VERDE?', modo, r[0] if r else 'nessun rosso'))
