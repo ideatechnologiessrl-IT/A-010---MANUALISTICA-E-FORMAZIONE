@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0035 — 0.1.18A — F033
+## MANIFESTO — KIT K0036 — 0.1.18A — F033
 
-PROGRESSIVO K0035   precedente K0034   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0035-0_1_18A-F033.zip · composto il 24/11/2026 13:36
+PROGRESSIVO K0036   precedente K0035   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0036-0_1_18A-F033.zip · composto il 24/11/2026 13:42
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0035-0_1_18-F033.zip
+BUSTA 1  KIT-1-APERTURA-K0036-0_1_18-F033.zip
          reldox-academy-0_1_18.zip  md5 76fa266369f28ff0ee77848fefb41a0a
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_18.txt  103 righe
          APERTURA-F033.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: reldox-academy-diagnostica-0_1_18.zip  md5 c837006914cceb0ce3c637a072ea8b1d (F021: secondo pacchetto, stesso numero)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0035-0_1_18-F033.zip  51 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0035-0_1_18-F033.zip  119 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0036-0_1_18-F033.zip  51 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0036-0_1_18-F033.zip  119 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  320 righe
@@ -63,7 +63,7 @@ BUSTA 3  KIT-3-MISURE-K0035-0_1_18-F033.zip  119 script
          banco/F032-rifai-0.1.18A.sh  69 righe
          banco/F032-sabotaggi-console-sql.py  148 righe
          banco/INSTALLATA-SUL-SITO.txt  1 righe
-         banco/KIT-PROGRESSIVO.txt  34 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  35 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -139,7 +139,7 @@ BUSTA 3  KIT-3-MISURE-K0035-0_1_18-F033.zip  119 script
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
          strumenti/riga-registri.py  65 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0035-0_1_18-F033.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0036-0_1_18-F033.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (51):
   CLAUDE.md
   README.md
@@ -205,7 +205,7 @@ BASELINE 0.1.18 · stadio Alfa · ultima installata sul sito: 0.1.18A (www.reldo
 ## §00 — DA DOVE SI RIPARTE (HANDOFF)
 F032 (24/11/2026).
 - Manifesto K0032 confrontato: coincide. Prova di lettura risposta. Nodo `5cd5596`: apertura VERDE, 0 messaggi nuovi; classifica 5ª (0,47). Decisioni chiuse VERDE.
-- **Richiamo dell owner (24/11/2026 11:28, chat Formazione F032)**: «Il tuo stato dichiara 38 punti aperti e 1 bug, ma dal suo file ho letto solo 33 punti e nessun bug». Verificato sui file: `main` 33 e 0, ramo di sessione 38 e 1 (F42, F43, F45, F46, F48 e BUG-6 nati sul ramo). Proposto all owner di portare in `main` i soli due registri (`docs/ROADMAP.md`, `docs/BUG-FORMAZIONE.md`) senza codice: **aspetta il suo sì**, non fatto. FOR-R006 a R-D ancora aperta.
+- **Richiamo dell owner (24/11/2026 11:28, chat Formazione F032)**: «Il tuo stato dichiara 38 punti aperti e 1 bug, ma dal suo file ho letto solo 33 punti e nessun bug». Verificato sui file: `main` 33 e 0, ramo di sessione 38 e 1 (F42, F43, F45, F46, F48 e BUG-6 nati sul ramo). Proposto all owner di portare in `main` i soli due registri (`docs/ROADMAP.md`, `docs/BUG-FORMAZIONE.md`) senza codice: **sì dell owner** (D46, 24/11/2026 13:41: *«si procedi»*), **fatto**: `main` dice 42 punti e 1 bug come il ramo. Da ora i due registri si riportano in `main` a ogni kit. FOR-R006 a R-D ancora aperta.
 - **Nona revisione a freddo** (sulla 0.1.16A, 1.261 prove): 6 alti, 5 medi, 6 bassi, 6 dubbi. Radice di quattro alti e due medi: lo scheletro incollava un nome fra apici inversi alla parola vicina (`` `id`UNION ``). Gli 11 alti e medi corretti nella **0.1.17A**; bassi e dubbi nella voce F49 (★★★★).
 - **Decima revisione a freddo** (sulla 0.1.17A, 515 prove): 1 alto (`INSERT INTO t (VALUES (…))`), 0 medi, 3 bassi, 2 dubbi. L alto corretto nella **0.1.18A**; bassi e dubbi nella voce F50 (★★★).
 - Banco `banco/F032-banco-console-sql.php` (sezione N, N1-N13): rosso sulla 0.1.16A 116/11, rosso sulla 0.1.17A 127/1, **verde sulla 0.1.18A 128/128**, trappola rossa; sabotaggi in `banco/esiti/F032-console-sql-sabotaggi.txt` **102 su 106**: i 15 delle regole nuove tutti rossi; 2 vecchi non si applicano più e 2 danno verde per una seconda difesa, voce F51 ★★★.
@@ -218,7 +218,7 @@ F032 (24/11/2026).
 0. Decisioni chiuse, manifesto, prova di lettura, apertura del nodo, registri in una riga; `python3 -I strumenti/riga-registri.py . <nodo>/bacheca/formazione/STATO.md` VERDE dopo aver riscritto la riga, anche alla chiusura.
 1. **F51**: riallineare i quattro sabotaggi (106 su 106).
 1 bis. **BUG-6**: undicesima revisione a freddo sulla 0.1.18A (agente nuovo, prove scritte da zero, database `rev11_*`); con alti o medi: banco rosso, motore, verde, sabotaggi, revisione di nuovo fino a 0 e 0. Poi pagina guardata in WordPress e smoke dell owner; con «ok smoke» unione, `novita/`, `prodotti.md`, riga «Sicurezza: tocca query e permessi», BUG-6, F42, F45 chiusi.
-2. Risposta dell owner sui due registri in `main`.
+2. A ogni kit: i due registri del ramo riportati in `main` (D46), senza codice.
 3. F48 (a), F49 (g) e F50 (e): portare all owner le scelte sui nomi segreti insieme allo smoke.
 4. F43 nella versione dopo la console; F40 a RelDoxFood; F41; F39 entro l 08/12; F38 alla prossima versione.
 5. A ogni consegna «Contesto: ~NN% · soglia kit 70%».
