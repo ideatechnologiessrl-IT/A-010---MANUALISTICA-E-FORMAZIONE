@@ -6,20 +6,20 @@
 
 <!-- MANIFESTO:INIZIO — scritto da banco/F013-kit.py, ricalcolato sulla scatola: non si scrive a mano -->
 ```
-## MANIFESTO — KIT K0031 — 0.1.16A — F032
+## MANIFESTO — KIT K0032 — 0.1.16A — F032
 
-PROGRESSIVO K0031   precedente K0030   ⛔ mai uguale, mai minore
-KIT KIT-RELDOXACADEMY-K0031-0_1_16A-F032.zip · composto il 23/11/2026 19:55
+PROGRESSIVO K0032   precedente K0031   ⛔ mai uguale, mai minore
+KIT KIT-RELDOXACADEMY-K0032-0_1_16A-F032.zip · composto il 24/11/2026 11:24
 BUSTE DICHIARATE: 4
-BUSTA 1  KIT-1-APERTURA-K0031-0_1_16-F032.zip
+BUSTA 1  KIT-1-APERTURA-K0032-0_1_16-F032.zip
          reldox-academy-0_1_16.zip  md5 dd13f532191b0d5e5660c585ad91bcff
          103 file · 23 cartelle · 0 cartelle vuote
          MD5-0_1_16.txt  103 righe
          APERTURA-F032.md
          rese: ANALISI-TECNICA-RELDOXACADEMY.html
          pacchetto di diagnostica: reldox-academy-diagnostica-0_1_16.zip  md5 8eec845312aec0b98d8a077ea36549c1 (F021: secondo pacchetto, stesso numero)
-BUSTA 2  KIT-2-AREA-PROGETTI-K0031-0_1_16-F032.zip  50 file — quello che sostituirà l area intera
-BUSTA 3  KIT-3-MISURE-K0031-0_1_16-F032.zip  110 script
+BUSTA 2  KIT-2-AREA-PROGETTI-K0032-0_1_16-F032.zip  50 file — quello che sostituirà l area intera
+BUSTA 3  KIT-3-MISURE-K0032-0_1_16-F032.zip  110 script
          banco/F005-G-banchi-copia.py  130 righe
          banco/F013-banco-wpconfig.php  69 righe
          banco/F013-kit.py  320 righe
@@ -59,7 +59,7 @@ BUSTA 3  KIT-3-MISURE-K0031-0_1_16-F032.zip  110 script
          banco/F031-rifai-0.1.16A.sh  69 righe
          banco/F031-sabotaggi-console-sql.py  128 righe
          banco/INSTALLATA-SUL-SITO.txt  1 righe
-         banco/KIT-PROGRESSIVO.txt  30 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
+         banco/KIT-PROGRESSIVO.txt  31 righe (nella busta; la riga di questo kit si aggiunge dopo la verifica)
          banco/esiti/F005-G-rosso-prima.txt  5 righe
          banco/esiti/F006-G-parziale.txt  7 righe
          banco/esiti/F007-G-parziale.txt  7 righe
@@ -130,7 +130,7 @@ BUSTA 3  KIT-3-MISURE-K0031-0_1_16-F032.zip  110 script
          strumenti/figure-1-2.py  101 righe
          strumenti/genera-analisi-tecnica.py  144 righe
          strumenti/riga-registri.py  65 righe
-BUSTA 4  KIT-4-AGGIUNTA-K0031-0_1_16-F032.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
+BUSTA 4  KIT-4-AGGIUNTA-K0032-0_1_16-F032.zip  64 volumi — corsi 18 · fonti 1 · glossario 1 · manuali 5 · mockup 10 · modelli 3 · risorse 26
 ELENCO DELL AREA, DICHIARATO (50):
   CLAUDE.md
   README.md
@@ -182,7 +182,7 @@ ELENCO DELL AREA, DICHIARATO (50):
   docs/STRUTTURA.md
   docs/VALUTAZIONE-INSTALLAZIONE-RELDOXACADEMY-v1.md
   docs/VIOLAZIONI-FORMAZIONE.md
-BASELINE 0.1.16 · stadio Alfa · ultima installata sul sito: 0.1.15A (www.reldoxacademy.it, 23/11/2026 18:39)
+BASELINE 0.1.16 · stadio Alfa · ultima installata sul sito: 0.1.16A (www.reldoxacademy.it, 24/11/2026 11:23)
          registro BUG: REGISTRO BUG · 23/11/2026 F031 · aperti 1 · cornice 1/5 · primo libero BUG-7
 ```
 <!-- MANIFESTO:FINE -->
