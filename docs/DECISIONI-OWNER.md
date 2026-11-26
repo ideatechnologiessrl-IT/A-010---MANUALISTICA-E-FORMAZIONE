@@ -4,6 +4,12 @@
 
 > ⛔ **Documento riservato · non divulgabile** — Idea Technologies srl soc. Uninominale. Registro tenuto dalla chat Manualistica e formazione; la più recente in testa. Ogni riga: testo della scelta, data, ora, chat.
 
+## F034 · 26/11/2026
+| n. | domanda | scelta dell owner | ora | effetti |
+|---|---|---|---|---|
+| D47 | Console SQL, segreti (F48 a, F49 g, F50 e, F54 g; R12-1 e R12-2 della dodicesima revisione): elenco di nomi segreti o maschera per difetto | *«Maschera per difetto (Consigliata)»* | 15:17, chat Formazione F034 | nelle tabelle chiave/valore in chiaro solo i valori delle chiavi di un elenco di innocue; nelle altre tabelle in chiaro numeri, date e le colonne di testo con nome innocuo, il resto «presente» |
+| D48 | Console SQL, scritture (R12-3, R12-5, R12-12) e regola delle due chat (CRD-R057): spezzare | *«Sola lettura ora (Consigliata)»* | 15:17, chat Formazione F034 | la 0.1.20A esce con la console in sola lettura; prova a secco, CONFERMO e scritture in una versione successiva, con la loro revisione |
+
 ## F022 · 20-21/11/2026
 | n. | domanda | scelta dell owner | ora | effetti |
 |---|---|---|---|---|

@@ -77,6 +77,17 @@
  *  - scrittura: tempo massimo dell istruzione TEMPO_SCRITTURA secondi (meno di TEMPO_MAX) e risposta entro TEMPO_MAX secondi, annullamento
  *    compreso: oltre, la console risponde ROSSO, non conferma nulla e lascia la connessione (il server annulla la transazione);
  *  - tetto in byte contato DOPO le maschere (la risposta non cambia con la lunghezza di un valore segreto).
+ *  0.1.20A (BUG-6, dodicesima revisione a freddo F034: 3 alti, 4 medi; owner 26/11/2026 15:17, chat Formazione F034, D47 e D48):
+ *  - D47 MASCHERA PER DIFETTO: una colonna si vede in chiaro solo se il suo nome è nell elenco degli innocui (INNOCUE, schemi di nome
+ *    innocui) oppure è un numero o una data con un nome senza parole spia (SPIA: pin, chiave, key, codice, token…); tutto il resto è
+ *    «segreto»: mascherato con SELECT *, mai citato in espressioni o condizioni. Nelle tabelle chiave/valore si vede in chiaro solo il
+ *    valore delle chiavi dell elenco INNOCUE_KV (senza parole spia); il contenuto del valore non decide più nulla;
+ *  - D48 SOLA LETTURA: INSERT, UPDATE, DELETE e REPLACE sono rifiutati (niente prova a secco, niente CONFERMO): le scritture tornano
+ *    in una versione successiva, con la loro revisione a freddo; il codice delle scritture resta ma non si raggiunge (SOLA_LETTURA);
+ *  - in lettura non si leggono le tabelle che leggono altrove (MERGE, FEDERATED, CONNECT, SPIDER) né le tabelle partizionate
+ *    (PARTITION, EXPLAIN e information_schema.PARTITIONS direbbero in che intervallo sta un valore);
+ *  - registro: le parole con una cifra (anche non ASCII) si tolgono intere, nell istruzione e nel messaggio; una sorgente sconosciuta
+ *    si scrive «sconosciuta»; il referto non dichiara più i millisecondi.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -99,6 +110,25 @@ final class Rdacademy_Console_SQL {
 	const SCRITTURE      = array( 'INSERT', 'UPDATE', 'DELETE', 'REPLACE' );
 	const SEMPRE_VIETATE = array( 'DROP', 'TRUNCATE', 'ALTER', 'MODIFY', 'RENAME' );
 
+	/** D48 (owner 26/11/2026 15:17, chat Formazione F034): nella 0.1.20A la console è in sola lettura. */
+	const SOLA_LETTURA = true;
+
+	/** D47: parole spia — un nome che ne contiene una è segreto anche se è nell elenco o è un numero. */
+	const SPIA = '/pass|pwd|token|gettone|secret|segret|key|chiave|pin|otp|auth|cred|hash|salt|nonce|sess|cookie|cert|privat|parola|codice|iban|carta|card|cvv|firma|sign|bearer|sk_|api|licen|smtp|definer|grantee|seed|recovery|recupero/i';
+
+	/** D47: nomi di colonna innocui (si confrontano in minuscolo, interi). */
+	const INNOCUE = array( 'id', 'nome', 'name', 'titolo', 'title', 'stato', 'status', 'tipo', 'type', 'slug', 'ordine', 'lingua', 'ruolo', 'role', 'email', 'descrizione', 'livello', 'versione', 'version', 'attivo', 'active', 'quando', 'data', 'ora', 'n', 'conteggio', 'totale', 'colore',
+		'user_login', 'user_nicename', 'user_email', 'user_url', 'user_registered', 'user_status', 'display_name',
+		'post_title', 'post_status', 'post_type', 'post_name', 'post_date', 'post_date_gmt', 'post_modified', 'post_modified_gmt', 'post_parent', 'post_author', 'post_mime_type', 'menu_order', 'comment_count', 'comment_status', 'ping_status', 'guid', 'autoload',
+		'table_name', 'table_schema', 'table_type', 'table_rows', 'engine', 'row_format', 'table_collation', 'create_time', 'update_time', 'check_time', 'column_name', 'column_type', 'data_type', 'is_nullable', 'column_key', 'extra', 'ordinal_position', 'character_maximum_length', 'numeric_precision', 'numeric_scale', 'character_set_name', 'collation_name',
+		'index_name', 'non_unique', 'seq_in_index', 'cardinality', 'index_type', 'nullable', 'sub_part', 'packed', 'constraint_name', 'referenced_table_name', 'referenced_column_name', 'routine_name', 'routine_type', 'trigger_name', 'event_manipulation', 'action_timing', 'event_object_table', 'schema_name', 'default_character_set_name', 'default_collation_name', 'variable_name',
+		'select_type', 'table', 'possible_keys', 'key_len', 'ref', 'rows', 'r_rows', 'filtered', 'r_filtered', 'tables_in_', 'field', 'null', 'collation', 'non-unique', 'seq', 'database', 'rows_examined', 'level', 'code', 'message' );
+
+	/** D47: chiavi innocue delle tabelle chiave/valore: solo di queste il valore si vede in chiaro. */
+	const INNOCUE_KV = array( 'siteurl', 'home', 'blogname', 'blogdescription', 'admin_email', 'template', 'stylesheet', 'current_theme', 'db_version', 'db_upgraded', 'initial_db_version', 'permalink_structure', 'timezone_string', 'gmt_offset', 'date_format', 'time_format', 'start_of_week', 'blog_charset', 'wplang', 'users_can_register', 'default_role', 'posts_per_page', 'blog_public', 'active_plugins', 'show_on_front', 'page_on_front', 'page_for_posts', 'uploads_use_yearmonth_folders', 'default_category', 'default_comment_status',
+		'titolo', 'versione', 'version', 'lingua', 'stato', 'colore_tema', 'nome_sito', 'tema', 'fuso_orario', 'formato_data',
+		'nickname', 'first_name', 'last_name', 'description', 'locale', 'rich_editing', 'admin_color', 'show_admin_bar_front', '_edit_last', '_edit_lock', '_wp_page_template', '_thumbnail_id', '_wp_attached_file' );
+
 	/** Vietati in qualunque punto dell istruzione (sullo scheletro, senza stringhe né commenti). */
 	const VIETATI_OVUNQUE = array(
 		'/\bINTO\s+(OUTFILE|DUMPFILE)\b/i'                     => '«SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file.',
@@ -114,6 +144,8 @@ final class Rdacademy_Console_SQL {
 		'/\b(USER|CURRENT_USER|SESSION_USER|SYSTEM_USER|CURRENT_ROLE)\s*\(|\bCURRENT_USER\b|\bCURRENT_ROLE\b/i' => 'USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza.',
 		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES|USER_ATTRIBUTES|SCHEMA_PRIVILEGES|TABLE_PRIVILEGES|COLUMN_PRIVILEGES|ADMINISTRABLE_ROLE_AUTHORIZATIONS|ROLE_TABLE_GRANTS|ROLE_COLUMN_GRANTS|ROLE_ROUTINE_GRANTS|ROLE_USAGE_GRANTS)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
 		'/\bINNODB_(TRX|LOCKS|LOCK_WAITS)\b|\bDATA_LOCK(S|_WAITS)\b/i' => 'INNODB_TRX, INNODB_LOCKS e simili rifiutate: mostrano le istruzioni delle altre sessioni.',
+		// F034 (R12-6): PARTITION (p), EXPLAIN PARTITIONS e information_schema.PARTITIONS direbbero in che intervallo sta un valore
+		'/\bPARTITIONS?\b/i' => 'Partizioni rifiutate (PARTITION, EXPLAIN PARTITIONS, information_schema.PARTITIONS): direbbero in che intervallo sta un valore.',
 		'/\bSHOW\s+(ALL\s+)?(BINLOG|RELAYLOG|BINARY|MASTER|SLAVE|SLAVES|REPLICA|REPLICAS)\b|\bSHOW\s+EXPLAIN\b|\bFOR\s+CONNECTION\b/i' => 'SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN FOR e EXPLAIN FOR CONNECTION rifiutati: istruzioni passate o di altre sessioni.',
 	);
 
@@ -339,17 +371,44 @@ final class Rdacademy_Console_SQL {
 		return $c;
 	}
 
-	/** F028: la chiave di una riga chiave/valore è segreta, o il valore ne contiene una (array serializzati, JSON). */
+	/** D47 (owner 26/11/2026 15:17, chat Formazione F034): una chiave chiave/valore è innocua solo se è nell elenco e non ha parole spia;
+	 *  il contenuto del valore non decide più nulla (R12-2, R12-11). */
 	private static function segreta_kv( ?string $k, ?string $v ): bool {
 		if ( $k === null ) return true;
-		if ( self::segreta( $k ) || preg_match( '/key|smtp|licen|credenz|credential|privat|auth|secret|segret|session|cookie|cert/i', $k ) ) return true;
-		return $v !== null && (bool) preg_match( '/pass|pwd|secret|segret|token|gettone|api_?key|apikey|privat|BEGIN [A-Z ]*KEY/i', $v );
+		$k = strtolower( $k );
+		return ! in_array( $k, self::INNOCUE_KV, true ) || (bool) preg_match( self::SPIA, $k );
 	}
 
-	private static function segreta( string $col ): bool {
-		$c = strtolower( $col );
-		foreach ( self::SEGRETE as $s ) { if ( strpos( $c, $s ) !== false ) return true; }
-		return false;
+	/** D47: le colonne delle tabelle chiave/valore le governa la maschera chiave/valore, non questa. */
+	private static function e_kv( string $c ): bool { return isset( self::KV[ $c ] ) || in_array( $c, self::KV, true ); }
+
+	/** D47: un nome innocuo per sé (elenco o schema di nome), senza parole spia. */
+	private static function innocua( string $col ): bool {
+		$c = strtolower( trim( $col ) );
+		if ( $c === '' || preg_match( self::SPIA, $c ) ) return false;
+		if ( in_array( $c, self::INNOCUE, true ) || strpos( $c, 'tables_in_' ) === 0 ) return true;
+		return (bool) preg_match( '/^[a-z][a-z0-9_]*$/', $c ) && (bool) preg_match( '/(^|_)id$|^id_|_(at|il|del|data|date|gmt|ora)$|^(data|ora|creat|aggiorn|modific|scad|inizio|fine)|^(num|numero|conta|totale|n)_/', $c );
+	}
+
+	/** D47: un tipo numero o data (nome del tipo di information_schema, o costante del campo di mysqli). */
+	private static function tipo_numero( $tipo ): bool {
+		if ( is_int( $tipo ) ) return in_array( $tipo, array( 0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 246 ), true );
+		return (bool) preg_match( '/^(tinyint|smallint|mediumint|int|integer|bigint|decimal|numeric|float|double|real|date|datetime|timestamp|time|year)$/i', trim( (string) $tipo ) );
+	}
+
+	/** D47 MASCHERA PER DIFETTO: segreta = né innocua per nome, né numero o data con un nome senza parole spia. Senza il tipo, solo il nome. */
+	private static function segreta( string $col, $tipo = null ): bool {
+		$c = strtolower( trim( $col ) );
+		if ( self::e_kv( $c ) ) return false;
+		if ( self::innocua( $c ) ) return false;
+		return ! ( $tipo !== null && self::tipo_numero( $tipo ) && $c !== '' && ! preg_match( self::SPIA, $c ) );
+	}
+
+	/** D47: colonne del server col loro tipo; una colonna è segreta se lo è in almeno una tabella (il nome si confronta in minuscolo). */
+	private static function mappa_segrete( mysqli $c ): array {
+		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), LOWER(COLUMN_NAME), DATA_TYPE FROM information_schema.COLUMNS' ); $tab = array(); $col = array();
+		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) { $s = self::segreta( (string) $r[1], (string) $r[2] ) || self::e_kv( (string) $r[1] ); $col[ (string) $r[1] ] = ( $col[ (string) $r[1] ] ?? false ) || ( $s && ! self::e_kv( (string) $r[1] ) ); if ( $s ) $tab[ (string) $r[0] ] = true; } $res->free(); }
+		return array( $tab, $col );
 	}
 
 	/**
@@ -370,7 +429,8 @@ final class Rdacademy_Console_SQL {
 		$col = array(); $org = array(); $tab = array(); $dati = array(); $tronco = false; $byte = 0; $mascherate = array();
 		if ( $res instanceof mysqli_result ) {
 			// F033 (R11-2): la tabella di ogni colonna si confronta come la confronta il server, maiuscole e minuscole distinte («O» e «o» sono due righe)
-			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); $tab[] = (string) ( $f->table ?? '' ) === '' ? '' : (string) ( $f->db ?? '' ) . '.' . (string) $f->table; }
+			$tipi = array();
+			foreach ( $res->fetch_fields() as $f ) { $col[] = (string) $f->name; $org[] = strtolower( (string) ( $f->orgname ?? '' ) ); $tipi[] = (int) $f->type; $tab[] = (string) ( $f->table ?? '' ) === '' ? '' : (string) ( $f->db ?? '' ) . '.' . (string) $f->table; }
 			// F028: tabelle chiave/valore — il valore di una chiave segreta si maschera riga per riga; senza la chiave accanto, sempre
 			// F033 (R11-8): le maschere si decidono sulle colonne PRIMA di leggere e si mettono riga per riga, così il tetto in byte conta ciò che esce
 			$kv_citate = array_intersect( array_keys( self::KV ), $nomi ); $piano = array(); $segr = array();
@@ -386,7 +446,12 @@ final class Rdacademy_Console_SQL {
 				}
 			}
 			foreach ( $col as $i => $nome ) {
-				if ( ! self::segreta( $nome ) && ! self::segreta( $org[ $i ] ?? '' ) ) continue;
+				if ( isset( $piano[ $i ] ) ) continue;
+				// D47: la colonna col suo nome d origine; un espressione (senza nome d origine) col nome che ha nel risultato. Numeri e date si vedono
+				// se il nome non ha parole spia (le colonne non innocue non si possono citare, quindi un espressione numerica non le legge)
+				$o = $org[ $i ] ?? '';
+				$ok = ! self::segreta( $o !== '' ? $o : $nome, $tipi[ $i ] );
+				if ( $ok ) continue;
 				$segr[ $i ] = $nome;
 			}
 			$rotto = '';
@@ -463,9 +528,7 @@ final class Rdacademy_Console_SQL {
 
 	/** Tabelle (di ogni schema visibile) che hanno almeno una colonna segreta. */
 	private static function tabelle_segrete( mysqli $c ): array {
-		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), COLUMN_NAME FROM information_schema.COLUMNS' ); $out = array();
-		if ( $res instanceof mysqli_result ) { while ( $r = $res->fetch_row() ) { if ( self::segreta( (string) $r[1] ) || isset( self::KV[ strtolower( (string) $r[1] ) ] ) ) $out[ (string) $r[0] ] = true; } $res->free(); }
-		return array_keys( $out );
+		return array_keys( self::mappa_segrete( $c )[0] );
 	}
 
 	/** F029 (5ª revisione, MEDI 2 e 3): tabelle con una colonna chiave/valore. */
@@ -477,8 +540,8 @@ final class Rdacademy_Console_SQL {
 
 	/** Colonne segrete citate per nome (BUG-6 MEDIO 1): alias, espressioni e WHERE le farebbero uscire. */
 	private static function segrete_citate( mysqli $c, array $nomi ): array {
-		$col = self::colonna( $c, 'SELECT DISTINCT COLUMN_NAME FROM information_schema.COLUMNS' );
-		return array_values( array_filter( array_intersect( $nomi, $col ), array( __CLASS__, 'segreta' ) ) );
+		$m = self::mappa_segrete( $c )[1];
+		return array_values( array_unique( array_filter( $nomi, static function ( $n ) use ( $m ) { return ! empty( $m[ strtolower( (string) $n ) ] ); } ) ) );
 	}
 
 	/**
@@ -619,13 +682,13 @@ final class Rdacademy_Console_SQL {
 	 * @return array{0:?array<string,array<int,string>>,1:array<string,bool>} [tabella => indici da escludere, tabelle la cui chiave primaria è segreta]; [null, …] se non si leggono
 	 */
 	private static function indici_segreti( mysqli $c ): array {
-		$res = self::q( $c, 'SELECT LOWER(TABLE_NAME), INDEX_NAME, COLUMN_NAME, NON_UNIQUE FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE()' );
+		$res = self::q( $c, 'SELECT LOWER(s.TABLE_NAME), s.INDEX_NAME, s.COLUMN_NAME, s.NON_UNIQUE, c.DATA_TYPE FROM information_schema.STATISTICS s LEFT JOIN information_schema.COLUMNS c ON c.TABLE_SCHEMA = s.TABLE_SCHEMA AND c.TABLE_NAME = s.TABLE_NAME AND c.COLUMN_NAME = s.COLUMN_NAME WHERE s.TABLE_SCHEMA = DATABASE()' );
 		if ( ! ( $res instanceof mysqli_result ) ) return array( null, array() );
 		$ign = array(); $pk = array(); $unici = array(); $chv = array();
 		while ( $x = $res->fetch_row() ) {
 			$t = (string) $x[0];
 			// senza nome di colonna (indice su un espressione, MySQL 8) non si sa che cosa ordina: si esclude
-			$seg = $x[2] === null || self::segreta( (string) $x[2] ) || isset( self::KV[ strtolower( (string) $x[2] ) ] );
+			$seg = $x[2] === null || self::segreta( (string) $x[2], $x[4] === null ? null : (string) $x[4] ) || isset( self::KV[ strtolower( (string) $x[2] ) ] );
 			if ( strtoupper( (string) $x[1] ) === 'PRIMARY' ) { $pk[ $t ] = true; if ( $seg ) $chv[ $t ] = true; continue; }
 			if ( $seg ) { $ign[ $t ][ (string) $x[1] ] = true; if ( (int) $x[3] === 0 ) $unici[ $t ] = true; }
 		}
@@ -762,7 +825,13 @@ final class Rdacademy_Console_SQL {
 		// F033 (R11-5): un numero dopo «$» o dopo un byte non ASCII («$4829», «€4829») è un numero anche lui
 		$sk = (string) preg_replace( '/(?<![A-Za-z0-9_])(?:0x[0-9a-f]+|0b[01]+|\d+(?:\.\d*)?(?:e[+-]?\d+)?|\.\d+)/i', '… ', str_replace( " '' ", " '…' ", $sk ) );
 		$sk = (string) preg_replace_callback( '/__id(…|\d+)__/', static function ( $m ) { return '`…`'; }, $sk );
-		return trim( (string) preg_replace( '/\s+/', ' ', $sk ) );
+		return self::senza_cifre( trim( (string) preg_replace( '/\s+/', ' ', $sk ) ) );
+	}
+
+	/** F034 (R12-7): ogni parola che contiene una cifra (anche non ASCII) si toglie intera. */
+	private static function senza_cifre( string $t ): string {
+		$u = preg_replace( '/[\p{L}\p{N}\p{M}_$€£.\-]*\p{N}[\p{L}\p{N}\p{M}_$€£.\-]*/u', '…', $t );
+		return $u === null ? (string) preg_replace( '/[^\s]*[0-9\x80-\xff][^\s]*/', '…', $t ) : $u;
 	}
 
 	/** F032 (9ª revisione, MEDIO 3): un campo del registro è sempre UTF-8 valido e della misura della colonna, altrimenti la riga non si scrive. */
@@ -784,8 +853,9 @@ final class Rdacademy_Console_SQL {
 			try { $st = $c->prepare( "INSERT INTO `$t` (quando, utente, login, sorgente, db_nome, db_host, istruzione, tipo, righe, esito, messaggio) VALUES (?,?,?,?,?,?,?,?,?,?,?)" ); } catch ( mysqli_sql_exception $e ) { $st = false; }
 			if ( $st ) {
 				$q = gmdate( 'Y-m-d H:i:s', self::ora() ); $u = (int) ( $r['utente'] ?? 0 ); $l = self::pulito( (string) ( $r['login'] ?? '' ), 60 );
-				$so = self::pulito( (string) ( $r['sorgente'] ?? '' ), 40 ); $db = self::pulito( (string) ( $s['db'] ?? '' ), 64 ); $h = self::pulito( (string) ( $s['host'] ?? '' ), 255 ); $i = self::pulito( self::senza_valori( (string) ( $r['sql'] ?? '' ) ), self::MAX_ISTRUZIONE );
-				$m = self::pulito( $msg, 500 ); $tipo = self::pulito( $tipo, 12 ); $esito = self::pulito( $esito, 20 );
+				// F034 (R12-7): una sorgente che la console non conosce non si scrive com è arrivata
+				$so = (string) ( $r['sorgente'] ?? '' ); $so = $so === 'base' || $so === 'wordpress' || ( class_exists( 'Rdacademy_Sorgenti', false ) && isset( Rdacademy_Sorgenti::mappa()[ $so ] ) ) ? self::pulito( $so, 40 ) : 'sconosciuta'; $db = self::pulito( (string) ( $s['db'] ?? '' ), 64 ); $h = self::pulito( (string) ( $s['host'] ?? '' ), 255 ); $i = self::pulito( self::senza_valori( (string) ( $r['sql'] ?? '' ) ), self::MAX_ISTRUZIONE );
+				$m = self::pulito( self::senza_cifre( $msg ), 500 ); $tipo = self::pulito( $tipo, 12 ); $esito = self::pulito( $esito, 20 );
 				$st->bind_param( 'sissssssiss', $q, $u, $l, $so, $db, $h, $i, $tipo, $righe, $esito, $m );
 				try { $ok = $st->execute(); } catch ( mysqli_sql_exception $e ) { $ok = false; }
 				$st->close();
@@ -846,6 +916,8 @@ final class Rdacademy_Console_SQL {
 		}
 		$cl = self::classifica( $r['sql'] );
 		if ( ! $cl['ok'] ) { $rifiuta( $cl['motivo'] ); return $out; }
+		// D48 (owner 26/11/2026 15:17, chat Formazione F034): nella 0.1.20A nessuna scrittura, nemmeno la prova a secco
+		if ( self::SOLA_LETTURA && $cl['tipo'] !== 'lettura' ) { $rifiuta( 'La console è in sola lettura in questa versione: «' . $cl['verbo'] . '» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva.' ); return $out; }
 
 		// ── lettura ─────────────────────────────────────────────
 		if ( $cl['tipo'] === 'lettura' ) {
@@ -855,6 +927,14 @@ final class Rdacademy_Console_SQL {
 			if ( $sc ) { $c->close(); $rifiuta( 'Colonne segrete citate (' . implode( ', ', $sc ) . '): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate.' ); return $out; }
 			// 2ª revisione F027, ALTO 1: con UNION, WITH o sottoquery il nome della colonna nel risultato non è più il suo
 			// F031 (8ª revisione, ALTO 5): una funzione o una vista già nel database può leggere una colonna segreta e darle un altro nome
+			// F034 (R12-4, R12-6): tabelle che leggono altrove (MERGE e simili) e tabelle partizionate non si leggono
+			if ( $cl['verbo'] !== 'SHOW' && $cl['verbo'] !== 'DESCRIBE' && $cl['verbo'] !== 'DESC' ) {
+				$fuori = self::colonna( $c, "SELECT LOWER(TABLE_NAME) FROM information_schema.TABLES WHERE UPPER(ENGINE) IN ('MRG_MYISAM','MERGE','MRG_MYISAM','FEDERATED','FEDERATEDX','CONNECT','SPIDER')" );
+				$part  = self::colonna( $c, 'SELECT DISTINCT LOWER(TABLE_NAME) FROM information_schema.PARTITIONS WHERE PARTITION_NAME IS NOT NULL' );
+				$tm = array_values( array_intersect( $cl['nomi'], $fuori ) ); $tp = array_values( array_intersect( $cl['nomi'], $part ) );
+				if ( $tm ) { $c->close(); $rifiuta( 'Tabelle che leggono i dati da un altra parte (MERGE, FEDERATED, CONNECT, SPIDER: ' . implode( ', ', $tm ) . '): la console non le legge, i dati uscirebbero col nome di questo database.' ); return $out; }
+				if ( $tp ) { $c->close(); $rifiuta( 'Tabelle partizionate (' . implode( ', ', $tp ) . '): la console non le legge (la partizione direbbe in che intervallo sta un valore); SHOW e DESCRIBE restano.' ); return $out; }
+			}
 			$fun = array_values( array_intersect( $cl['chiamate'], self::colonna( $c, 'SELECT ROUTINE_NAME FROM information_schema.ROUTINES' ) ) );
 			if ( $fun ) { $c->close(); $rifiuta( 'Funzioni memorizzate (' . implode( ', ', $fun ) . '): la console non le chiama, potrebbero leggere colonne segrete o scrivere.' ); return $out; }
 			// F032 (9ª revisione, MEDIO 4): una lettura da un altro database uscirebbe col referto del database della sorgente
@@ -864,11 +944,13 @@ final class Rdacademy_Console_SQL {
 			if ( $altri ) { $c->close(); $rifiuta( 'Riferimento a un altro database (' . implode( ', ', $altri ) . '): la console legge solo il database della sorgente scelta, ' . $cur . ' (e information_schema); per un altro database si sceglie la sua sorgente.' ); return $out; }
 			// F032 (9ª revisione, ALTO 6): una colonna generata da una segreta la ripete con un altro nome; una vista sopra un altra vista o
 			// sopra una funzione nasconde la colonna segreta dietro due nomi
+			// D47: le parole di una definizione sono segrete se sono colonne segrete di qualche tabella (le parole chiave e i nomi di tabella no)
+			$msc = self::mappa_segrete( $c )[1];
 			$gen = array(); $rg = self::q( $c, "SELECT LOWER(TABLE_NAME), GENERATION_EXPRESSION FROM information_schema.COLUMNS WHERE GENERATION_EXPRESSION IS NOT NULL AND GENERATION_EXPRESSION <> ''" );
 			if ( $rg instanceof mysqli_result ) {
 				while ( $x = $rg->fetch_row() ) {
 					preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', (string) $x[1], $pg );
-					if ( preg_match( '/[\x80-\xff]/', (string) $x[1] ) || array_filter( $pg[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } ) ) $gen[ (string) $x[0] ] = true;
+					if ( preg_match( '/[\x80-\xff]/', (string) $x[1] ) || array_filter( $pg[0], static function ( $w ) use ( $msc ) { return ! empty( $msc[ strtolower( $w ) ] ) || isset( self::KV[ strtolower( $w ) ] ); } ) ) $gen[ (string) $x[0] ] = true;
 				}
 				$rg->free();
 			}
@@ -883,7 +965,7 @@ final class Rdacademy_Console_SQL {
 			foreach ( $viste as $x ) {
 				if ( ! in_array( $x[0], $cl['nomi'], true ) ) continue;
 				preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', $x[1], $pv );
-				$brutte = array_filter( $pv[0], static function ( $w ) { return self::segreta( $w ) || isset( self::KV[ strtolower( $w ) ] ); } );
+				$brutte = array_filter( $pv[0], static function ( $w ) use ( $msc ) { return ! empty( $msc[ strtolower( $w ) ] ) || isset( self::KV[ strtolower( $w ) ] ); } );
 				$pvl    = array_map( 'strtolower', $pv[0] );
 				if ( trim( $x[1] ) === '' || $brutte || preg_match( '/[\x80-\xff]/', $x[1] ) || array_intersect( $pvl, array_diff( $nv, array( $x[0] ) ) ) || array_intersect( $pvl, $rout ) || array_intersect( $pvl, array_keys( $gen ) ) || self::vista_fuori_db( $x[1], $x[2], $tutti_db ) ) $vs[] = $x[0];
 			}
@@ -929,7 +1011,7 @@ final class Rdacademy_Console_SQL {
 			$c->close();
 			if ( ! $l['ok'] ) { $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $l['errore'] ); return $out; }
 			$out['colonne'] = $l['colonne']; $out['dati'] = $l['dati'];
-			$riga( 'INFO', $cl['verbo'] . ' su ' . $at . ' · lettura in transazione READ ONLY · tempo massimo ' . self::TEMPO_MAX . ' s · ' . count( $l['dati'] ) . ' righe · ' . $l['ms'] . ' ms' );
+			$riga( 'INFO', $cl['verbo'] . ' su ' . $at . ' · lettura in transazione READ ONLY · tempo massimo ' . self::TEMPO_MAX . ' s · ' . count( $l['dati'] ) . ' righe' );
 			if ( $l['troncato'] ) $riga( 'INFO', 'Risultato troncato: al massimo ' . self::MAX_RIGHE . ' righe e ' . intdiv( self::MAX_BYTE, 1000000 ) . ' MB.' );
 			if ( $esclusi ) $riga( 'INFO', 'Indici su colonne segrete esclusi dalla console (IGNORE INDEX: ' . implode( ', ', $esclusi ) . ') su ' . $at . ': l ordine e la scelta delle righe non seguono i valori segreti.' );
 			$riga( 'INFO', 'Colonne segrete mascherate: ' . ( $l['mascherate'] ? implode( ', ', $l['mascherate'] ) : 'nessuna in questo risultato' ) );
