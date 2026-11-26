@@ -1,0 +1,13 @@
+<?php require __DIR__ . '/base.php';
+mostra( 'SELECT u1.id, u2.nome FROM utenti u1 JOIN utenti u2 ON u1.id = u2.id' );
+mostra( 'SELECT a.id FROM padre a' );
+mostra( 'SELECT VERSION() AS id' );
+mostra( 'SELECT NOW() AS quando' );
+mostra( 'SELECT COUNT(*) AS n FROM utenti' );
+mostra( 'SELECT id, nome FROM utenti ORDER BY nome' );
+mostra( 'SELECT TABLE_NAME, TABLE_ROWS FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE()' );
+mostra( 'SELECT * FROM v_idx' );
+mostra( 'SHOW TABLES' );
+mostra( 'SELECT id, LENGTH(nome) AS n FROM utenti' );
+mostra( 'SELECT * FROM utenti LIMIT 1' );
+fine();

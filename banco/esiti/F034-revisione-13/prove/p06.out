@@ -1,0 +1,714 @@
+=== [base] DELETE FROM padre WHERE id = 1
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] DELETE FROM padre WHERE id = 1
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] DELETE FROM padre WHERE id = 1
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] DELETE FROM padre WHERE id = 1
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] DELETE FROM padre WHERE id = 1
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] delete from padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] delete from padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] delete from padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] delete from padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] delete from padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base]  DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base]  DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base]  DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress]  DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3]  DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] (DELETE FROM padre)
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] (DELETE FROM padre)
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] (DELETE FROM padre)
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] (DELETE FROM padre)
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] (DELETE FROM padre)
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] /* x */ DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] /* x */ DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] /* x */ DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] /* x */ DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] /* x */ DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] -- c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] -- c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] -- c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] -- c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] -- c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] # c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] # c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] # c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] # c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] # c DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] UPDATE padre SET nome = 'x'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] UPDATE padre SET nome = 'x'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] UPDATE padre SET nome = 'x'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] UPDATE padre SET nome = 'x'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] UPDATE padre SET nome = 'x'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] INSERT INTO padre (id, nome) VALUES (9,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] INSERT INTO padre (id, nome) VALUES (9,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] INSERT INTO padre (id, nome) VALUES (9,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] INSERT INTO padre (id, nome) VALUES (9,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] INSERT INTO padre (id, nome) VALUES (9,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] REPLACE INTO padre (id, nome) VALUES (1,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «REPLACE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] REPLACE INTO padre (id, nome) VALUES (1,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «REPLACE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] REPLACE INTO padre (id, nome) VALUES (1,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «REPLACE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] REPLACE INTO padre (id, nome) VALUES (1,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «REPLACE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] REPLACE INTO padre (id, nome) VALUES (1,'z')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «REPLACE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] WITH x AS (SELECT 1) DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] WITH x AS (SELECT 1) DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] WITH x AS (SELECT 1) DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] WITH x AS (SELECT 1) DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] WITH x AS (SELECT 1) DELETE FROM padre
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «DELETE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] WITH x AS (SELECT 1) UPDATE padre SET nome = 'y'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] WITH x AS (SELECT 1) UPDATE padre SET nome = 'y'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] WITH x AS (SELECT 1) UPDATE padre SET nome = 'y'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] WITH x AS (SELECT 1) UPDATE padre SET nome = 'y'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] WITH x AS (SELECT 1) UPDATE padre SET nome = 'y'
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «UPDATE» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] WITH x AS (SELECT 1) INSERT INTO padre (id,nome) VALUES (8,'q')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] WITH x AS (SELECT 1) INSERT INTO padre (id,nome) VALUES (8,'q')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [base] WITH x AS (SELECT 1) INSERT INTO padre (id,nome) VALUES (8,'q')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_base @ localhost)
+=== [wordpress] WITH x AS (SELECT 1) INSERT INTO padre (id,nome) VALUES (8,'q')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_wp @ localhost)
+=== [sorgente_3] WITH x AS (SELECT 1) INSERT INTO padre (id,nome) VALUES (8,'q')
+  -> ROSSO (0 s) | La console è in sola lettura in questa versione: «INSERT» rifiutata (niente prova a secco né CONFERMO). Le scritture tornano in una versione successiva. (rev13_s3 @ localhost)
+=== [base] SELECT NEXTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT NEXTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT NEXTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT NEXTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT NEXTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT `NEXTVAL`(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT `NEXTVAL`(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT `NEXTVAL`(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT `NEXTVAL`(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT `NEXTVAL`(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT NEXT VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT NEXT VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT NEXT VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT NEXT VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT NEXT VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT NEXT/**/VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT NEXT/**/VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT NEXT/**/VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT NEXT/**/VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT NEXT/**/VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT SETVAL(sq, 100)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT SETVAL(sq, 100)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT SETVAL(sq, 100)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT SETVAL(sq, 100)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT SETVAL(sq, 100)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT LASTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT LASTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT LASTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT LASTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT LASTVAL(sq)
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT PREVIOUS VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT PREVIOUS VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [base] SELECT PREVIOUS VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_base @ localhost)
+=== [wordpress] SELECT PREVIOUS VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT PREVIOUS VALUE FOR sq
+  -> ROSSO (0 s) | Sequenze rifiutate: NEXTVAL e simili cambiano il server fuori da ogni transazione. (rev13_s3 @ localhost)
+=== [base] SELECT f_seg()
+  -> ROSSO (0.04 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [base] SELECT f_seg()
+  -> ROSSO (0.03 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [base] SELECT f_seg()
+  -> ROSSO (0.04 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [wordpress] SELECT f_seg()
+  -> ROSSO (0.03 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT f_seg()
+  -> ROSSO (0.03 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_s3 @ localhost)
+=== [base] SELECT `f_seg`()
+  -> ROSSO (0.04 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [base] SELECT `f_seg`()
+  -> ROSSO (0.03 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [base] SELECT `f_seg`()
+  -> ROSSO (0.03 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [wordpress] SELECT `f_seg`()
+  -> ROSSO (0.04 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT `f_seg`()
+  -> ROSSO (0.06 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_s3 @ localhost)
+=== [base] SELECT rev13_base.f_seg()
+  -> ROSSO (0.05 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [base] SELECT rev13_base.f_seg()
+  -> ROSSO (0.06 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [base] SELECT rev13_base.f_seg()
+  -> ROSSO (0.05 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_base @ localhost)
+=== [wordpress] SELECT rev13_base.f_seg()
+  -> ROSSO (0.04 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT rev13_base.f_seg()
+  -> ROSSO (0.03 s) | Funzioni memorizzate (f_seg): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev13_s3 @ localhost)
+=== [base] SELECT * FROM padre FOR UPDATE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre FOR UPDATE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre FOR UPDATE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM padre FOR UPDATE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM padre FOR UPDATE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_s3 @ localhost)
+=== [base] SELECT * FROM padre LOCK IN SHARE MODE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre LOCK IN SHARE MODE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre LOCK IN SHARE MODE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM padre LOCK IN SHARE MODE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM padre LOCK IN SHARE MODE
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_s3 @ localhost)
+=== [base] SELECT GET_LOCK('a', 1)
+  -> ROSSO (0 s) | GET_LOCK e funzioni d attesa rifiutate. (rev13_base @ localhost)
+=== [base] SELECT GET_LOCK('a', 1)
+  -> ROSSO (0 s) | GET_LOCK e funzioni d attesa rifiutate. (rev13_base @ localhost)
+=== [base] SELECT GET_LOCK('a', 1)
+  -> ROSSO (0 s) | GET_LOCK e funzioni d attesa rifiutate. (rev13_base @ localhost)
+=== [wordpress] SELECT GET_LOCK('a', 1)
+  -> ROSSO (0 s) | GET_LOCK e funzioni d attesa rifiutate. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT GET_LOCK('a', 1)
+  -> ROSSO (0 s) | GET_LOCK e funzioni d attesa rifiutate. (rev13_s3 @ localhost)
+=== [base] SELECT * FROM padre INTO OUTFILE '/tmp/rev13.txt'
+  -> ROSSO (0 s) | «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre INTO OUTFILE '/tmp/rev13.txt'
+  -> ROSSO (0 s) | «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre INTO OUTFILE '/tmp/rev13.txt'
+  -> ROSSO (0 s) | «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM padre INTO OUTFILE '/tmp/rev13.txt'
+  -> ROSSO (0 s) | «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM padre INTO OUTFILE '/tmp/rev13.txt'
+  -> ROSSO (0 s) | «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev13_s3 @ localhost)
+=== [base] SELECT * INTO @x FROM padre
+  -> ROSSO (0 s) | «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev13_base @ localhost)
+=== [base] SELECT * INTO @x FROM padre
+  -> ROSSO (0 s) | «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev13_base @ localhost)
+=== [base] SELECT * INTO @x FROM padre
+  -> ROSSO (0 s) | «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev13_base @ localhost)
+=== [wordpress] SELECT * INTO @x FROM padre
+  -> ROSSO (0 s) | «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * INTO @x FROM padre
+  -> ROSSO (0 s) | «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev13_s3 @ localhost)
+=== [base] SELECT LOAD_FILE('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_base @ localhost)
+=== [base] SELECT LOAD_FILE('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_base @ localhost)
+=== [base] SELECT LOAD_FILE('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_base @ localhost)
+=== [wordpress] SELECT LOAD_FILE('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT LOAD_FILE('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_s3 @ localhost)
+=== [base] SELECT load_file ('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_base @ localhost)
+=== [base] SELECT load_file ('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_base @ localhost)
+=== [base] SELECT load_file ('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_base @ localhost)
+=== [wordpress] SELECT load_file ('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT load_file ('/etc/passwd') AS id
+  -> ROSSO (0 s) | LOAD_FILE() rifiutata: la console non legge file del server. (rev13_s3 @ localhost)
+=== [base] EXPLAIN DELETE FROM padre
+  -> ROSSO (0.11 s) | EXPLAIN su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] EXPLAIN DELETE FROM padre
+  -> ROSSO (0.12 s) | EXPLAIN su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] EXPLAIN DELETE FROM padre
+  -> ROSSO (0.1 s) | EXPLAIN su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [wordpress] EXPLAIN DELETE FROM padre
+  -> ROSSO (0.11 s) | EXPLAIN su rev13_wp @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [sorgente_3] EXPLAIN DELETE FROM padre
+  -> ROSSO (0.13 s) | EXPLAIN su rev13_s3 @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] DESC DELETE FROM padre
+  -> ROSSO (0.13 s) | DESC su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] DESC DELETE FROM padre
+  -> ROSSO (0.11 s) | DESC su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] DESC DELETE FROM padre
+  -> ROSSO (0.1 s) | DESC su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [wordpress] DESC DELETE FROM padre
+  -> ROSSO (0.11 s) | DESC su rev13_wp @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [sorgente_3] DESC DELETE FROM padre
+  -> ROSSO (0.11 s) | DESC su rev13_s3 @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] EXPLAIN UPDATE padre SET nome = 'k'
+  -> ROSSO (0.1 s) | EXPLAIN su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] EXPLAIN UPDATE padre SET nome = 'k'
+  -> ROSSO (0.13 s) | EXPLAIN su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] EXPLAIN UPDATE padre SET nome = 'k'
+  -> ROSSO (0.14 s) | EXPLAIN su rev13_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [wordpress] EXPLAIN UPDATE padre SET nome = 'k'
+  -> ROSSO (0.13 s) | EXPLAIN su rev13_wp @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [sorgente_3] EXPLAIN UPDATE padre SET nome = 'k'
+  -> ROSSO (0.09 s) | EXPLAIN su rev13_s3 @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+=== [base] ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_base @ localhost)
+=== [base] ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_base @ localhost)
+=== [base] ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_base @ localhost)
+=== [wordpress] ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_wp @ localhost)
+=== [sorgente_3] ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_s3 @ localhost)
+=== [base] EXPLAIN ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_base @ localhost)
+=== [base] EXPLAIN ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_base @ localhost)
+=== [base] EXPLAIN ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_base @ localhost)
+=== [wordpress] EXPLAIN ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_wp @ localhost)
+=== [sorgente_3] EXPLAIN ANALYZE DELETE FROM padre
+  -> ROSSO (0 s) | EXPLAIN ANALYZE e ANALYZE rifiutati: eseguono davvero l istruzione. (rev13_s3 @ localhost)
+=== [base] SET @a = 1
+  -> ROSSO (0 s) | «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] SET @a = 1
+  -> ROSSO (0 s) | «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] SET @a = 1
+  -> ROSSO (0 s) | «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] SET @a = 1
+  -> ROSSO (0 s) | «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] SET @a = 1
+  -> ROSSO (0 s) | «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] DO 1
+  -> ROSSO (0 s) | «DO» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] DO 1
+  -> ROSSO (0 s) | «DO» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] DO 1
+  -> ROSSO (0 s) | «DO» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] DO 1
+  -> ROSSO (0 s) | «DO» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] DO 1
+  -> ROSSO (0 s) | «DO» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] CALL p()
+  -> ROSSO (0 s) | «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] CALL p()
+  -> ROSSO (0 s) | «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] CALL p()
+  -> ROSSO (0 s) | «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] CALL p()
+  -> ROSSO (0 s) | «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] CALL p()
+  -> ROSSO (0 s) | «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] HANDLER padre OPEN
+  -> ROSSO (0 s) | «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] HANDLER padre OPEN
+  -> ROSSO (0 s) | «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] HANDLER padre OPEN
+  -> ROSSO (0 s) | «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] HANDLER padre OPEN
+  -> ROSSO (0 s) | «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] HANDLER padre OPEN
+  -> ROSSO (0 s) | «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] LOCK TABLES padre WRITE
+  -> ROSSO (0 s) | «LOCK» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] LOCK TABLES padre WRITE
+  -> ROSSO (0 s) | «LOCK» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] LOCK TABLES padre WRITE
+  -> ROSSO (0 s) | «LOCK» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] LOCK TABLES padre WRITE
+  -> ROSSO (0 s) | «LOCK» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] LOCK TABLES padre WRITE
+  -> ROSSO (0 s) | «LOCK» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] CREATE TABLE rev13_base.x (a INT)
+  -> ROSSO (0 s) | «CREATE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] CREATE TABLE rev13_base.x (a INT)
+  -> ROSSO (0 s) | «CREATE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] CREATE TABLE rev13_base.x (a INT)
+  -> ROSSO (0 s) | «CREATE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] CREATE TABLE rev13_base.x (a INT)
+  -> ROSSO (0 s) | «CREATE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] CREATE TABLE rev13_base.x (a INT)
+  -> ROSSO (0 s) | «CREATE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] DROP TABLE figlio
+  -> ROSSO (0 s) | «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CRE
+=== [base] DROP TABLE figlio
+  -> ROSSO (0 s) | «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CRE
+=== [base] DROP TABLE figlio
+  -> ROSSO (0 s) | «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CRE
+=== [wordpress] DROP TABLE figlio
+  -> ROSSO (0 s) | «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CRE
+=== [sorgente_3] DROP TABLE figlio
+  -> ROSSO (0 s) | «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CRE
+=== [base] TRUNCATE figlio
+  -> ROSSO (0 s) | «TRUNCATE» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT,
+=== [base] TRUNCATE figlio
+  -> ROSSO (0 s) | «TRUNCATE» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT,
+=== [base] TRUNCATE figlio
+  -> ROSSO (0 s) | «TRUNCATE» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT,
+=== [wordpress] TRUNCATE figlio
+  -> ROSSO (0 s) | «TRUNCATE» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT,
+=== [sorgente_3] TRUNCATE figlio
+  -> ROSSO (0 s) | «TRUNCATE» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT,
+=== [base] GRANT ALL ON *.* TO banco
+  -> ROSSO (0 s) | «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] GRANT ALL ON *.* TO banco
+  -> ROSSO (0 s) | «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] GRANT ALL ON *.* TO banco
+  -> ROSSO (0 s) | «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] GRANT ALL ON *.* TO banco
+  -> ROSSO (0 s) | «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] GRANT ALL ON *.* TO banco
+  -> ROSSO (0 s) | «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] KILL 1
+  -> ROSSO (0 s) | «KILL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] KILL 1
+  -> ROSSO (0 s) | «KILL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] KILL 1
+  -> ROSSO (0 s) | «KILL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] KILL 1
+  -> ROSSO (0 s) | «KILL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] KILL 1
+  -> ROSSO (0 s) | «KILL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] FLUSH TABLES
+  -> ROSSO (0 s) | «FLUSH» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] FLUSH TABLES
+  -> ROSSO (0 s) | «FLUSH» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] FLUSH TABLES
+  -> ROSSO (0 s) | «FLUSH» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] FLUSH TABLES
+  -> ROSSO (0 s) | «FLUSH» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] FLUSH TABLES
+  -> ROSSO (0 s) | «FLUSH» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] LOAD DATA INFILE '/etc/passwd' INTO TABLE padre
+  -> ROSSO (0 s) | «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] LOAD DATA INFILE '/etc/passwd' INTO TABLE padre
+  -> ROSSO (0 s) | «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] LOAD DATA INFILE '/etc/passwd' INTO TABLE padre
+  -> ROSSO (0 s) | «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] LOAD DATA INFILE '/etc/passwd' INTO TABLE padre
+  -> ROSSO (0 s) | «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] LOAD DATA INFILE '/etc/passwd' INTO TABLE padre
+  -> ROSSO (0 s) | «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] INSTALL SONAME 'x'
+  -> ROSSO (0 s) | «INSTALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] INSTALL SONAME 'x'
+  -> ROSSO (0 s) | «INSTALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] INSTALL SONAME 'x'
+  -> ROSSO (0 s) | «INSTALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] INSTALL SONAME 'x'
+  -> ROSSO (0 s) | «INSTALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] INSTALL SONAME 'x'
+  -> ROSSO (0 s) | «INSTALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] XA START 'x'
+  -> ROSSO (0 s) | «XA» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] XA START 'x'
+  -> ROSSO (0 s) | «XA» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] XA START 'x'
+  -> ROSSO (0 s) | «XA» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] XA START 'x'
+  -> ROSSO (0 s) | «XA» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] XA START 'x'
+  -> ROSSO (0 s) | «XA» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] PREPARE s FROM 'DELETE FROM padre'
+  -> ROSSO (0 s) | «PREPARE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] PREPARE s FROM 'DELETE FROM padre'
+  -> ROSSO (0 s) | «PREPARE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] PREPARE s FROM 'DELETE FROM padre'
+  -> ROSSO (0 s) | «PREPARE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] PREPARE s FROM 'DELETE FROM padre'
+  -> ROSSO (0 s) | «PREPARE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] PREPARE s FROM 'DELETE FROM padre'
+  -> ROSSO (0 s) | «PREPARE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] EXECUTE IMMEDIATE 'DELETE FROM padre'
+  -> ROSSO (0 s) | «EXECUTE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] EXECUTE IMMEDIATE 'DELETE FROM padre'
+  -> ROSSO (0 s) | «EXECUTE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] EXECUTE IMMEDIATE 'DELETE FROM padre'
+  -> ROSSO (0 s) | «EXECUTE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] EXECUTE IMMEDIATE 'DELETE FROM padre'
+  -> ROSSO (0 s) | «EXECUTE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] EXECUTE IMMEDIATE 'DELETE FROM padre'
+  -> ROSSO (0 s) | «EXECUTE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] BEGIN NOT ATOMIC DELETE FROM padre; END
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [base] BEGIN NOT ATOMIC DELETE FROM padre; END
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [base] BEGIN NOT ATOMIC DELETE FROM padre; END
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [wordpress] BEGIN NOT ATOMIC DELETE FROM padre; END
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_wp @ localhost)
+=== [sorgente_3] BEGIN NOT ATOMIC DELETE FROM padre; END
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_s3 @ localhost)
+=== [base] SELECT 1; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [base] SELECT 1; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [base] SELECT 1; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [wordpress] SELECT 1; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_wp @ localhost)
+=== [sorgente_3] SELECT 1; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_s3 @ localhost)
+=== [base] SHOW TABLES; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [base] SHOW TABLES; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [base] SHOW TABLES; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_base @ localhost)
+=== [wordpress] SHOW TABLES; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_wp @ localhost)
+=== [sorgente_3] SHOW TABLES; DELETE FROM padre
+  -> ROSSO (0 s) | Due istruzioni in una: rifiutata (una per volta). (rev13_s3 @ localhost)
+=== [base] SELECT * FROM padre WHERE id = 1 /*!99999 OR 1 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre WHERE id = 1 /*!99999 OR 1 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre WHERE id = 1 /*!99999 OR 1 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM padre WHERE id = 1 /*!99999 OR 1 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM padre WHERE id = 1 /*!99999 OR 1 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_s3 @ localhost)
+=== [base] SELECT 1 /*M!100000 , 2 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_base @ localhost)
+=== [base] SELECT 1 /*M!100000 , 2 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_base @ localhost)
+=== [base] SELECT 1 /*M!100000 , 2 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_base @ localhost)
+=== [wordpress] SELECT 1 /*M!100000 , 2 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT 1 /*M!100000 , 2 */
+  -> ROSSO (0 s) | Commento eseguibile «/*!…*/» rifiutato. (rev13_s3 @ localhost)
+=== [base] SELECT /*+ MAX_EXECUTION_TIME(1) */ 1
+  -> ROSSO (0 s) | Suggerimenti «/*+ … */» rifiutati: cambiano tempo massimo e modo del server per l istruzione. (rev13_base @ localhost)
+=== [base] SELECT /*+ MAX_EXECUTION_TIME(1) */ 1
+  -> ROSSO (0 s) | Suggerimenti «/*+ … */» rifiutati: cambiano tempo massimo e modo del server per l istruzione. (rev13_base @ localhost)
+=== [base] SELECT /*+ MAX_EXECUTION_TIME(1) */ 1
+  -> ROSSO (0 s) | Suggerimenti «/*+ … */» rifiutati: cambiano tempo massimo e modo del server per l istruzione. (rev13_base @ localhost)
+=== [wordpress] SELECT /*+ MAX_EXECUTION_TIME(1) */ 1
+  -> ROSSO (0 s) | Suggerimenti «/*+ … */» rifiutati: cambiano tempo massimo e modo del server per l istruzione. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT /*+ MAX_EXECUTION_TIME(1) */ 1
+  -> ROSSO (0 s) | Suggerimenti «/*+ … */» rifiutati: cambiano tempo massimo e modo del server per l istruzione. (rev13_s3 @ localhost)
+=== [base] SELECT SLEEP(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [base] SELECT SLEEP(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [base] SELECT SLEEP(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [wordpress] SELECT SLEEP(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT SLEEP(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_s3 @ localhost)
+=== [base] SELECT `SLEEP`(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [base] SELECT `SLEEP`(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [base] SELECT `SLEEP`(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [wordpress] SELECT `SLEEP`(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT `SLEEP`(1)
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_s3 @ localhost)
+=== [base] SELECT BENCHMARK(1000000, MD5(1))
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [base] SELECT BENCHMARK(1000000, MD5(1))
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [base] SELECT BENCHMARK(1000000, MD5(1))
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_base @ localhost)
+=== [wordpress] SELECT BENCHMARK(1000000, MD5(1))
+  -> ROSSO (0 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT BENCHMARK(1000000, MD5(1))
+  -> ROSSO (0.01 s) | SLEEP e BENCHMARK rifiutati: tengono occupato il server. (rev13_s3 @ localhost)
+=== [base] SELECT sys_exec('id')
+  -> ROSSO (0.09 s) | SELECT su rev13_base @ localhost: (1305) FUNCTION rev13_base.sys_exec does not exist
+=== [base] SELECT sys_exec('id')
+  -> ROSSO (0.11 s) | SELECT su rev13_base @ localhost: (1305) FUNCTION rev13_base.sys_exec does not exist
+=== [base] SELECT sys_exec('id')
+  -> ROSSO (0.1 s) | SELECT su rev13_base @ localhost: (1305) FUNCTION rev13_base.sys_exec does not exist
+=== [wordpress] SELECT sys_exec('id')
+  -> ROSSO (0.1 s) | SELECT su rev13_wp @ localhost: (1305) FUNCTION rev13_wp.sys_exec does not exist
+=== [sorgente_3] SELECT sys_exec('id')
+  -> ROSSO (0.11 s) | SELECT su rev13_s3 @ localhost: (1305) FUNCTION rev13_s3.sys_exec does not exist
+=== [base] SELECT * FROM mysql.user
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_base @ localhost)
+=== [base] SELECT * FROM mysql.user
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_base @ localhost)
+=== [base] SELECT * FROM mysql.user
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM mysql.user
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM mysql.user
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_s3 @ localhost)
+=== [base] SELECT * FROM `mysql`.`user`
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_base @ localhost)
+=== [base] SELECT * FROM `mysql`.`user`
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_base @ localhost)
+=== [base] SELECT * FROM `mysql`.`user`
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM `mysql`.`user`
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM `mysql`.`user`
+  -> ROSSO (0 s) | Lo schema «mysql» del server non si tocca dalla console (utenti, password, sessioni). (rev13_s3 @ localhost)
+=== [base] SHOW GRANTS
+  -> ROSSO (0 s) | SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (rev13_base @ localhost)
+=== [base] SHOW GRANTS
+  -> ROSSO (0 s) | SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (rev13_base @ localhost)
+=== [base] SHOW GRANTS
+  -> ROSSO (0 s) | SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (rev13_base @ localhost)
+=== [wordpress] SHOW GRANTS
+  -> ROSSO (0 s) | SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (rev13_wp @ localhost)
+=== [sorgente_3] SHOW GRANTS
+  -> ROSSO (0 s) | SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (rev13_s3 @ localhost)
+=== [base] SELECT USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [base] SELECT USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [base] SELECT USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [wordpress] SELECT USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_s3 @ localhost)
+=== [base] SELECT CURRENT_USER
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [base] SELECT CURRENT_USER
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [base] SELECT CURRENT_USER
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [wordpress] SELECT CURRENT_USER
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT CURRENT_USER
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_s3 @ localhost)
+=== [base] SELECT SESSION_USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [base] SELECT SESSION_USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [base] SELECT SESSION_USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_base @ localhost)
+=== [wordpress] SELECT SESSION_USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT SESSION_USER()
+  -> ROSSO (0 s) | USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza. (rev13_s3 @ localhost)
+=== [base] VALUES (1)
+  -> ROSSO (0 s) | «VALUES» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] VALUES (1)
+  -> ROSSO (0 s) | «VALUES» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] VALUES (1)
+  -> ROSSO (0 s) | «VALUES» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] VALUES (1)
+  -> ROSSO (0 s) | «VALUES» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] VALUES (1)
+  -> ROSSO (0 s) | «VALUES» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] TABLE padre
+  -> ROSSO (0 s) | «TABLE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] TABLE padre
+  -> ROSSO (0 s) | «TABLE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [base] TABLE padre
+  -> ROSSO (0 s) | «TABLE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_base @ localhost)
+=== [wordpress] TABLE padre
+  -> ROSSO (0 s) | «TABLE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_wp @ localhost)
+=== [sorgente_3] TABLE padre
+  -> ROSSO (0 s) | «TABLE» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev13_s3 @ localhost)
+=== [base] SELECT * FROM padre WHERE id IN (SELECT id FROM padre) FOR UPDATE SKIP LOCKED
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre WHERE id IN (SELECT id FROM padre) FOR UPDATE SKIP LOCKED
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [base] SELECT * FROM padre WHERE id IN (SELECT id FROM padre) FOR UPDATE SKIP LOCKED
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_base @ localhost)
+=== [wordpress] SELECT * FROM padre WHERE id IN (SELECT id FROM padre) FOR UPDATE SKIP LOCKED
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_wp @ localhost)
+=== [sorgente_3] SELECT * FROM padre WHERE id IN (SELECT id FROM padre) FOR UPDATE SKIP LOCKED
+  -> ROSSO (0 s) | FOR UPDATE, FOR SHARE e LOCK IN SHARE MODE rifiutati: la console non prende lucchetti. (rev13_s3 @ localhost)
+=== [riserva] SELECT 1 AS n
+  -> ROSSO (0 s) | 5 · Riserva spenta: la console la rifiuta (non ricade sul BASE in silenzio).
+=== [sorgente_4] SELECT 1 AS n
+  -> ROSSO (0 s) | 4 · Sorgente 4 non configurata: la console la rifiuta (non ricade sul BASE in silenzio).
+=== [pippo] SELECT 1 AS n
+  -> ROSSO (0 s) | Sorgente «pippo» sconosciuta: rifiutata.
+=== [../base] SELECT 1 AS n
+  -> ROSSO (0 s) | Sorgente «../base» sconosciuta: rifiutata.
+=== [BASE] SELECT 1 AS n
+  -> ROSSO (0 s) | Sorgente «BASE» sconosciuta: rifiutata.
+=== [Base] SELECT 1 AS n
+  -> ROSSO (0 s) | Sorgente «Base» sconosciuta: rifiutata.
+
+PROVE: 356
