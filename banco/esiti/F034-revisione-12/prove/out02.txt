@@ -1,0 +1,66 @@
+[K1] 0.07s VERDE
+   SQL: SELECT chiave, valore FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 11 righe · 0 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 11 righe.
+   DATI: [["smtp_password","•••• (mascherata)"],["nome_sito","Accademia"],["chiave_api_claude","•••• (mascherata)"],["parola_d_ordine_ftp","•••• (mascherata)"],["tema","scuro"],["claude_chiave","sk-ant-api03-QWERTY999"],["chiave_licenza_x","•••• (mascherata)"],["ftp_parola","Rondine77"],["posta_accesso","{\"utente\":\"info\",\"parola\":\"Gabbiano88\"}"],["pin_firma","99173"],["bearer_claude","eyJhbGciOiJIU
+[K2] 0.06s VERDE **FUGA:CHIAVE-API-IN-OPTIONS**
+   SQL: SELECT option_name, option_value FROM wp_options
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 9 righe · 0 ms | INFO: Colonne segrete mascherate: option_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 9 righe.
+   DATI: [["siteurl","http://esempio.it"],["mailserver_pass","•••• (mascherata)"],["auth_key","•••• (mascherata)"],["blogname","Il mio blog"],["rdacademy_chiave_api","CHIAVE-API-IN-OPTIONS"],["stripe_sk","•••• (mascherata)"],["admin_email","a@b.it"],["rdacademy_impostazioni","a:2:{s:6:\"chiave\";s:12:\"CHIAVE-OPZ-1\";s:6:\"parola\";s:9:\"Pinguino9\";}"],["stripe_live_sk","sk_live_51ABCDEF"]]
+[K3] 0.05s VERDE **FUGA:CHIAVE-API-IN-OPTIONS**
+   SQL: SELECT * FROM wp_options
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 9 righe · 0 ms | INFO: Colonne segrete mascherate: option_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 9 righe.
+   DATI: [["1","siteurl","http://esempio.it","yes"],["2","mailserver_pass","•••• (mascherata)","yes"],["3","auth_key","•••• (mascherata)","yes"],["4","blogname","Il mio blog","yes"],["5","rdacademy_chiave_api","CHIAVE-API-IN-OPTIONS","yes"],["6","stripe_sk","•••• (mascherata)","yes"],["7","admin_email","a@b.it","yes"],["8","rdacademy_impostazioni","a:2:{s:6:\"chiave\";s:12:\"CHIAVE-OPZ-1\";s:6:\"parola\";s
+[K4] 0.05s VERDE **FUGA:CHIAVE-API-IN-OPTIONS**
+   SQL: SELECT option_name AS n, option_value FROM wp_options
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 9 righe · 0 ms | INFO: Colonne segrete mascherate: n, option_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 9 righe.
+   DATI: [["•••• (mascherata)","http://esempio.it"],["•••• (mascherata)","•••• (mascherata)"],["•••• (mascherata)","•••• (mascherata)"],["•••• (mascherata)","Il mio blog"],["•••• (mascherata)","CHIAVE-API-IN-OPTIONS"],["•••• (mascherata)","•••• (mascherata)"],["•••• (mascherata)","a@b.it"],["•••• (mascherata)","a:2:{s:6:\"chiave\";s:12:\"CHIAVE-OPZ-1\";s:6:\"parola\";s:9:\"Pinguino9\";}"],["•••• (mascherat
+[K5] 0.06s VERDE
+   SQL: SELECT * FROM wp_users
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: user_pass, user_activation_key | VERDE: Lettura eseguita su rev12_wp @ localhost: 2 righe.
+   DATI: [["1","admin","•••• (mascherata)","a@b.it","•••• (mascherata)","Admin"],["2","ed","•••• (mascherata)","e@b.it","•••• (mascherata)","Ed"]]
+[K6] 0.06s VERDE **FUGA:HMACCONSUMER**
+   SQL: SELECT * FROM wp_woocommerce_api_keys
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: consumer_secret | VERDE: Lettura eseguita su rev12_wp @ localhost: 1 righe.
+   DATI: [["1","1","chiave negozio","read_write","HMACCONSUMERKEYHASH0123456789abcdef0123456789abcdef0123456789ab","•••• (mascherata)","abc1234"]]
+[K7] 0.07s VERDE **FUGA:HMACCONSUMER**
+   SQL: SELECT key_id, consumer_key, truncated_key FROM wp_woocommerce_api_keys
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_wp @ localhost: 1 righe.
+   DATI: [["1","HMACCONSUMERKEYHASH0123456789abcdef0123456789abcdef0123456789ab","abc1234"]]
+[K8] 0.05s VERDE
+   SQL: SELECT * FROM wp_usermeta
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms | INFO: Colonne segrete mascherate: meta_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 2 righe.
+   DATI: [["1","1","session_tokens","•••• (mascherata)"],["2","1","nickname","admin"]]
+[K9] 0.06s VERDE **FUGA:HMACCONSUMER**
+   SQL: SELECT * FROM wp_woocommerce_api_keys
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: consumer_secret | VERDE: Lettura eseguita su rev12_wp @ localhost: 1 righe.
+   DATI: [["1","1","chiave negozio","read_write","HMACCONSUMERKEYHASH0123456789abcdef0123456789abcdef0123456789ab","•••• (mascherata)","abc1234"]]
+[K10] 0.05s VERDE
+   SQL: SELECT * FROM segreti_s3
+   REF: INFO: SELECT su rev12_s3 @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms | INFO: Colonne segrete mascherate: password | VERDE: Lettura eseguita su rev12_s3 @ localhost: 2 righe.
+   DATI: [["1","mario","•••• (mascherata)"],["2","luigi","•••• (mascherata)"]]
+[K11] 0.05s VERDE
+   SQL: SELECT * FROM myi_s3
+   REF: INFO: SELECT su rev12_s3 @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: api_key | VERDE: Lettura eseguita su rev12_s3 @ localhost: 2 righe.
+   DATI: [["1","a","•••• (mascherata)"],["2","b","•••• (mascherata)"]]
+[K12] 0s ROSSO
+   SQL: SELECT 1
+   REF: ROSSO: 4 · Sorgente 4 non configurata: la console la rifiuta (non ricade sul BASE in silenzio).
+   DATI: []
+[K13] 0s ROSSO
+   SQL: SELECT 1
+   REF: ROSSO: 5 · Riserva spenta: la console la rifiuta (non ricade sul BASE in silenzio).
+   DATI: []
+[K14] 0.06s VERDE
+   SQL: SELECT option_value, option_name FROM wp_options WHERE option_name LIKE 'stripe%'
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: option_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 2 righe.
+   DATI: [["sk_live_51ABCDEF","stripe_live_sk"],["•••• (mascherata)","stripe_sk"]]
+[K15] 0.07s VERDE **FUGA:CHIAVE-API-IN-OPTIONS**
+   SQL: SELECT `option_name`, `option_value` FROM `wp_options`
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 9 righe · 0 ms | INFO: Colonne segrete mascherate: option_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 9 righe.
+   DATI: [["siteurl","http://esempio.it"],["mailserver_pass","•••• (mascherata)"],["auth_key","•••• (mascherata)"],["blogname","Il mio blog"],["rdacademy_chiave_api","CHIAVE-API-IN-OPTIONS"],["stripe_sk","•••• (mascherata)"],["admin_email","a@b.it"],["rdacademy_impostazioni","a:2:{s:6:\"chiave\";s:12:\"CHIAVE-OPZ-1\";s:6:\"parola\";s:9:\"Pinguino9\";}"],["stripe_live_sk","sk_live_51ABCDEF"]]
+[K16] 0.05s VERDE **FUGA:CHIAVE-API-IN-OPTIONS**
+   SQL: SELECT o.option_name, o.option_value FROM wp_options o WHERE o.option_id > 0
+   REF: INFO: SELECT su rev12_wp @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 9 righe · 0 ms | INFO: Colonne segrete mascherate: option_value (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_wp @ localhost: 9 righe.
+   DATI: [["siteurl","http://esempio.it"],["mailserver_pass","•••• (mascherata)"],["auth_key","•••• (mascherata)"],["blogname","Il mio blog"],["rdacademy_chiave_api","CHIAVE-API-IN-OPTIONS"],["stripe_sk","•••• (mascherata)"],["admin_email","a@b.it"],["rdacademy_impostazioni","a:2:{s:6:\"chiave\";s:12:\"CHIAVE-OPZ-1\";s:6:\"parola\";s:9:\"Pinguino9\";}"],["stripe_live_sk","sk_live_51ABCDEF"]]
+
+#PROVE=16

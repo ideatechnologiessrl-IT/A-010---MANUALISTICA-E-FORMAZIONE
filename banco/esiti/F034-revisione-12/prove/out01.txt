@@ -1,0 +1,310 @@
+[L0] 0.08s VERDE
+   SQL: SELECT * FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 1 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[L1] 0.07s VERDE
+   SQL: SELECT * FROM utenti ORDER BY nome
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"],["1","zeta","•••• (mascherata)","•••• (mascherata)"]]
+[L2] 0.03s ROSSO
+   SQL: SELECT user_pass FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[L3] 0.02s ROSSO
+   SQL: SELECT USER_PASS FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[L4] 0.02s ROSSO
+   SQL: SELECT `user_pass` FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[L5] 0.06s VERDE
+   SQL: SELECT u.* FROM utenti u
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[L6] 0.06s VERDE
+   SQL: SELECT * FROM utenti u JOIN innocua i ON i.id=u.id
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)","1","1","x"],["2","alfa","•••• (mascherata)","•••• (mascherata)","2","2","y"],["3","emme","•••• (mascherata)","•••• (mascherata)","3","3","z"]]
+[L7] 0.06s ROSSO
+   SQL: SELECT id, nome FROM utenti UNION SELECT id, b FROM innocua
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[L8] 0.06s ROSSO
+   SQL: SELECT * FROM (SELECT * FROM utenti) x
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[L9] 0.06s ROSSO
+   SQL: SELECT * FROM utenti WHERE id IN (SELECT id FROM innocua)
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[L10] 0.05s VERDE
+   SQL: SELECT nome FROM utenti LIMIT 1 OFFSET 1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["alfa"]]
+[L11] 0.06s VERDE
+   SQL: SELECT id FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1"],["2"],["3"]]
+[L12] 0.05s VERDE
+   SQL: SELECT nome FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["zeta"],["alfa"],["emme"]]
+[L13] 0.05s VERDE **FUGA:COLONNA-CHIAVE,PRIVATE KEY,4829,PWCRED**
+   SQL: SELECT * FROM chiavi
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","claude","sk-ant-COLONNA-CHIAVE-API","-----BEGIN PRIVATE KEY-----XYZ","4829","user:PWCRED"]]
+[L14] 0.05s VERDE **FUGA:COLONNA-CHIAVE**
+   SQL: SELECT servizio, chiave_api FROM chiavi
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["claude","sk-ant-COLONNA-CHIAVE-API"]]
+[L15] 0.05s VERDE **FUGA:COLONNA-CHIAVE**
+   SQL: SELECT chiave_api AS x FROM chiavi
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["sk-ant-COLONNA-CHIAVE-API"]]
+[L16] 0.06s VERDE
+   SQL: SELECT * FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 1 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["1","smtp_password","•••• (mascherata)"],["2","nome_sito","Accademia"],["3","chiave_api_claude","•••• (mascherata)"],["4","parola_d_ordine_ftp","•••• (mascherata)"],["5","tema","scuro"]]
+[L17] 0.06s VERDE
+   SQL: SELECT chiave, valore FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["smtp_password","•••• (mascherata)"],["nome_sito","Accademia"],["chiave_api_claude","•••• (mascherata)"],["parola_d_ordine_ftp","•••• (mascherata)"],["tema","scuro"]]
+[L18] 0.07s VERDE
+   SQL: SELECT chiave AS k, valore FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Colonne segrete mascherate: k, valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["•••• (mascherata)","•••• (mascherata)"],["•••• (mascherata)","Accademia"],["•••• (mascherata)","•••• (mascherata)"],["•••• (mascherata)","•••• (mascherata)"],["•••• (mascherata)","scuro"]]
+[L19] 0.05s VERDE
+   SQL: SELECT valore FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["•••• (mascherata)"],["•••• (mascherata)"],["•••• (mascherata)"],["•••• (mascherata)"],["•••• (mascherata)"]]
+[L20] 0.05s VERDE
+   SQL: SELECT valore, chiave FROM rdacademy_impostazioni WHERE chiave = 'tema'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["scuro","tema"]]
+[L21] 0.05s VERDE
+   SQL: SELECT a.valore, b.chiave FROM rdacademy_impostazioni a JOIN rdacademy_impostazioni b ON a.id=b.id
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 1 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["•••• (mascherata)","smtp_password"],["•••• (mascherata)","nome_sito"],["•••• (mascherata)","chiave_api_claude"],["•••• (mascherata)","parola_d_ordine_ftp"],["•••• (mascherata)","tema"]]
+[L22] 0.06s VERDE
+   SQL: SELECT a.chiave, a.valore, b.chiave AS chiave FROM rdacademy_impostazioni a JOIN rdacademy_impostazioni b ON b.id=a.id+1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 4 righe · 0 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 4 righe.
+   DATI: [["smtp_password","•••• (mascherata)","nome_sito"],["nome_sito","Accademia","chiave_api_claude"],["chiave_api_claude","•••• (mascherata)","parola_d_ordine_ftp"],["parola_d_ordine_ftp","•••• (mascherata)","tema"]]
+[L23] 0.08s VERDE
+   SQL: SELECT A.chiave, a.valore FROM rdacademy_impostazioni A, rdacademy_impostazioni a WHERE A.id=1 AND a.id=2
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["smtp_password","•••• (mascherata)"]]
+[L24] 0.06s VERDE
+   SQL: SELECT O.chiave, o.valore FROM rdacademy_impostazioni O JOIN rdacademy_impostazioni o ON o.id = O.id + 1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 4 righe · 0 ms | INFO: Colonne segrete mascherate: valore (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 4 righe.
+   DATI: [["chiave_api_claude","•••• (mascherata)"],["nome_sito","•••• (mascherata)"],["parola_d_ordine_ftp","•••• (mascherata)"],["smtp_password","•••• (mascherata)"]]
+[L25] 0.06s VERDE
+   SQL: SELECT chiave, valore AS v FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Colonne segrete mascherate: v (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["smtp_password","•••• (mascherata)"],["nome_sito","Accademia"],["chiave_api_claude","•••• (mascherata)"],["parola_d_ordine_ftp","•••• (mascherata)"],["tema","scuro"]]
+[L26] 0.06s VERDE
+   SQL: SELECT chiave, valore v FROM rdacademy_impostazioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Colonne segrete mascherate: v (valori delle chiavi segrete) | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["smtp_password","•••• (mascherata)"],["nome_sito","Accademia"],["chiave_api_claude","•••• (mascherata)"],["parola_d_ordine_ftp","•••• (mascherata)"],["tema","scuro"]]
+[L27] 0.06s ROSSO
+   SQL: SELECT chiave, CONCAT(valore) FROM rdacademy_impostazioni
+   REF: ROSSO: Il valore delle tabelle chiave/valore («valore») si legge solo così com è (SELECT valore …), non in espressioni, funzioni o condizioni. (rev12_base @ localhost)
+   DATI: []
+[L28] 0.05s ROSSO
+   SQL: SELECT chiave, LENGTH(valore) FROM rdacademy_impostazioni
+   REF: ROSSO: Il valore delle tabelle chiave/valore («valore») si legge solo così com è (SELECT valore …), non in espressioni, funzioni o condizioni. (rev12_base @ localhost)
+   DATI: []
+[L29] 0.06s ROSSO
+   SQL: SELECT chiave FROM rdacademy_impostazioni WHERE valore LIKE 'S%'
+   REF: ROSSO: Il valore delle tabelle chiave/valore («valore») non si usa in condizioni, ordinamenti né unioni: filtra per «chiave». (rev12_base @ localhost)
+   DATI: []
+[L30] 0.07s ROSSO
+   SQL: SELECT * FROM rdacademy_impostazioni ORDER BY id
+   REF: ROSSO: Valore delle tabelle chiave/valore nel risultato: niente HAVING, ORDER BY né GROUP BY (ordinare o filtrare per il valore, anche col suo alias, lo farebbe dedurre). (rev12_base @ localhost)
+   DATI: []
+[L31] 0.07s ROSSO
+   SQL: SELECT chiave, valore FROM rdacademy_impostazioni ORDER BY chiave
+   REF: ROSSO: Valore delle tabelle chiave/valore nel risultato: niente HAVING, ORDER BY né GROUP BY (ordinare o filtrare per il valore, anche col suo alias, lo farebbe dedurre). (rev12_base @ localhost)
+   DATI: []
+[L32] 0.07s VERDE
+   SQL: SELECT * FROM sessioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 5 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: token su sessioni) su rev12_base @ localhost: l ordine e la scelta delle righ
+   DATI: [["1","•••• (mascherata)"],["2","•••• (mascherata)"]]
+[L33] 0.08s VERDE
+   SQL: SELECT id FROM sessioni
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: token su sessioni) su rev12_base @ localhost: l ordine e la scelta delle righ
+   DATI: [["1"],["2"]]
+[L34] 0.06s VERDE
+   SQL: SELECT id FROM sessioni LIMIT 1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: token su sessioni) su rev12_base @ localhost: l ordine e la scelta delle righ
+   DATI: [["1"]]
+[L35] 0.06s VERDE
+   SQL: SELECT * FROM part_tok
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms | INFO: Colonne segrete mascherate: token | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["1","uno","•••• (mascherata)"],["2","due","•••• (mascherata)"]]
+[L36] 0.06s VERDE
+   SQL: SELECT * FROM part_tok PARTITION (p_am)
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: token | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","uno","•••• (mascherata)"]]
+[L37] 0.05s VERDE
+   SQL: SELECT id, nome FROM part_tok PARTITION (p_nz)
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["2","due"]]
+[L38] 0.05s VERDE
+   SQL: SELECT * FROM accessi
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 0 righe.
+   DATI: []
+[L39] 0.06s VERDE
+   SQL: SELECT * FROM innocua
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 3 righe.
+   DATI: [["1","1","x"],["2","2","y"],["3","3","z"]]
+[L40] 0.06s VERDE
+   SQL: SELECT * FROM myi
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","m"]]
+[L41] 0.04s ROSSO
+   SQL: SELECT * FROM vista_s3
+   REF: ROSSO: Viste che leggono colonne segrete o chiave/valore, altre viste, funzioni memorizzate, colonne generate o tabelle di un altro database (vista_s3): la console non le legge (le colonne segrete cambierebbero nome; i dati di un altro database uscirebbero col
+   DATI: []
+[L42] 0.06s VERDE
+   SQL: SELECT * FROM mrg_s3
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","DATO-DI-S3-RISERVATO"]]
+[L43] 0.06s VERDE
+   SQL: SELECT * FROM mrg_s3k
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: api_key | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["1","a","•••• (mascherata)"],["2","b","•••• (mascherata)"]]
+[L44] 0.05s VERDE
+   SQL: SELECT id, nome FROM mrg_s3k
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["1","a"],["2","b"]]
+[L45] 0.05s VERDE
+   SQL: SELECT * FROM information_schema.PARTITIONS WHERE TABLE_NAME='part_tok'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["def","rev12_base","part_tok","p_am",null,"1",null,"RANGE COLUMNS",null,"`token`",null,"'n'","1","16384","16384",null,"0","0","2026-11-26 14:06:26","2026-11-26 14:06:26",null,null,"","default",null],["def","rev12_base","part_tok","p_nz",null,"2",null,"RANGE COLUMNS",null,"`token`",null,"MAXVALUE","1","16384","16384",null,"0","0","2026-11-26 14:06:26","2026-11-26 14:06:26",null,null,"","default",
+[L46] 0.05s VERDE
+   SQL: SELECT PARTITION_NAME, TABLE_ROWS FROM information_schema.PARTITIONS WHERE TABLE_SCHEMA='rev12_base' AND TABLE_NAME='part_tok'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["p_am","1"],["p_nz","1"]]
+[L47] 0.06s VERDE
+   SQL: SELECT TABLE_NAME, AVG_ROW_LENGTH, DATA_LENGTH FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 15 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 15 righe.
+   DATI: [["rdacademy_console_registro","1365","16384"],["mrg_s3","206","32"],["rdacademy_impostazioni","3276","16384"],["myi","20","20"],["sessioni","8192","16384"],["chiavi","16384","16384"],["innocua","5461","16384"],["padre","8192","16384"],["accessi","0","16384"],["part_tok","16384","32768"],["big","258","496975872"],["mrg_s3k","528","48"],["utenti","5461","16384"],["vista_s3",null,null],["ari","16384
+[L48] 0.05s VERDE
+   SQL: SELECT INDEX_NAME, CARDINALITY FROM information_schema.STATISTICS WHERE TABLE_NAME='utenti'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["PRIMARY","3"],["idx_token","3"]]
+[L49] 0.06s VERDE
+   SQL: SHOW CREATE TABLE utenti
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["utenti","CREATE TABLE `utenti` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `nome` varchar(50) DEFAULT NULL,\n  `user_pass` varchar(80) DEFAULT NULL,\n  `token` varchar(80) DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `idx_token` (`token`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"]]
+[L50] 0.05s VERDE
+   SQL: SHOW TABLE STATUS
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 15 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 15 righe.
+   DATI: [["accessi","InnoDB","10","Dynamic","0","0","16384","0","16384","0","1","2026-11-26 14:06:26",null,null,"utf8mb4_general_ci",null,"","","0","N"],["ari","Aria","10","Page","1","16384","16384","17592186011648","8192","0",null,"2026-11-26 14:06:26","2026-11-26 14:06:26",null,"utf8mb4_general_ci",null,"transactional=1","","137438945280","N"],["big","InnoDB","10","Dynamic","1919758","258","496975872","
+[L51] 0.05s VERDE
+   SQL: SHOW INDEX FROM utenti
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 2 righe.
+   DATI: [["utenti","0","PRIMARY","1","id","A","3",null,null,"","BTREE","","","NO"],["utenti","1","idx_token","1","token","A","3",null,null,"YES","BTREE","","","NO"]]
+[L52] 0.06s VERDE
+   SQL: DESCRIBE utenti
+   REF: INFO: DESCRIBE su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 4 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 4 righe.
+   DATI: [["id","int(11)","NO","PRI",null,"auto_increment"],["nome","varchar(50)","YES","",null,""],["user_pass","varchar(80)","YES","",null,""],["token","varchar(80)","YES","MUL",null,""]]
+[L53] 0.06s VERDE
+   SQL: EXPLAIN SELECT * FROM utenti
+   REF: INFO: EXPLAIN su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","SIMPLE","utenti","ALL",null,null,null,null,"3",""]]
+[L54] 0.06s VERDE
+   SQL: SHOW CREATE TABLE mrg_s3
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["mrg_s3","CREATE TABLE `mrg_s3` (\n  `id` int(11) DEFAULT NULL,\n  `info` varchar(50) DEFAULT NULL\n) ENGINE=MRG_MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci INSERT_METHOD=LAST UNION=(`rev12_s3`.`dati_s3`)"]]
+[L55] 0.02s ROSSO
+   SQL: SELECT * FROM rev12_s3.segreti_s3
+   REF: ROSSO: Riferimento a un altro database (rev12_s3): la console legge solo il database della sorgente scelta, rev12_base (e information_schema); per un altro database si sceglie la sua sorgente. (rev12_base @ localhost)
+   DATI: []
+[L56] 0.02s ROSSO
+   SQL: SELECT * FROM `rev12_s3`.`segreti_s3`
+   REF: ROSSO: Riferimento a un altro database (rev12_s3): la console legge solo il database della sorgente scelta, rev12_base (e information_schema); per un altro database si sceglie la sua sorgente. (rev12_base @ localhost)
+   DATI: []
+[L57] 0.02s ROSSO
+   SQL: SELECT * FROM rev12_s3 . segreti_s3
+   REF: ROSSO: Riferimento a un altro database (rev12_s3): la console legge solo il database della sorgente scelta, rev12_base (e information_schema); per un altro database si sceglie la sua sorgente. (rev12_base @ localhost)
+   DATI: []
+[L58] 0.02s ROSSO
+   SQL: SHOW TABLES FROM rev12_s3
+   REF: ROSSO: Riferimento a un altro database (rev12_s3): la console legge solo il database della sorgente scelta, rev12_base (e information_schema); per un altro database si sceglie la sua sorgente. (rev12_base @ localhost)
+   DATI: []
+[L59] 0.08s ROSSO
+   SQL: SELECT JSON_OBJECTAGG(chiave, valore) FROM rdacademy_impostazioni
+   REF: ROSSO: Il valore delle tabelle chiave/valore («valore») si legge solo così com è (SELECT valore …), non in espressioni, funzioni o condizioni. (rev12_base @ localhost)
+   DATI: []
+[L60] 0.05s ROSSO
+   SQL: SELECT GROUP_CONCAT(valore) FROM rdacademy_impostazioni
+   REF: ROSSO: Il valore delle tabelle chiave/valore («valore») si legge solo così com è (SELECT valore …), non in espressioni, funzioni o condizioni. (rev12_base @ localhost)
+   DATI: []
+[L61] 0.05s ROSSO
+   SQL: SELECT chiave, valore FROM rdacademy_impostazioni WHERE chiave IN (SELECT chiave FROM rdacademy_impostazioni)
+   REF: ROSSO: Tabelle con colonne segrete (rdacademy_impostazioni): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[L62] 0.05s VERDE
+   SQL: SELECT * FROM utenti WHERE nome = 'alfa'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["2","alfa","•••• (mascherata)","•••• (mascherata)"]]
+[L63] 0.06s VERDE
+   SQL: SELECT COUNT(*) FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["3"]]
+[L64] 0.08s ROSSO
+   SQL: SELECT * FROM utenti ORDER BY 3
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+[L65] 0.08s ROSSO
+   SQL: SELECT * FROM utenti ORDER BY (3)
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+[L66] 0.06s ROSSO
+   SQL: SELECT * FROM utenti ORDER BY +3
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+[L67] 0.07s ROSSO
+   SQL: SELECT * FROM utenti ORDER BY -3
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+[L68] 0.09s VERDE
+   SQL: SELECT * FROM utenti ORDER BY 3e0
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[L69] 0.07s VERDE
+   SQL: SELECT * FROM utenti ORDER BY 0x03
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[L70] 0.06s VERDE
+   SQL: SELECT * FROM utenti ORDER BY '3'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[L71] 0.06s VERDE
+   SQL: SELECT *, nome FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)","zeta"],["2","alfa","•••• (mascherata)","•••• (mascherata)","alfa"],["3","emme","•••• (mascherata)","•••• (mascherata)","emme"]]
+[L72] 0.07s VERDE
+   SQL: SELECT * FROM utenti GROUP BY nome
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"],["1","zeta","•••• (mascherata)","•••• (mascherata)"]]
+[L73] 0.05s ROSSO
+   SQL: SELECT nome, MAX(id) FROM utenti GROUP BY nome WITH ROLLUP
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[L74] 0.07s ROSSO
+   SQL: SELECT * FROM utenti WINDOW w AS (ORDER BY 3)
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+[L75] 0.07s ROSSO
+   SQL: SELECT id, ROW_NUMBER() OVER (ORDER BY 3) FROM utenti
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+[L76] 0.06s ROSSO
+   SQL: SELECT id, ROW_NUMBER() OVER w FROM utenti WINDOW w AS (ORDER BY 4)
+   REF: ROSSO: Tabelle con colonne segrete (utenti): niente ORDER BY né GROUP BY per posizione, si ordina per nome di colonna. (rev12_base @ localhost)
+   DATI: []
+
+#PROVE=77

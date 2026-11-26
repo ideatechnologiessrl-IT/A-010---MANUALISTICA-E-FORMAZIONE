@@ -1,0 +1,130 @@
+[I0] 0.12s VERDE
+   SQL: SELECT id FROM ord LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I1] 0.07s VERDE
+   SQL: SELECT id FROM ord o LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I2] 0.06s VERDE
+   SQL: SELECT id FROM ord AS o LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I3] 0.06s VERDE
+   SQL: SELECT id FROM `ord` LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I4] 0.08s VERDE
+   SQL: SELECT id FROM rev12_base.ord LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I5] 0.06s VERDE
+   SQL: SELECT id FROM (ord) LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I6] 0.06s ROSSO
+   SQL: SELECT id FROM ord FORCE INDEX (k_tok) LIMIT 5
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (ord): niente suggerimenti d indice (USE, FORCE, IGNORE INDEX): l ordine delle righe seguirebbe un indice su una colonna segreta. Gli indici sulle colonne segrete li esclude già la console. (rev12_base @ local
+   DATI: []
+[I7] 0.06s ROSSO
+   SQL: SELECT id FROM ord USE KEY (k_tok) LIMIT 5
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (ord): niente suggerimenti d indice (USE, FORCE, IGNORE INDEX): l ordine delle righe seguirebbe un indice su una colonna segreta. Gli indici sulle colonne segrete li esclude già la console. (rev12_base @ local
+   DATI: []
+[I8] 0.07s VERDE
+   SQL: SELECT nome, id FROM ord LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["n1","1"],["n2","2"],["n0","3"],["n1","4"],["n2","5"]]
+[I9] 0.07s VERDE
+   SQL: SELECT nome, id FROM ord WHERE nome = 'n1' LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["n1","1"],["n1","4"],["n1","7"],["n1","10"],["n1","13"]]
+[I10] 0.1s VERDE
+   SQL: SELECT id, nome FROM ord ORDER BY nome LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["12","n0"],["3","n0"],["15","n0"],["9","n0"],["6","n0"]]
+[I11] 0.07s VERDE
+   SQL: SELECT nome, COUNT(*) FROM ord GROUP BY nome
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 1 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["n0","66"],["n1","67"],["n2","67"]]
+[I12] 0.08s ROSSO
+   SQL: SELECT id FROM v_ord LIMIT 5
+   REF: ROSSO: Il server leggerebbe lungo un indice su una colonna segreta (k_tok, k_nome_tok di ord) e la console non è riuscita a escluderlo: le righe uscirebbero nell ordine dei segreti. Scrivi le tabelle nel FROM in modo semplice (FROM tabella [AS alias] [JOIN tab
+   DATI: []
+[I13] 0.07s ROSSO
+   SQL: SELECT id FROM ord o1 JOIN ord o2 USING (id) LIMIT 5
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (ord): niente NATURAL JOIN né JOIN … USING (confronterebbero i valori senza nominarli), si unisce con ON sulle colonne innocue. (rev12_base @ localhost)
+   DATI: []
+[I14] 0.06s VERDE
+   SQL: SELECT o1.id FROM ord o1 STRAIGHT_JOIN ord o2 ON o2.id = o1.id LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I15] 0.06s VERDE
+   SQL: SELECT o1.id FROM ord o1, ord o2 WHERE o1.id=o2.id LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I16] 0.06s VERDE
+   SQL: SELECT id FROM ord LIMIT 5 OFFSET 10
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["11"],["12"],["13"],["14"],["15"]]
+[I17] 0.05s VERDE
+   SQL: SELECT MIN(id) FROM ord WHERE nome='n1'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"]]
+[I18] 0.07s ROSSO
+   SQL: SELECT id FROM ord_nopk LIMIT 5
+   REF: ROSSO: Tabelle la cui chiave primaria (o l indice unico che ne fa le veci) contiene una colonna segreta (ord_nopk): le righe uscirebbero nell ordine dei segreti, la console non le legge con SELECT, nemmeno attraverso una vista (SHOW e DESCRIBE restano). (rev12
+   DATI: []
+[I19] 0.07s ROSSO
+   SQL: SELECT id FROM ord PARTITION (p0) LIMIT 5
+   REF: ROSSO: SELECT su rev12_base @ localhost: (1747) PARTITION () clause on non partitioned table
+   DATI: []
+[I20] 0.07s VERDE
+   SQL: SELECT id FROM ord /* c */ o LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I21] 0.08s VERDE
+   SQL: SELECT id FROM ord\no\nLIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I22] 0.05s VERDE
+   SQL: SELECT id FROM ord `limit` LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I23] 0.08s VERDE
+   SQL: SELECT id FROM ord `where` LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I24] 0.05s VERDE
+   SQL: SELECT id FROM ord AS `as` LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I25] 0.05s VERDE
+   SQL: SELECT id FROM ord WHERE id IN (1,2,3) LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"]]
+[I26] 0.08s ROSSO
+   SQL: SELECT id FROM ord LEFT JOIN innocua ON innocua.id = ord.id LIMIT 5
+   REF: ROSSO: SELECT su rev12_base @ localhost: (1052) Column «…»
+   DATI: []
+[I27] 0.06s VERDE
+   SQL: SELECT ord.id FROM innocua RIGHT JOIN ord ON innocua.id = ord.id LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I28] 0.06s VERDE
+   SQL: SELECT ord.id FROM innocua, ord LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["1"],["1"],["2"],["2"]]
+[I29] 0.09s VERDE
+   SQL: SELECT id FROM ord WHERE nome > 'n0' LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["4"],["5"],["7"]]
+[I30] 0.06s VERDE
+   SQL: SELECT id FROM ord WHERE nome LIKE 'n%' LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["1"],["2"],["3"],["4"],["5"]]
+[I31] 0.09s VERDE
+   SQL: SELECT nome FROM ord WHERE nome BETWEEN 'n0' AND 'n2' LIMIT 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: k_tok su ord, k_nome_tok su ord) su rev12_base @ localhost: l ordine e la sce
+   DATI: [["n1"],["n2"],["n0"],["n1"],["n2"]]
+
+#PROVE=32

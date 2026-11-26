@@ -1,0 +1,84 @@
+[U0] 0.07s ROSSO
+   SQL: INSERT INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima1')
+   REF: ROSSO: Prova a secco non riuscita: (1062) Duplicate entry «…» (rev12_base @ localhost)
+   DATI: []
+   righe_prova=-
+[U1] 0.05s INFO
+   SQL: INSERT INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima2')
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+   righe_prova=1
+[U2] 0.05s INFO
+   SQL: INSERT IGNORE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima1')
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+   righe_prova=0
+[U3] 0.04s INFO
+   SQL: INSERT IGNORE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima2')
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+   righe_prova=1
+[U4] 0.05s INFO
+   SQL: REPLACE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima1')
+   REF: INFO: Prova a secco su rev12_base @ localhost: REPLACE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro U
+   DATI: []
+   righe_prova=2
+[U5] 0.04s INFO
+   SQL: REPLACE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima2')
+   REF: INFO: Prova a secco su rev12_base @ localhost: REPLACE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro U
+   DATI: []
+   righe_prova=1
+[U6] 0.04s ROSSO
+   SQL: INSERT INTO uniq_val SET chiave='n2', valore='Segretissima1'
+   REF: ROSSO: Prova a secco non riuscita: (1062) Duplicate entry «…» (rev12_base @ localhost)
+   DATI: []
+   righe_prova=-
+[O0] 0.04s ROSSO
+   SQL: INSERT INTO v_innocua (a) VALUES (9)
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (v_innocua (vista)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O1] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (f_scrive(9))
+   REF: ROSSO: Funzioni memorizzate (f_scrive): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O2] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (`f_scrive`(9))
+   REF: ROSSO: Funzioni memorizzate (f_scrive): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O3] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (rev12_base.f_scrive(9))
+   REF: ROSSO: Funzioni memorizzate (f_scrive): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O4] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (rev12_base . f_scrive (9))
+   REF: ROSSO: Funzioni memorizzate (f_scrive): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O5] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (F_SCRIVE(9))
+   REF: ROSSO: Funzioni memorizzate (f_scrive): possono scrivere fuori dalla prova a secco, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[V0] 0.04s ROSSO
+   SQL: SELECT * FROM v_info
+   REF: ROSSO: Viste che leggono colonne segrete o chiave/valore, altre viste, funzioni memorizzate, colonne generate o tabelle di un altro database (v_info): la console non le legge (le colonne segrete cambierebbero nome; i dati di un altro database uscirebbero col n
+   DATI: []
+[V1] 0.04s ROSSO
+   SQL: SELECT * FROM v_sub
+   REF: ROSSO: Viste che leggono colonne segrete o chiave/valore, altre viste, funzioni memorizzate, colonne generate o tabelle di un altro database (v_sub): la console non le legge (le colonne segrete cambierebbero nome; i dati di un altro database uscirebbero col no
+   DATI: []
+[V2] 0.06s VERDE
+   SQL: SELECT * FROM v_innocua
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 3 righe.
+   DATI: [["1","1"],["2","2"],["3","3"]]
+[V3] 0.03s ROSSO
+   SQL: SELECT f_scrive(1)
+   REF: ROSSO: Funzioni memorizzate (f_scrive): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev12_base @ localhost)
+   DATI: []
+[V4] 0.02s ROSSO
+   SQL: SELECT `F_SCRIVE`(1)
+   REF: ROSSO: Funzioni memorizzate (f_scrive): la console non le chiama, potrebbero leggere colonne segrete o scrivere. (rev12_base @ localhost)
+   DATI: []
+Array
+(
+)
+
+#PROVE=18

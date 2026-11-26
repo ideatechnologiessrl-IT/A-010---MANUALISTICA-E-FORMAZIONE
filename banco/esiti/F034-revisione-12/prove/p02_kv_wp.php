@@ -1,0 +1,17 @@
+<?php require __DIR__.'/lib.php';
+T('K1','base',"SELECT chiave, valore FROM rdacademy_impostazioni");
+T('K2','wordpress',"SELECT option_name, option_value FROM wp_options");
+T('K3','wordpress',"SELECT * FROM wp_options");
+T('K4','wordpress',"SELECT option_name AS n, option_value FROM wp_options");
+T('K5','wordpress',"SELECT * FROM wp_users");
+T('K6','wordpress',"SELECT * FROM wp_woocommerce_api_keys");
+T('K7','wordpress',"SELECT key_id, consumer_key, truncated_key FROM wp_woocommerce_api_keys");
+T('K8','wordpress',"SELECT * FROM wp_usermeta");
+T('K9','sorgente_wp',"SELECT * FROM wp_woocommerce_api_keys");
+T('K10','sorgente_3',"SELECT * FROM segreti_s3");
+T('K11','sorgente_3',"SELECT * FROM myi_s3");
+T('K12','sorgente_4',"SELECT 1");
+T('K13','riserva',"SELECT 1");
+T('K14','wordpress',"SELECT option_value, option_name FROM wp_options WHERE option_name LIKE 'stripe%'");
+T('K15','wordpress',"SELECT `option_name`, `option_value` FROM `wp_options`");
+T('K16','wordpress',"SELECT o.option_name, o.option_value FROM wp_options o WHERE o.option_id > 0");

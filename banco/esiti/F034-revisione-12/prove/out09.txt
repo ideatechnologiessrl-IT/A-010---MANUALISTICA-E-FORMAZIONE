@@ -1,0 +1,274 @@
+[B1] 0.06s VERDE
+   SQL: SELECT * FROM gros
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 900 righe · 3 ms | INFO: Colonne segrete mascherate: token | VERDE: Lettura eseguita su rev12_base @ localhost: 900 righe.
+   DATI: [["1","n","•••• (mascherata)"],["2","n","•••• (mascherata)"],["3","n","•••• (mascherata)"],["4","n","•••• (mascherata)"],["5","n","•••• (mascherata)"],["6","n","•••• (mascherata)"],["7","n","•••• (mascherata)"],["8","n","•••• (mascherata)"],["9","n","•••• (mascherata)"],["10","n","•••• (mascherata)"],["11","n","•••• (mascherata)"],["12","n","•••• (mascherata)"],["13","n","•••• (mascherata)"],["14"
+   troncato? [["INFO","SELECT su rev12_base @ localhost \u00b7 lettura in transazione READ ONLY \u00b7 tempo massimo 10 s \u00b7 900 righe \u00b7 3 ms"],["INFO","Colonne segrete mascherate: token"]]
+[B2] 0.06s VERDE
+   SQL: SELECT * FROM gros2
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 900 righe · 1 ms | INFO: Colonne segrete mascherate: token | VERDE: Lettura eseguita su rev12_base @ localhost: 900 righe.
+   DATI: [["1","n","•••• (mascherata)"],["2","n","•••• (mascherata)"],["3","n","•••• (mascherata)"],["4","n","•••• (mascherata)"],["5","n","•••• (mascherata)"],["6","n","•••• (mascherata)"],["7","n","•••• (mascherata)"],["8","n","•••• (mascherata)"],["9","n","•••• (mascherata)"],["10","n","•••• (mascherata)"],["11","n","•••• (mascherata)"],["12","n","•••• (mascherata)"],["13","n","•••• (mascherata)"],["14"
+   900 vs 900 righe
+[P1] 0.06s INFO
+   SQL: INSERT INTO rdacademy_wpx (a) VALUES ('due')
+   REF: INFO: Prova a secco su rev12_wp @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UPDA
+   DATI: []
+[P2] 0.05s ROSSO
+   SQL: UPDATE wp_options SET option_value = 'x' WHERE option_name = 'blogname'
+   REF: ROSSO: La sorgente è il database di WordPress: in scrittura solo tabelle di RelDoxAcademy (rdacademy_…), non wp_options. (rev12_wp @ localhost)
+   DATI: []
+[P3] 0s ROSSO
+   SQL: UPDATE rdacademy_wpx SET a = 'x'
+   REF: ROSSO: Sorgente WordPress: «UPDATE» rifiutata. Sul database di WordPress solo lettura, sempre. (rev12_wp @ localhost)
+   DATI: []
+wp_postmeta_fk prima: [["3"]]
+[P4-prova] 0.04s INFO
+   SQL: DELETE FROM rdacademy_padre WHERE id = 1
+   REF: INFO: Prova a secco su rev12_wp @ localhost: DELETE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UPDA
+   DATI: []
+[P4-esegui] 0.06s VERDE
+   SQL: DELETE FROM rdacademy_padre WHERE id = 1
+   REF: VERDE: DELETE eseguita su rev12_wp @ localhost: 1 righe scritte (trovate dalla condizione, anche se già uguali); nel registro del BASE.
+   DATI: []
+wp_postmeta_fk dopo: [["1"]]
+[X0] 0.02s ROSSO
+   SQL: SELECT user_pass/**/FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[X1] 0.02s ROSSO
+   SQL: SELECT/*x*/user_pass FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[X2] 0.02s ROSSO
+   SQL: SELECT `user_pass` FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[X3] 0.02s ROSSO
+   SQL: SELECT `utenti`.`user_pass` FROM utenti
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[X4] 0.02s ROSSO
+   SQL: SELECT u.`USER_PASS` FROM utenti u
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[X5] 0.05s VERDE
+   SQL: SELECT {fn CONCAT(nome, '')} FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 1 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["zeta"],["alfa"],["emme"]]
+[X6] 0.08s VERDE
+   SQL: SELECT * FROM utenti -- \n WHERE 1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[X7] 0.07s VERDE
+   SQL: SELECT * FROM utenti #x\n
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[X8] 0.12s VERDE
+   SQL: SELECT * FROM utenti --	x\nWHERE nome<>''
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 1 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[X9] 0.08s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = 'a\' OR 1=1 -- '
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: []
+[X10] 0.11s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = "a"" OR user_pass LIKE 'H%' -- "
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: []
+[X11] 0.07s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = 'it''s' OR 1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["zeta"],["alfa"],["emme"]]
+[X12] 0.07s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = _utf8mb4'x' COLLATE utf8mb4_bin
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: []
+[X13] 0.06s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = N'x'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: []
+[X14] 0.05s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = X'41'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: []
+[X15] 0.06s VERDE
+   SQL: SELECT nome FROM utenti WHERE nome = B'01000001'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: []
+[X16] 0.07s VERDE
+   SQL: SELECT CHAR(117,115,101,114,95,112,97,115,115)
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["user_pass"]]
+[X17] 0.1s VERDE
+   SQL: SELECT * FROM utenti WHERE nome REGEXP '(a+)+$'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 2 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"]]
+[X18] 0s ROSSO
+   SQL: SELECT nome FROM utenti WHERE nome = 'x' PROCEDURE ANALYSE()
+   REF: ROSSO: PROCEDURE ANALYSE() rifiutata: mostra i valori delle colonne, segreti compresi. (rev12_base @ localhost)
+   DATI: []
+[X19] 0.08s VERDE
+   SQL: SELECT IS_USED_LOCK('x')
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [[null]]
+[X20] 0.07s VERDE
+   SQL: SELECT @@hostname, @@datadir, @@version
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["vm","/var/lib/mysql/","10.11.14-MariaDB-0ubuntu0.24.04.1"]]
+[X21] 0.07s VERDE
+   SQL: SELECT * FROM information_schema.SESSION_STATUS LIMIT 3
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 4 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 3 righe.
+   DATI: [["ABORTED_CLIENTS","0"],["ABORTED_CONNECTS","0"],["ABORTED_CONNECTS_PREAUTH","0"]]
+[X22] 0.07s VERDE
+   SQL: SELECT * FROM information_schema.ROUTINES
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 56 righe · 2 ms | INFO: Colonne segrete mascherate: DEFINER | VERDE: Lettura eseguita su rev12_base @ localhost: 56 righe.
+   DATI: [["rdacademy-g","def","academy_base","rdacademy-g","FUNCTION","int",null,null,"10","0",null,null,null,"int(11)","SQL","BEGIN INSERT INTO rdacademy_vecchia VALUES (77,77); RETURN 1; END",null,null,"SQL","NO","MODIFIES SQL DATA",null,"DEFINER","2026-11-26 14:00:07","2026-11-26 14:00:07","STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION","","•••• (mascherata)"
+[X23] 0.08s VERDE
+   SQL: SELECT ROUTINE_DEFINITION FROM information_schema.ROUTINES
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 56 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 56 righe.
+   DATI: [["BEGIN INSERT INTO rdacademy_vecchia VALUES (77,77); RETURN 1; END"],["BEGIN INSERT INTO rdacademy_vecchia VALUES (99,99); RETURN 1; END"],["RETURN (SELECT api_token FROM rdacademy_users WHERE id = 1)"],["RETURN (SELECT password FROM rdacademy_riservati WHERE id = 1)"],["BEGIN INSERT INTO rdacademy_vecchia VALUES (78,78); RETURN 1; END"],["begin\n  set @qwe= concat('ALTER TABLE ', t_schema, '.',
+[X24] 0.06s VERDE
+   SQL: SELECT * FROM information_schema.TRIGGERS
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 10 righe · 3 ms | INFO: Colonne segrete mascherate: DEFINER | VERDE: Lettura eseguita su rev12_base @ localhost: 10 righe.
+   DATI: [["def","rev12_base","rdacademy_console_registro_nu","UPDATE","def","rev12_base","rdacademy_console_registro","1",null,"SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'append-only'","ROW","BEFORE",null,null,"OLD","NEW","2026-11-26 14:07:02.42","STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION","•••• (mascherata)","utf8mb4","utf8mb4_general_ci","utf8mb4_general_
+[X25] 0.09s VERDE
+   SQL: SELECT * FROM information_schema.VIEWS
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 116 righe · 17 ms | INFO: Colonne segrete mascherate: DEFINER | VERDE: Lettura eseguita su rev12_base @ localhost: 116 righe.
+   DATI: [["def","rev12_base","v_info","select `information_schema`.`TABLES`.`TABLE_NAME` AS `TABLE_NAME` from `information_schema`.`TABLES`","NONE","NO","•••• (mascherata)","DEFINER","latin1","latin1_swedish_ci","UNDEFINED"],["def","rev12_base","v_sub","select `rev12_base`.`innocua`.`id` AS `id`,(select `rev12_s3`.`dati_s3`.`info` from `rev12_s3`.`dati_s3` limit 1) AS `z` from `rev12_base`.`innocua`","NON
+[X26] 0.07s VERDE
+   SQL: SHOW TRIGGERS
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 5 righe · 1 ms | INFO: Colonne segrete mascherate: Definer | VERDE: Lettura eseguita su rev12_base @ localhost: 5 righe.
+   DATI: [["t_ai","INSERT","con_trg","INSERT INTO log_trg VALUES (NEW.id)","AFTER","2026-11-26 14:07:50.92","STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION","•••• (mascherata)","latin1","latin1_swedish_ci","utf8mb4_general_ci"],["rdacademy_console_gettoni_nu","UPDATE","rdacademy_console_gettoni","SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'append-only'","BEFORE","
+[X27] 0.07s VERDE
+   SQL: SHOW CREATE FUNCTION f_scrive
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["f_scrive","STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION","CREATE DEFINER=… FUNCTION `f_scrive`(x INT) RETURNS int(11)\n    MODIFIES SQL DATA\nBEGIN INSERT INTO log_trg VALUES (x); RETURN x; END","latin1","latin1_swedish_ci","utf8mb4_general_ci"]]
+[X28] 0.07s VERDE
+   SQL: SHOW FUNCTION STATUS
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 28 righe · 1 ms | INFO: Colonne segrete mascherate: Definer | VERDE: Lettura eseguita su rev12_base @ localhost: 28 righe.
+   DATI: [["academy_base","rdacademy-g","FUNCTION","•••• (mascherata)","2026-11-26 14:00:07","2026-11-26 14:00:07","DEFINER","","utf8mb4","utf8mb4_general_ci","utf8mb4_general_ci"],["academy_base","rdacademy_f","FUNCTION","•••• (mascherata)","2026-11-26 13:59:55","2026-11-26 13:59:55","DEFINER","","utf8mb4","utf8mb4_general_ci","utf8mb4_general_ci"],["academy_base","rdacademy_fleggi","FUNCTION","•••• (masc
+[X29] 0.06s VERDE
+   SQL: SHOW VARIABLES LIKE 'datadir'
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["datadir","/var/lib/mysql/"]]
+[X30] 0.08s VERDE
+   SQL: SHOW GLOBAL STATUS LIKE 'Com_select'
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["Com_select","3267"]]
+[X31] 0.06s VERDE
+   SQL: SHOW OPEN TABLES
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 302 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 302 righe.
+   DATI: [["sys","schema_table_statistics","0","0"],["sys","x$io_by_thread_by_latency","0","0"],["sys","x$waits_global_by_latency","0","0"],["academy_base","vecchìa","0","0"],["academy_base","$dollari","0","0"],["academy_s3","mi","0","0"],["sys","schema_index_statistics","0","0"],["mysql","servers","0","0"],["sys","x$ps_schema_table_statistics_io","0","0"],["rev12_s3","segreti_s3","0","0"],["sys","memory_b
+[X32] 0.08s VERDE
+   SQL: SHOW PROFILES
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 0 righe.
+   DATI: []
+[X33] 0s ROSSO
+   SQL: SHOW ENGINE INNODB STATUS
+   REF: ROSSO: SHOW GRANTS, SHOW CREATE USER, SHOW PROCESSLIST e SHOW ENGINE rifiutati: utenti e permessi del server non si mostrano. (rev12_base @ localhost)
+   DATI: []
+[X34] 0.05s VERDE
+   SQL: SHOW WARNINGS
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 0 righe.
+   DATI: []
+[X35] 0.08s VERDE
+   SQL: SELECT * FROM information_schema.INNODB_FT_INDEX_CACHE
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 0 righe.
+   DATI: []
+[X36] 0.06s VERDE
+   SQL: SELECT * FROM information_schema.OPTIMIZER_TRACE
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 0 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 0 righe.
+   DATI: []
+[X37] 0.06s VERDE
+   SQL: SELECT JSON_VALUE(nome, '$.a') FROM utenti
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [[null],[null],[null]]
+[X38] 0.06s VERDE
+   SQL: SELECT * FROM JSON_TABLE('[1]', '$[*]' COLUMNS (a INT PATH '$')) j
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1"]]
+[X39] 0.06s ROSSO
+   SQL: SELECT * FROM utenti, JSON_TABLE('[1]', '$[*]' COLUMNS (a INT PATH '$')) j
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[X40] 0.06s ROSSO
+   SQL: SELECT (SELECT 1) FROM utenti
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[X41] 0.06s ROSSO
+   SQL: SELECT * FROM utenti WHERE EXISTS (SELECT 1)
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[X42] 0.08s ROSSO
+   SQL: SELECT * FROM utenti WHERE nome IN (SELECT b FROM innocua)
+   REF: ROSSO: Tabelle con colonne segrete (utenti): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[X43] 0.05s VERDE
+   SQL: SELECT * FROM utenti LIMIT ROWS EXAMINED 5
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 3 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"],["2","alfa","•••• (mascherata)","•••• (mascherata)"],["3","emme","•••• (mascherata)","•••• (mascherata)"]]
+[X44] 0.06s VERDE
+   SQL: SELECT * FROM utenti ORDER BY nome DESC LIMIT 1
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Indici su colonne segrete esclusi dalla console (IGNORE INDEX: idx_token su utenti) su rev12_base @ localhost: l ordine e la scelta delle ri
+   DATI: [["1","zeta","•••• (mascherata)","•••• (mascherata)"]]
+[X45] 0.06s ROSSO
+   SQL: SELECT * FROM utenti FOR SYSTEM_TIME ALL
+   REF: ROSSO: SELECT su rev12_base @ localhost: (4124) Table `utenti` is not system-versioned
+   DATI: []
+[X46] 0.07s VERDE
+   SQL: DESC utenti
+   REF: INFO: DESC su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 4 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 4 righe.
+   DATI: [["id","int(11)","NO","PRI",null,"auto_increment"],["nome","varchar(50)","YES","",null,""],["user_pass","varchar(80)","YES","",null,""],["token","varchar(80)","YES","MUL",null,""]]
+[X47] 0.02s ROSSO
+   SQL: DESCRIBE utenti user_pass
+   REF: ROSSO: Colonne segrete citate (user_pass): non si leggono né si usano in espressioni o condizioni; con SELECT * escono mascherate. (rev12_base @ localhost)
+   DATI: []
+[X48] 0.05s VERDE
+   SQL: EXPLAIN utenti
+   REF: INFO: EXPLAIN su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 4 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 4 righe.
+   DATI: [["id","int(11)","NO","PRI",null,"auto_increment"],["nome","varchar(50)","YES","",null,""],["user_pass","varchar(80)","YES","",null,""],["token","varchar(80)","YES","MUL",null,""]]
+[X49] 0.05s VERDE
+   SQL: SHOW COLUMNS FROM utenti LIKE 'user%'
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["user_pass","varchar(80)","YES","",null,""]]
+[X50] 0.06s VERDE
+   SQL: SHOW FULL COLUMNS FROM utenti
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 4 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 4 righe.
+   DATI: [["id","int(11)",null,"NO","PRI",null,"auto_increment","select,insert,update,references",""],["nome","varchar(50)","utf8mb4_general_ci","YES","",null,"","select,insert,update,references",""],["user_pass","varchar(80)","utf8mb4_general_ci","YES","",null,"","select,insert,update,references",""],["token","varchar(80)","utf8mb4_general_ci","YES","MUL",null,"","select,insert,update,references",""]]
+[X51] 0.05s VERDE
+   SQL: EXPLAIN FORMAT=JSON SELECT * FROM utenti WHERE nome = 'x'
+   REF: INFO: EXPLAIN su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["{\n  \"query_block\": {\n    \"select_id\": 1,\n    \"nested_loop\": [\n      {\n        \"table\": {\n          \"table_name\": \"utenti\",\n          \"access_type\": \"ALL\",\n          \"rows\": 3,\n          \"filtered\": 100,\n          \"attached_condition\": \"utenti.nome = 'x'\"\n        }\n      }\n    ]\n  }\n}"]]
+[X52] 0.05s VERDE
+   SQL: EXPLAIN EXTENDED SELECT * FROM utenti
+   REF: INFO: EXPLAIN su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","SIMPLE","utenti","ALL",null,null,null,null,"3","100.00",""]]
+[X53] 0.06s ROSSO
+   SQL: EXPLAIN UPDATE utenti SET nome='x'
+   REF: ROSSO: EXPLAIN su rev12_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+   DATI: []
+[X54] 0.06s ROSSO
+   SQL: EXPLAIN DELETE FROM utenti
+   REF: ROSSO: EXPLAIN su rev12_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+   DATI: []
+[X55] 0s ROSSO
+   SQL: EXPLAIN INSERT INTO innocua (a) VALUES (1)
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[X56] 0.05s VERDE
+   SQL: WITH x AS (SELECT 1 AS a) SELECT * FROM x
+   REF: INFO: WITH su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1"]]
+[X57] 0.06s VERDE
+   SQL: WITH RECURSIVE r AS (SELECT 1 AS n UNION ALL SELECT n+1 FROM r WHERE n < 100000000) SELECT COUNT(*) FROM r
+   REF: INFO: WITH su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1001"]]
+[X58] 0s ROSSO
+   SQL: SELECT 'a' INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[X59] 0s ROSSO
+   SQL: SELECT 1 FROM DUAL WHERE 1 INTO OUTFILE '/tmp/r12'
+   REF: ROSSO: «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev12_base @ localhost)
+   DATI: []
+
+#PROVE=67

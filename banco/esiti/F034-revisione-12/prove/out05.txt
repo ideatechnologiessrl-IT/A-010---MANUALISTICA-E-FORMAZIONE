@@ -1,0 +1,177 @@
+[G0] 0.01s ROSSO
+   SQL: 4829 SELECT 1
+   REF: ROSSO: Istruzione non ammessa (non comincia con una parola): in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev12_base @ localhost)
+   DATI: []
+[G1] 0s ROSSO
+   SQL: DROP TABLE x4829
+   REF: ROSSO: «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata. (rev12_base @ localhost)
+   DATI: []
+[G2] 0s ROSSO
+   SQL: 4829DROP
+   REF: ROSSO: Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera. (rev12_base @ localhost)
+   DATI: []
+[G3] 0s ROSSO
+   SQL: SELECT 4829abc
+   REF: ROSSO: Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera. (rev12_base @ localhost)
+   DATI: []
+[G4] 0s ROSSO
+   SQL: SELECT $4829
+   REF: ROSSO: «$» e «\» fuori dalle stringhe rifiutati: i controlli non leggerebbero l istruzione come il server. (rev12_base @ localhost)
+   DATI: []
+[G5] 0.01s ROSSO
+   SQL: SELECT €4829 FROM t
+   REF: ROSSO: Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (rev12_base @ localhost)
+   DATI: []
+[G6] 0.06s ROSSO
+   SQL: SELECT 1 FROM t WHERE a = _4829
+   REF: ROSSO: SELECT su rev12_base @ localhost: (1146) Table «…»
+   DATI: []
+[G7] 0s ROSSO
+   SQL: GRANT ALL ON x TO 'u' IDENTIFIED BY 'Pw4829'
+   REF: ROSSO: «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev12_base @ localhost)
+   DATI: []
+[G8] 0s ROSSO
+   SQL: SET @a = 4829
+   REF: ROSSO: «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev12_base @ localhost)
+   DATI: []
+[G9] 0s ROSSO
+   SQL: SELECT * FROM utenti WHERE nome = IT60X0542811101000000123456 INTO OUTFILE '/tmp/x'
+   REF: ROSSO: «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file. (rev12_base @ localhost)
+   DATI: []
+[G10] 0s ROSSO
+   SQL: UPDATE utenti SET user_pass = 'Segreto4829' WHERE id = 1
+   REF: ROSSO: Scrittura non consentita: spunta «Consenti scrittura» (solo BASE e sorgenti IN USO). (rev12_base @ localhost)
+   DATI: []
+[G11] 0s ROSSO
+   SQL: SELECT 0x4829 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G12] 0s ROSSO
+   SQL: CALL p(4829)
+   REF: ROSSO: «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev12_base @ localhost)
+   DATI: []
+[G13] 0s ROSSO
+   SQL: LOAD DATA INFILE '/etc/x' INTO TABLE t
+   REF: ROSSO: «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev12_base @ localhost)
+   DATI: []
+[G14] 0s ROSSO
+   SQL: SELECT 1 /* 4829 */ INTO @a
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G15] 0s ROSSO
+   SQL: SELECT `4829` FROM t
+   REF: ROSSO: Nomi che cominciano con una cifra o contengono «$» rifiutati: i controlli non li riconoscerebbero come il server. (rev12_base @ localhost)
+   DATI: []
+[G16] 0s ROSSO
+   SQL: SELECT `a4829` FROM t INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G17] 0s ROSSO
+   SQL: SELECT 1e4829x
+   REF: ROSSO: Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera. (rev12_base @ localhost)
+   DATI: []
+[G18] 0s ROSSO
+   SQL: DROP/**/TABLE t4829
+   REF: ROSSO: «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata. (rev12_base @ localhost)
+   DATI: []
+[G19] 0s ROSSO
+   SQL: SELECT 1 FROM t WHERE a = N4829 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G20] 0s ROSSO
+   SQL: SELECT 1 FROM t WHERE x = Rossi.Mario4829 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G21] 0s ROSSO
+   SQL: SELECT 1 FROM t WHERE x = sk_live_ABCDEF123 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G22] 0s ROSSO
+   SQL: SELECT ١٢٣ FROM t
+   REF: ROSSO: Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi. (rev12_base @ localhost)
+   DATI: []
+[G23] 0s ROSSO
+   SQL: SELECT 1 FROM t WHERE a=4829
+   REF: ROSSO: Caratteri di controllo nell istruzione rifiutati (ammessi solo spazio, tab e a capo). (rev12_base @ localhost)
+   DATI: []
+[G24] 0s ROSSO
+   SQL: HANDLER t READ FIRST WHERE id = 4829
+   REF: ROSSO: «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE. (rev12_base @ localhost)
+   DATI: []
+[G25] 0s ROSSO
+   SQL: SELECT b'1010' INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G26] 0s ROSSO
+   SQL: SELECT 0b1010 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G27] 0s ROSSO
+   SQL: SELECT .4829e3 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G28] 0s ROSSO
+   SQL: SELECT 4829. INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G29] 0s ROSSO
+   SQL: SELECT x'4829' INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G30] 0s ROSSO
+   SQL: SELECT 1 FROM t WHERE a = -4829 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+[G31] 0s ROSSO
+   SQL: SELECT 1 FROM t WHERE a = 4829_000 INTO @x
+   REF: ROSSO: Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera. (rev12_base @ localhost)
+   DATI: []
+[S0] 0s ROSSO **FUGA:4829**
+   SQL: SELECT 1
+   REF: ROSSO: Sorgente «4829» sconosciuta: rifiutata.
+   DATI: []
+[S1] 0s ROSSO **FUGA:4829**
+   SQL: SELECT 1
+   REF: ROSSO: Sorgente «sorgente_3 4829 password=Rondine77» sconosciuta: rifiutata.
+   DATI: []
+[LG] 0s ROSSO
+   SQL: SELECT 1 INTO @x
+   REF: ROSSO: «INTO» in una lettura rifiutato: la console non scrive file né variabili. (rev12_base @ localhost)
+   DATI: []
+   REG: 103 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT F_SCRIVE (… ) ¦ Funzioni memorizzate (f_scrive): la console non le chiama, potrebbero leggere colonne segrete o scrivere.
+   REG: 104 ¦ base ¦ rifiuto ¦ rifiutata ¦ … SELECT … ¦ Istruzione non ammessa (non comincia con una parola): in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+   REG: 105 ¦ base ¦ rifiuto ¦ rifiutata ¦ DROP TABLE x4829 ¦ «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata.
+   REG: 106 ¦ base ¦ rifiuto ¦ rifiutata ¦ … DROP ¦ Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.
+   REG: 107 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … abc ¦ Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.
+   REG: 108 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT $… ¦ «$» e «\» fuori dalle stringhe rifiutati: i controlli non leggerebbero l istruzione come il server.
+   REG: 109 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT €… FROM t ¦ Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi.
+   REG: 110 ¦ base ¦ rifiuto ¦ rifiutata ¦ GRANT ALL ON x TO '…' IDENTIFIED BY '…' ¦ «GRANT» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+   REG: 111 ¦ base ¦ rifiuto ¦ rifiutata ¦ SET @a = … ¦ «SET» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+   REG: 112 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT * FROM utenti WHERE nome = IT60X0542811101000000123456 INTO OUTFILE '…' ¦ «SELECT … INTO OUTFILE/DUMPFILE» rifiutata: la console non scrive file.
+   REG: 113 ¦ base ¦ rifiuto ¦ rifiutata ¦ UPDATE utenti SET user_pass = '…' WHERE id = … ¦ Scrittura non consentita: spunta «Consenti scrittura» (solo BASE e sorgenti IN USO).
+   REG: 114 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 115 ¦ base ¦ rifiuto ¦ rifiutata ¦ CALL p(… ) ¦ «CALL» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+   REG: 116 ¦ base ¦ rifiuto ¦ rifiutata ¦ LOAD DATA INFILE '…' INTO TABLE t ¦ «LOAD» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+   REG: 117 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … INTO @a ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 118 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t ¦ Nomi che cominciano con una cifra o contengono «$» rifiutati: i controlli non li riconoscerebbero come il server.
+   REG: 119 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT a4829 FROM t INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 120 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … x ¦ Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.
+   REG: 121 ¦ base ¦ rifiuto ¦ rifiutata ¦ DROP TABLE t4829 ¦ «DROP» rifiutata dal server: DROP, TRUNCATE, ALTER, MODIFY, RENAME non si eseguono mai. In scrittura passano solo INSERT, UPDATE, DELETE, REPLACE; ogni altra istruzione (GRANT, CREATE, SET, LOAD DATA, CALL, LOCK…) è rifiutata.
+   REG: 122 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t WHERE a = N4829 INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 123 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t WHERE x = Rossi.Mario4829 INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 124 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t WHERE x = sk_live_ABCDEF123 INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 125 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT ١٢٣ FROM t ¦ Nomi con caratteri non ASCII (accenti, lettere speciali) rifiutati: il server li confronta in un altro modo e i controlli non li riconoscerebbero. Nelle stringhe fra apici restano ammessi.
+   REG: 126 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t WHERE a=…  ¦ Caratteri di controllo nell istruzione rifiutati (ammessi solo spazio, tab e a capo).
+   REG: 127 ¦ base ¦ rifiuto ¦ rifiutata ¦ HANDLER t READ FIRST WHERE id = … ¦ «HANDLER» non ammessa: in lettura SELECT, SHOW, DESCRIBE, EXPLAIN, WITH; in scrittura solo INSERT, UPDATE, DELETE, REPLACE.
+   REG: 128 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT b '…' INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 129 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 130 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … e3 INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 131 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 132 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT x '…' INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 133 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t WHERE a = -… INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+   REG: 134 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … FROM t WHERE a = … _000 INTO @x ¦ Numero attaccato a una parola o nome che comincia con una cifra: rifiutato, il server lo leggerebbe in un altro modo. Si mette uno spazio dopo il numero; i nomi cominciano con una lettera.
+   REG: 135 ¦ 4829 ¦ rifiuto ¦ rifiutata ¦ SELECT … ¦ sorgente sconosciuta
+   REG: 136 ¦ sorgente_3 4829 password=Rondine77 ¦ rifiuto ¦ rifiutata ¦ SELECT … ¦ sorgente sconosciuta
+   REG: 137 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT … INTO @x ¦ «INTO» in una lettura rifiutato: la console non scrive file né variabili.
+
+#PROVE=35

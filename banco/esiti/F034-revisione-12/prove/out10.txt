@@ -1,0 +1,8 @@
+id=1  risposta 204 ms  referto: 137 ms  dati: [["1","n","\u2022\u2022\u2022\u2022 (mascherata)"]]
+id=2  risposta 90 ms  referto: 0 ms  dati: [["2","n","\u2022\u2022\u2022\u2022 (mascherata)"]]
+id=1  risposta 125 ms  referto: 34 ms  dati: [["1","n","\u2022\u2022\u2022\u2022 (mascherata)"]]
+id=2  risposta 90 ms  referto: 0 ms  dati: [["2","n","\u2022\u2022\u2022\u2022 (mascherata)"]]
+id=1  risposta 91 ms  referto: 34 ms  dati: [["1","n","\u2022\u2022\u2022\u2022 (mascherata)"]]
+id=2  risposta 91 ms  referto: 0 ms  dati: [["2","n","\u2022\u2022\u2022\u2022 (mascherata)"]]
+
+#PROVE=6

@@ -1,0 +1,16 @@
+[ZZ0] 5.79s ROSSO
+   SQL: UPDATE big SET x = x + 1, p = REPEAT('z', 200)
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+   processi subito dopo: [["510","Sleep","0",""]]
+   transazioni InnoDB subito dopo: []
+   lucchetto su una riga di big ottenuto 0 s dopo la risposta della console (risposta in 5.8 s)
+[ZZ1] 6.3s ROSSO
+   SQL: DELETE FROM big WHERE id > 0
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+   processi subito dopo: [["514","Sleep","0",""]]
+   transazioni InnoDB subito dopo: []
+   lucchetto su una riga di big ottenuto 0 s dopo la risposta della console (risposta in 6.3 s)
+
+#PROVE=2

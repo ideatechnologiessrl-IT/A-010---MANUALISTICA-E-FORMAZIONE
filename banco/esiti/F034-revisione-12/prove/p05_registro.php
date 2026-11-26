@@ -1,0 +1,6 @@
+<?php require __DIR__.'/lib.php';
+$Q = array("4829 SELECT 1","DROP TABLE x4829","4829DROP","SELECT 4829abc","SELECT \$4829","SELECT €4829 FROM t","SELECT 1 FROM t WHERE a = _4829","GRANT ALL ON x TO 'u' IDENTIFIED BY 'Pw4829'","SET @a = 4829","SELECT * FROM utenti WHERE nome = IT60X0542811101000000123456 INTO OUTFILE '/tmp/x'","UPDATE utenti SET user_pass = 'Segreto4829' WHERE id = 1","SELECT 0x4829 INTO @x","CALL p(4829)","LOAD DATA INFILE '/etc/x' INTO TABLE t","SELECT 1 /* 4829 */ INTO @a","SELECT `4829` FROM t","SELECT `a4829` FROM t INTO @x","SELECT 1e4829x","DROP/**/TABLE t4829","SELECT 1 FROM t WHERE a = N4829 INTO @x","SELECT 1 FROM t WHERE x = Rossi.Mario4829 INTO @x","SELECT 1 FROM t WHERE x = sk_live_ABCDEF123 INTO @x","SELECT ١٢٣ FROM t","SELECT 1 FROM t WHERE a=4829\x01","HANDLER t READ FIRST WHERE id = 4829", "SELECT b'1010' INTO @x", "SELECT 0b1010 INTO @x", "SELECT .4829e3 INTO @x", "SELECT 4829. INTO @x", "SELECT x'4829' INTO @x", "SELECT 1 FROM t WHERE a = -4829 INTO @x", "SELECT 1 FROM t WHERE a = 4829_000 INTO @x");
+foreach ($Q as $i=>$q) T('G'.$i,'base',$q);
+foreach (array('4829','sorgente_3 4829 password=Rondine77') as $i=>$s) T('S'.$i,$s,'SELECT 1');
+T('LG','base','SELECT 1 INTO @x',  'esegui', array('login'=>'mario4829'));
+registro(count($Q)+3);

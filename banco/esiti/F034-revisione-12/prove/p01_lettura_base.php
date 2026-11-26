@@ -1,0 +1,32 @@
+<?php require __DIR__.'/lib.php';
+// segreti per colonne: SELECT *, alias, maiuscole, union, sottoquery, funzioni
+$L = array(
+ 'SELECT * FROM utenti', 'SELECT * FROM utenti ORDER BY nome', 'SELECT user_pass FROM utenti', 'SELECT USER_PASS FROM utenti', 'SELECT `user_pass` FROM utenti',
+ 'SELECT u.* FROM utenti u', 'SELECT * FROM utenti u JOIN innocua i ON i.id=u.id', 'SELECT id, nome FROM utenti UNION SELECT id, b FROM innocua',
+ 'SELECT * FROM (SELECT * FROM utenti) x', 'SELECT * FROM utenti WHERE id IN (SELECT id FROM innocua)', 'SELECT nome FROM utenti LIMIT 1 OFFSET 1',
+ 'SELECT id FROM utenti', 'SELECT nome FROM utenti', 'SELECT * FROM chiavi', 'SELECT servizio, chiave_api FROM chiavi', 'SELECT chiave_api AS x FROM chiavi',
+ 'SELECT * FROM rdacademy_impostazioni', 'SELECT chiave, valore FROM rdacademy_impostazioni', 'SELECT chiave AS k, valore FROM rdacademy_impostazioni',
+ 'SELECT valore FROM rdacademy_impostazioni', 'SELECT valore, chiave FROM rdacademy_impostazioni WHERE chiave = \'tema\'',
+ 'SELECT a.valore, b.chiave FROM rdacademy_impostazioni a JOIN rdacademy_impostazioni b ON a.id=b.id',
+ 'SELECT a.chiave, a.valore, b.chiave AS chiave FROM rdacademy_impostazioni a JOIN rdacademy_impostazioni b ON b.id=a.id+1',
+ 'SELECT A.chiave, a.valore FROM rdacademy_impostazioni A, rdacademy_impostazioni a WHERE A.id=1 AND a.id=2',
+ 'SELECT O.chiave, o.valore FROM rdacademy_impostazioni O JOIN rdacademy_impostazioni o ON o.id = O.id + 1',
+ 'SELECT chiave, valore AS v FROM rdacademy_impostazioni', 'SELECT chiave, valore v FROM rdacademy_impostazioni', 'SELECT chiave, CONCAT(valore) FROM rdacademy_impostazioni',
+ 'SELECT chiave, LENGTH(valore) FROM rdacademy_impostazioni', 'SELECT chiave FROM rdacademy_impostazioni WHERE valore LIKE \'S%\'',
+ 'SELECT * FROM rdacademy_impostazioni ORDER BY id', 'SELECT chiave, valore FROM rdacademy_impostazioni ORDER BY chiave',
+ 'SELECT * FROM sessioni', 'SELECT id FROM sessioni', 'SELECT id FROM sessioni LIMIT 1', 'SELECT * FROM part_tok', 'SELECT * FROM part_tok PARTITION (p_am)', 'SELECT id, nome FROM part_tok PARTITION (p_nz)',
+ 'SELECT * FROM accessi', 'SELECT * FROM innocua', 'SELECT * FROM myi', 'SELECT * FROM vista_s3', 'SELECT * FROM mrg_s3', 'SELECT * FROM mrg_s3k', 'SELECT id, nome FROM mrg_s3k',
+ 'SELECT * FROM information_schema.PARTITIONS WHERE TABLE_NAME=\'part_tok\'', 'SELECT PARTITION_NAME, TABLE_ROWS FROM information_schema.PARTITIONS WHERE TABLE_SCHEMA=\'rev12_base\' AND TABLE_NAME=\'part_tok\'',
+ 'SELECT TABLE_NAME, AVG_ROW_LENGTH, DATA_LENGTH FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()',
+ 'SELECT INDEX_NAME, CARDINALITY FROM information_schema.STATISTICS WHERE TABLE_NAME=\'utenti\'',
+ 'SHOW CREATE TABLE utenti', 'SHOW TABLE STATUS', 'SHOW INDEX FROM utenti', 'DESCRIBE utenti', 'EXPLAIN SELECT * FROM utenti', 'SHOW CREATE TABLE mrg_s3',
+ 'SELECT * FROM rev12_s3.segreti_s3', 'SELECT * FROM `rev12_s3`.`segreti_s3`', 'SELECT * FROM rev12_s3 . segreti_s3', 'SHOW TABLES FROM rev12_s3',
+ 'SELECT JSON_OBJECTAGG(chiave, valore) FROM rdacademy_impostazioni', 'SELECT GROUP_CONCAT(valore) FROM rdacademy_impostazioni',
+ 'SELECT chiave, valore FROM rdacademy_impostazioni WHERE chiave IN (SELECT chiave FROM rdacademy_impostazioni)',
+ 'SELECT * FROM utenti WHERE nome = \'alfa\'', 'SELECT COUNT(*) FROM utenti', 'SELECT * FROM utenti ORDER BY 3', 'SELECT * FROM utenti ORDER BY (3)', 'SELECT * FROM utenti ORDER BY +3',
+ 'SELECT * FROM utenti ORDER BY -3','SELECT * FROM utenti ORDER BY 3e0', 'SELECT * FROM utenti ORDER BY 0x03', 'SELECT * FROM utenti ORDER BY \'3\'',
+ 'SELECT *, nome FROM utenti', 'SELECT * FROM utenti GROUP BY nome', 'SELECT nome, MAX(id) FROM utenti GROUP BY nome WITH ROLLUP',
+ 'SELECT * FROM utenti WINDOW w AS (ORDER BY 3)', 'SELECT id, ROW_NUMBER() OVER (ORDER BY 3) FROM utenti',
+ 'SELECT id, ROW_NUMBER() OVER w FROM utenti WINDOW w AS (ORDER BY 4)',
+);
+foreach ($L as $i => $q) T('L'.$i, 'base', $q);

@@ -1,0 +1,18 @@
+[M1] 10.06s ROSSO
+   SQL: SELECT * FROM innocua
+   REF: ROSSO: SELECT su rev12_base @ localhost: (1969) Query execution was interrupted (max_statement_time exceeded)
+   DATI: []
+[M2] 0.06s VERDE
+   SQL: SHOW CREATE TABLE innocua
+   REF: INFO: SHOW su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["innocua","CREATE TABLE `innocua` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `a` int(11) DEFAULT NULL,\n  `b` varchar(50) DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"]]
+[M3] 3.07s ROSSO
+   SQL: UPDATE innocua SET a = 5 WHERE id = 1
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+[M4] 3.05s ROSSO
+   SQL: UPDATE innocua SET a = 5 WHERE id = 1
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+
+#PROVE=4

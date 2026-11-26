@@ -1,0 +1,31 @@
+[J1] 0.07s VERDE
+   SQL: SELECT * FROM rdacademy_config
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 1 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","{\"smtp_password\":\"JSON-PW-SEGRETA\",\"api_key\":\"JSON-APIKEY\"}"]]
+[J2] 0.08s VERDE
+   SQL: SELECT JSON_EXTRACT(dati, '$.smtp_password') FROM rdacademy_config
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: JSON_EXTRACT(dati, '$.smtp_password') | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["•••• (mascherata)"]]
+[E1] 0.08s ROSSO
+   SQL: EXPLAIN UPDATE innocua SET a = 1
+   REF: ROSSO: EXPLAIN su rev12_base @ localhost: (1792) Cannot execute statement in a READ ONLY transaction
+   DATI: []
+[E2] 0.08s ROSSO
+   SQL: SELECT nome, COUNT(*) FROM ord GROUP BY nome WITH ROLLUP
+   REF: ROSSO: Tabelle con colonne segrete (ord): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome). (rev12_base @ localhost)
+   DATI: []
+[E3] 0.08s VERDE
+   SQL: SELECT * FROM mrg_s3
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1","DATO-DI-S3-RISERVATO"]]
+   REG: 172 ¦ base ¦ rifiuto ¦ rifiutata ¦ SELECT nome, COUNT(*) FROM ord GROUP BY nome WITH ROLLUP ¦ Tabelle con colonne segrete (ord): solo SELECT semplice, senza UNION, WITH né sottoquery (le colonne segrete cambierebbero nome).
+[E4] 0.08s VERDE
+   SQL: SELECT 1 AS `delete`
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 0 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["1"]]
+[E5] 0s ROSSO
+   SQL: WITH a AS (SELECT 1 AS `update`) SELECT * FROM a
+   REF: ROSSO: Scrittura non consentita: spunta «Consenti scrittura» (solo BASE e sorgenti IN USO). (rev12_base @ localhost)
+   DATI: []
+
+#PROVE=7

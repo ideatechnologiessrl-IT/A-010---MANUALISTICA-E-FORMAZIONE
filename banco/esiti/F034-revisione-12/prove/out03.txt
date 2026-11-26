@@ -1,0 +1,262 @@
+figli prima: Array
+(
+    [0] => Array
+        (
+            [0] => 3
+        )
+
+)
+[W1-fk-prova] 0.05s INFO
+   SQL: DELETE FROM padre WHERE id = 1
+   REF: INFO: Prova a secco su rev12_base @ localhost: DELETE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[W1-fk-esegui] 0.05s VERDE
+   SQL: DELETE FROM padre WHERE id = 1
+   REF: VERDE: DELETE eseguita su rev12_base @ localhost: 1 righe scritte (trovate dalla condizione, anche se già uguali); nel registro del BASE.
+   DATI: []
+figli dopo: Array
+(
+    [0] => Array
+        (
+            [0] => 1
+        )
+
+)
+   REG: 30 ¦ base ¦ prova ¦ annullata ¦ DELETE FROM padre WHERE id = … ¦ prova a secco
+   REG: 31 ¦ base ¦ avvio ¦ in_corso ¦ DELETE FROM padre WHERE id = … ¦ scrittura confermata
+   REG: 32 ¦ base ¦ scrittura ¦ eseguita ¦ DELETE FROM padre WHERE id = … ¦ scritta
+[W1b-fk-upd-prova] 0.04s INFO
+   SQL: UPDATE padre SET id = 20 WHERE id = 2
+   REF: INFO: Prova a secco su rev12_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[W1b-fk-upd-esegui] 0.05s VERDE
+   SQL: UPDATE padre SET id = 20 WHERE id = 2
+   REF: VERDE: UPDATE eseguita su rev12_base @ localhost: 1 righe scritte (trovate dalla condizione, anche se già uguali); nel registro del BASE.
+   DATI: []
+Array
+(
+    [0] => Array
+        (
+            [0] => 3
+            [1] => 20
+        )
+
+)
+[W2a] 0.06s INFO
+   SQL: INSERT INTO accessi (rif_sessione) VALUES ('TOKEN-SESSIONE-ABC')
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[W2b] 0.07s ROSSO
+   SQL: INSERT INTO accessi (rif_sessione) VALUES ('TOKEN-SESSIONE-ABD')
+   REF: ROSSO: Prova a secco non riuscita: (1452) Cannot add or update a child row: a foreign key constraint fails (`rev12_base`.`accessi`, CONSTRAINT `accessi_ibfk_1` FOREIGN KEY (`rif_sessione`) REFERENCES `sessioni` (`token`)) (rev12_base @ localhost)
+   DATI: []
+[W2c] 0.05s INFO
+   SQL: INSERT INTO accessi (rif_sessione) VALUES ('TOKEN-SESSIONE-ABC') 
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[W3a] 0.06s ROSSO
+   SQL: INSERT INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima1')
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[W3b] 0.06s ROSSO
+   SQL: INSERT INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima2')
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[W3c] 0.06s ROSSO
+   SQL: INSERT IGNORE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima1')
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[W3d] 0.05s ROSSO
+   SQL: REPLACE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima1')
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[W3e] 0.05s ROSSO
+   SQL: REPLACE INTO uniq_val (chiave, valore) VALUES ('nuova', 'Segretissima2')
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[W3f] 0.04s ROSSO
+   SQL: UPDATE IGNORE uniq_val SET valore = 'Segretissima1' WHERE chiave = 'nuova0'
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[R3-0] 0.04s ROSSO
+   SQL: INSERT INTO utenti () VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-1] 0.04s ROSSO
+   SQL: REPLACE INTO utenti () VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-2] 0.04s ROSSO
+   SQL: INSERT INTO utenti VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-3] 0.04s ROSSO
+   SQL: INSERT INTO utenti ( ) VALUES ( )
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-4] 0.05s ROSSO
+   SQL: INSERT INTO utenti (/**/) VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-5] 0.05s ROSSO
+   SQL: INSERT INTO utenti VALUE ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-6] 0.05s INFO
+   SQL: INSERT INTO utenti SET id = 50
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[R3-7] 0.06s INFO
+   SQL: INSERT INTO utenti (id) VALUES (51)
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[R3-8] 0.05s INFO
+   SQL: INSERT INTO utenti(`id`)VALUES(52)
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[R3-9] 0.04s ROSSO
+   SQL: INSERT INTO utenti PARTITION (p0) (id) VALUES (53)
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-10] 0.04s ROSSO
+   SQL: INSERT INTO rev12_base.utenti () VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-11] 0.04s ROSSO
+   SQL: INSERT INTO `utenti` () VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-12] 0.04s ROSSO
+   SQL: INSERT INTO rdacademy_impostazioni () VALUES ()
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (rdacademy_impostazioni): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-13] 0.04s ROSSO
+   SQL: INSERT INTO rdacademy_impostazioni VALUES (NULL,'x','y')
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (rdacademy_impostazioni): INSERT e REPLACE con l elenco delle colonne (senza elenco, o con l elenco vuoto «()», si scriverebbero le colonne segrete). (rev12_base @ localhost)
+   DATI: []
+[R3-14] 0.05s INFO
+   SQL: INSERT INTO utenti (id) VALUES (54) RETURNING *
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[R3-15] 0.06s INFO
+   SQL: DELETE FROM utenti WHERE id = 54 RETURNING *
+   REF: INFO: Prova a secco su rev12_base @ localhost: DELETE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[R3-16] 0.04s ROSSO
+   SQL: INSERT INTO utenti (id) SELECT 55
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano. (rev12_base @ localhost)
+   DATI: []
+[R3-17] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) SELECT id FROM utenti
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano. (rev12_base @ localhost)
+   DATI: []
+[R3-18] 0.05s ROSSO
+   SQL: INSERT INTO innocua (b) VALUES ((SELECT nome FROM utenti LIMIT 1))
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano. (rev12_base @ localhost)
+   DATI: []
+[R3-19] 0.04s ROSSO
+   SQL: UPDATE innocua SET b = (SELECT MAX(nome) FROM utenti)
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano. (rev12_base @ localhost)
+   DATI: []
+[R3-20] 0.04s ROSSO
+   SQL: INSERT INTO innocua (b) TABLE utenti
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano. (rev12_base @ localhost)
+   DATI: []
+[R3-21] 0.05s INFO
+   SQL: INSERT INTO utenti (nome) VALUES ('x'), ('y')
+   REF: INFO: Prova a secco su rev12_base @ localhost: INSERT in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+[R3-22] 0.04s ROSSO
+   SQL: INSERT INTO utenti (nome) VALUES ROW('x')
+   REF: ROSSO: Prova a secco non riuscita: (1064) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near «…» (rev12_base @ localhost)
+   DATI: []
+[R3-23] 0.04s ROSSO
+   SQL: INSERT INTO utenti (nome) SELECT b FROM innocua
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): in scrittura non si leggono (niente SELECT né TABLE), i segreti non si copiano. (rev12_base @ localhost)
+   DATI: []
+[R3-24] 0.04s ROSSO
+   SQL: INSERT DELAYED INTO utenti (nome) VALUES ('d')
+   REF: ROSSO: Prova a secco non riuscita: (1616) DELAYED option not supported for table «…» (rev12_base @ localhost)
+   DATI: []
+[R3-25] 0.04s ROSSO
+   SQL: INSERT INTO utenti (nome) VALUES ('d') ON DUPLICATE KEY UPDATE nome = 'e'
+   REF: ROSSO: Tabelle con colonne segrete o chiave/valore (utenti): niente ON DUPLICATE KEY UPDATE (il conteggio direbbe se il valore era già quello); si usa UPDATE … WHERE chiave = …. (rev12_base @ localhost)
+   DATI: []
+[O-0] 0.04s ROSSO
+   SQL: INSERT INTO myi (id) VALUES (9)
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (myi (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-1] 0.03s ROSSO
+   SQL: INSERT INTO ari (id) VALUES (9)
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (ari (Aria)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-2] 0.04s ROSSO
+   SQL: INSERT INTO mrg_s3 (id, info) VALUES (9,'scritto-da-console')
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (mrg_s3 (MRG_MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-3] 0.04s ROSSO
+   SQL: INSERT INTO v_innocua (a) VALUES (9)
+   REF: ROSSO: Prova a secco non riuscita: (1146) Table «…» (rev12_base @ localhost)
+   DATI: []
+[O-4] 0.04s ROSSO
+   SQL: INSERT INTO con_trg (id,a) VALUES (9,9)
+   REF: ROSSO: Tabelle con trigger (con_trg): scriverebbero altrove anche nella prova a secco, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-5] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (f_scrive(9))
+   REF: ROSSO: Prova a secco non riuscita: (1305) FUNCTION rev12_base.f_scrive does not exist (rev12_base @ localhost)
+   DATI: []
+[O-6] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (`f_scrive`(9))
+   REF: ROSSO: Prova a secco non riuscita: (1305) FUNCTION rev12_base.f_scrive does not exist (rev12_base @ localhost)
+   DATI: []
+[O-7] 0.04s ROSSO
+   SQL: INSERT INTO innocua (a) VALUES (rev12_base.f_scrive(9))
+   REF: ROSSO: Prova a secco non riuscita: (1305) FUNCTION rev12_base.f_scrive does not exist (rev12_base @ localhost)
+   DATI: []
+[O-8] 0.05s ROSSO
+   SQL: INSERT INTO rev12_wp.rdacademy_wpx (a) VALUES ('x')
+   REF: ROSSO: Riferimento a un altro database (rev12_wp): in scrittura solo tabelle del database della sorgente, rev12_base. (rev12_base @ localhost)
+   DATI: []
+[O-9] 0.05s ROSSO
+   SQL: INSERT INTO innocua (b) SELECT a FROM rev12_wp.rdacademy_wpx
+   REF: ROSSO: Riferimento a un altro database (rev12_wp): in scrittura solo tabelle del database della sorgente, rev12_base. (rev12_base @ localhost)
+   DATI: []
+[O-10] 0.05s ROSSO
+   SQL: UPDATE innocua i JOIN myi m ON m.id=i.id SET m.b='w'
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (myi (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-11] 0.05s ROSSO
+   SQL: UPDATE innocua i, myi m SET m.b = 'w2' WHERE m.id = i.id
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (myi (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-12] 0.04s ROSSO
+   SQL: DELETE innocua, myi FROM innocua JOIN myi ON myi.id = innocua.id WHERE innocua.id = 99
+   REF: ROSSO: Viste, sequenze o tabelle non InnoDB (myi (MyISAM)): la prova a secco non si può annullare, scrittura rifiutata. (rev12_base @ localhost)
+   DATI: []
+[O-13] 0s ROSSO
+   SQL: INSERT INTO innocua (b) VALUES (LOAD_FILE('/etc/passwd'))
+   REF: ROSSO: LOAD_FILE() rifiutata: la console non legge file del server. (rev12_base @ localhost)
+   DATI: []
+[O-14] 0.05s ROSSO
+   SQL: INSERT INTO innocua (b) VALUES (SYS_EXEC('id'))
+   REF: ROSSO: Prova a secco non riuscita: (1305) FUNCTION rev12_base.SYS_EXEC does not exist (rev12_base @ localhost)
+   DATI: []
+[O-15] 0.06s INFO
+   SQL: UPDATE innocua SET a = a + 1 WHERE id = 1
+   REF: INFO: Prova a secco su rev12_base @ localhost: UPDATE in una transazione annullata (tabelle InnoDB; MyISAM rifiutata) · tempo massimo dell istruzione in scrittura 3 s, risposta entro 10 s (annullamento compreso). | INFO: Registro: protetto da trigger contro UP
+   DATI: []
+Array
+(
+)
+Array
+(
+    [0] => Array
+        (
+            [0] => 1
+            [1] => DATO-DI-S3-RISERVATO
+        )
+
+)
+
+#PROVE=55

@@ -1,0 +1,42 @@
+[Z0] 9.39s ROSSO
+   SQL: UPDATE big SET x = x + 1
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+   processi ancora attivi sul server: []
+   [Z0] lucchetto su big ottenuto dopo 0 s dalla risposta della console
+[Z1] 9.46s ROSSO
+   SQL: DELETE FROM big WHERE x > 0
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+   processi ancora attivi sul server: []
+   [Z1] lucchetto su big ottenuto dopo 0 s dalla risposta della console
+[Z2] 7.1s ROSSO
+   SQL: UPDATE big SET p = REPEAT('q', 200)
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+   processi ancora attivi sul server: []
+   [Z2] lucchetto su big ottenuto dopo 0 s dalla risposta della console
+[Z3] 5.92s ROSSO
+   SQL: INSERT INTO innocua (a) SELECT x FROM big
+   REF: ROSSO: Prova a secco non riuscita: (1969) Query execution was interrupted (max_statement_time exceeded) — in scrittura l istruzione ha al massimo 3 s: restringila con WHERE o dividila in più passi (rev12_base @ localhost)
+   DATI: []
+   processi ancora attivi sul server: []
+   [Z3] lucchetto su big ottenuto dopo 0 s dalla risposta della console
+[Y0] 10.09s ROSSO
+   SQL: SELECT COUNT(*) FROM big a JOIN big b ON a.x = b.x + 1 WHERE a.p = b.p
+   REF: ROSSO: SELECT su rev12_base @ localhost: errore durante la lettura, nessun dato mostrato: (1969) Query execution was interrupted (max_statement_time exceeded)
+   DATI: []
+[Y1] 4.37s VERDE
+   SQL: SELECT MAX(LENGTH(REPEAT(p, 1000))) FROM big
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 4300 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["4000"]]
+[Y2] 5.65s VERDE
+   SQL: SELECT COUNT(*) FROM big a, big b WHERE a.id < 3000 AND b.id < 3000 AND MD5(CONCAT(a.p,b.id)) = 'x'
+   REF: INFO: SELECT su rev12_base @ localhost · lettura in transazione READ ONLY · tempo massimo 10 s · 1 righe · 5576 ms | INFO: Colonne segrete mascherate: nessuna in questo risultato | VERDE: Lettura eseguita su rev12_base @ localhost: 1 righe.
+   DATI: [["0"]]
+[Y3] 0.06s ROSSO
+   SQL: SELECT id FROM ord a, big b WHERE b.x = a.id + 0 LIMIT 3
+   REF: ROSSO: SELECT su rev12_base @ localhost: (1052) Column «…»
+   DATI: []
+
+#PROVE=8
