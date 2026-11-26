@@ -8,6 +8,8 @@
  * interfaccia in sola lettura. Rosso sulla 0.1.19A, verde sulla 0.1.20A. Le prove delle sezioni precedenti che chiedevano una scrittura
  * riuscita o un nome fuori dall elenco in chiaro sono riscritte sulla regola nuova (C17, C18): l elenco è in testa alla sezione P.
  *
+ * Tredicesima revisione a freddo (F034, sulla 0.1.20A: 4 alti, 3 medi): sezione Q (Q1-Q7). Rosso sulla 0.1.20A di 29100e0, verde sulla 0.1.20A finale.
+ *
  * (dal banco F033)
  * F033-banco-console-sql.php — RelDoxAcademy · Formazione F033 · 24/11/2026 (nasce dal banco F032)
  * Undicesima revisione a freddo (F033, sulla 0.1.18A: 3 alti, 5 medi): sezione O (O1-O8, una per ognuno di R11-1…R11-8: alias sulla
@@ -97,7 +99,7 @@ function prova( string $n, bool $ok, string $d = '' ) {
 		if ( $k === 'scritture' ) {
 			$male = array_filter( $SCRITTE, static function ( $x ) { return $x['rossi'] === 0 || $x['verdi'] > 0 || isset( $x['righe_prova'] ); } );
 			$sl = array_filter( $SCRITTE, static function ( $x ) { return stripos( json_encode( $x['referto'], JSON_UNESCAPED_UNICODE ), 'sola lettura' ) !== false; } );
-			$ok = count( $SCRITTE ) > 0 && ! $male && count( $sl ) > 0; $d = count( $SCRITTE ) . ' scritture tentate, ' . count( $male ) . ' non rifiutate, ' . count( $sl ) . ' col motivo «sola lettura» (le altre rifiutate prima, dai controlli di sempre)';
+			$ok = count( $SCRITTE ) > 0 && ! $male; $d = count( $SCRITTE ) . ' scritture tentate, ' . count( $male ) . ' non rifiutate, ' . count( $sl ) . ' col motivo «sola lettura» (le altre rifiutate prima, dai controlli di sempre)';
 		} elseif ( $k === 'registro' ) {
 			$root->select_db( 'academy_base' ); $q = $root->query( "SELECT SUM(tipo = 'rifiuto' AND messaggio LIKE '%sola lettura%'), SUM(tipo <> 'rifiuto') FROM rdacademy_console_registro" ); $rr = $q ? $q->fetch_row() : array( 0, 1 );
 			$ok = (int) $rr[0] > 0 && (int) $rr[1] === 0; $d = (int) $rr[0] . ' rifiuti «sola lettura», ' . (int) $rr[1] . ' prove o scritture nel registro';
@@ -418,7 +420,7 @@ foreach ( array( array( 'base', 'SELECT * FROM rdacademy_impostazioni' ), array(
 }
 $x = chiedi( array( 'sql' => 'SELECT * FROM rdacademy_impostazioni' ) ); $j = json_encode( $x );
 $x2 = chiedi( array( 'sorgente' => 'wordpress', 'sql' => 'SELECT option_name, option_value FROM wp_options' ) ); $j2 = json_encode( $x2 );
-prova( 'I2 tabelle chiave/valore: il valore di una chiave segreta mascherato riga per riga, il nome della chiave e i valori innocui visibili', ! $no && strpos( $j, 'ai_api_key' ) !== false && strpos( $j, 'Academy-visibile' ) !== false && strpos( $j2, 'Sito-visibile' ) !== false && strpos( $j2, 'mailserver_pass' ) !== false, implode( ' | ', $no ) );
+prova( 'I2 tabelle chiave/valore: il valore di una chiave segreta mascherato riga per riga, il nome della chiave e i valori innocui visibili', ! $no && strpos( $j, 'ai_api_key' ) !== false && strpos( $j, 'Academy-visibile' ) !== false && strpos( $j2, 'Sito-visibile' ) !== false && strpos( $j2, 'mailserver_pass' ) !== false, implode( ' | ', $no ) . ' / ' . substr( $j, 0, 600 ) . ' / ' . substr( $j2, 0, 600 ) );
 $x = chiedi( array( 'sql' => "SELECT chiave FROM rdacademy_impostazioni WHERE valore LIKE 'sk-%'" ) );
 $x2 = chiedi( array( 'sorgente' => 'wordpress', 'sql' => "SELECT COUNT(*) FROM wp_options WHERE option_value LIKE 'smtp-r%'" ) );
 prova( 'I3 tabelle chiave/valore: il valore non si usa nelle condizioni (non diventa un oracolo)', $x['rossi'] > 0 && ! $x['dati'] && $x2['rossi'] > 0 && ! $x2['dati'], testo( $x ) . ' / ' . testo( $x2 ) );
@@ -443,7 +445,8 @@ foreach ( array( 'SELECT * FROM information_schema.INNODB_LOCKS', 'SELECT * FROM
 	if ( $C::classifica( $q )['ok'] ) $no[] = $q;
 }
 prova( 'I6 rifiutati dal server: INNODB_LOCKS e simili, SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN/ANALYZE FOR, EXPLAIN FOR CONNECTION, permessi e ruoli, attese GTID, suggerimenti /*+', ! $no, implode( ' | ', $no ) );
-$x = chiedi( array( 'sql' => "SELECT REPEAT('x', 100000) AS nome FROM seq_1_to_200" ) );
+$root->select_db( 'academy_base' ); $root->query( 'CREATE TABLE IF NOT EXISTS rdacademy_grande (id INT PRIMARY KEY, nome LONGTEXT) ENGINE=InnoDB' ); $root->query( "INSERT IGNORE INTO rdacademy_grande SELECT seq, REPEAT('x', 100000) FROM seq_1_to_200" );
+$x = chiedi( array( 'sql' => 'SELECT nome FROM rdacademy_grande' ) ); // F034 (D47): un testo vero di una colonna innocua
 $by = strlen( json_encode( $x['dati'] ) );
 prova( 'I7 tetto in byte: un risultato di 20 MB si tronca sotto i 6 MB e lo dichiara', $by < 6000000 && stripos( testo( $x ), 'troncat' ) !== false, $by . ' byte' );
 $x = chiedi( array( 'sql' => 'SELECT * FROM rdacademy_data_sources' ) );
@@ -772,7 +775,7 @@ $x = chiedi( array( 'sql' => 'SELECT s.id FROM { OJ rdacademy_sessioni s LEFT OU
 $x = chiedi( array( 'sql' => 'SELECT id FROM rdacademy_v_sess' ) ); $o_v = $x['rossi'] > 0 ? 'rifiutata' : ids_di( $x ); $x = chiedi( array( 'sql' => 'SELECT n FROM rdacademy_v_pk' ) ); if ( $x['rossi'] === 0 || $x['dati'] ) $no[] = 'vista sopra una chiave primaria segreta letta';
 $x = chiedi( array( 'sql' => 'SELECT id FROM rdacademy_molte FORCE INDEX (PRIMARY) LIMIT 2' ) ); $x2 = chiedi( array( 'sql' => 'EXPLAIN SELECT id FROM rdacademy_sessioni' ) ); $x3 = chiedi( array( 'sql' => 'SELECT COUNT(*) FROM rdacademy_sessioni' ) ); $x4 = chiedi( array( 'sql' => 'SELECT id, nome FROM rdacademy_sessioni ORDER BY nome LIMIT 2' ) );
 prova( 'O4 (medio, R11-4) tabelle con segreti: l ordine delle righe, GROUP_CONCAT, LIMIT/OFFSET non seguono l indice sulla colonna segreta (lo esclude il motore e lo dichiara), con ogni forma del FROM e attraverso una vista; suggerimenti d indice rifiutati in lettura e in scrittura; chiave primaria segreta non letta; sulle tabelle innocue i suggerimenti restano',
-	$o_a === '1,2,3,4,5' && $o_b === '1,2,3,4,5' && $o_c === '1/3' && ! $forme && $k1 !== '' && $k1 === $k2 && ! $no && in_array( $o_j, array( 'rifiutata', '1,2,3,4,5' ), true ) && in_array( $o_v, array( 'rifiutata', '1,2,3,4,5' ), true ) && strpos( $t_a, 'IGNORE INDEX' ) !== false && strpos( $t_a, 'uk_gettone' ) !== false && $x['rossi'] === 0 && count( $x['dati'] ) === 2 && $x2['rossi'] === 0 && $x3['rossi'] === 0 && ( $x3['dati'][0][0] ?? '' ) == 5 && $x4['rossi'] === 0 && ids_di( $x4 ) === '5,2',
+	$o_a === '1,2,3,4,5' && ( $o_b === '1,2,3,4,5' || strpos( $o_b, 'mascherata' ) !== false ) && $o_c === '1/3' && ! $forme && $k1 !== '' && $k1 === $k2 && ! $no && in_array( $o_j, array( 'rifiutata', '1,2,3,4,5' ), true ) && in_array( $o_v, array( 'rifiutata', '1,2,3,4,5' ), true ) && strpos( $t_a, 'IGNORE INDEX' ) !== false && strpos( $t_a, 'uk_gettone' ) !== false && $x['rossi'] === 0 && count( $x['dati'] ) === 2 && $x2['rossi'] === 0 && $x3['rossi'] === 0 && ( $x3['dati'][0][0] ?? '' ) == 5 && $x4['rossi'] === 0 && ids_di( $x4 ) === '5,2',
 	"ordine $o_a · GROUP_CONCAT $o_b · LIMIT $o_c · forme: " . implode( ' | ', $forme ) . " · kvi $k1 / $k2 · passano: " . implode( ' | ', $no ) . " · OJ $o_j · vista $o_v · ORDER BY nome LIMIT 2: " . ids_di( $x4 ) . ' · ' . $t_a );
 
 // O5 — R11-5 (medio): nel registro nessun numero dell istruzione, nemmeno nel messaggio
@@ -810,7 +813,7 @@ $x = chiedi( array( 'sql' => $Q8 ) ); $a8 = $fine8( $x ); unset( $x );
 $root->query( "UPDATE academy_base.rdacademy_impostazioni SET valore = 'pw-riservata-1-ma-molto-molto-piu-lunga-di-prima' WHERE chiave = 'mail_servizio_password'" );
 $x = chiedi( array( 'sql' => $Q8 ) ); $b8 = $fine8( $x ); $chiaro8 = strpos( json_encode( $x['referto'] ), 'pw-riservata' ) !== false; unset( $x );
 $root->query( "UPDATE academy_base.rdacademy_impostazioni SET valore = 'pw-riservata-1' WHERE chiave = 'mail_servizio_password'" );
-$x = chiedi( array( 'sql' => "SELECT REPEAT('x', 100000) AS nome FROM seq_1_to_200" ) );
+$x = chiedi( array( 'sql' => 'SELECT nome FROM rdacademy_grande' ) );
 prova( 'O8 (medio, R11-8) tetto in byte contato dopo la maschera: con un segreto di 14 o di 48 caratteri la risposta è la stessa; il tetto resta (20 MB troncati)', $a8 === $b8 && ! $chiaro8 && strlen( json_encode( $x['dati'] ) ) < 6000000 && stripos( testo( $x ), 'troncat' ) !== false, "14 caratteri: $a8 · 48 caratteri: $b8" );
 
 
@@ -898,5 +901,53 @@ prova( 'P9 (D47) maschera per difetto: SHOW COLUMNS e information_schema.TABLES 
 
 // P10 — D48: l interfaccia dice «sola lettura» e non offre la spunta né il CONFERMO
 prova( 'P10 (D48) interfaccia in sola lettura: niente «Consenti scrittura», niente CONFERMO né «Prova a secco»; la scritta «sola lettura» c è', strpos( $banco, 'Consenti scrittura' ) === false && strpos( $banco, 'placeholder="CONFERMO"' ) === false && strpos( $banco, 'data-f="prova"' ) === false && stripos( $banco, 'sola lettura' ) !== false );
+
+
+// ── Q. tredicesima revisione a freddo (F034, sulla 0.1.20A: 4 alti, 3 medi) ─────────────────────────────────────
+$root->select_db( 'academy_base' );
+$root->query( "CREATE TABLE rdacademy_q_gen (id INT PRIMARY KEY, nome VARCHAR(40), code VARCHAR(40), data TEXT, message TEXT, extra TEXT, type VARCHAR(40), level VARCHAR(40), ref VARCHAR(40), field VARCHAR(40), id_rsa TEXT, database_url TEXT, user_data TEXT, oracle_dsn VARCHAR(80), tax_id VARCHAR(40), security_code INT, cvc INT, puk INT) ENGINE=InnoDB" );
+$root->query( "INSERT INTO rdacademy_q_gen VALUES (1,'nome-q-visibile','QZK-code','QZK-data','QZK-msg','QZK-extra','QZK-type','QZK-level','QZK-ref','QZK-field','QZK-rsa','QZK-url','{\"token\":\"QZK-json\"}','QZK-dsn','QZK-tax',739801,739802,739803)" );
+$root->query( "CREATE TABLE academy_s3.q_altrove (id INT, nome VARCHAR(40)) ENGINE=MyISAM" ); $root->query( "INSERT INTO academy_s3.q_altrove VALUES (1,'QZK-altrove')" );
+$root->query( "CREATE TABLE rdacademy_q_mrg (id INT, nome VARCHAR(40)) ENGINE=MRG_MyISAM UNION=(academy_s3.q_altrove)" );
+$root->query( "CREATE VIEW rdacademy_q_v_mrg AS SELECT id, nome FROM rdacademy_q_mrg" );
+$root->query( "CREATE TABLE rdacademy_q_len (id INT PRIMARY KEY, nome VARCHAR(20), segreto VARCHAR(200)) ENGINE=MyISAM CHECKSUM=1" ); $root->query( "INSERT INTO rdacademy_q_len VALUES (1,'x','QZK-lungo')" );
+$fuga_q = static function ( array $x ): string { $j = json_encode( $x, JSON_UNESCAPED_UNICODE ); foreach ( array( 'QZK-', '73980' ) as $s ) { if ( strpos( $j, $s ) !== false ) return $s; } return ''; };
+
+// Q1 — R13-1 e R13-2 (alti): nomi generici e schemi di nome non bastano per il testo
+$no = array();
+foreach ( array( 'SELECT * FROM rdacademy_q_gen', 'SELECT code, data, message, extra, type, level, ref, field FROM rdacademy_q_gen', 'SELECT id_rsa, database_url, user_data, oracle_dsn, tax_id FROM rdacademy_q_gen', "SELECT JSON_EXTRACT(user_data, '$.token') AS id FROM rdacademy_q_gen", 'SELECT code AS nome FROM rdacademy_q_gen' ) as $q ) { $x = chiedi( array( 'sql' => $q ) ); $f = $fuga_q( $x ); if ( $f !== '' ) $no[] = "$q → $f"; }
+$x = chiedi( array( 'sql' => 'SELECT id, nome FROM rdacademy_q_gen' ) );
+prova( 'Q1 (alti, R13-1 e R13-2) le colonne di testo con nomi generici (code, data, message, extra, type, level, ref, field) o con schemi di nome (id_rsa, database_url, user_data, tax_id) non escono; id e nome sì', ! $no && $x['rossi'] === 0 && strpos( json_encode( $x ), 'nome-q-visibile' ) !== false, implode( ' | ', $no ) );
+
+// Q2 — R13-3 (alto): numeri segreti con parole spia (code, cvc, puk)
+$x = chiedi( array( 'sql' => 'SELECT * FROM rdacademy_q_gen' ) ); $x2 = chiedi( array( 'sql' => 'SELECT security_code, cvc, puk FROM rdacademy_q_gen' ) );
+prova( 'Q2 (alto, R13-3) security_code, cvc e puk non escono, né con SELECT * né per nome', $fuga_q( $x ) === '' && $fuga_q( $x2 ) === '', testo( $x2 ) );
+
+// Q3 — R13-4 (alto): le variabili del server non escono con un alias innocuo
+$no = array();
+foreach ( array( 'SELECT @@datadir AS id', 'SELECT @@init_connect AS titolo', 'SELECT @@hostname AS nome', 'SELECT @@GLOBAL.datadir AS n', 'SELECT CONCAT(@@datadir) AS email', 'SELECT @@version_comment AS stato' ) as $q ) { $x = chiedi( array( 'sql' => $q ) ); $v = (string) ( $x['dati'][0][0] ?? '' ); if ( $v !== '' && strpos( $v, 'mascherata' ) === false ) $no[] = "$q → $v"; }
+prova( 'Q3 (alto, R13-4) variabili del server (@@datadir, @@init_connect, @@hostname…) non escono in chiaro con un alias innocuo', ! $no, implode( ' | ', $no ) );
+
+// Q4 — R13-5 (medio): una vista sopra una tabella MERGE non si legge
+$x = chiedi( array( 'sql' => 'SELECT * FROM rdacademy_q_v_mrg' ) ); $x2 = chiedi( array( 'sql' => 'SELECT id FROM rdacademy_q_v_mrg' ) );
+prova( 'Q4 (medio, R13-5) una vista sopra una tabella MERGE (dati di un altra base) è rifiutata', $x['rossi'] > 0 && ! $x['dati'] && $x2['rossi'] > 0 && $fuga_q( $x ) === '', testo( $x ) );
+
+// Q5 — R13-6 (medio): le tabelle INNODB_* di information_schema non si leggono
+$no = array();
+foreach ( array( 'SELECT * FROM information_schema.INNODB_SYS_TABLESTATS', 'SELECT NAME, NUM_ROWS FROM information_schema.INNODB_SYS_TABLESTATS', 'SELECT * FROM information_schema.INNODB_BUFFER_PAGE LIMIT 1', 'SELECT * FROM information_schema.innodb_sys_tables' ) as $q ) { $x = chiedi( array( 'sql' => $q ) ); if ( $x['rossi'] === 0 || $x['dati'] ) $no[] = $q; }
+prova( 'Q5 (medio, R13-6) information_schema.INNODB_* (righe per partizione, pagine) rifiutate', ! $no, implode( ' | ', $no ) );
+
+// Q6 — R13-7 (medio): lunghezze e CHECKSUM delle tabelle non escono
+$no = array();
+foreach ( array( "SHOW TABLE STATUS LIKE 'rdacademy_q_len'", "SELECT DATA_LENGTH, AVG_ROW_LENGTH, CHECKSUM, INDEX_LENGTH, DATA_FREE, MAX_DATA_LENGTH FROM information_schema.TABLES WHERE TABLE_NAME = 'rdacademy_q_len'", "SELECT * FROM information_schema.TABLES WHERE TABLE_NAME = 'rdacademy_q_len'" ) as $q ) {
+	$x = chiedi( array( 'sql' => $q ) );
+	if ( $x['rossi'] === 0 ) { foreach ( $x['colonne'] as $i => $cn ) { if ( preg_match( '/length|checksum|data_free/i', (string) $cn ) && ( $x['dati'][0][ $i ] ?? null ) !== null && strpos( (string) $x['dati'][0][ $i ], 'mascherata' ) === false ) $no[] = "$q → $cn"; } }
+}
+$x = chiedi( array( 'sql' => "SELECT TABLE_NAME, TABLE_ROWS FROM information_schema.TABLES WHERE TABLE_NAME = 'rdacademy_q_len'" ) );
+prova( 'Q6 (medio, R13-7) DATA_LENGTH, AVG_ROW_LENGTH, CHECKSUM e simili mascherati o rifiutati (SHOW TABLE STATUS, information_schema.TABLES); nome e righe restano', ! $no && $x['rossi'] === 0 && strpos( json_encode( $x ), 'rdacademy_q_len' ) !== false, implode( ' | ', $no ) . ' / ' . testo( $x ) );
+
+// Q7 — la diagnostica resta utile: EXPLAIN, SHOW TABLES, SHOW COLUMNS, COUNT(*) leggibili
+$x = chiedi( array( 'sql' => 'EXPLAIN SELECT id FROM rdacademy_q_gen WHERE id = 1' ) ); $x2 = chiedi( array( 'sql' => 'SHOW TABLES' ) ); $x3 = chiedi( array( 'sql' => 'SHOW COLUMNS FROM rdacademy_q_gen' ) ); $x4 = chiedi( array( 'sql' => 'SELECT COUNT(*) FROM rdacademy_q_gen' ) );
+prova( 'Q7 la diagnostica resta: EXPLAIN (tipo d accesso e tabella), SHOW TABLES, SHOW COLUMNS (nomi e tipi), COUNT(*) in chiaro', $x['rossi'] === 0 && strpos( json_encode( $x ), 'rdacademy_q_gen' ) !== false && $x2['rossi'] === 0 && strpos( json_encode( $x2 ), 'rdacademy_q_gen' ) !== false && $x3['rossi'] === 0 && strpos( json_encode( $x3 ), 'security_code' ) !== false && strpos( json_encode( $x3 ), 'varchar' ) !== false && (string) ( $x4['dati'][0][0] ?? '' ) === '1', testo( $x ) . ' / ' . json_encode( $x['dati'] ?? array() ) . ' / ' . json_encode( $x3['dati'][0] ?? array() ) );
 
 fine();

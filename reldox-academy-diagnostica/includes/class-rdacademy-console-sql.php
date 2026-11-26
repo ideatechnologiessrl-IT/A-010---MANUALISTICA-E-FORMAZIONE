@@ -88,6 +88,11 @@
  *    (PARTITION, EXPLAIN e information_schema.PARTITIONS direbbero in che intervallo sta un valore);
  *  - registro: le parole con una cifra (anche non ASCII) si tolgono intere, nell istruzione e nel messaggio; una sorgente sconosciuta
  *    si scrive «sconosciuta»; il referto non dichiara più i millisecondi.
+ *  0.1.20A finale (tredicesima revisione a freddo F034: 4 alti, 3 medi):
+ *  - elenco degli innocui stretto, niente nomi generici né schemi di nome per il testo; parole spia in più (code, cvc, puk, secur,
+ *    length, checksum, data_free, dsn, rsa, ssh); un espressione (variabile del server, funzione, letterale) si vede solo se è un numero
+ *    o una data, mai per il suo alias; i nomi dei risultati di SHOW, DESCRIBE ed EXPLAIN sono innocui solo per quei verbi (ESPLICATIVE);
+ *  - viste sopra tabelle MERGE e simili rifiutate; information_schema.INNODB_* rifiutate.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -114,15 +119,22 @@ final class Rdacademy_Console_SQL {
 	const SOLA_LETTURA = true;
 
 	/** D47: parole spia — un nome che ne contiene una è segreto anche se è nell elenco o è un numero. */
-	const SPIA = '/pass|pwd|token|gettone|secret|segret|key|chiave|pin|otp|auth|cred|hash|salt|nonce|sess|cookie|cert|privat|parola|codice|iban|carta|card|cvv|firma|sign|bearer|sk_|api|licen|smtp|definer|grantee|seed|recovery|recupero/i';
+	const SPIA = '/pass|pwd|token|gettone|secret|segret|key|chiave|pin|otp|auth|cred|hash|salt|nonce|sess|cookie|cert|privat|parola|codice|iban|carta|card|cvv|firma|sign|bearer|sk_|api|licen|smtp|definer|grantee|seed|recovery|recupero|code|cvc|puk|secur|length|checksum|data_free|dsn|rsa|ssh/i';
 
 	/** D47: nomi di colonna innocui (si confrontano in minuscolo, interi). */
-	const INNOCUE = array( 'id', 'nome', 'name', 'titolo', 'title', 'stato', 'status', 'tipo', 'type', 'slug', 'ordine', 'lingua', 'ruolo', 'role', 'email', 'descrizione', 'livello', 'versione', 'version', 'attivo', 'active', 'quando', 'data', 'ora', 'n', 'conteggio', 'totale', 'colore',
-		'user_login', 'user_nicename', 'user_email', 'user_url', 'user_registered', 'user_status', 'display_name',
-		'post_title', 'post_status', 'post_type', 'post_name', 'post_date', 'post_date_gmt', 'post_modified', 'post_modified_gmt', 'post_parent', 'post_author', 'post_mime_type', 'menu_order', 'comment_count', 'comment_status', 'ping_status', 'guid', 'autoload',
-		'table_name', 'table_schema', 'table_type', 'table_rows', 'engine', 'row_format', 'table_collation', 'create_time', 'update_time', 'check_time', 'column_name', 'column_type', 'data_type', 'is_nullable', 'column_key', 'extra', 'ordinal_position', 'character_maximum_length', 'numeric_precision', 'numeric_scale', 'character_set_name', 'collation_name',
-		'index_name', 'non_unique', 'seq_in_index', 'cardinality', 'index_type', 'nullable', 'sub_part', 'packed', 'constraint_name', 'referenced_table_name', 'referenced_column_name', 'routine_name', 'routine_type', 'trigger_name', 'event_manipulation', 'action_timing', 'event_object_table', 'schema_name', 'default_character_set_name', 'default_collation_name', 'variable_name',
-		'select_type', 'table', 'possible_keys', 'key_len', 'ref', 'rows', 'r_rows', 'filtered', 'r_filtered', 'tables_in_', 'field', 'null', 'collation', 'non-unique', 'seq', 'database', 'rows_examined', 'level', 'code', 'message' );
+	/** D47 (dopo la 13ª revisione, R13-1 e R13-2): nomi di colonna innocui anche per il testo, interi e in minuscolo; niente nomi generici
+	 *  (code, data, type, extra…) né schemi di nome: un numero o una data si vedono comunque se il nome non ha parole spia. */
+	const INNOCUE = array( 'id', 'nome', 'name', 'titolo', 'title', 'stato', 'status', 'tipo', 'slug', 'lingua', 'ruolo', 'role', 'email', 'versione', 'version',
+		'user_login', 'user_nicename', 'user_email', 'user_url', 'display_name',
+		'post_title', 'post_status', 'post_type', 'post_name', 'post_mime_type', 'comment_status', 'ping_status', 'guid', 'autoload',
+		'table_name', 'table_schema', 'table_type', 'engine', 'row_format', 'table_collation', 'column_name', 'column_type', 'data_type', 'is_nullable', 'column_key', 'character_set_name', 'collation_name',
+		'index_name', 'index_type', 'constraint_name', 'referenced_table_name', 'referenced_column_name', 'routine_name', 'routine_type', 'trigger_name', 'event_manipulation', 'action_timing', 'event_object_table', 'schema_name', 'default_character_set_name', 'default_collation_name' );
+
+	/** D47: nomi delle colonne dei risultati di SHOW, DESCRIBE ed EXPLAIN, innocui solo per questi verbi (il contenuto lo scrive il server). */
+	const ESPLICATIVE = array( 'id', 'select_type', 'table', 'type', 'possible_keys', 'key', 'key_len', 'ref', 'rows', 'r_rows', 'filtered', 'r_filtered', 'extra', 'field', 'null', 'key_name', 'seq_in_index', 'column_name', 'collation', 'cardinality', 'sub_part', 'packed', 'index_type', 'non_unique', 'name', 'engine', 'version', 'row_format', 'create_time', 'update_time', 'database' );
+
+	/** Il verbo della lettura in corso (per ESPLICATIVE). */
+	private static string $verbo = '';
 
 	/** D47: chiavi innocue delle tabelle chiave/valore: solo di queste il valore si vede in chiaro. */
 	const INNOCUE_KV = array( 'siteurl', 'home', 'blogname', 'blogdescription', 'admin_email', 'template', 'stylesheet', 'current_theme', 'db_version', 'db_upgraded', 'initial_db_version', 'permalink_structure', 'timezone_string', 'gmt_offset', 'date_format', 'time_format', 'start_of_week', 'blog_charset', 'wplang', 'users_can_register', 'default_role', 'posts_per_page', 'blog_public', 'active_plugins', 'show_on_front', 'page_on_front', 'page_for_posts', 'uploads_use_yearmonth_folders', 'default_category', 'default_comment_status',
@@ -144,6 +156,8 @@ final class Rdacademy_Console_SQL {
 		'/\b(USER|CURRENT_USER|SESSION_USER|SYSTEM_USER|CURRENT_ROLE)\s*\(|\bCURRENT_USER\b|\bCURRENT_ROLE\b/i' => 'USER(), CURRENT_USER e simili rifiutati: l utente della sorgente si mostra solo come presenza.',
 		'/\b(PROCESSLIST|USER_PRIVILEGES|USER_STATISTICS|CLIENT_STATISTICS|APPLICABLE_ROLES|ENABLED_ROLES|USER_ATTRIBUTES|SCHEMA_PRIVILEGES|TABLE_PRIVILEGES|COLUMN_PRIVILEGES|ADMINISTRABLE_ROLE_AUTHORIZATIONS|ROLE_TABLE_GRANTS|ROLE_COLUMN_GRANTS|ROLE_ROUTINE_GRANTS|ROLE_USAGE_GRANTS)\b/i' => 'Tabelle di sistema con utenti e permessi rifiutate.',
 		'/\bINNODB_(TRX|LOCKS|LOCK_WAITS)\b|\bDATA_LOCK(S|_WAITS)\b/i' => 'INNODB_TRX, INNODB_LOCKS e simili rifiutate: mostrano le istruzioni delle altre sessioni.',
+		// F034 (R13-6): ogni tabella INNODB_* di information_schema (righe per partizione, pagine, transazioni)
+		'/\bINNODB_[A-Z0-9_]+\b/i' => 'Tabelle INNODB_* di information_schema rifiutate: righe e pagine direbbero dove stanno i valori.',
 		// F034 (R12-6): PARTITION (p), EXPLAIN PARTITIONS e information_schema.PARTITIONS direbbero in che intervallo sta un valore
 		'/\bPARTITIONS?\b/i' => 'Partizioni rifiutate (PARTITION, EXPLAIN PARTITIONS, information_schema.PARTITIONS): direbbero in che intervallo sta un valore.',
 		'/\bSHOW\s+(ALL\s+)?(BINLOG|RELAYLOG|BINARY|MASTER|SLAVE|SLAVES|REPLICA|REPLICAS)\b|\bSHOW\s+EXPLAIN\b|\bFOR\s+CONNECTION\b/i' => 'SHOW BINLOG/RELAYLOG EVENTS, SHOW EXPLAIN FOR e EXPLAIN FOR CONNECTION rifiutati: istruzioni passate o di altre sessioni.',
@@ -382,12 +396,11 @@ final class Rdacademy_Console_SQL {
 	/** D47: le colonne delle tabelle chiave/valore le governa la maschera chiave/valore, non questa. */
 	private static function e_kv( string $c ): bool { return isset( self::KV[ $c ] ) || in_array( $c, self::KV, true ); }
 
-	/** D47: un nome innocuo per sé (elenco o schema di nome), senza parole spia. */
+	/** D47: un nome innocuo per sé (solo elenco), senza parole spia. */
 	private static function innocua( string $col ): bool {
 		$c = strtolower( trim( $col ) );
 		if ( $c === '' || preg_match( self::SPIA, $c ) ) return false;
-		if ( in_array( $c, self::INNOCUE, true ) || strpos( $c, 'tables_in_' ) === 0 ) return true;
-		return (bool) preg_match( '/^[a-z][a-z0-9_]*$/', $c ) && (bool) preg_match( '/(^|_)id$|^id_|_(at|il|del|data|date|gmt|ora)$|^(data|ora|creat|aggiorn|modific|scad|inizio|fine)|^(num|numero|conta|totale|n)_/', $c );
+		return in_array( $c, self::INNOCUE, true ) || strpos( $c, 'tables_in_' ) === 0;
 	}
 
 	/** D47: un tipo numero o data (nome del tipo di information_schema, o costante del campo di mysqli). */
@@ -450,7 +463,12 @@ final class Rdacademy_Console_SQL {
 				// D47: la colonna col suo nome d origine; un espressione (senza nome d origine) col nome che ha nel risultato. Numeri e date si vedono
 				// se il nome non ha parole spia (le colonne non innocue non si possono citare, quindi un espressione numerica non le legge)
 				$o = $org[ $i ] ?? '';
-				$ok = ! self::segreta( $o !== '' ? $o : $nome, $tipi[ $i ] );
+				// R13-4: un espressione (variabile del server, funzione, letterale) si vede solo se è un numero o una data, mai per il suo alias
+				// la colonna della CHIAVE di una tabella chiave/valore (chiave, option_name, meta_key) si vede: è il nome dell impostazione
+				if ( $o !== '' && in_array( $o, self::KV, true ) ) continue;
+				$spiab = (bool) preg_match( self::SPIA, $nome ) || ( $o !== '' && (bool) preg_match( self::SPIA, $o ) );
+				$espl = in_array( self::$verbo, array( 'SHOW', 'DESCRIBE', 'DESC', 'EXPLAIN' ), true ) && ! $spiab && ( in_array( strtolower( $nome ), self::ESPLICATIVE, true ) || strpos( strtolower( $nome ), 'tables_in_' ) === 0 );
+				$ok = $espl || ( $o !== '' ? ! self::segreta( $o, $tipi[ $i ] ) && ! $spiab : ( self::tipo_numero( $tipi[ $i ] ) && ! $spiab ) );
 				if ( $ok ) continue;
 				$segr[ $i ] = $nome;
 			}
@@ -931,7 +949,10 @@ final class Rdacademy_Console_SQL {
 			if ( $cl['verbo'] !== 'SHOW' && $cl['verbo'] !== 'DESCRIBE' && $cl['verbo'] !== 'DESC' ) {
 				$fuori = self::colonna( $c, "SELECT LOWER(TABLE_NAME) FROM information_schema.TABLES WHERE UPPER(ENGINE) IN ('MRG_MYISAM','MERGE','MRG_MYISAM','FEDERATED','FEDERATEDX','CONNECT','SPIDER')" );
 				$part  = self::colonna( $c, 'SELECT DISTINCT LOWER(TABLE_NAME) FROM information_schema.PARTITIONS WHERE PARTITION_NAME IS NOT NULL' );
-				$tm = array_values( array_intersect( $cl['nomi'], $fuori ) ); $tp = array_values( array_intersect( $cl['nomi'], $part ) );
+				// R13-5: anche le tabelle che le viste citate nominano nella loro definizione
+				$ln = $cl['nomi']; $rvv = self::q( $c, 'SELECT LOWER(TABLE_NAME), VIEW_DEFINITION FROM information_schema.VIEWS' );
+				if ( $rvv instanceof mysqli_result ) { while ( $x = $rvv->fetch_row() ) { if ( in_array( (string) $x[0], $cl['nomi'], true ) && preg_match_all( '/[A-Za-z_][A-Za-z0-9_$]*/', (string) $x[1], $pw ) ) $ln = array_merge( $ln, array_map( 'strtolower', $pw[0] ) ); } $rvv->free(); }
+				$tm = array_values( array_unique( array_intersect( $ln, $fuori ) ) ); $tp = array_values( array_unique( array_intersect( $ln, $part ) ) );
 				if ( $tm ) { $c->close(); $rifiuta( 'Tabelle che leggono i dati da un altra parte (MERGE, FEDERATED, CONNECT, SPIDER: ' . implode( ', ', $tm ) . '): la console non le legge, i dati uscirebbero col nome di questo database.' ); return $out; }
 				if ( $tp ) { $c->close(); $rifiuta( 'Tabelle partizionate (' . implode( ', ', $tp ) . '): la console non le legge (la partizione direbbe in che intervallo sta un valore); SHOW e DESCRIBE restano.' ); return $out; }
 			}
@@ -1007,7 +1028,9 @@ final class Rdacademy_Console_SQL {
 					if ( $pp === false ) { $c->close(); $rifiuta( 'Il server leggerebbe lungo un indice su una colonna segreta (' . implode( ', ', array_map( static function ( $t, $ii ) { return implode( ', ', $ii ) . ' di ' . $t; }, array_keys( $ign ), $ign ) ) . ') e la console non è riuscita a escluderlo: le righe uscirebbero nell ordine dei segreti. Scrivi le tabelle nel FROM in modo semplice (FROM tabella [AS alias] [JOIN tabella …]); una vista sopra queste tabelle non si può correggere da qui: si legge la tabella.' ); return $out; }
 				}
 			}
+			self::$verbo = (string) $cl['verbo'];
 			$l = self::leggi_su( $c, $sql_letta, $cl['nomi'] );
+			self::$verbo = '';
 			$c->close();
 			if ( ! $l['ok'] ) { $riga( 'ROSSO', $cl['verbo'] . ' su ' . $at . ': ' . $l['errore'] ); return $out; }
 			$out['colonne'] = $l['colonne']; $out['dati'] = $l['dati'];
