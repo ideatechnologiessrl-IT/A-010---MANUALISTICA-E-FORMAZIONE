@@ -1,0 +1,39 @@
+base|SELECT CAST(CONV(HEX(SUBSTR(@@datadir,1,7)),16,10) AS UNSIGNED) AS n1, CAST(CONV(HEX(SUBSTR(@@datadir,8,7)),16,10) AS UNSIGNED) AS n2, CAST(CONV(HEX(SUBSTR(@@datadir,15,7)),16,10) AS UNSIGNED) AS n3
+base|SELECT CAST(CONV(HEX(SUBSTR(@@hostname,1,7)),16,10) AS UNSIGNED) AS n1, CAST(CONV(HEX(SUBSTR(@@hostname,8,7)),16,10) AS UNSIGNED) AS n2
+base|SELECT FROM_UNIXTIME(CONV(HEX(SUBSTR(@@datadir,1,3)),16,10)) AS quando
+base|SELECT MAKEDATE(2000, ASCII(@@datadir)) AS quando
+base|SELECT DATE_ADD('2000-01-01', INTERVAL ASCII(SUBSTR(@@version_compile_os,1,1)) DAY) AS quando
+base|SELECT ASCII(SUBSTR(DATABASE(),1,1)) AS n
+base|SELECT * FROM v_user2
+base|SELECT * FROM v_conn
+base|SELECT titolo FROM v_user
+base|SELECT CRC32(@@datadir) AS n FROM innocua ORDER BY n
+base|SELECT id FROM innocua ORDER BY ASCII(@@datadir) * id
+base|SELECT id, nome FROM innocua WHERE ASCII(@@datadir) = 47
+base|SELECT JSON_LENGTH(@@datadir) AS n
+base|SELECT 1 AS n FROM innocua WHERE ASCII(@@datadir) = 47 HAVING n = 1
+base|SELECT CAST(@@datadir AS INT) AS n
+base|SELECT @@datadir + 0 AS n
+base|SELECT EXP(ASCII(@@datadir)*100) AS n
+base|SELECT CAST(@@datadir AS DATE) AS quando
+base|SELECT ST_GeomFromText(@@datadir) AS n
+base|SELECT JSON_EXTRACT(@@datadir, '$') AS n
+base|SELECT 1 AS n FROM innocua WHERE nome = (SELECT @@datadir)
+base|SELECT CONVERT(@@datadir, SIGNED) AS n
+base|SELECT id FROM innocua WHERE id = CAST(@@datadir AS UNSIGNED)
+base|SELECT ROUND(ASCII(@@datadir)) AS n
+base|SELECT UNIX_TIMESTAMP(@@datadir) AS n
+base|SELECT importo FROM innocua
+base|SELECT importo * ASCII(@@datadir) AS importo FROM innocua
+base|SELECT stato FROM innocua
+base|SELECT ASCII(stato) AS n FROM innocua
+base|SELECT CHAR(ASCII(@@datadir)) AS nome
+base|SELECT LOWER(@@datadir) AS nome
+base|SELECT @@hostname AS titolo
+base|SELECT @@datadir AS `Tables_in_x`
+base|SELECT @@datadir AS tables_in_rev14
+base|SELECT nome AS tables_in_x FROM innocua
+base|SELECT * FROM cliente LIMIT 1
+base|SELECT id FROM cliente WHERE id IN (1,2) ORDER BY id DESC
+base|EXPLAIN SELECT @@datadir AS tables_in_q
+base|SHOW TABLES LIKE 'cl%'

@@ -1,0 +1,34 @@
+base|SELECT @@datadir AS titolo
+base|SELECT @@datadir AS id
+base|SELECT ASCII(@@datadir) AS n
+base|SELECT ORD(SUBSTR(@@datadir,2,1)) AS n
+base|SELECT LENGTH(@@datadir) AS n
+base|SELECT CHAR_LENGTH(@@datadir) AS n
+base|SELECT CRC32(@@datadir) AS n
+base|SELECT CAST(CONV(HEX(SUBSTR(@@datadir,1,8)),16,10) AS UNSIGNED) AS a, CAST(CONV(HEX(SUBSTR(@@datadir,9,8)),16,10) AS UNSIGNED) AS b, CAST(CONV(HEX(SUBSTR(@@datadir,17,8)),16,10) AS UNSIGNED) AS c
+base|SELECT CONV(HEX(@@hostname),16,10)+0 AS n
+base|SELECT FROM_UNIXTIME(CONV(HEX(SUBSTR(@@datadir,1,3)),16,10)) AS d
+base|SELECT STR_TO_DATE(CONCAT('2000-01-', ASCII(@@datadir) MOD 28 + 1),'%Y-%m-%d') AS d
+base|SELECT @@datadir LIKE '/var%' AS n
+base|SELECT COUNT(*) AS n FROM innocua WHERE @@datadir LIKE '/var/lib/mysql%'
+base|SELECT INSTR(@@datadir,'mysql') AS n
+base|SELECT LOCATE('lib', @@secure_file_priv) AS n
+base|SELECT ASCII(VERSION()) AS n
+base|SELECT ASCII(DATABASE()) AS n
+base|SELECT ASCII(@@version_comment) AS n
+base|SELECT ASCII(SUBSTR(@@log_error,1,1)) AS x
+base|SELECT ASCII(SUBSTR(@@pid_file,1,1)) AS x, ASCII(SUBSTR(@@socket,2,1)) AS y
+base|SELECT @@port AS n
+base|SELECT @@server_id AS n
+base|SELECT UUID_SHORT() AS n
+base|SELECT CONNECTION_ID() AS n
+base|SELECT ASCII(SUBSTR(@@init_connect,1,1)) AS n
+base|SELECT ASCII(SUBSTR(@@report_password,1,1)) AS n
+base|SELECT ASCII(SUBSTR(@@ssl_key,1,1)) AS n
+base|SELECT BIT_LENGTH(@@datadir) AS n
+base|SELECT OCTET_LENGTH(@@datadir) AS n
+base|SELECT UNCOMPRESSED_LENGTH(@@datadir) AS n
+base|SELECT STRCMP(@@datadir,'/var/lib/mysql/') AS n
+base|SELECT INTERVAL(ASCII(@@datadir),40,50,60) AS n
+base|SELECT FIELD('x',@@datadir) AS n
+base|SELECT ASCII(SUBSTR(@@general_log_file,1,1)) AS n

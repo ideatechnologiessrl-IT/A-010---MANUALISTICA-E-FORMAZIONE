@@ -1,0 +1,36 @@
+base|INSERT INTO innocua VALUES (9,'a','b',1)
+base|REPLACE INTO innocua VALUES (9,'a','b',1)
+base|UPDATE innocua SET nome='z'
+base|DELETE FROM innocua
+base|WITH x AS (SELECT 1) UPDATE innocua SET nome='z'
+base|(UPDATE innocua SET nome='z')
+base|SELECT NEXTVAL(seq1) AS n
+base|SELECT NEXT VALUE FOR seq1 AS n
+base|SELECT `nextval`(seq1) AS n
+base|SELECT SETVAL(seq1, 100) AS n
+base|SELECT * FROM seq1
+base|SELECT GET_LOCK('x',1) AS n
+base|SELECT `GET_LOCK`('x',1) AS n
+base|SELECT * FROM innocua FOR UPDATE
+base|SELECT * FROM innocua LOCK IN SHARE MODE
+base|SELECT * FROM innocua INTO OUTFILE '/tmp/x'
+base|SELECT 1 INTO @a
+base|CALL f_seg()
+base|SET @a=1
+base|DO 1
+base|HANDLER innocua OPEN
+base|LOAD DATA INFILE '/etc/passwd' INTO TABLE innocua
+base|CREATE TEMPORARY TABLE t1 (id INT)
+base|SELECT LAST_INSERT_ID(5) AS n
+base|SELECT COLUMN_CREATE('a',1) AS n
+base|SELECT RELEASE_ALL_LOCKS() AS n
+base|SELECT SLEEP(2) AS n
+base|SELECT `SLEEP` (2) AS n
+base|SELECT BENCHMARK(1000000000, MD5('a')) AS n
+base|SELECT COUNT(*) AS n FROM seq_1_to_100000000000
+base|SELECT COUNT(*) AS n FROM information_schema.COLUMNS a, information_schema.COLUMNS b, information_schema.COLUMNS c
+base|SELECT id FROM innocua WHERE REPEAT('a',30) RLIKE '(a+)+b'
+base|SELECT COUNT(*) AS n FROM seq_1_to_100000000 a WHERE MD5(seq)=''
+base|SELECT * FROM seq_1_to_100000000
+base|SELECT id FROM v_ok WHERE id = (SELECT COUNT(*) FROM seq_1_to_3000000000)
+base|SELECT id FROM v_ok, seq_1_to_100000000 s WHERE s.seq < 0

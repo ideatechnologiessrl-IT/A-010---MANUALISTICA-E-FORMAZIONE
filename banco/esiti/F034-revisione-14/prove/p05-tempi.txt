@@ -1,0 +1,3 @@
+base|SELECT * FROM seq_1_to_100000000000
+base|SELECT id FROM v_ok WHERE id = (SELECT COUNT(*) FROM seq_1_to_3000000000 WHERE MD5(seq)='x')
+base|SELECT id FROM innocua WHERE id = (SELECT COUNT(*) FROM seq_1_to_3000000000 WHERE MD5(seq)='x')

@@ -1,0 +1,71 @@
+# R13-1 colonne generiche
+base|SELECT code, data, message, extra, type, level, ref, field FROM cliente
+base|SELECT * FROM cliente
+base|SELECT id, nome, email FROM cliente
+base|SELECT code AS id FROM cliente
+base|SELECT `code` FROM cliente
+base|SELECT c.`DATA` FROM cliente c
+base|SELECT CODE FROM cliente
+# R13-2
+base|SELECT id_rsa, database_url, user_data, oracle_dsn, tax_id FROM cliente
+base|SELECT JSON_EXTRACT(user_data,'$.token') AS id FROM cliente
+base|SELECT JSON_VALUE(user_data,'$.token') AS titolo FROM cliente
+# R13-3 numeri segreti
+base|SELECT security_code, cvc, puk FROM cliente
+base|SELECT csc, ccv, nip, ssn, pan, cvn FROM cliente
+base|SELECT saldo, nascita, pin FROM cliente
+base|SELECT pin+0 AS n FROM cliente
+# espressioni numeriche su colonne non innocue
+base|SELECT ASCII(note) AS n FROM cliente
+base|SELECT LENGTH(note) AS n FROM cliente
+base|SELECT CRC32(note) AS n FROM cliente
+base|SELECT id FROM cliente ORDER BY note
+base|SELECT COUNT(*) AS n FROM cliente WHERE note LIKE 'N%'
+base|SELECT ASCII(SUBSTR(nome,1,1)) AS n FROM cliente
+base|SELECT id FROM cliente WHERE ASCII(email) > 100
+# UNION e sottoquery
+base|SELECT id, nome FROM innocua UNION SELECT id, note FROM cliente
+base|SELECT id, nome FROM innocua UNION SELECT id, nome FROM cliente
+base|SELECT (SELECT nome FROM cliente LIMIT 1) AS titolo
+base|SELECT nome FROM innocua WHERE id IN (SELECT id FROM cliente)
+base|WITH x AS (SELECT id FROM cliente) SELECT * FROM x
+base|SELECT * FROM (SELECT * FROM cliente) d
+# viste e colonne generate
+base|SELECT * FROM v_ok
+base|SELECT * FROM v_user
+base|SELECT * FROM v_var
+base|SELECT * FROM v_num
+base|SELECT * FROM gen_t
+base|SELECT id, titolo FROM gen_t
+base|SELECT f_seg() AS titolo
+base|SELECT * FROM arch_all
+base|SELECT * FROM part_t
+base|SELECT * FROM arch_a
+base|SELECT id, nome FROM arch_a
+# chiave/valore
+base|SELECT chiave, valore FROM impostazioni
+base|SELECT * FROM impostazioni
+base|SELECT valore FROM impostazioni
+base|SELECT chiave AS x, valore FROM impostazioni
+base|SELECT i.chiave, valore FROM impostazioni i
+base|SELECT a.chiave, b.valore FROM impostazioni a JOIN impostazioni b ON a.id = b.id
+base|SELECT LENGTH(valore) AS n FROM impostazioni
+base|SELECT valore AS titolo, chiave FROM impostazioni WHERE chiave = 'smtp_password'
+base|SELECT chiave FROM impostazioni ORDER BY valore
+base|SELECT chiave, valore FROM impostazioni ORDER BY chiave
+base|SELECT COUNT(*) AS n FROM impostazioni WHERE valore LIKE 'P%'
+base|SELECT chiave, valore valore FROM impostazioni
+wordpress|SELECT option_name, option_value FROM wp_options
+wordpress|SELECT * FROM wp_options
+wordpress|SELECT * FROM wp_users
+wordpress|SELECT ID, user_login FROM wp_users
+wordpress|SELECT option_name, option_value FROM wp_options WHERE option_name LIKE 'auth%'
+# altri database
+sorgente_3|SELECT * FROM v_altro
+sorgente_3|SELECT * FROM v_m
+sorgente_3|SELECT * FROM m_altro
+sorgente_3|SELECT * FROM rev14_base.cliente
+sorgente_3|SELECT * FROM locale
+riserva|SELECT 1 AS n
+sorgente_4|SELECT 1 AS n
+pippo|SELECT 1 AS n
